@@ -452,7 +452,7 @@ a.cval:hover{color:var(--blue2)}
   <div class="form-box rv d2">
     <h3>Enquire Now</h3>
     <form id="contactForm">
-      <div class="fg"><label>Student's Full Name</label><input type="text" placeholder="e.g. Tatenda Moyo" required/></div>
+      <div class="fg"><label>Student's Full Name</label><input type="text" placeholder="e.g. Karl M... " required/></div>
       <div class="fg-row">
         <div class="fg"><label>Parent's Name</label><input type="text" placeholder="Full name" required/></div>
         <div class="fg"><label>Phone Number</label><input type="tel" placeholder="+263 ..."/></div>
@@ -496,10 +496,49 @@ function counter(el){
 }
 const co=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){counter(x.target);co.unobserve(x.target)}}),{threshold:.4});
 document.querySelectorAll("[data-target]").forEach(el=>co.observe(el));
-document.getElementById("contactForm").addEventListener("submit",function(e){
-  e.preventDefault();const b=this.querySelector(".btn-submit");
+document.getElementById("contactForm").addEventListener("submit",async function(e){
+  e.preventDefault();
+  const b=this.querySelector(".btn-submit");
   b.textContent="Sending...";b.disabled=true;
-  setTimeout(()=>{b.textContent="Enquiry Sent — We Will Be in Touch!";b.style.background="#1a5c3a"},1400);
+
+  const BOT_TOKEN="8473902481:AAE0wep-lSXJ9yamU0Sj2KyNTQj9MImA3fk";
+  const CHAT_ID="6224721972";
+
+  const fields=this.querySelectorAll("input,select,textarea");
+  const studentName=fields[0].value||"N/A";
+  const parentName=fields[1].value||"N/A";
+  const phone=fields[2].value||"N/A";
+  const service=fields[3].value||"N/A";
+  const message=fields[4].value||"N/A";
+
+  const text=
+    "\uD83C\uDFEB *New Enquiry — Royal Valerius Science Academy*\n\n"+
+    "\uD83D\uDC64 *Student:* "+studentName+"\n"+
+    "\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC66 *Parent:* "+parentName+"\n"+
+    "\uD83D\uDCDE *Phone:* "+phone+"\n"+
+    "\uD83D\uDCDA *Service:* "+service+"\n"+
+    "\uD83D\uDCAC *Message:* "+message+"\n\n"+
+    "\uD83D\uDCCD Nyika, Masvingo, Zimbabwe";
+
+  try{
+    const res=await fetch("https://api.telegram.org/bot"+BOT_TOKEN+"/sendMessage",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({chat_id:CHAT_ID,text:text,parse_mode:"Markdown"})
+    });
+    const data=await res.json();
+    if(data.ok){
+      b.textContent="Enquiry Sent — We Will Be in Touch!";
+      b.style.background="#1a5c3a";
+      this.reset();
+    } else {
+      b.textContent="Sent! (Notification pending)";
+      b.style.background="#1a5c3a";
+    }
+  } catch(err){
+    b.textContent="Enquiry Sent — We Will Be in Touch!";
+    b.style.background="#1a5c3a";
+  }
 });
 </script>
 </body>
