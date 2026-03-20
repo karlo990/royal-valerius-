@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://royal-valerius.vercel.app/sitemap.xml

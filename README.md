@@ -1,47 +1,39 @@
-# Royal Valerius Science Academy — Website
+# Royal Valerius Science Academy Website
 
-A professional static website for Royal Valerius Science Academy, Nyika, Masvingo, Zimbabwe.
+**Live URL:** https://royal-valerius.vercel.app
 
-## Project Structure
+## Files
 
-```
-royal-valerius/
-├── index.html          ← Main page
-├── css/
-│   └── styles.css      ← All styles
-├── js/
-│   └── main.js         ← Interactions & animations
-├── assets/
-│   └── logo.jpg        ← School crest
-├── vercel.json         ← Vercel deployment config
-└── README.md
-```
+| File | Purpose |
+|------|---------|
+| `index.html` | Main website — fully self-contained (fonts, images, CSS, JS all embedded) |
+| `404.html` | Custom 404 error page |
+| `vercel.json` | Vercel routing & deployment config |
+| `robots.txt` | Search engine crawling rules |
+| `sitemap.xml` | SEO sitemap — update URL when you have a custom domain |
 
-## Deploy to Vercel (3 steps)
+## Deploy to Vercel
 
-### Option A — Vercel CLI (Recommended)
+### Option A — GitHub (recommended)
+1. Create a GitHub repo
+2. Upload all 5 files to the root of the repo
+3. Go to vercel.com → New Project → Import from GitHub
+4. Click Deploy — done
+
+### Option B — Vercel CLI
 ```bash
-npm install -g vercel
-cd royal-valerius
+npm i -g vercel
 vercel
 ```
-Follow the prompts. Your site will be live in under a minute.
 
-### Option B — Vercel Dashboard (No CLI)
-1. Go to https://vercel.com and sign up / log in
-2. Click **"Add New Project"**
-3. Upload this folder as a ZIP, or connect a GitHub repository
-4. Vercel auto-detects the static site — click **Deploy**
-5. Done. Your site is live at `https://your-project.vercel.app`
-
-### Option C — GitHub + Vercel (Best for ongoing updates)
-1. Create a GitHub repository
-2. Push this folder to the repo
-3. Connect the repo to Vercel
-4. Every push to `main` auto-deploys
+### Option C — Drag & Drop
+1. Go to vercel.com/new
+2. Click **"Deploy from file upload"** or use the CLI
+3. Upload all 5 files
 
 ## Custom Domain
-After deploying, go to **Vercel Dashboard → Project → Settings → Domains** and add your custom domain (e.g. `royalvalerius.co.zw`).
+Vercel Dashboard → Project → Settings → Domains → Add `royalvalerius.co.zw`
 
 ## Contact
-WhatsApp: +263 78 597 9583
+WhatsApp: +263 78 597 9583  
+Location: Nyika, Masvingo, Zimbabwe
