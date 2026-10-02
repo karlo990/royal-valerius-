@@ -499,7 +499,7 @@ address { font-style: normal; }
   background: var(--paper);
   border-radius: var(--radius);
   box-shadow: var(--shadow-card);
-  max-width: 290px;
+  max-width: 336px;
 }
 .hero-card img { width: 40px; height: auto; flex-shrink: 0; }
 .hero-card-title {
@@ -917,6 +917,7 @@ address { font-style: normal; }
   line-height: 1.2;
   letter-spacing: -0.01em;
   max-width: 22em;
+  text-wrap: balance;
 }
 .admissions-cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
