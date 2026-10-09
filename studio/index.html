@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<base href="/studio/">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Royal Crest Flyer Studio</title>
 <meta name="robots" content="noindex, nofollow">
@@ -13,13 +14,13 @@
 <body>
 <div class="app">
   <header class="topbar">
-    <div class="topbar-brand">
+    <a class="topbar-brand" href="/" title="Back to the website">
       <img src="assets/brand/crest-640.webp" alt="" width="40" height="46">
-      <div>
-        <p class="app-name">Flyer Studio</p>
-        <p class="app-sub">Royal Crest Academy</p>
-      </div>
-    </div>
+      <span>
+        <span class="app-name">Flyer Studio</span>
+        <span class="app-sub">Royal Crest Academy · back to website</span>
+      </span>
+    </a>
     <div class="topbar-actions">
       <button type="button" class="btn btn-ghost" id="btn-surprise" title="Pick a random subject and flyer type">Surprise me</button>
       <button type="button" class="btn btn-ghost" id="btn-settings" aria-expanded="false" aria-controls="settings">School details</button>
