@@ -15,6 +15,7 @@ A fast, dependency-free static website: plain HTML, CSS and JavaScript, deployed
 | `assets/fonts/` | Self-hosted Newsreader and Plus Jakarta Sans (latin subset) |
 | `vercel.json` | Security and caching headers |
 | `robots.txt`, `sitemap.xml` | SEO |
+| `studio/` | **Flyer Studio**: makes subject, tutoring, quiz and chemistry flyers. See `studio/README.md` |
 
 ## Enquiry form
 The admissions form validates the fields and then opens WhatsApp with the enquiry pre-filled,

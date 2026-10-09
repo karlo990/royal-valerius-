@@ -1,0 +1,35 @@
+{
+  "school": "Royal Crest Academy",
+  "motto": "Science · Innovation · Skill",
+  "opening": "Doors open 1 January 2027",
+  "location": "Bikita, Masvingo",
+  "phone": "+263 71 440 4090",
+  "whatsapp": "263714404090",
+  "website": "www.royalcrest.co.zw",
+  "crest": "assets/brand/crest-640.webp",
+  "exam_boards": "ZIMSEC & Cambridge aligned",
+  "tutoring": {
+    "format": "One-to-one and small groups",
+    "levels": "Form 1 to Upper 6",
+    "schedule": null,
+    "fee": null
+  },
+  "hashtags": ["#RoyalCrestAcademy", "#Bikita", "#Masvingo", "#ZIMSEC"],
+  "departments": {
+    "languages":   { "name": "Languages",                "accent": "#7a2e3a" },
+    "maths":       { "name": "Mathematics & Computing",  "accent": "#1f5a66" },
+    "sciences":    { "name": "Sciences",                 "accent": "#2c6146" },
+    "humanities":  { "name": "Humanities",               "accent": "#7d5419" },
+    "commercials": { "name": "Commercials",              "accent": "#394a7c" },
+    "technical":   { "name": "Technical & Vocational",   "accent": "#8f4322" }
+  },
+  "photos": {
+    "campus": "../assets/img/campus-wide-1600.webp",
+    "arch": "../assets/img/campus-arch-1100.webp",
+    "library": "../assets/img/library-students-1600.webp",
+    "reading": "../assets/img/library-reading-840.webp",
+    "posters": "../assets/img/library-posters-860.webp",
+    "aisle": "../assets/img/library-aisle-1600.webp",
+    "crest-detail": "../assets/img/library-detail-460.webp"
+  }
+}
