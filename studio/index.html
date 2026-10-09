@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<base href="/studio/">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Royal Crest Flyer Studio</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Make subject, tutoring, quiz and chemistry flyers for Royal Crest Academy.">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="css/flyer.css">
+<link rel="stylesheet" href="css/studio.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="topbar-brand" href="/" title="Back to the website">
+      <img src="assets/brand/crest-640.webp" alt="" width="40" height="46">
+      <span>
+        <span class="app-name">Flyer Studio</span>
+        <span class="app-sub">Royal Crest Academy · back to website</span>
+      </span>
+    </a>
+    <div class="topbar-actions">
+      <button type="button" class="btn btn-ghost" id="btn-surprise" title="Pick a random subject and flyer type">Surprise me</button>
+      <button type="button" class="btn btn-ghost" id="btn-settings" aria-expanded="false" aria-controls="settings">School details</button>
+    </div>
+  </header>
+
+  <section class="settings" id="settings" hidden aria-label="School details">
+    <p class="settings-intro">These details print on every flyer. Tutoring days and fees appear on tutoring flyers once you fill them in. Saved in this browser.</p>
+    <div class="settings-grid">
+      <label class="field"><span>Phone / WhatsApp</span><input id="set-phone" type="text" autocomplete="off"></label>
+      <label class="field"><span>Website</span><input id="set-website" type="text" autocomplete="off"></label>
+      <label class="field"><span>Tutoring days and times</span><input id="set-schedule" type="text" placeholder="e.g. Saturdays 8 am – 12 noon" autocomplete="off"></label>
+      <label class="field"><span>Tutoring fee</span><input id="set-fee" type="text" placeholder="e.g. USD 20 per month" autocomplete="off"></label>
+    </div>
+    <div class="settings-actions">
+      <button type="button" class="btn btn-primary" id="btn-save-settings">Save details</button>
+      <button type="button" class="btn btn-ghost" id="btn-reset-settings">Restore defaults</button>
+    </div>
+  </section>
+
+  <div class="workspace">
+    <aside class="controls" aria-label="Flyer options">
+      <fieldset class="group">
+        <legend>Template</legend>
+        <div class="template-list" id="template-list" role="radiogroup"></div>
+      </fieldset>
+
+      <fieldset class="group">
+        <legend>Flyer type</legend>
+        <div class="seg" id="kind-list" role="radiogroup"></div>
+      </fieldset>
+
+      <fieldset class="group">
+        <legend>Size</legend>
+        <div class="format-list" id="format-list" role="radiogroup"></div>
+      </fieldset>
+
+      <fieldset class="group group-subjects">
+        <legend>Subject</legend>
+        <label class="search"><span class="sr-only">Find a subject</span><input id="subject-search" type="search" placeholder="Find a subject or molecule" autocomplete="off"></label>
+        <div class="subject-list" id="subject-list"></div>
+      </fieldset>
+    </aside>
+
+    <main class="stage-area">
+      <div class="view-tabs" role="tablist">
+        <button type="button" role="tab" id="tab-editor" aria-selected="true" aria-controls="panel-editor">Editor</button>
+        <button type="button" role="tab" id="tab-gallery" aria-selected="false" aria-controls="panel-gallery">All flyers <span class="count" id="gallery-count"></span></button>
+      </div>
+
+      <section id="panel-editor" role="tabpanel" aria-labelledby="tab-editor" class="panel-editor">
+        <div class="preview-meta">
+          <p class="preview-title" id="preview-title">Loading…</p>
+          <p class="preview-file" id="preview-file"></p>
+        </div>
+        <div class="preview" id="preview" aria-live="polite"></div>
+        <div class="preview-actions">
+          <button type="button" class="btn btn-primary" id="btn-download">Download PNG</button>
+          <button type="button" class="btn btn-ghost" id="btn-edit" aria-pressed="false">Edit text</button>
+          <button type="button" class="btn btn-ghost" id="btn-reset-edit" hidden>Undo my edits</button>
+          <span class="edit-hint" id="edit-hint" hidden>Click any text on the flyer to change it. Your edits are used when you download.</span>
+        </div>
+        <div class="caption-box">
+          <div class="caption-head">
+            <label for="caption" class="caption-label">Caption for WhatsApp / Facebook</label>
+            <button type="button" class="btn btn-small" id="btn-copy">Copy caption</button>
+          </div>
+          <textarea id="caption" rows="9" readonly></textarea>
+        </div>
+      </section>
+
+      <section id="panel-gallery" role="tabpanel" aria-labelledby="tab-gallery" class="panel-gallery" hidden>
+        <div class="gallery-bar">
+          <p id="gallery-summary" class="gallery-summary"></p>
+          <div class="gallery-actions">
+            <button type="button" class="btn btn-primary" id="btn-zip-all">Download all as ZIP</button>
+            <button type="button" class="btn btn-ghost" id="btn-zip-subject">This subject in all 5 templates</button>
+          </div>
+        </div>
+        <div class="progress" id="progress" hidden><div class="progress-bar" id="progress-bar"></div><span id="progress-text"></span></div>
+        <div class="gallery" id="gallery"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div id="export-stage" aria-hidden="true"></div>
+
+<script src="vendor/html-to-image.js"></script>
+<script src="vendor/jszip.min.js"></script>
+<script src="js/render.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

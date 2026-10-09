@@ -1,0 +1,247 @@
+{
+  "note": "One entry per subject. Set \"offered\": false to leave a subject out of the batch. Every subject produces five flyers: spotlight, tutoring, fact, tip and quiz.",
+  "subjects": [
+    {
+      "id": "english", "name": "English Language", "symbol": "En", "dept": "languages", "levels": "O Level", "photo": "aisle", "offered": true,
+      "tagline": "Say it clearly. Write it well.",
+      "summary": "English Language builds the reading, writing and speaking skills that every other subject depends on.",
+      "topics": ["Narrative, descriptive and argumentative writing", "Comprehension and summary", "Grammar, punctuation and vocabulary", "Letters, reports and speeches"],
+      "fact": "The verb “run” has more than 600 separate meanings in the Oxford English Dictionary.",
+      "tip": { "title": "Plan before you write", "text": "Spend five minutes on a plan: three main points and an ending. A planned composition reads better and saves time." },
+      "quiz": { "q": "Which sentence is punctuated correctly?", "options": ["Its raining, bring you’re coat.", "It’s raining; bring your coat.", "Its’ raining, bring your coat.", "It’s raining bring you’re coat."], "answer": 1, "explain": "It’s means “it is”; your means “belonging to you”." },
+      "tutoring": { "headline": "Write compositions that score.", "focus": ["Planning and structuring compositions", "Summary writing against the clock", "Grammar and punctuation clinics"] }
+    },
+    {
+      "id": "literature", "name": "Literature in English", "symbol": "Li", "dept": "languages", "levels": "O & A Level", "photo": "reading", "offered": true,
+      "tagline": "Read closer. Think deeper.",
+      "summary": "Literature in English trains students to read poetry, drama and novels closely, and to write strong essays backed by evidence.",
+      "topics": ["Set novels and short stories", "Poetry: imagery, form and tone", "Drama, including Shakespeare", "Essays built on quotation"],
+      "fact": "Shakespeare is credited with the first recorded use of hundreds of English words, including “bedroom” and “eyeball”.",
+      "tip": { "title": "Point, evidence, explain", "text": "Make a point, quote a short piece of evidence, then explain how the writer’s words create the effect." },
+      "quiz": { "q": "A comparison that uses “like” or “as” is called a…", "options": ["Metaphor", "Simile", "Personification", "Alliteration"], "answer": 1, "explain": "“As brave as a lion” is a simile." },
+      "tutoring": { "headline": "Essays that prove you read closely.", "focus": ["Close reading of set texts", "Choosing and analysing quotations", "Timed essay practice"] }
+    },
+    {
+      "id": "chishona", "name": "ChiShona", "symbol": "Sn", "dept": "languages", "levels": "O & A Level", "photo": "library", "offered": true,
+      "tagline": "Mutauro wedu, nhaka yedu.",
+      "tagline_en": "Our language, our heritage.",
+      "summary": "ChiShona builds fluent reading, writing and speaking in our language, along with the literature, culture and wisdom it carries.",
+      "topics": ["Rondedzero: composition writing", "Nzwisiso: comprehension", "Tsumo nemadimikira: proverbs and idioms", "Novels, poetry and drama"],
+      "fact": "Clement Doke’s 1931 report on unifying the Shona dialects laid the foundation for the standard written ChiShona used in schools today.",
+      "tip": { "title": "Learn tsumo with their meanings", "text": "Proverbs earn marks in composition and comprehension. Learn five tsumo a week, each with its meaning and an example of when to use it." },
+      "quiz": { "q": "Which ChiShona word means “school”?", "options": ["Chikoro", "Mvura", "Imba", "Sadza"], "answer": 0, "explain": "Mvura is water, imba is house and sadza is the staple maize meal." },
+      "tutoring": { "headline": "Strong ChiShona, from grammar to tsumo.", "focus": ["Rondedzero (composition) practice", "Tsumo and madimikira", "Set literature texts"] }
+    },
+    {
+      "id": "isindebele", "name": "isiNdebele", "symbol": "Nd", "dept": "languages", "levels": "O & A Level", "photo": "library", "offered": true,
+      "tagline": "Ulimi lwethu, ilifa lethu.",
+      "tagline_en": "Our language, our heritage.",
+      "summary": "isiNdebele develops confident reading, writing and speaking, and opens up the literature, history and culture of the language.",
+      "topics": ["Composition and letter writing", "Comprehension and summary", "Izaga lezitsho: proverbs and idioms", "Literature and inkondlo (poetry)"],
+      "fact": "isiNdebele has click sounds, written with the letters c, q and x, which it shares with isiZulu and isiXhosa.",
+      "tip": { "title": "Read aloud every day", "text": "Reading isiNdebele aloud for ten minutes a day builds vocabulary, spelling and the rhythm you need for poetry." },
+      "quiz": { "q": "Which isiNdebele word means “school”?", "options": ["Isikolo", "Amanzi", "Indlu", "Isitshwala"], "answer": 0, "explain": "Amanzi is water, indlu is house and isitshwala is the staple maize meal." },
+      "tutoring": { "headline": "Confident isiNdebele, spoken and written.", "focus": ["Composition and letter writing", "Izaga lezitsho", "Set literature texts"] }
+    },
+    {
+      "id": "mathematics", "name": "Mathematics", "symbol": "Ma", "dept": "maths", "levels": "O & A Level", "photo": "library", "offered": true,
+      "tagline": "Numbers that make sense.",
+      "summary": "Mathematics builds the problem-solving that every science and technical subject relies on, from algebra to statistics.",
+      "topics": ["Algebra and equations", "Geometry and trigonometry", "Statistics and probability", "Functions and calculus (A Level)"],
+      "fact": "The Indian mathematician Brahmagupta wrote rules for calculating with zero in the year 628.",
+      "tip": { "title": "Show every step", "text": "Method marks reward working even when the final answer is wrong. Write each step on its own line." },
+      "quiz": { "q": "Solve: 3x + 5 = 20", "options": ["x = 3", "x = 5", "x = 15", "x = 25/3"], "answer": 1, "explain": "Subtract 5 to get 3x = 15, then divide by 3: x = 5." },
+      "tutoring": { "headline": "Maths that finally clicks.", "focus": ["Algebra and solving equations", "Geometry and trigonometry", "Past-paper practice"] }
+    },
+    {
+      "id": "additional-maths", "name": "Additional Mathematics", "symbol": "Am", "dept": "maths", "levels": "O Level", "photo": "reading", "offered": true,
+      "tagline": "For students who want more maths.",
+      "summary": "Additional Mathematics stretches strong mathematicians with calculus, logarithms and vectors, which is ideal preparation for A Level sciences and engineering.",
+      "topics": ["Differentiation and integration", "Logarithms and exponentials", "Vectors", "Binomial expansion and sequences"],
+      "fact": "Isaac Newton and Gottfried Leibniz developed calculus independently in the late 1600s, then argued for years over who came first.",
+      "tip": { "title": "Learn the standard results", "text": "Memorise the standard derivatives and integrals, such as those of sin x, cos x and eˣ. They come up in nearly every paper." },
+      "quiz": { "q": "What is the derivative of x³?", "options": ["3x²", "x²", "3x", "x⁴ ÷ 4"], "answer": 0, "explain": "Bring the power down and reduce it by one: 3x²." },
+      "tutoring": { "headline": "Calculus without the fear.", "focus": ["Differentiation and integration", "Logarithms and exponentials", "Exam-style problem solving"] }
+    },
+    {
+      "id": "computer-science", "name": "Computer Science", "symbol": "Cs", "dept": "maths", "levels": "O & A Level", "photo": "library", "offered": true,
+      "tagline": "Build what others only use.",
+      "summary": "Computer Science teaches programming, how computers and networks work, and how to solve problems with algorithms.",
+      "topics": ["Programming and algorithms", "Binary and hexadecimal", "Hardware, software and networks", "Databases and systems analysis"],
+      "fact": "The first computer “bug” written into a logbook was a real moth, found inside the Harvard Mark II computer in 1947.",
+      "tip": { "title": "Trace your code by hand", "text": "Use a trace table to follow each variable line by line. It finds logic errors faster than guessing." },
+      "quiz": { "q": "What is the binary number 1010 in denary?", "options": ["8", "10", "12", "1010"], "answer": 1, "explain": "8 + 0 + 2 + 0 = 10." },
+      "tutoring": { "headline": "Programming made practical.", "focus": ["Writing and tracing algorithms", "Binary, hexadecimal and logic gates", "Project and coursework support"] }
+    },
+    {
+      "id": "combined-science", "name": "Combined Science", "symbol": "Cb", "dept": "sciences", "levels": "O Level", "photo": "library", "offered": true,
+      "tagline": "Three sciences, one strong foundation.",
+      "summary": "Combined Science covers biology, chemistry and physics together, with practical work that builds real laboratory skills.",
+      "topics": ["Cells, nutrition and the human body", "Matter, reactions and the periodic table", "Forces, energy and electricity", "Practical skills and experiments"],
+      "fact": "Light from the Sun takes about 8 minutes and 20 seconds to reach Earth.",
+      "tip": { "title": "Learn your units", "text": "Many marks are lost on units. Learn them with each formula: force in newtons, energy in joules, current in amperes." },
+      "quiz": { "q": "Which gas do plants take in for photosynthesis?", "options": ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"], "answer": 2, "explain": "Plants take in carbon dioxide and give out oxygen." },
+      "tutoring": { "headline": "One subject, three sciences, all covered.", "focus": ["Biology, chemistry and physics topics", "Practical and experiment questions", "Calculations and units"] }
+    },
+    {
+      "id": "biology", "name": "Biology", "symbol": "Bi", "dept": "sciences", "levels": "O & A Level", "photo": "reading", "offered": true,
+      "tagline": "The science of living things.",
+      "summary": "Biology explores life from cells to ecosystems, including the human body, plants, genetics and the environment.",
+      "topics": ["Cells and microscopy", "Human physiology", "Plants, photosynthesis and transport", "Genetics, evolution and ecology"],
+      "fact": "An adult human body is made of roughly 30 trillion cells, with about as many bacteria living alongside them.",
+      "tip": { "title": "Draw it, label it", "text": "Practise labelled diagrams of the heart, the leaf and the cell. Clear labels earn marks that long answers miss." },
+      "quiz": { "q": "Which part of the cell contains the genetic material?", "options": ["Cell membrane", "Nucleus", "Cytoplasm", "Cell wall"], "answer": 1, "explain": "The cell’s DNA is stored in the nucleus." },
+      "tutoring": { "headline": "Biology that sticks.", "focus": ["Human and plant physiology", "Labelled diagrams and practicals", "Genetics problems"] }
+    },
+    {
+      "id": "chemistry", "name": "Chemistry", "symbol": "Ch", "dept": "sciences", "levels": "O & A Level", "photo": "library", "molecule": "ethanal", "offered": true,
+      "tagline": "What everything is made of.",
+      "summary": "Chemistry explains what substances are made of and how they react, from the periodic table to organic molecules such as the aldehydes.",
+      "topics": ["Atomic structure and the periodic table", "Bonding and chemical equations", "Acids, bases and salts", "Organic chemistry: alkanes to aldehydes"],
+      "fact": "A teaspoon of water (5 g) holds about 1.7 × 10²³ water molecules. That is 5 ÷ 18 moles, times Avogadro’s number.",
+      "tip": { "title": "Balance every equation", "text": "Count each type of atom on both sides. Change the numbers in front of formulae, never the formulae themselves." },
+      "quiz": { "q": "Which functional group do all aldehydes contain?", "options": ["–OH", "–CHO", "–COOH", "C=C"], "answer": 1, "explain": "Aldehydes end in –CHO, like ethanal, CH₃CHO." },
+      "tutoring": { "headline": "Chemistry, one reaction at a time.", "focus": ["Moles and calculations", "Organic chemistry and functional groups", "Practical and titration questions"] }
+    },
+    {
+      "id": "physics", "name": "Physics", "symbol": "Ph", "dept": "sciences", "levels": "O & A Level", "photo": "aisle", "offered": true,
+      "tagline": "How the universe works.",
+      "summary": "Physics explains motion, energy, electricity, waves and the atom, and teaches students to model the world with mathematics.",
+      "topics": ["Motion, forces and momentum", "Energy, work and power", "Electricity and magnetism", "Waves, light and atomic physics"],
+      "fact": "Sound travels about four times faster through water than through air: roughly 1,480 m/s compared with 343 m/s.",
+      "tip": { "title": "Write the formula first", "text": "Write the formula, substitute the values with their units, then calculate. Examiners award marks for each step." },
+      "quiz": { "q": "What is the unit of electrical resistance?", "options": ["Volt", "Ampere", "Ohm", "Watt"], "answer": 2, "explain": "Resistance is measured in ohms (Ω)." },
+      "tutoring": { "headline": "Physics problems, solved step by step.", "focus": ["Mechanics and calculations", "Electricity and circuits", "Graphs and practical questions"] }
+    },
+    {
+      "id": "agriculture", "name": "Agriculture", "symbol": "Ag", "dept": "sciences", "levels": "O & A Level", "photo": "campus", "offered": true,
+      "tagline": "Science from the soil up.",
+      "summary": "Agriculture combines biology, chemistry and business to grow crops and raise animals well, with plenty of hands-on practical work.",
+      "topics": ["Soil science and fertilisers", "Crop production and protection", "Animal husbandry", "Farm management and records"],
+      "fact": "Maize was domesticated in Mexico about 9,000 years ago from a wild grass called teosinte.",
+      "tip": { "title": "Know your NPK", "text": "N, P and K are nitrogen, phosphorus and potassium. Learn what each does for a crop and the signs when it is missing." },
+      "quiz": { "q": "Which nutrient mainly promotes leafy growth in crops?", "options": ["Nitrogen", "Phosphorus", "Potassium", "Calcium"], "answer": 0, "explain": "Nitrogen drives leaf and stem growth; without it, leaves turn yellow." },
+      "tutoring": { "headline": "Agriculture in theory and in the field.", "focus": ["Soil science and crop production", "Livestock management", "Practical and project work"] }
+    },
+    {
+      "id": "geography", "name": "Geography", "symbol": "Ge", "dept": "sciences", "levels": "O & A Level", "photo": "campus", "offered": true,
+      "tagline": "Understand the world around you.",
+      "summary": "Geography studies landscapes, weather, population and resources, and how people and the environment shape each other.",
+      "topics": ["Weather, climate and ecosystems", "Rivers, landforms and rocks", "Population and settlement", "Map work and fieldwork"],
+      "fact": "Victoria Falls, Mosi-oa-Tunya, is about 1.7 km wide and 108 m high, one of the largest sheets of falling water on Earth.",
+      "tip": { "title": "Practise map reading", "text": "Map-work questions are reliable marks. Practise grid references, scale and bearings until they are automatic." },
+      "quiz": { "q": "On a 1:50 000 map, a six-figure grid reference locates a point to the nearest…", "options": ["kilometre", "100 metres", "10 metres", "metre"], "answer": 1, "explain": "Each extra pair of figures divides a 1 km grid square into tenths: 100 m." },
+      "tutoring": { "headline": "Geography, from map work to case studies.", "focus": ["Map reading and grid references", "Physical geography processes", "Case studies and fieldwork"] }
+    },
+    {
+      "id": "history", "name": "History", "symbol": "Hi", "dept": "humanities", "levels": "O & A Level", "photo": "aisle", "offered": true,
+      "tagline": "Know where we come from.",
+      "summary": "History studies the people and events that shaped Zimbabwe, Africa and the world, and teaches students to weigh evidence.",
+      "topics": ["Great Zimbabwe and pre-colonial states", "Colonialism and the liberation struggle", "World wars and international relations", "Using and evaluating sources"],
+      "fact": "The walls of the Great Enclosure at Great Zimbabwe were built without mortar and stand up to 11 metres high.",
+      "tip": { "title": "Use dates and evidence", "text": "Strong history answers name specific dates, people and places. Build a timeline for every topic." },
+      "quiz": { "q": "Great Zimbabwe lies near which modern city?", "options": ["Bulawayo", "Masvingo", "Mutare", "Gweru"], "answer": 1, "explain": "Great Zimbabwe is about 30 km from Masvingo, close to home for Royal Crest." },
+      "tutoring": { "headline": "History essays built on evidence.", "focus": ["Essay planning and structure", "Source-based questions", "Timelines and key events"] }
+    },
+    {
+      "id": "heritage", "name": "Heritage Studies", "symbol": "He", "dept": "humanities", "levels": "O Level", "photo": "campus", "offered": true,
+      "tagline": "Who we are and where we stand.",
+      "summary": "Heritage Studies explores Zimbabwe’s culture, values and national identity, and the rights and duties of every citizen.",
+      "topics": ["Culture, values and identity", "National heritage sites", "The Constitution and citizenship", "Zimbabwe in Africa and the world"],
+      "fact": "Zimbabwe has five UNESCO World Heritage Sites: Great Zimbabwe, Khami Ruins, Mana Pools, Matobo Hills and Victoria Falls.",
+      "tip": { "title": "Link facts to examples", "text": "Back every point with a Zimbabwean example: a heritage site, a festival or a section of the Constitution." },
+      "quiz": { "q": "Which of these is a UNESCO World Heritage Site in Zimbabwe?", "options": ["Matobo Hills", "Kariba Dam", "Harare Gardens", "Mount Darwin"], "answer": 0, "explain": "UNESCO listed the Matobo Hills in 2003." },
+      "tutoring": { "headline": "Heritage Studies, made meaningful.", "focus": ["Constitution and citizenship", "Heritage and culture topics", "Structured answers"] }
+    },
+    {
+      "id": "fareme", "name": "Family & Religious Studies", "symbol": "Rs", "dept": "humanities", "levels": "O Level", "photo": "reading", "offered": true,
+      "tagline": "Values for life.",
+      "summary": "Family and Religious Studies looks at African Traditional Religion, Christianity, Islam and other faiths, and the values that guide families and communities.",
+      "topics": ["African Traditional Religion", "Christianity and Islam", "Family, marriage and community", "Moral and ethical issues"],
+      "fact": "Parts of the Bible have been translated into more than 3,000 languages, including ChiShona and isiNdebele.",
+      "tip": { "title": "Compare the faiths", "text": "Many questions ask how religions agree or differ. Prepare short comparison tables for key beliefs and practices." },
+      "quiz": { "q": "In African Traditional Religion, the departed family members who guide the living are known as…", "options": ["Ancestral spirits", "Angels", "Prophets", "Saints"], "answer": 0, "explain": "Ancestral spirits, vadzimu in ChiShona and amadlozi in isiNdebele, guide and protect the family." },
+      "tutoring": { "headline": "Clear answers on faith and values.", "focus": ["Beliefs and practices compared", "Moral and ethical issues", "Essay technique"] }
+    },
+    {
+      "id": "accounting", "name": "Accounting", "symbol": "Ac", "dept": "commercials", "levels": "O & A Level", "photo": "library", "offered": true,
+      "tagline": "The language of business.",
+      "summary": "Accounting teaches how to record, organise and report financial information, skills every business and household needs.",
+      "topics": ["Double-entry bookkeeping", "Trial balance and final accounts", "Bank reconciliation", "Partnership and company accounts"],
+      "fact": "Double-entry bookkeeping was first set out in print in 1494 by Luca Pacioli, a friend of Leonardo da Vinci.",
+      "tip": { "title": "Debit left, credit right", "text": "Keep T-accounts neat: debits on the left, credits on the right, and total both sides every time." },
+      "quiz": { "q": "In double entry, every transaction is recorded…", "options": ["once", "twice", "three times", "only at year end"], "answer": 1, "explain": "Every transaction has a debit entry and an equal credit entry." },
+      "tutoring": { "headline": "Accounts that balance first time.", "focus": ["Ledgers and the trial balance", "Final accounts", "Exam-style questions"] }
+    },
+    {
+      "id": "commerce", "name": "Commerce", "symbol": "Cm", "dept": "commercials", "levels": "O Level", "photo": "campus", "offered": true,
+      "tagline": "How goods and money move.",
+      "summary": "Commerce explains trade, banking, insurance, transport and communication: everything that moves goods from producers to consumers.",
+      "topics": ["Home and international trade", "Banking and finance", "Insurance and risk", "Transport, warehousing and advertising"],
+      "fact": "The world’s first banknotes were used in China about 1,000 years ago, during the Song dynasty.",
+      "tip": { "title": "Use real examples", "text": "Back up answers with examples from Zimbabwean businesses and markets you know." },
+      "quiz": { "q": "Insurance mainly helps a business to…", "options": ["raise its prices", "spread its risk", "avoid tax", "advertise"], "answer": 1, "explain": "Many pay small premiums so that the few who suffer a loss can be compensated." },
+      "tutoring": { "headline": "Commerce with real-world examples.", "focus": ["Trade, banking and insurance", "Business documents", "Structured answers"] }
+    },
+    {
+      "id": "economics", "name": "Economics", "symbol": "Ec", "dept": "commercials", "levels": "A Level", "photo": "aisle", "offered": true,
+      "tagline": "Choices, markets and money.",
+      "summary": "Economics studies how people, businesses and governments make choices with limited resources, from prices to inflation.",
+      "topics": ["Demand, supply and prices", "Production and costs", "Money, banking and inflation", "International trade and development"],
+      "fact": "Adam Smith’s “The Wealth of Nations”, published in 1776, is often called the first modern book of economics.",
+      "tip": { "title": "Draw the diagram", "text": "Supply and demand diagrams earn marks on their own. Label the axes, the curves and the equilibrium every time." },
+      "quiz": { "q": "If demand rises and supply stays the same, the price will usually…", "options": ["fall", "stay the same", "rise", "drop to zero"], "answer": 2, "explain": "More buyers competing for the same goods pushes the price up." },
+      "tutoring": { "headline": "Economics with clear diagrams.", "focus": ["Demand and supply analysis", "Diagrams and data questions", "Essay structure"] }
+    },
+    {
+      "id": "technical-graphics", "name": "Technical Graphics", "symbol": "Tg", "dept": "technical", "levels": "O Level", "photo": "arch", "offered": true,
+      "tagline": "Draw it right, build it right.",
+      "summary": "Technical Graphics teaches precise drawing: geometry, orthographic and isometric projection, and the drawings engineers and builders work from.",
+      "topics": ["Plane and solid geometry", "Orthographic projection", "Isometric and oblique drawing", "Building and engineering drawings"],
+      "fact": "In first-angle projection, used across Europe and Africa, the plan is drawn below the front view. In third-angle projection, used in the USA, it sits above.",
+      "tip": { "title": "Choose the right pencil", "text": "Use a 2H pencil for construction lines and an HB for outlines. Clean, consistent lines earn presentation marks." },
+      "quiz": { "q": "How many views are usually drawn in orthographic projection?", "options": ["One", "Two", "Three", "Six"], "answer": 2, "explain": "The front view, the end view and the plan." },
+      "tutoring": { "headline": "Precise drawings, every time.", "focus": ["Orthographic projection", "Isometric drawing", "Geometric constructions"] }
+    },
+    {
+      "id": "building", "name": "Building Technology", "symbol": "Bt", "dept": "technical", "levels": "O Level", "photo": "campus", "offered": true,
+      "tagline": "From foundation to roof.",
+      "summary": "Building Technology covers how buildings are designed and built, with practical skills in materials, bricklaying and construction.",
+      "topics": ["Building materials", "Foundations and walls", "Roofs, floors and finishes", "Health and safety on site"],
+      "fact": "Concrete reaches most of its strength in its first 28 days, but keeps getting slowly stronger for years as the cement reacts with water.",
+      "tip": { "title": "Know the bonds", "text": "Learn the common brick bonds, stretcher, English and Flemish, and sketch each one from memory." },
+      "quiz": { "q": "Concrete is made by mixing cement, water and…", "options": ["sand and stone", "clay only", "lime only", "sawdust"], "answer": 0, "explain": "Sand is the fine aggregate and crushed stone the coarse aggregate." },
+      "tutoring": { "headline": "Building theory and practical skills.", "focus": ["Materials and construction methods", "Technical drawings", "Practical projects"] }
+    },
+    {
+      "id": "wood", "name": "Wood Technology", "symbol": "Wt", "dept": "technical", "levels": "O Level", "photo": "campus", "offered": true,
+      "tagline": "Made by hand, made to last.",
+      "summary": "Wood Technology and Design teaches students to plan, design and make quality projects in timber, using hand tools and machines safely.",
+      "topics": ["Timber types and properties", "Joints and construction", "Hand and machine tools", "Design and finishing"],
+      "fact": "You can tell a tree’s age from its growth rings: in a climate with seasons, each ring is one year of growth.",
+      "tip": { "title": "Mark out twice, cut once", "text": "Accurate marking out is half of a good joint. Check every measurement before you cut." },
+      "quiz": { "q": "Which joint is known for its interlocking, fan-shaped tails and pins?", "options": ["Butt joint", "Dovetail joint", "Halving joint", "Dowel joint"], "answer": 1, "explain": "Dovetails lock together and resist being pulled apart." },
+      "tutoring": { "headline": "Skills for projects you are proud of.", "focus": ["Joints and construction", "Design folio and project work", "Theory questions"] }
+    },
+    {
+      "id": "metal", "name": "Metal Technology", "symbol": "Mt", "dept": "technical", "levels": "O Level", "photo": "campus", "offered": true,
+      "tagline": "Shape metal, shape the future.",
+      "summary": "Metal Technology and Design covers metals, measuring, marking out, cutting, joining and finishing, with practical projects in the workshop.",
+      "topics": ["Properties of metals and alloys", "Measuring and marking out", "Cutting, drilling and filing", "Riveting, soldering and welding"],
+      "fact": "Steel is mostly iron with a little carbon, usually under 2%. Add chromium and you get stainless steel.",
+      "tip": { "title": "Measure with care", "text": "Learn to read a vernier caliper and a micrometer to their smallest division before you start any project." },
+      "quiz": { "q": "Which of these is an alloy?", "options": ["Copper", "Iron", "Brass", "Aluminium"], "answer": 2, "explain": "Brass is a mixture of copper and zinc." },
+      "tutoring": { "headline": "Workshop skills and theory.", "focus": ["Materials and their properties", "Workshop processes", "Project and folio work"] }
+    },
+    {
+      "id": "food", "name": "Food Technology", "symbol": "Ft", "dept": "technical", "levels": "O Level", "photo": "campus", "offered": true,
+      "tagline": "Good food, done right.",
+      "summary": "Food Technology and Design covers nutrition, food science and safe food handling, and designing and making dishes.",
+      "topics": ["Nutrients and a balanced diet", "Food hygiene and safety", "Food science and preservation", "Meal planning and practical cookery"],
+      "fact": "Honey can keep for thousands of years: archaeologists have found honey that was still edible in ancient Egyptian tombs.",
+      "tip": { "title": "Name the nutrient", "text": "When a question asks why a food is good for you, name the nutrient and say what it does in the body." },
+      "quiz": { "q": "Which nutrient is the body’s main source of energy?", "options": ["Carbohydrates", "Vitamins", "Minerals", "Water"], "answer": 0, "explain": "Carbohydrates, as in sadza and bread, provide most of our energy." },
+      "tutoring": { "headline": "Food science and practicals.", "focus": ["Nutrition and diet planning", "Food science questions", "Practical planning"] }
+    }
+  ]
+}

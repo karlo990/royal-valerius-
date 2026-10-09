@@ -1,0 +1,5 @@
+Archivo, Archivo Narrow (Omnibus-Type) and IBM Plex Mono (IBM) are licensed
+under the SIL Open Font License 1.1 and were downloaded from github.com/google/fonts.
+They may be bundled and used commercially; see https://openfontlicense.org
+
+Caveat (Impallari Type) is licensed under the SIL Open Font License 1.1, downloaded from fonts.google.com.

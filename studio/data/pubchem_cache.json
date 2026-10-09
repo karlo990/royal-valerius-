@@ -1,0 +1,138 @@
+{
+ "297": {
+  "CID": 297,
+  "MolecularFormula": "CH4",
+  "MolecularWeight": "16.043",
+  "SMILES": "C",
+  "IUPACName": "methane",
+  "Title": "Methane"
+ },
+ "6325": {
+  "CID": 6325,
+  "MolecularFormula": "C2H4",
+  "MolecularWeight": "28.05",
+  "SMILES": "C=C",
+  "IUPACName": "ethene",
+  "Title": "Ethylene"
+ },
+ "702": {
+  "CID": 702,
+  "MolecularFormula": "C2H6O",
+  "MolecularWeight": "46.07",
+  "SMILES": "CCO",
+  "IUPACName": "ethanol",
+  "Title": "Ethanol"
+ },
+ "712": {
+  "CID": 712,
+  "MolecularFormula": "CH2O",
+  "MolecularWeight": "30.026",
+  "SMILES": "C=O",
+  "IUPACName": "formaldehyde",
+  "Title": "Formaldehyde"
+ },
+ "177": {
+  "CID": 177,
+  "MolecularFormula": "C2H4O",
+  "MolecularWeight": "44.05",
+  "SMILES": "CC=O",
+  "IUPACName": "acetaldehyde",
+  "Title": "Acetaldehyde"
+ },
+ "240": {
+  "CID": 240,
+  "MolecularFormula": "C7H6O",
+  "MolecularWeight": "106.12",
+  "SMILES": "C1=CC=C(C=C1)C=O",
+  "IUPACName": "benzaldehyde",
+  "Title": "Benzaldehyde"
+ },
+ "1183": {
+  "CID": 1183,
+  "MolecularFormula": "C8H8O3",
+  "MolecularWeight": "152.15",
+  "SMILES": "COC1=C(C=CC(=C1)C=O)O",
+  "IUPACName": "4-hydroxy-3-methoxybenzaldehyde",
+  "Title": "Vanillin"
+ },
+ "637511": {
+  "CID": 637511,
+  "MolecularFormula": "C9H8O",
+  "MolecularWeight": "132.16",
+  "SMILES": "C1=CC=C(C=C1)/C=C/C=O",
+  "IUPACName": "(E)-3-phenylprop-2-enal",
+  "Title": "Cinnamaldehyde"
+ },
+ "180": {
+  "CID": 180,
+  "MolecularFormula": "C3H6O",
+  "MolecularWeight": "58.08",
+  "SMILES": "CC(=O)C",
+  "IUPACName": "propan-2-one",
+  "Title": "Acetone"
+ },
+ "176": {
+  "CID": 176,
+  "MolecularFormula": "C2H4O2",
+  "MolecularWeight": "60.05",
+  "SMILES": "CC(=O)O",
+  "IUPACName": "acetic acid",
+  "Title": "Acetic Acid"
+ },
+ "31276": {
+  "CID": 31276,
+  "MolecularFormula": "C7H14O2",
+  "MolecularWeight": "130.18",
+  "SMILES": "CC(C)CCOC(=O)C",
+  "IUPACName": "3-methylbutyl acetate",
+  "Title": "Isoamyl Acetate"
+ },
+ "1176": {
+  "CID": 1176,
+  "MolecularFormula": "CH4N2O",
+  "MolecularWeight": "60.056",
+  "SMILES": "C(=O)(N)N",
+  "IUPACName": "urea",
+  "Title": "Urea"
+ },
+ "241": {
+  "CID": 241,
+  "MolecularFormula": "C6H6",
+  "MolecularWeight": "78.11",
+  "SMILES": "C1=CC=CC=C1",
+  "IUPACName": "benzene",
+  "Title": "Benzene"
+ },
+ "5793": {
+  "CID": 5793,
+  "MolecularFormula": "C6H12O6",
+  "MolecularWeight": "180.16",
+  "SMILES": "C([C@@H]1[C@H]([C@@H]([C@H](C(O1)O)O)O)O)O",
+  "IUPACName": "(3R,4S,5S,6R)-6-(hydroxymethyl)oxane-2,3,4,5-tetrol",
+  "Title": "D-Glucose"
+ },
+ "2519": {
+  "CID": 2519,
+  "MolecularFormula": "C8H10N4O2",
+  "MolecularWeight": "194.19",
+  "SMILES": "CN1C=NC2=C1C(=O)N(C(=O)N2C)C",
+  "IUPACName": "1,3,7-trimethylpurine-2,6-dione",
+  "Title": "Caffeine"
+ },
+ "2244": {
+  "CID": 2244,
+  "MolecularFormula": "C9H8O4",
+  "MolecularWeight": "180.16",
+  "SMILES": "CC(=O)OC1=CC=CC=C1C(=O)O",
+  "IUPACName": "2-acetyloxybenzoic acid",
+  "Title": "Aspirin"
+ },
+ "1548943": {
+  "CID": 1548943,
+  "MolecularFormula": "C18H27NO3",
+  "MolecularWeight": "305.4",
+  "SMILES": "CC(C)/C=C/CCCCC(=O)NCC1=CC(=C(C=C1)O)OC",
+  "IUPACName": "(E)-N-[(4-hydroxy-3-methoxyphenyl)methyl]-8-methylnon-6-enamide",
+  "Title": "Capsaicin"
+ }
+}
