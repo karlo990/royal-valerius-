@@ -1404,3 +1404,17 @@ address { font-style: normal; }
   .js .reveal, .js .reveal-image { opacity: 1; transform: none; clip-path: none; }
   .js .reveal-image img { transform: none; }
 }
+
+/* ---------- Beyond the classroom: clubs, sports, indoor games ---------- */
+.activities { background: var(--paper); border-top: 1px solid var(--stone-200); }
+.act-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 32px); align-items: start; }
+.act-col { padding: clamp(24px, 3vw, 36px); background: var(--ivory); border: 1px solid var(--stone-200); border-radius: var(--radius); }
+.act-count { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-700); }
+.act-col h3 { margin-top: 6px; font-family: var(--font-display); font-size: 2rem; font-weight: 400; letter-spacing: -0.015em; line-height: 1.1; }
+.act-lead { margin-top: 6px; color: var(--text-muted); }
+.act-list { margin-top: 22px; display: grid; gap: 4px; }
+.act-list li { display: flex; align-items: center; gap: 14px; padding: 9px 0; border-top: 1px solid var(--stone-200); font-weight: 500; }
+.act-ic { flex-shrink: 0; width: 34px; height: 34px; padding: 7px; border-radius: 50%; background: var(--navy-900); color: var(--gold-500); stroke-width: 1.8; }
+@media (max-width: 900px) {
+  .act-grid { grid-template-columns: 1fr; }
+}

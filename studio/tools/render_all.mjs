@@ -21,7 +21,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, arr) =>
 }, []));
 const url = args.url || 'http://localhost:8080/studio/?batch';
 const formats = (args.format || 'square').split(',');
-const TEMPLATES = ['prospectus', 'labsheet', 'block', 'notebook', 'element'];
+const TEMPLATES = ['prospectus', 'royal', 'stadium', 'labsheet', 'block', 'notebook', 'element'];
 const templates = !args.template || args.template === 'all' ? TEMPLATES : args.template.split(',');
 const limit = args.limit ? Number(args.limit) : Infinity;
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'output');

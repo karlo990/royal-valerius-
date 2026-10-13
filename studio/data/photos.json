@@ -1,0 +1,20 @@
+{
+  "note": "Photos stored in the project, by tag. A tag is a subject id (e.g. \"chemistry\") or an activity id (e.g. \"rugby\", \"karate\"). Put the image in studio/assets/photos/ and add a line here, e.g. \"rugby\": \"assets/photos/rugby.webp\". Photos uploaded in the studio are kept in that browser only and take priority over these.",
+  "photos": {
+    "chemistry": "assets/photos/science-lab.webp",
+    "combined-science": "assets/photos/science-lab.webp",
+    "biology": "assets/photos/science-lab.webp",
+    "physics": "assets/photos/science-lab.webp",
+    "karate": "assets/photos/karate.webp",
+    "cake": "assets/photos/cake-making.webp",
+    "food": "assets/photos/cake-making.webp",
+    "welding": "assets/photos/welding.webp",
+    "metal": "assets/photos/welding.webp",
+    "english": "assets/photos/library-study.webp",
+    "literature": "assets/photos/library-study.webp",
+    "chishona": "assets/photos/library-study.webp",
+    "isindebele": "assets/photos/library-study.webp",
+    "history": "assets/photos/library-study.webp",
+    "heritage": "assets/photos/library-study.webp"
+  }
+}
