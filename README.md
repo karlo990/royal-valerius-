@@ -21,7 +21,7 @@ A fast, dependency-free static website: plain HTML, CSS and JavaScript, deployed
 The admissions form validates the fields and then opens WhatsApp with the enquiry pre-filled,
 addressed to the number in `WHATSAPP_NUMBER` at the top of `assets/js/main.js`. Nothing is sent
 until the parent presses send in WhatsApp. If the phone number changes, update it in
-`assets/js/main.js` and search `index.html` for `263714404090` / `+263 71 440 4090`.
+`assets/js/main.js` and search `index.html` for `263714404090` / `+263 714 404 090`.
 
 ## Local preview
 ```bash
@@ -33,4 +33,4 @@ Then open http://localhost:8080.
 Push to the GitHub repository connected to Vercel; it deploys automatically. No build step is needed.
 
 ## Contact
-+263 71 440 4090 · www.royalcrest.co.zw · Bikita, Masvingo, Zimbabwe
++263 714 404 090 · www.royalcrest.co.zw · Bikita, Masvingo, Zimbabwe

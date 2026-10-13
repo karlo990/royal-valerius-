@@ -7,8 +7,56 @@
   const isBatch = new URLSearchParams(location.search).has('batch');
 
   const state = { template: 'prospectus', format: 'portrait', kind: 'spotlight', key: 'chemistry', editing: false, view: 'editor' };
-  let brandDefaults, brand, subjects = [], molecules = [], items = [], svgs = {}, fontCSS = null;
-  const edits = new Map(); // flyerKey -> innerHTML after the user edited it
+  let brandDefaults, brand, subjects = [], molecules = [], activities = [], outfits = {}, items = [], fontCSS = null;
+  const svgs = {};          // molecule id -> structure svg
+  const icons = {};         // icon name -> svg
+  let libraryPhotos = {};   // tag -> project photo path (data/photos.json)
+  const uploads = new Map(); // tag -> object URL of a photo uploaded in this browser
+  const edits = new Map();  // flyerKey -> innerHTML after the user edited it
+
+  // ------------------------------------------------------------- photo store (IndexedDB, this browser only)
+  const DB = {
+    db: null,
+    open() {
+      return new Promise((resolve) => {
+        try {
+          const req = indexedDB.open('rca-flyer-studio', 1);
+          req.onupgradeneeded = () => req.result.createObjectStore('photos');
+          req.onsuccess = () => { this.db = req.result; resolve(this.db); };
+          req.onerror = () => resolve(null);
+        } catch { resolve(null); }
+      });
+    },
+    tx(mode) { return this.db.transaction('photos', mode).objectStore('photos'); },
+    all() {
+      return new Promise((resolve) => {
+        if (!this.db) return resolve([]);
+        const out = [];
+        const req = this.tx('readonly').openCursor();
+        req.onsuccess = () => { const c = req.result; if (c) { out.push([c.key, c.value]); c.continue(); } else resolve(out); };
+        req.onerror = () => resolve(out);
+      });
+    },
+    put(tag, blob) { return new Promise((r) => { if (!this.db) return r(); const q = this.tx('readwrite').put(blob, tag); q.onsuccess = q.onerror = () => r(); }); },
+    del(tag) { return new Promise((r) => { if (!this.db) return r(); const q = this.tx('readwrite').delete(tag); q.onsuccess = q.onerror = () => r(); }); },
+  };
+
+  async function loadUploads() {
+    await DB.open();
+    for (const [tag, blob] of await DB.all()) uploads.set(tag, URL.createObjectURL(blob));
+  }
+
+  /** Shrink a photo to at most 2000 px on its long side (keeps exports fast). */
+  async function prepareImage(file) {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, 2000 / Math.max(bmp.width, bmp.height));
+    const c = document.createElement('canvas');
+    c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    return new Promise((r) => c.toBlob(r, 'image/jpeg', 0.9));
+  }
+
+  const photoFor = (tag) => uploads.get(tag) || libraryPhotos[tag] || null;
 
   // ------------------------------------------------------------- data
   async function loadJSON(url) {
@@ -16,15 +64,26 @@
     if (!r.ok) throw new Error(`${url}: ${r.status}`);
     return r.json();
   }
+  const loadText = async (url) => { const r = await fetch(url); if (!r.ok) throw new Error(`${url}: ${r.status}`); return r.text(); };
 
   async function load() {
-    const [b, s, m] = await Promise.all([loadJSON('data/brand.json'), loadJSON('data/subjects.json'), loadJSON('data/molecules.json')]);
+    const [b, s, m, a, p] = await Promise.all([loadJSON('data/brand.json'), loadJSON('data/subjects.json'), loadJSON('data/molecules.json'), loadJSON('data/activities.json'), loadJSON('data/photos.json').catch(() => ({ photos: {} }))]);
     brandDefaults = b;
     subjects = s.subjects.filter((x) => x.offered !== false);
     molecules = m.molecules;
-    await Promise.all(molecules.map(async (mol) => { svgs[mol.id] = await (await fetch(mol.svg)).text(); }));
+    activities = a.activities.filter((x) => x.offered !== false);
+    outfits = a.outfits || {};
+    libraryPhotos = p.photos || {};
+    const iconNames = [...new Set([...activities.map((x) => x.icon), 'trophy', 'users-group'])];
+    await Promise.all([
+      ...molecules.map(async (mol) => { svgs[mol.id] = await loadText(mol.svg); }),
+      ...iconNames.map(async (n) => { icons[n] = await loadText(`assets/icons/${n}.svg`); }),
+      isBatch ? null : loadUploads(),
+    ]);
     items = [
+      ...Object.keys(F.SERIES).map((id, i) => ({ key: 'poster-' + id, type: 'series', data: { id }, index: i + 1, label: F.SERIES[id].label, symbol: '★', dept: 'series' })),
       ...subjects.map((sub, i) => ({ key: sub.id, type: 'subject', data: sub, index: i + 1, label: sub.name, symbol: sub.symbol, dept: sub.dept })),
+      ...activities.map((act, i) => ({ key: 'act-' + act.id, type: 'activity', data: act, index: i + 1, label: act.short, symbol: act.symbol, dept: act.group })),
       ...molecules.map((mol, i) => ({ key: 'mol-' + mol.id, type: 'molecule', data: mol, index: i + 1, label: mol.display, symbol: mol.formula_html, dept: 'molecules' })),
     ];
     applySettings();
@@ -32,6 +91,7 @@
     await Promise.all([
       '400 40px Newsreader', 'italic 400 40px Newsreader', '500 20px "Plus Jakarta Sans"', '700 20px "Plus Jakarta Sans"',
       '800 40px Archivo', '600 20px "Archivo Narrow"', '400 16px "IBM Plex Mono"', '600 16px "IBM Plex Mono"', '700 30px Caveat',
+      '500 20px "Plus Jakarta Sans" ǐ', 'italic 400 40px Newsreader ǎ',
     ].map((f) => document.fonts.load(f).catch(() => null)));
   }
 
@@ -45,15 +105,44 @@
     if (s.website) brand.website = s.website;
     brand.tutoring.schedule = s.schedule || brandDefaults.tutoring.schedule;
     brand.tutoring.fee = s.fee || brandDefaults.tutoring.fee;
+    brand.icons = icons;
   }
 
   const itemByKey = (k) => items.find((i) => i.key === k);
-  const kindsFor = (item) => (item.type === 'molecule' ? ['molecule'] : ['spotlight', 'tutoring', 'fact', 'tip', 'quiz']);
-  const flyerKey = (item, kind, template, format) => `${item.key}|${kind}|${template}|${format}`;
+  function kindsFor(item) {
+    switch (item.type) {
+      case 'molecule': return ['molecule'];
+      case 'series': return ['series'];
+      case 'activity': return ['spotlight', 'fact', 'quiz', 'answer'];
+      default: return ['spotlight', 'tutoring', 'fact', 'tip', 'quiz', 'answer'];
+    }
+  }
+  const formatsFor = (item) => (item.type === 'series' ? F.SERIES[item.data.id].formats : Object.keys(F.FORMATS));
+  const flyerKey = (item, kind, template, format) => `${item.key}|${kind}|${item.type === 'series' ? '-' : template}|${format}`;
+  const actById = (id) => activities.find((a) => a.id === id);
 
   function model(item, kind) {
-    if (item.type === 'molecule') return F.buildModel(brand, item.data, 'molecule', { svg: svgs[item.data.id], index: item.index });
-    return F.buildModel(brand, item.data, kind, { index: item.index });
+    switch (item.type) {
+      case 'molecule': return F.buildModel(brand, item.data, 'molecule', { svg: svgs[item.data.id], index: item.index });
+      case 'activity': return F.buildModel(brand, item.data, kind, { type: 'activity', index: item.index, icon: icons[item.data.icon], photo: photoFor(item.data.id) });
+      case 'series': {
+        const acts = Object.fromEntries(activities.map((a) => [a.id, { short: a.short, iconSvg: icons[a.icon], photo: photoFor(a.id) }]));
+        const fallbackPhotos = ['campus', 'library', 'arch', 'reading', 'aisle'].map((k) => brand.photos[k]);
+        return F.buildModel(brand, item.data, 'series', { acts, fallbackPhotos });
+      }
+      default: return F.buildModel(brand, item.data, kind, { index: item.index, photo: photoFor(item.data.id) });
+    }
+  }
+
+  /** The AI image prompt for an activity, built from its outfit, scene and place. */
+  function promptFor(tag) {
+    const a = actById(tag);
+    if (!a) return null;
+    return `Photorealistic candid photograph, natural light, documentary style, not a posed stock photo. `
+      + `Black African high-school students aged 13 to 18 at a private secondary school in rural Zimbabwe, wearing ${outfits[a.outfit] || outfits.blazer}. `
+      + `${a.scene[0].toUpperCase() + a.scene.slice(1)}, ${a.place}. `
+      + `Bright, joyful and authentic expressions, sharp focus, shallow depth of field, landscape 3:2, high resolution. `
+      + `No text, no watermarks, no extra logos. If the generator accepts a reference image, attach the Royal Crest crest so the blazer badge matches.`;
   }
 
   // ------------------------------------------------------------- rendering
@@ -78,25 +167,31 @@
   function radio(btn, on) { btn.setAttribute('aria-checked', String(on)); btn.tabIndex = on ? 0 : -1; }
 
   function renderControls() {
+    const item = itemByKey(state.key);
+    const isSeries = item.type === 'series';
+    const fmts = formatsFor(item);
+    if (!fmts.includes(state.format)) state.format = fmts[0];
+
     const tl = $('#template-list');
+    $('#template-note').hidden = !isSeries;
     tl.replaceChildren(...Object.entries(F.TEMPLATES).map(([id, t]) => {
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'opt-card'; b.setAttribute('role', 'radio'); b.dataset.id = id;
       b.innerHTML = `<span class="swatch sw-${id}" aria-hidden="true"></span><span><strong>${t.label}</strong><small>${t.note}</small></span>`;
-      radio(b, id === state.template);
+      radio(b, id === state.template && !isSeries);
+      b.disabled = isSeries;
       b.onclick = () => { state.template = id; update(); };
       return b;
     }));
 
-    const item = itemByKey(state.key);
     const allowed = kindsFor(item);
     if (!allowed.includes(state.kind)) state.kind = allowed[0];
     const kl = $('#kind-list');
-    kl.replaceChildren(...Object.entries(F.KINDS).map(([id, k]) => {
+    kl.replaceChildren(...Object.entries(F.KINDS).filter(([id]) => allowed.includes(id) || (item.type === 'subject' && id !== 'series')).map(([id, k]) => {
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'chip'; b.setAttribute('role', 'radio'); b.textContent = k.short;
       b.disabled = !allowed.includes(id);
-      if (b.disabled) b.title = id === 'molecule' ? 'Pick a molecule under Chemistry molecules' : 'Molecules have one flyer type';
+      if (b.disabled) b.title = 'Pick a molecule under Chemistry molecules';
       radio(b, id === state.kind);
       b.onclick = () => { state.kind = id; update(); };
       return b;
@@ -109,6 +204,8 @@
       const h = Math.round(24 * (f.h / f.w));
       b.innerHTML = `<span class="fmt-shape" style="width:${Math.round(24 * Math.min(1, 1.25 * f.w / f.h))}px;height:${Math.min(40, h)}px"></span><span><strong>${f.label}</strong><small>${f.note}</small></span>`;
       radio(b, id === state.format);
+      b.disabled = !fmts.includes(id);
+      if (b.disabled) b.title = 'This poster has too much on it for a square post';
       b.onclick = () => { state.format = id; update(); };
       return b;
     }));
@@ -117,7 +214,7 @@
 
   function renderSubjects() {
     const q = $('#subject-search').value.trim().toLowerCase();
-    const groups = [...Object.entries(brand.departments).map(([k, d]) => [k, d.name, d.accent]), ['molecules', 'Chemistry molecules', '#d2ae4c']];
+    const groups = [['series', 'Clubs & sports posters', '#0A1F5C'], ...Object.entries(brand.departments).map(([k, d]) => [k, d.name, d.accent]), ['molecules', 'Chemistry molecules', '#d2ae4c']];
     const out = [];
     for (const [k, name, accent] of groups) {
       const list = items.filter((i) => i.dept === k && (!q || i.label.toLowerCase().includes(q) || name.toLowerCase().includes(q)));
@@ -131,13 +228,18 @@
         b.type = 'button'; b.className = 'subj'; b.setAttribute('role', 'radio');
         b.innerHTML = `<span class="subj-sym" style="background:${accent}">${i.type === 'molecule' ? '⌬' : i.symbol}</span>${i.label}`;
         radio(b, i.key === state.key);
-        b.onclick = () => { state.key = i.key; if (i.type === 'molecule') state.kind = 'molecule'; else if (state.kind === 'molecule') state.kind = 'spotlight'; update(); };
+        b.onclick = () => {
+          state.key = i.key;
+          const kinds = kindsFor(i);
+          if (!kinds.includes(state.kind)) state.kind = kinds[0];
+          update();
+        };
         grid.append(b);
       });
       wrap.append(grid);
       out.push(wrap);
     }
-    if (!out.length) { const p = document.createElement('p'); p.className = 'subj-empty'; p.textContent = 'No subject matches that search.'; out.push(p); }
+    if (!out.length) { const p = document.createElement('p'); p.className = 'subj-empty'; p.textContent = 'Nothing matches that search.'; out.push(p); }
     $('#subject-list').replaceChildren(...out);
   }
 
@@ -159,14 +261,58 @@
     if (token !== previewToken) return;
     node.style.transform = `scale(${scale})`;
     host.replaceChildren(frame);
-    $('#preview-title').textContent = `${item.label} · ${F.KINDS[state.kind].label} · ${F.TEMPLATES[state.template].label}`;
+    const designName = item.type === 'series' ? 'Poster' : F.TEMPLATES[state.template].label;
+    $('#preview-title').textContent = `${item.label} · ${item.type === 'series' ? 'Series poster' : m.kindLabel} · ${designName}`;
     $('#preview-file').textContent = `${node.dataset.file}.png · ${Math.round(f.w * f.scale)} × ${Math.round(f.h * f.scale)} px`;
     $('#caption').value = F.caption(m);
     setEditable(node, key);
     $('#btn-reset-edit').hidden = !edits.has(key);
+    renderPhotoPanel(node);
   }
 
-  const EDITABLE = '.fl-title, .fl-subtitle, .fl-kicker, .fl-body, .fl-bullets li, .opt-text, .fl-rows dd, .fl-cta, .fl-listtitle, .ans-explain';
+  // ------------------------------------------------------------- photos panel
+  function renderPhotoPanel(node) {
+    const seen = new Map();
+    node.querySelectorAll('[data-slot]').forEach((n) => { if (!seen.has(n.dataset.slot)) seen.set(n.dataset.slot, n.dataset.slotLabel); });
+    const panel = $('#photo-panel');
+    panel.hidden = !seen.size;
+    $('#photo-list').replaceChildren(...[...seen].map(([tag, label]) => {
+      const up = uploads.get(tag), lib = libraryPhotos[tag];
+      const isAct = !!actById(tag);
+      const status = up ? 'Your photo (saved in this browser)' : lib ? 'Photo from the project folder' : isAct ? 'No photo yet: showing an icon tile' : 'Using a school photo';
+      const row = document.createElement('li');
+      row.className = 'photo-row';
+      const thumb = up || lib || (isAct ? '' : null);
+      row.innerHTML = `
+        <span class="photo-thumb">${thumb ? `<img src="${thumb}" alt="">` : `<span class="photo-icon">${isAct ? icons[actById(tag).icon] : ''}</span>`}</span>
+        <span class="photo-meta"><strong>${label}</strong><small>${status}</small></span>
+        <span class="photo-actions">
+          <label class="btn btn-small">${up ? 'Replace' : 'Upload photo'}<input type="file" accept="image/*" class="sr-only" data-tag="${tag}"></label>
+          ${up ? `<button type="button" class="btn btn-small" data-remove="${tag}">Remove</button>` : ''}
+          ${isAct ? `<button type="button" class="btn btn-small" data-prompt="${tag}">Copy AI prompt</button>` : ''}
+        </span>`;
+      return row;
+    }));
+  }
+
+  async function onPhotoChosen(input) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const tag = input.dataset.tag;
+    try {
+      const blob = await prepareImage(file);
+      await DB.put(tag, blob);
+      if (uploads.has(tag)) URL.revokeObjectURL(uploads.get(tag));
+      uploads.set(tag, URL.createObjectURL(blob));
+      toast('Photo added. It is used on every flyer for this item.');
+      renderPreview();
+    } catch (e) {
+      console.error(e);
+      toast('That file could not be read as an image. Try a JPG or PNG.');
+    }
+  }
+
+  const EDITABLE = '.fl-title, .fl-subtitle, .fl-kicker, .fl-body, .fl-bullets li > span, .opt-text, .fl-rows dd, .fl-cta, .fl-listtitle, .ans-explain';
   function setEditable(node, key) {
     $('#preview').classList.toggle('is-editing', state.editing);
     node.querySelectorAll(EDITABLE).forEach((n) => {
@@ -238,17 +384,18 @@
     box.hidden = false;
     const zip = new JSZip();
     const captions = [];
-    const rows = [['file', 'subject', 'flyer type', 'template', 'size']];
+    const rows = [['file', 'item', 'flyer type', 'design', 'size']];
     try {
       for (let i = 0; i < jobs.length; i++) {
         const [item, kind, template, format] = jobs[i];
         text.textContent = `Rendering ${i + 1} of ${jobs.length}: ${item.label}, ${F.KINDS[kind].short}`;
         bar.style.width = `${(i / jobs.length) * 100}%`;
         const { blob, name } = await exportBlob(item, kind, template, format);
-        const path = `${template}-${format}/${name}`;
+        const folder = item.type === 'series' ? `posters-${format}` : `${template}-${format}`;
+        const path = `${folder}/${name}`;
         zip.file(path, blob);
         captions.push(`=== ${path} ===\n${F.caption(model(item, kind))}\n`);
-        rows.push([path, item.label, F.KINDS[kind].label, F.TEMPLATES[template].label, F.FORMATS[format].label]);
+        rows.push([path, item.label, F.KINDS[kind].label, item.type === 'series' ? 'Poster' : F.TEMPLATES[template].label, F.FORMATS[format].label]);
       }
       zip.file('captions.txt', captions.join('\n'));
       zip.file('flyers.csv', rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n'));
@@ -267,7 +414,7 @@
   }
 
   function allJobs(template, format) {
-    return items.flatMap((item) => kindsFor(item).map((kind) => [item, kind, template, format]));
+    return items.filter((item) => formatsFor(item).includes(format)).flatMap((item) => kindsFor(item).map((kind) => [item, kind, template, format]));
   }
 
   // ------------------------------------------------------------- gallery
@@ -275,7 +422,7 @@
   function renderGallery() {
     const jobs = allJobs(state.template, state.format);
     const f = F.FORMATS[state.format];
-    $('#gallery-summary').textContent = `${jobs.length} flyers in ${F.TEMPLATES[state.template].label}, ${F.FORMATS[state.format].label.toLowerCase()}. Click one to open it in the editor.`;
+    $('#gallery-summary').textContent = `${jobs.length} flyers in ${F.TEMPLATES[state.template].label}, ${F.FORMATS[state.format].label.toLowerCase()}, including the series posters. Click one to open it in the editor.`;
     $('#btn-zip-all').textContent = `Download all ${jobs.length} as ZIP`;
     galleryObserver?.disconnect();
     const W = 200, scale = W / f.w;
@@ -322,6 +469,11 @@
     if (state.view === 'gallery') renderGallery(); else renderPreview();
   }
 
+  async function copyText(text, okMsg, fallbackEl) {
+    try { await navigator.clipboard.writeText(text); toast(okMsg); }
+    catch { if (fallbackEl) { fallbackEl.value = text; fallbackEl.select(); } toast('Press Ctrl+C to copy the selected text'); }
+  }
+
   function wire() {
     $('#subject-search').addEventListener('input', renderSubjects);
     $('#tab-editor').onclick = () => { setView('editor'); renderPreview(); };
@@ -334,23 +486,41 @@
       renderPreview();
     };
     $('#btn-reset-edit').onclick = () => { edits.delete(flyerKey(itemByKey(state.key), state.kind, state.template, state.format)); renderPreview(); toast('Edits removed'); };
-    $('#btn-copy').onclick = async () => {
-      const ta = $('#caption');
-      try { await navigator.clipboard.writeText(ta.value); toast('Caption copied'); }
-      catch { ta.select(); toast('Press Ctrl+C to copy the selected caption'); }
-    };
+    $('#btn-copy').onclick = () => copyText($('#caption').value, 'Caption copied', null);
+    $('#photo-list').addEventListener('change', (e) => { if (e.target.matches('input[type=file]')) onPhotoChosen(e.target); });
+    $('#photo-list').addEventListener('click', async (e) => {
+      const rm = e.target.closest('[data-remove]');
+      const pr = e.target.closest('[data-prompt]');
+      if (rm) {
+        const tag = rm.dataset.remove;
+        await DB.del(tag);
+        if (uploads.has(tag)) URL.revokeObjectURL(uploads.get(tag));
+        uploads.delete(tag);
+        toast('Photo removed');
+        renderPreview();
+      }
+      if (pr) {
+        const text = promptFor(pr.dataset.prompt);
+        $('#prompt-box').hidden = false;
+        $('#prompt-text').value = text;
+        copyText(text, 'Prompt copied. Paste it into Gemini, ChatGPT or another image generator.', $('#prompt-text'));
+      }
+    });
     $('#btn-surprise').onclick = () => {
-      const item = items[Math.floor(Math.random() * items.length)];
+      const pool = items.filter((i) => i.type !== 'series');
+      const item = pool[Math.floor(Math.random() * pool.length)];
       const kinds = kindsFor(item);
+      const tpls = Object.keys(F.TEMPLATES);
       state.key = item.key;
       state.kind = kinds[Math.floor(Math.random() * kinds.length)];
-      state.template = Object.keys(F.TEMPLATES)[Math.floor(Math.random() * 5)];
+      state.template = tpls[Math.floor(Math.random() * tpls.length)];
       setView('editor'); update();
     };
     $('#btn-zip-all').onclick = () => downloadZip(allJobs(state.template, state.format), `royal-crest-flyers-${state.template}-${state.format}.zip`);
     $('#btn-zip-subject').onclick = () => {
       const item = itemByKey(state.key);
-      const jobs = Object.keys(F.TEMPLATES).flatMap((t) => kindsFor(item).map((k) => [item, k, t, state.format]));
+      const tpls = item.type === 'series' ? [state.template] : Object.keys(F.TEMPLATES);
+      const jobs = tpls.flatMap((t) => kindsFor(item).map((k) => [item, k, t, state.format]));
       downloadZip(jobs, `royal-crest-${item.key}-${state.format}.zip`);
     };
     // settings
@@ -385,7 +555,7 @@
   window.Studio = {
     ready: null,
     jobs(template, format) {
-      return allJobs(template, format).map(([item, kind]) => ({ key: item.key, kind, label: item.label }));
+      return allJobs(template, format).map(([item, kind]) => ({ key: item.key, kind, label: item.label, series: item.type === 'series' }));
     },
     async mountForShot(key, kind, template, format) {
       let stage = document.getElementById('batch-stage');
@@ -399,6 +569,7 @@
       const { node, model: m } = await mount(stage, item, kind, template, format);
       return { file: node.dataset.file, caption: F.caption(m), fits: F.fitFlyer(node), w: F.FORMATS[format].w, h: F.FORMATS[format].h, scale: F.FORMATS[format].scale };
     },
+    promptFor,
   };
 
   window.Studio.ready = (async () => {

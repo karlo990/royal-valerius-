@@ -1,13 +1,34 @@
 # Royal Crest Flyer Studio
 
-Make flyers for every subject, from ChiShona and isiNdebele to Chemistry and the
-technical subjects, in five professional templates and four sizes. Pick, preview,
-edit the text, download. Or download all of them at once as a ZIP, with a
+Make flyers for every subject, club, sport and indoor game, from ChiShona and
+isiNdebele to Chemistry, Mandarin, karate and rugby, in seven templates and four
+sizes, plus six fixed posters from the school's brief. Pick, preview, edit the
+text, add your own photos, download. Or download a whole set as a ZIP, with a
 ready-made WhatsApp caption for each.
 
-**137 flyers per template and size:** 24 subjects × 5 flyer types, plus 17
-"Molecule of the week" flyers with real chemistry data. That is 685 designs per
-size across the five templates, 2,740 in all.
+**Per template and size:**
+
+| What | Flyers |
+|---|---|
+| 24 subjects × 6 types (spotlight, tutoring, fun fact, exam tip, quiz, quiz answer) | 144 |
+| 25 clubs, sports and indoor games × 4 types (spotlight, fun fact, quiz, quiz answer) | 100 |
+| "Molecule of the week" (PubChem + RDKit) | 17 |
+| Series posters (portrait, A4, story; five of them also square) | 6 |
+
+That is up to 267 flyers per template and size, and about 7,400 combinations in
+all. Every combination is checked to fit.
+
+### The series posters (from the brief)
+
+1. **Clubs, Sports & Indoor Games**: the full A4 catalogue
+2. **Beyond the Classroom**: the cover, with 10 Clubs / 10 Sports / 5 Indoor Games badges
+3. **Our Clubs: Minds & Cultures**
+4. **Our Clubs: Skills & Creativity**
+5. **Sports at Royal Crest**
+6. **Indoor Games**
+
+Their wording is fixed and spelled exactly as in the brief. They have their own
+design, so the template choice does not apply to them.
 
 ## Open the studio
 
@@ -24,18 +45,27 @@ block the data files when a page is opened that way.
 
 ## Using it
 
-1. **Template:** Prospectus, Lab Sheet, Bold Block, Exercise Book or Element.
-2. **Flyer type:** Spotlight (enrolment), Tutoring (private lessons), Fun fact,
-   Exam tip, Quiz (answer printed upside down), or Molecule.
+1. **Template:** Prospectus, Royal (navy band and gold banner), Stadium (gold
+   stripes, sporty), Lab Sheet, Bold Block, Exercise Book or Element.
+2. **Flyer type:** Spotlight, Tutoring (private lessons), Fun fact, Exam tip,
+   Quiz (answer printed upside down), Answer (a second slide that reveals the
+   answer, for a two-picture post), or Molecule.
 3. **Size:** Square post, Portrait post (Instagram 4:5), Story / WhatsApp status
    (content kept clear of the app controls), or A4 print (300 dpi).
 4. **Subject:** search or pick from the departments, or pick a molecule.
-5. **Edit text:** click *Edit text*, then click any text on the flyer to change
+5. **Photos:** under the preview, *Photos on this flyer* lists every photo slot.
+   Click **Upload photo** to use your own picture. It is saved in that browser and
+   used on every flyer and poster for that item. Slots without a photo show a navy
+   tile with a gold icon. **Copy AI prompt** gives a ready-made prompt for an image
+   generator; `PHOTO_PROMPTS.md` has the 10 prompts that fill every poster.
+   To keep photos for everyone, save them in `assets/photos/` and list them in
+   `data/photos.json`.
+6. **Edit text:** click *Edit text*, then click any text on the flyer to change
    it. Your edits are used when you download that flyer.
-6. **Download PNG**, or open **All flyers** and **Download all as ZIP**
+7. **Download PNG**, or open **All flyers** and **Download all as ZIP**
    (includes `captions.txt` and `flyers.csv`).
-7. **Surprise me** picks a random subject, flyer type and template.
-8. **School details** sets the phone, website, tutoring days and tutoring fee.
+8. **Surprise me** picks a random subject, flyer type and template.
+9. **School details** sets the phone, website, tutoring days and tutoring fee.
    Days and fee only appear on tutoring flyers once you fill them in; nothing
    prints as a blank placeholder.
 
@@ -44,7 +74,10 @@ block the data files when a page is opened that way.
 | What | Where |
 |---|---|
 | Subjects, taglines, topics, fun facts, exam tips, quizzes, tutoring focus | `data/subjects.json` (set `"offered": false` to hide a subject) |
-| School name, phone, website, department colours, photos | `data/brand.json` |
+| Clubs, sports and indoor games: descriptions, facts, quizzes, photo prompts | `data/activities.json` |
+| Project photos by subject or activity | `data/photos.json` + `assets/photos/` |
+| Icons | `assets/icons/` (Tabler Icons, MIT, plus three drawn for this project) |
+| School name, address, phones, website, colours, photos | `data/brand.json` |
 | Molecules | `tools/build_chemistry.py`, then run it (below) |
 | Template designs | `css/flyer.css` (one section per template) |
 | How content maps onto a flyer | `js/render.js` (`buildModel`) |

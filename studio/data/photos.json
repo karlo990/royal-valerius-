@@ -1,0 +1,4 @@
+{
+  "note": "Photos stored in the project, by tag. A tag is a subject id (e.g. \"chemistry\") or an activity id (e.g. \"rugby\", \"karate\"). Put the image in studio/assets/photos/ and add a line here, e.g. \"rugby\": \"assets/photos/rugby.webp\". Photos uploaded in the studio are kept in that browser only and take priority over these.",
+  "photos": {}
+}

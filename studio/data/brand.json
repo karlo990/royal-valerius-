@@ -2,8 +2,8 @@
   "school": "Royal Crest Academy",
   "motto": "Science · Innovation · Skill",
   "opening": "Doors open 1 January 2027",
-  "location": "Bikita, Masvingo",
-  "phone": "+263 71 440 4090",
+  "location": "Nyika, Masvingo",
+  "phone": "+263 714 404 090",
   "whatsapp": "263714404090",
   "website": "www.royalcrest.co.zw",
   "crest": "assets/brand/crest-640.webp",
@@ -14,14 +14,49 @@
     "schedule": null,
     "fee": null
   },
-  "hashtags": ["#RoyalCrestAcademy", "#Bikita", "#Masvingo", "#ZIMSEC"],
+  "hashtags": [
+    "#RoyalCrestAcademy",
+    "#Bikita",
+    "#Masvingo",
+    "#ZIMSEC"
+  ],
   "departments": {
-    "languages":   { "name": "Languages",                "accent": "#7a2e3a" },
-    "maths":       { "name": "Mathematics & Computing",  "accent": "#1f5a66" },
-    "sciences":    { "name": "Sciences",                 "accent": "#2c6146" },
-    "humanities":  { "name": "Humanities",               "accent": "#7d5419" },
-    "commercials": { "name": "Commercials",              "accent": "#394a7c" },
-    "technical":   { "name": "Technical & Vocational",   "accent": "#8f4322" }
+    "languages": {
+      "name": "Languages",
+      "accent": "#7a2e3a"
+    },
+    "maths": {
+      "name": "Mathematics & Computing",
+      "accent": "#1f5a66"
+    },
+    "sciences": {
+      "name": "Sciences",
+      "accent": "#2c6146"
+    },
+    "humanities": {
+      "name": "Humanities",
+      "accent": "#7d5419"
+    },
+    "commercials": {
+      "name": "Commercials",
+      "accent": "#394a7c"
+    },
+    "technical": {
+      "name": "Technical & Vocational",
+      "accent": "#8f4322"
+    },
+    "clubs": {
+      "name": "Clubs",
+      "accent": "#6b3fa0"
+    },
+    "sports": {
+      "name": "Sports",
+      "accent": "#1f6f43"
+    },
+    "indoor": {
+      "name": "Indoor Games",
+      "accent": "#a6461c"
+    }
   },
   "photos": {
     "campus": "../assets/img/campus-wide-1600.webp",
@@ -31,5 +66,17 @@
     "posters": "../assets/img/library-posters-860.webp",
     "aisle": "../assets/img/library-aisle-1600.webp",
     "crest-detail": "../assets/img/library-detail-460.webp"
+  },
+  "address": "1226 Chinobva, Nyika, Masvingo",
+  "phones": [
+    "+263 714 404 090",
+    "+263 773 602 547",
+    "+263 785 979 583"
+  ],
+  "royal": {
+    "navy": "#0A1F5C",
+    "gold": "#F2B705",
+    "panel": "#EEF2FA",
+    "tagline": "Science. Innovation. Skill."
   }
 }

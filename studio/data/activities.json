@@ -1,0 +1,245 @@
+{
+  "note": "Clubs, sports and indoor games. `name` is the full name used on the catalogue poster; `short` is the label used on smaller cards. Each activity makes a spotlight, fun fact, quiz and quiz-answer flyer. `outfit`, `scene` and `place` build the AI photo prompt shown in the studio.",
+  "groups": {
+    "clubs":  { "name": "Clubs",        "accent": "#6b3fa0" },
+    "sports": { "name": "Sports",       "accent": "#1f6f43" },
+    "indoor": { "name": "Indoor Games", "accent": "#a6461c" }
+  },
+  "activities": [
+    {
+      "id": "robotics", "group": "clubs", "cluster": "minds", "name": "Robotics & Coding", "short": "Robotics & Coding", "symbol": "Ro", "icon": "robot",
+      "tagline": "Build it. Code it. Make it move.",
+      "summary": "Students design, build and program robots, learning coding, electronics and problem-solving by making things that really work.",
+      "doing": ["Building robots from kits and parts", "Coding with block and text languages", "Sensors, motors and simple circuits", "Team build challenges"],
+      "fact": "The word “robot” was first used in Karel Čapek’s 1920 play R.U.R. It comes from the Czech word robota, meaning forced labour.",
+      "quiz": { "q": "What does a sensor do on a robot?", "options": ["Stores the program", "Detects things around it, like light or distance", "Supplies the power", "Turns the wheels"], "answer": 1, "explain": "Sensors give a robot information about its surroundings, so its program can react." },
+      "outfit": "blazer", "scene": "two students building and programming a small wheeled robot on a desk, one typing on a laptop, the other adjusting the robot's sensor", "place": "in a bright computer lab"
+    },
+    {
+      "id": "music-dance", "group": "clubs", "cluster": "minds", "name": "Music & Dance", "short": "Music & Dance", "symbol": "Mu", "icon": "music",
+      "tagline": "Find your rhythm.",
+      "summary": "Singing, instruments and dance in traditional and modern styles, building confidence and teamwork on stage.",
+      "doing": ["Choir and vocal training", "Learning an instrument", "Traditional and contemporary dance", "Performing at school events"],
+      "fact": "Zimbabwe’s Mbende Jerusarema dance is on UNESCO’s list of the world’s Intangible Cultural Heritage.",
+      "quiz": { "q": "Which traditional Zimbabwean instrument is played by plucking metal keys?", "options": ["Marimba", "Mbira", "Hosho", "Ngoma"], "answer": 1, "explain": "The mbira has metal keys plucked with the thumbs. Hosho are shakers and ngoma is a drum." },
+      "outfit": "tracksuit", "scene": "students dancing energetically while classmates play marimba and drums", "place": "in the school hall"
+    },
+    {
+      "id": "debate", "group": "clubs", "cluster": "minds", "name": "Debate & Public Speaking", "short": "Debate & Public Speaking", "symbol": "Db", "icon": "podium",
+      "tagline": "Speak up. Stand out.",
+      "summary": "Students learn to research, argue and speak with confidence, skills that help in interviews, exams and leadership.",
+      "doing": ["Structured debates on real issues", "Writing and delivering speeches", "Research, listening and rebuttal", "Speaking with confidence on stage"],
+      "fact": "In competitive debate you may be told to argue the side you disagree with. It trains you to understand both sides of an argument.",
+      "quiz": { "q": "In a debate, the team that argues for the motion is called the…", "options": ["Opposition", "Proposition", "Adjudicator", "Chairperson"], "answer": 1, "explain": "The proposition argues for the motion; the opposition argues against it." },
+      "outfit": "blazer", "scene": "a confident student speaking at a wooden podium while classmates listen and take notes", "place": "in a classroom set up for a debate"
+    },
+    {
+      "id": "mandarin", "group": "clubs", "cluster": "minds", "name": "Mandarin Connect (Chinese Language for Beginners)", "short": "Mandarin Connect", "symbol": "Zh", "icon": "zhong",
+      "tagline": "Nǐ hǎo! Say hello to Mandarin.",
+      "summary": "A friendly first step into Mandarin Chinese, the world’s most spoken first language: greetings, numbers, pinyin and writing your first characters.",
+      "doing": ["Everyday greetings and phrases", "Pinyin and the four tones", "Writing your first characters", "Chinese culture and festivals"],
+      "fact": "Mandarin is a tonal language: mā (mother) and mǎ (horse) are different words, told apart only by the tone of your voice.",
+      "quiz": { "q": "What does “nǐ hǎo” mean in Mandarin?", "options": ["Thank you", "Goodbye", "Hello", "Good night"], "answer": 2, "explain": "Nǐ hǎo is the everyday Mandarin greeting, “hello”." },
+      "outfit": "blazer", "scene": "students learning to write Chinese characters on a whiteboard, one student writing with a marker while others copy into notebooks", "place": "in a language classroom"
+    },
+    {
+      "id": "french", "group": "clubs", "cluster": "minds", "name": "Le Club Français (French Club)", "short": "French Club", "symbol": "Fr", "icon": "baguette",
+      "tagline": "Bonjour ! Parlons français.",
+      "summary": "Conversational French through songs, games and role-play, opening doors to the many French-speaking countries in Africa and beyond.",
+      "doing": ["Greetings and everyday conversation", "French songs, games and films", "Role-play: shopping, travel and school", "Francophone Africa and its culture"],
+      "fact": "French is an official language in 29 countries, and more than half of them are in Africa.",
+      "quiz": { "q": "How do you say “thank you” in French?", "options": ["Bonjour", "Merci", "Au revoir", "S’il vous plaît"], "answer": 1, "explain": "Merci means thank you. Bonjour is hello and au revoir is goodbye." },
+      "outfit": "blazer", "scene": "students practising a French conversation in pairs, with French books and a small French flag on the desk", "place": "in a language classroom"
+    },
+    {
+      "id": "cake", "group": "clubs", "cluster": "skills", "name": "Cake Making", "short": "Cake Making", "symbol": "Ck", "icon": "cake",
+      "tagline": "Bake it. Decorate it. Share it.",
+      "summary": "Students learn baking science and cake decorating, from measuring and mixing to icing, piping and presenting a celebration cake.",
+      "doing": ["Measuring, mixing and baking", "Icing, piping and decorating", "Kitchen hygiene and safety", "Costing and selling your bakes"],
+      "fact": "Baking powder makes a cake rise by releasing carbon dioxide gas when it gets wet and warm.",
+      "quiz": { "q": "Which gas makes a cake rise when baking powder reacts?", "options": ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], "answer": 1, "explain": "Bubbles of carbon dioxide get trapped in the batter and make it rise." },
+      "outfit": "apron", "scene": "students piping icing onto a tall celebration cake, smiling and concentrating", "place": "in a clean food technology kitchen"
+    },
+    {
+      "id": "decor", "group": "clubs", "cluster": "skills", "name": "Event Décor & Interior Décor", "short": "Event & Interior Décor", "symbol": "Dc", "icon": "armchair",
+      "tagline": "Style every space.",
+      "summary": "Students plan and style events and rooms: colour, fabric, flowers, lighting and layout, the skills behind weddings, parties and beautiful homes.",
+      "doing": ["Colour schemes and themes", "Table settings and centrepieces", "Draping, flowers and lighting", "Planning and budgeting an event"],
+      "fact": "Colours opposite each other on the colour wheel, like blue and orange, are called complementary. Used together, they make each other look brighter.",
+      "quiz": { "q": "Which colour is complementary to blue?", "options": ["Green", "Purple", "Orange", "Red"], "answer": 2, "explain": "Orange sits opposite blue on the colour wheel." },
+      "outfit": "blazer", "scene": "students styling an elegant event table with navy and gold linen, flowers and candles", "place": "in the school hall decorated for an event"
+    },
+    {
+      "id": "welding", "group": "clubs", "cluster": "skills", "name": "Welding & Aluminium Fabrication", "short": "Welding & Aluminium Fabrication", "symbol": "Wd", "icon": "flame",
+      "tagline": "Join metal. Build the future.",
+      "summary": "Hands-on workshop training in cutting, shaping and joining metal and aluminium to make frames, gates and furniture, with safety first.",
+      "doing": ["Workshop safety and protective gear", "Measuring, cutting and bending", "Welding and joining techniques", "Making frames, gates and furniture"],
+      "fact": "Aluminium is the most common metal in the Earth’s crust, yet it was once so hard to extract that it was worth more than silver.",
+      "quiz": { "q": "Why must a welder wear a dark helmet?", "options": ["To keep warm", "To protect the eyes from intense light and sparks", "To hear better", "For decoration"], "answer": 1, "explain": "A welding arc gives off intense light that can damage the eyes, so the helmet filters it." },
+      "outfit": "welding", "scene": "a student welding a metal frame with sparks flying safely while an instructor watches", "place": "in a school metal workshop"
+    },
+    {
+      "id": "beauty", "group": "clubs", "cluster": "skills", "name": "Beauty Therapy (Pedicure & Manicure)", "short": "Beauty Therapy", "symbol": "Mn", "icon": "polish",
+      "tagline": "Care, craft and confidence.",
+      "summary": "Professional nail care, manicure and pedicure, hygiene and client care: the first steps towards a career in the beauty industry.",
+      "doing": ["Hygiene and tool sterilisation", "Manicure and pedicure techniques", "Nail shaping and polish", "Client care and running a small business"],
+      "fact": "Fingernails grow about 3.5 millimetres a month, roughly twice as fast as toenails.",
+      "quiz": { "q": "Why are manicure tools sterilised between clients?", "options": ["To make them shiny", "To stop infections spreading", "To make them sharper", "It is not necessary"], "answer": 1, "explain": "Sterilising tools kills germs, so infections cannot pass from one client to the next." },
+      "outfit": "salon", "scene": "a student giving a classmate a neat manicure at a salon station with polish bottles", "place": "in a clean, bright beauty therapy room"
+    },
+    {
+      "id": "karate", "group": "clubs", "cluster": "skills", "name": "Karate", "short": "Karate", "symbol": "Ka", "icon": "karate",
+      "tagline": "Discipline. Focus. Respect.",
+      "summary": "Karate builds fitness, self-discipline and self-defence skills, with graded belts that reward steady progress.",
+      "doing": ["Stances, blocks and strikes", "Kata: set patterns of movement", "Self-defence and safety", "Grading for coloured belts"],
+      "fact": "Karate means “empty hand” in Japanese. It developed on the island of Okinawa.",
+      "quiz": { "q": "What does the word “karate” mean?", "options": ["Strong fist", "Empty hand", "Way of the warrior", "Fast kick"], "answer": 1, "explain": "Kara means empty and te means hand." },
+      "outfit": "gi", "scene": "a row of students in white karate uniforms performing a kata in unison", "place": "in the school hall with mats on the floor"
+    },
+    {
+      "id": "rugby", "group": "sports", "name": "Rugby", "short": "Rugby", "symbol": "Ru", "icon": "ball-american-football",
+      "tagline": "Courage. Teamwork. Respect.",
+      "summary": "A fast, physical team game that builds fitness, courage and teamwork, coached with safe tackling technique.",
+      "doing": ["Passing, catching and running lines", "Safe tackling and contact skills", "Fitness and conditioning", "Matches and tournaments"],
+      "fact": "A try in rugby union is worth 5 points, and the conversion kick after it adds 2 more.",
+      "quiz": { "q": "How many points is a try worth in rugby union?", "options": ["3", "4", "5", "7"], "answer": 2, "explain": "A try scores 5 points; a successful conversion adds 2." },
+      "outfit": "sports", "scene": "a rugby player running with the ball past a tackler, teammates in support", "place": "on the school rugby field on a sunny afternoon"
+    },
+    {
+      "id": "hockey", "group": "sports", "name": "Hockey", "short": "Hockey", "symbol": "Hk", "icon": "hockey",
+      "tagline": "Fast feet. Quick stick.",
+      "summary": "Field hockey sharpens speed, skill and teamwork, in a sport with a proud Zimbabwean history.",
+      "doing": ["Dribbling and stick control", "Passing and hitting", "Positions and set pieces", "Goalkeeping"],
+      "fact": "Zimbabwe’s women’s hockey team won gold at the 1980 Moscow Olympics, the country’s first Olympic medal.",
+      "quiz": { "q": "In which year did Zimbabwe’s women’s hockey team win Olympic gold?", "options": ["1976", "1980", "1996", "2004"], "answer": 1, "explain": "The team won gold at the 1980 Moscow Olympic Games." },
+      "outfit": "sports", "scene": "a hockey player sprinting with the ball on her stick, opponents chasing", "place": "on the school sports field"
+    },
+    {
+      "id": "basketball", "group": "sports", "name": "Basketball", "short": "Basketball", "symbol": "Bb", "icon": "ball-basketball",
+      "tagline": "Shoot for more.",
+      "summary": "Quick passing, sharp shooting and teamwork on court, building fitness, coordination and confidence.",
+      "doing": ["Dribbling and ball handling", "Shooting and lay-ups", "Defence and teamwork", "Fitness and agility"],
+      "fact": "Basketball was invented in 1891 by James Naismith, using two peach baskets as hoops.",
+      "quiz": { "q": "How many players does each basketball team have on court?", "options": ["5", "6", "7", "11"], "answer": 0, "explain": "Each team has five players on court at a time." },
+      "outfit": "sports", "scene": "a student leaping for a lay-up as teammates watch", "place": "on an outdoor basketball court at the school"
+    },
+    {
+      "id": "tennis", "group": "sports", "name": "Tennis", "short": "Tennis", "symbol": "Te", "icon": "ball-tennis",
+      "tagline": "Game, set and match.",
+      "summary": "A lifelong sport that builds footwork, focus and fair play, from first rallies to competitive matches.",
+      "doing": ["Forehand, backhand and serve", "Footwork and court movement", "Singles and doubles tactics", "Rules and scoring"],
+      "fact": "In tennis, “love” means zero, so a score of “15–love” means one player has a point and the other has none.",
+      "quiz": { "q": "In tennis scoring, what comes after 15 and 30?", "options": ["40", "45", "50", "Game"], "answer": 0, "explain": "The points go love, 15, 30, 40, then game." },
+      "outfit": "sports", "scene": "a student hitting a forehand with a tennis racket, mid-swing", "place": "on a school tennis court"
+    },
+    {
+      "id": "woodball", "group": "sports", "name": "Woodball", "short": "Woodball", "symbol": "Wb", "icon": "golf",
+      "tagline": "Aim. Swing. Score.",
+      "summary": "A precise, sociable sport where players strike a wooden ball through small gates, building focus, technique and patience.",
+      "doing": ["Grip, stance and swing", "Striking through the gate", "Reading the ground", "Scoring and course play"],
+      "fact": "Woodball was invented in Taiwan in 1990. Players hit a wooden ball with a mallet through small gates, a bit like golf.",
+      "quiz": { "q": "Woodball is most similar to which sport?", "options": ["Rugby", "Golf", "Volleyball", "Swimming"], "answer": 1, "explain": "Like golf, woodball is played on a course, aiming for the fewest strikes." },
+      "outfit": "sports", "scene": "a student lining up a woodball mallet behind the wooden ball, aiming at a small gate", "place": "on the school grass field"
+    },
+    {
+      "id": "volleyball", "group": "sports", "name": "Volleyball", "short": "Volleyball", "symbol": "Vb", "icon": "ball-volleyball",
+      "tagline": "Bump. Set. Spike.",
+      "summary": "A fast team sport of quick reactions and teamwork, building agility, jumping power and communication.",
+      "doing": ["Serving and receiving", "Setting and spiking", "Blocking at the net", "Team rotation and tactics"],
+      "fact": "Volleyball was invented in 1895 by William G. Morgan, who first called it “mintonette”.",
+      "quiz": { "q": "How many players does a volleyball team have on court?", "options": ["5", "6", "7", "9"], "answer": 1, "explain": "Six players per team, who rotate positions during the game." },
+      "outfit": "sports", "scene": "a student jumping to spike the ball over the net as a blocker rises", "place": "on an outdoor volleyball court"
+    },
+    {
+      "id": "handball", "group": "sports", "name": "Handball", "short": "Handball", "symbol": "Hb", "icon": "play-handball",
+      "tagline": "Pass fast. Shoot hard.",
+      "summary": "A fast, high-scoring team game combining running, jumping, passing and throwing.",
+      "doing": ["Passing and catching on the move", "Jump shots on goal", "Defending as a team", "Goalkeeping"],
+      "fact": "In handball, a player may take only three steps while holding the ball before they must pass, shoot or bounce it.",
+      "quiz": { "q": "How many players does a handball team have on court, including the goalkeeper?", "options": ["5", "6", "7", "11"], "answer": 2, "explain": "Six court players plus one goalkeeper: seven in all." },
+      "outfit": "sports", "scene": "a student in mid-air making a jump shot towards the goal", "place": "on an outdoor handball court"
+    },
+    {
+      "id": "softball", "group": "sports", "name": "Softball", "short": "Softball", "symbol": "Sb", "icon": "ball-baseball",
+      "tagline": "Pitch. Hit. Run.",
+      "summary": "A bat-and-ball team sport that builds hand-eye coordination, speed and team spirit.",
+      "doing": ["Pitching and catching", "Batting technique", "Base running", "Fielding positions"],
+      "fact": "Softball began in Chicago in 1887, played indoors with a rolled-up boxing glove as the ball.",
+      "quiz": { "q": "In softball, how is the ball pitched?", "options": ["Overarm", "Underarm", "Kicked", "Bounced"], "answer": 1, "explain": "Softball pitchers throw underarm." },
+      "outfit": "sports", "scene": "a student batter swinging at a pitch, the catcher crouched behind", "place": "on the school sports field"
+    },
+    {
+      "id": "girls-soccer", "group": "sports", "name": "Girls' Soccer / Football", "short": "Girls' Soccer", "symbol": "Fb", "icon": "play-football",
+      "tagline": "Her game. Her goal.",
+      "summary": "Girls’ football builds skill, fitness and teamwork, in a sport where Zimbabwe’s women already compete on the world stage.",
+      "doing": ["Ball control and dribbling", "Passing and shooting", "Positions and team shape", "Matches and tournaments"],
+      "fact": "Zimbabwe’s women’s football team, the Mighty Warriors, played at the 2016 Rio Olympic Games.",
+      "quiz": { "q": "How long is a full football match, not counting extra time?", "options": ["60 minutes", "80 minutes", "90 minutes", "120 minutes"], "answer": 2, "explain": "Two halves of 45 minutes make 90 minutes." },
+      "outfit": "sports", "scene": "a girl dribbling the football past a defender, both focused on the ball", "place": "on the school football pitch"
+    },
+    {
+      "id": "netball", "group": "sports", "name": "Netball", "short": "Netball", "symbol": "Nb", "icon": "play-basketball",
+      "tagline": "Pass. Pivot. Score.",
+      "summary": "A fast, skilful team game of quick passing and accurate shooting, and one of Zimbabwe’s most popular sports for girls.",
+      "doing": ["Passing and footwork", "Shooting technique", "Positions and court areas", "Defending and interceptions"],
+      "fact": "Zimbabwe’s national netball team, the Gems, made their World Cup debut in 2019 and finished eighth.",
+      "quiz": { "q": "How many players does a netball team have on court?", "options": ["5", "6", "7", "9"], "answer": 2, "explain": "Seven players, each with a position bib such as GS, GA or C." },
+      "outfit": "sports", "scene": "a netball player jumping to shoot at the hoop while a defender reaches up", "place": "on the school netball court"
+    },
+    {
+      "id": "table-tennis", "group": "indoor", "name": "Table Tennis", "short": "Table Tennis", "symbol": "Tt", "icon": "ping-pong",
+      "tagline": "Quick hands. Sharp mind.",
+      "summary": "Fast rallies that sharpen reflexes, coordination and concentration, and a favourite after-school game.",
+      "doing": ["Grip, serve and return", "Spin and placement", "Singles and doubles", "House tournaments"],
+      "fact": "A table-tennis ball weighs just 2.7 grams, yet top players can smash it at more than 100 km/h.",
+      "quiz": { "q": "How many points do you need to win a game of table tennis?", "options": ["11", "15", "21", "25"], "answer": 0, "explain": "A game is played to 11 points, and you must win by two." },
+      "outfit": "blazer-off", "scene": "two students in a fast table-tennis rally, one leaning in for a forehand", "place": "in the school common room"
+    },
+    {
+      "id": "chess", "group": "indoor", "name": "Chess", "short": "Chess", "symbol": "Kn", "icon": "chess-knight",
+      "tagline": "Think ahead.",
+      "summary": "Chess trains patience, memory and strategic thinking, the same skills that help in maths and exams.",
+      "doing": ["Openings and tactics", "Endgames and checkmates", "Chess notation", "Club tournaments"],
+      "fact": "The knight is the only chess piece that can jump over other pieces.",
+      "quiz": { "q": "How many squares are on a chessboard?", "options": ["36", "48", "64", "81"], "answer": 2, "explain": "Eight rows of eight squares: 64." },
+      "outfit": "blazer", "scene": "two students deep in thought over a chess game, one about to move a knight", "place": "in the school library"
+    },
+    {
+      "id": "darts", "group": "indoor", "name": "Darts", "short": "Darts", "symbol": "Dt", "icon": "target-arrow",
+      "tagline": "Steady hand. Sharp aim.",
+      "summary": "A game of focus and quick mental arithmetic: every throw is a sum.",
+      "doing": ["Stance and throwing action", "Aiming for doubles and trebles", "Fast scoring arithmetic", "Friendly league games"],
+      "fact": "On a standard dartboard the bullseye is 1.73 metres from the floor, and the 20 sits at the top.",
+      "quiz": { "q": "How much is the bullseye (inner bull) worth in darts?", "options": ["25", "50", "60", "100"], "answer": 1, "explain": "The inner bull scores 50; the outer bull scores 25." },
+      "outfit": "blazer-off", "scene": "a student throwing a dart at a dartboard while friends keep score on a small board", "place": "in the school common room"
+    },
+    {
+      "id": "quiz", "group": "indoor", "name": "Quiz", "short": "Quiz", "symbol": "Qz", "icon": "bulb",
+      "tagline": "Know it? Prove it.",
+      "summary": "Team quizzes on science, history, sport and current affairs that sharpen memory, general knowledge and teamwork.",
+      "doing": ["General knowledge rounds", "Subject quizzes", "Team buzzer games", "Inter-house quiz nights"],
+      "fact": "Testing yourself is one of the best ways to remember what you learn. Researchers call it retrieval practice.",
+      "quiz": { "q": "Which planet is closest to the Sun?", "options": ["Venus", "Mercury", "Mars", "Earth"], "answer": 1, "explain": "Mercury is the closest planet to the Sun." },
+      "outfit": "blazer", "scene": "a team of students huddled together, one raising a hand to answer a quiz question", "place": "in a classroom set up for a quiz night"
+    },
+    {
+      "id": "balloon-volleyball", "group": "indoor", "name": "Balloon Volleyball", "short": "Balloon Volleyball", "symbol": "Bv", "icon": "balloon",
+      "tagline": "Keep it up!",
+      "summary": "A fun, fast indoor game that builds teamwork, coordination and plenty of laughter.",
+      "doing": ["Teamwork and communication", "Hand-eye coordination", "Quick reactions", "Friendly matches"],
+      "fact": "A balloon falls slowly because air resistance is large compared with its tiny weight, which gives everyone time to reach it.",
+      "quiz": { "q": "What slows a falling balloon the most?", "options": ["Gravity", "Air resistance", "Magnetism", "Friction with the floor"], "answer": 1, "explain": "Air resistance pushes up against the balloon’s large surface." },
+      "outfit": "tracksuit", "scene": "students laughing as they tap a big balloon over a low net", "place": "in the school hall"
+    }
+  ],
+  "outfits": {
+    "blazer": "navy school blazers with gold trim and the school crest on the breast pocket, light blue shirts, navy and gold striped ties, grey trousers or grey skirts",
+    "blazer-off": "light blue school shirts with navy and gold striped ties, blazers hung on chairs nearby",
+    "sports": "navy and gold school sports kit: navy shirts with gold trim, navy shorts, white socks and trainers",
+    "tracksuit": "navy school tracksuits with gold stripes and white trainers",
+    "gi": "white karate gi with coloured belts",
+    "apron": "white chef jackets with navy aprons and hair nets",
+    "welding": "a welding helmet, leather gloves and a navy work overall with the school crest",
+    "salon": "navy beauty-therapy tunics with gold piping"
+  }
+}

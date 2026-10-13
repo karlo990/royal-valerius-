@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Royal Crest Flyer Studio</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Make subject, tutoring, quiz and chemistry flyers for Royal Crest Academy.">
+<meta name="description" content="Make subject, club, sport, quiz and chemistry flyers and posters for Royal Crest Academy.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="stylesheet" href="css/flyer.css">
 <link rel="stylesheet" href="css/studio.css">
@@ -45,6 +45,7 @@
     <aside class="controls" aria-label="Flyer options">
       <fieldset class="group">
         <legend>Template</legend>
+        <p class="group-note" id="template-note" hidden>Series posters have their own fixed design from the school’s brief.</p>
         <div class="template-list" id="template-list" role="radiogroup"></div>
       </fieldset>
 
@@ -83,6 +84,17 @@
           <button type="button" class="btn btn-ghost" id="btn-reset-edit" hidden>Undo my edits</button>
           <span class="edit-hint" id="edit-hint" hidden>Click any text on the flyer to change it. Your edits are used when you download.</span>
         </div>
+        <section class="photo-panel" id="photo-panel" hidden aria-labelledby="photo-panel-title">
+          <div class="caption-head">
+            <h2 class="caption-label" id="photo-panel-title">Photos on this flyer</h2>
+          </div>
+          <p class="photo-intro">Upload a real or AI-made photo for any slot. It is saved in this browser and used on every flyer for that item. Slots without a photo show a clean icon tile.</p>
+          <ul class="photo-list" id="photo-list"></ul>
+          <div class="prompt-box" id="prompt-box" hidden>
+            <label for="prompt-text" class="caption-label">AI image prompt</label>
+            <textarea id="prompt-text" rows="5" readonly></textarea>
+          </div>
+        </section>
         <div class="caption-box">
           <div class="caption-head">
             <label for="caption" class="caption-label">Caption for WhatsApp / Facebook</label>
