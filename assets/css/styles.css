@@ -717,50 +717,6 @@ address { font-style: normal; }
 }
 .service p { color: var(--text-muted); }
 
-/* ---------- From our feed (social posts) ---------- */
-.feed { background: var(--navy-950); color: var(--on-dark); }
-.feed .eyebrow { color: var(--gold-400); }
-.feed .section-title { color: var(--on-dark); }
-.feed .section-title em { color: var(--gold-400); }
-.feed .section-lead { color: var(--on-dark-muted); }
-.feed-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(14px, 2vw, 28px);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.feed-item {
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  background: var(--navy-800);
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.65), 0 0 0 1px var(--on-dark-line);
-}
-.feed-cta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: clamp(40px, 5vw, 64px);
-}
-@media (max-width: 900px) {
-  .feed-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 600px) {
-  .feed-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    margin-inline: calc(var(--gutter) * -1);
-    padding: 4px var(--gutter) 12px;
-    scrollbar-width: none;
-  }
-  .feed-grid::-webkit-scrollbar { display: none; }
-  .feed-item { flex: 0 0 78%; scroll-snap-align: center; }
-}
-
 /* ---------- Campus gallery ---------- */
 .campus { background: var(--paper); }
 .gallery {

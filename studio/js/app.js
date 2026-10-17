@@ -81,6 +81,7 @@
       isBatch ? null : loadUploads(),
     ]);
     items = [
+      ...window.Posts.ORDER.map((id, i) => ({ key: 'post-' + id, type: 'social', data: { id }, index: i + 1, label: window.Posts.POSTS[id].label, symbol: '✦', dept: 'social' })),
       ...Object.keys(F.SERIES).map((id, i) => ({ key: 'poster-' + id, type: 'series', data: { id }, index: i + 1, label: F.SERIES[id].label, symbol: '★', dept: 'series' })),
       ...subjects.map((sub, i) => ({ key: sub.id, type: 'subject', data: sub, index: i + 1, label: sub.name, symbol: sub.symbol, dept: sub.dept })),
       ...activities.map((act, i) => ({ key: 'act-' + act.id, type: 'activity', data: act, index: i + 1, label: act.short, symbol: act.symbol, dept: act.group })),
@@ -113,12 +114,14 @@
     switch (item.type) {
       case 'molecule': return ['molecule'];
       case 'series': return ['series'];
+      case 'social': return ['social'];
       case 'activity': return ['spotlight', 'fact', 'quiz', 'answer'];
       default: return ['spotlight', 'tutoring', 'fact', 'tip', 'quiz', 'answer'];
     }
   }
-  const formatsFor = (item) => (item.type === 'series' ? F.SERIES[item.data.id].formats : Object.keys(F.FORMATS));
-  const flyerKey = (item, kind, template, format) => `${item.key}|${kind}|${item.type === 'series' ? '-' : template}|${format}`;
+  const isFixed = (item) => item.type === 'series' || item.type === 'social';   // own design, no template choice
+  const formatsFor = (item) => (item.type === 'series' ? F.SERIES[item.data.id].formats : item.type === 'social' ? ['portrait'] : Object.keys(F.FORMATS));
+  const flyerKey = (item, kind, template, format) => `${item.key}|${kind}|${isFixed(item) ? '-' : template}|${format}`;
   const actById = (id) => activities.find((a) => a.id === id);
 
   function model(item, kind) {
@@ -130,6 +133,7 @@
         const fallbackPhotos = ['campus', 'library', 'arch', 'reading', 'aisle'].map((k) => brand.photos[k]);
         return F.buildModel(brand, item.data, 'series', { acts, fallbackPhotos });
       }
+      case 'social': return F.buildModel(brand, item.data, 'social');
       default: return F.buildModel(brand, item.data, kind, { index: item.index, photo: photoFor(item.data.id) });
     }
   }
@@ -168,12 +172,13 @@
 
   function renderControls() {
     const item = itemByKey(state.key);
-    const isSeries = item.type === 'series';
+    const isSeries = isFixed(item);
     const fmts = formatsFor(item);
     if (!fmts.includes(state.format)) state.format = fmts[0];
 
     const tl = $('#template-list');
     $('#template-note').hidden = !isSeries;
+    $('#template-note').textContent = item.type === 'social' ? 'Social media posts have their own fixed design, made for the 4:5 feed.' : 'Series posters have their own fixed design from the school’s brief.';
     tl.replaceChildren(...Object.entries(F.TEMPLATES).map(([id, t]) => {
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'opt-card'; b.setAttribute('role', 'radio'); b.dataset.id = id;
@@ -187,7 +192,7 @@
     const allowed = kindsFor(item);
     if (!allowed.includes(state.kind)) state.kind = allowed[0];
     const kl = $('#kind-list');
-    kl.replaceChildren(...Object.entries(F.KINDS).filter(([id]) => allowed.includes(id) || (item.type === 'subject' && id !== 'series')).map(([id, k]) => {
+    kl.replaceChildren(...Object.entries(F.KINDS).filter(([id]) => allowed.includes(id) || (item.type === 'subject' && id !== 'series' && id !== 'social')).map(([id, k]) => {
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'chip'; b.setAttribute('role', 'radio'); b.textContent = k.short;
       b.disabled = !allowed.includes(id);
@@ -205,7 +210,7 @@
       b.innerHTML = `<span class="fmt-shape" style="width:${Math.round(24 * Math.min(1, 1.25 * f.w / f.h))}px;height:${Math.min(40, h)}px"></span><span><strong>${f.label}</strong><small>${f.note}</small></span>`;
       radio(b, id === state.format);
       b.disabled = !fmts.includes(id);
-      if (b.disabled) b.title = 'This poster has too much on it for a square post';
+      if (b.disabled) b.title = item.type === 'social' ? 'Social media posts are made for the portrait feed (4:5)' : 'This poster has too much on it for a square post';
       b.onclick = () => { state.format = id; update(); };
       return b;
     }));
@@ -214,7 +219,7 @@
 
   function renderSubjects() {
     const q = $('#subject-search').value.trim().toLowerCase();
-    const groups = [['series', 'Clubs & sports posters', '#0A1F5C'], ...Object.entries(brand.departments).map(([k, d]) => [k, d.name, d.accent]), ['molecules', 'Chemistry molecules', '#d2ae4c']];
+    const groups = [['social', 'Social media posts', '#C9A227'], ['series', 'Clubs & sports posters', '#0A1F5C'], ...Object.entries(brand.departments).map(([k, d]) => [k, d.name, d.accent]), ['molecules', 'Chemistry molecules', '#d2ae4c']];
     const out = [];
     for (const [k, name, accent] of groups) {
       const list = items.filter((i) => i.dept === k && (!q || i.label.toLowerCase().includes(q) || name.toLowerCase().includes(q)));
@@ -261,7 +266,7 @@
     if (token !== previewToken) return;
     node.style.transform = `scale(${scale})`;
     host.replaceChildren(frame);
-    const designName = item.type === 'series' ? 'Poster' : F.TEMPLATES[state.template].label;
+    const designName = isFixed(item) ? (item.type === 'social' ? 'Post' : 'Poster') : F.TEMPLATES[state.template].label;
     $('#preview-title').textContent = `${item.label} · ${item.type === 'series' ? 'Series poster' : m.kindLabel} · ${designName}`;
     $('#preview-file').textContent = `${node.dataset.file}.png · ${Math.round(f.w * f.scale)} × ${Math.round(f.h * f.scale)} px`;
     $('#caption').value = F.caption(m);
@@ -313,9 +318,19 @@
   }
 
   const EDITABLE = '.fl-title, .fl-subtitle, .fl-kicker, .fl-body, .fl-bullets li > span, .opt-text, .fl-rows dd, .fl-cta, .fl-listtitle, .ans-explain';
+  /** Social posts have free-form markup: every element that holds text directly becomes one editable block. */
+  function postTextBlocks(node) {
+    const out = [];
+    node.querySelectorAll('*').forEach((n) => {
+      if (n.closest('svg') || out.some((o) => o.contains(n))) return;
+      if ([...n.childNodes].some((c) => c.nodeType === Node.TEXT_NODE && c.textContent.trim())) out.push(n);
+    });
+    return out;
+  }
+
   function setEditable(node, key) {
     $('#preview').classList.toggle('is-editing', state.editing);
-    node.querySelectorAll(EDITABLE).forEach((n) => {
+    (node.classList.contains('ps') ? postTextBlocks(node) : node.querySelectorAll(EDITABLE)).forEach((n) => {
       if (state.editing) n.setAttribute('contenteditable', 'true'); else n.removeAttribute('contenteditable');
     });
     if (!state.editing) return;
@@ -391,11 +406,11 @@
         text.textContent = `Rendering ${i + 1} of ${jobs.length}: ${item.label}, ${F.KINDS[kind].short}`;
         bar.style.width = `${(i / jobs.length) * 100}%`;
         const { blob, name } = await exportBlob(item, kind, template, format);
-        const folder = item.type === 'series' ? `posters-${format}` : `${template}-${format}`;
+        const folder = item.type === 'series' ? `posters-${format}` : item.type === 'social' ? `social-posts-${format}` : `${template}-${format}`;
         const path = `${folder}/${name}`;
         zip.file(path, blob);
         captions.push(`=== ${path} ===\n${F.caption(model(item, kind))}\n`);
-        rows.push([path, item.label, F.KINDS[kind].label, item.type === 'series' ? 'Poster' : F.TEMPLATES[template].label, F.FORMATS[format].label]);
+        rows.push([path, item.label, F.KINDS[kind].label, item.type === 'series' ? 'Poster' : item.type === 'social' ? 'Social post' : F.TEMPLATES[template].label, F.FORMATS[format].label]);
       }
       zip.file('captions.txt', captions.join('\n'));
       zip.file('flyers.csv', rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n'));
@@ -422,7 +437,7 @@
   function renderGallery() {
     const jobs = allJobs(state.template, state.format);
     const f = F.FORMATS[state.format];
-    $('#gallery-summary').textContent = `${jobs.length} flyers in ${F.TEMPLATES[state.template].label}, ${F.FORMATS[state.format].label.toLowerCase()}, including the series posters. Click one to open it in the editor.`;
+    $('#gallery-summary').textContent = `${jobs.length} flyers in ${F.TEMPLATES[state.template].label}, ${F.FORMATS[state.format].label.toLowerCase()}, including the series posters${state.format === 'portrait' ? ' and social media posts' : ''}. Click one to open it in the editor.`;
     $('#btn-zip-all').textContent = `Download all ${jobs.length} as ZIP`;
     galleryObserver?.disconnect();
     const W = 200, scale = W / f.w;
@@ -507,7 +522,7 @@
       }
     });
     $('#btn-surprise').onclick = () => {
-      const pool = items.filter((i) => i.type !== 'series');
+      const pool = items.filter((i) => !isFixed(i));
       const item = pool[Math.floor(Math.random() * pool.length)];
       const kinds = kindsFor(item);
       const tpls = Object.keys(F.TEMPLATES);
@@ -519,7 +534,7 @@
     $('#btn-zip-all').onclick = () => downloadZip(allJobs(state.template, state.format), `royal-crest-flyers-${state.template}-${state.format}.zip`);
     $('#btn-zip-subject').onclick = () => {
       const item = itemByKey(state.key);
-      const tpls = item.type === 'series' ? [state.template] : Object.keys(F.TEMPLATES);
+      const tpls = isFixed(item) ? [state.template] : Object.keys(F.TEMPLATES);
       const jobs = tpls.flatMap((t) => kindsFor(item).map((k) => [item, k, t, state.format]));
       downloadZip(jobs, `royal-crest-${item.key}-${state.format}.zip`);
     };
@@ -555,7 +570,7 @@
   window.Studio = {
     ready: null,
     jobs(template, format) {
-      return allJobs(template, format).map(([item, kind]) => ({ key: item.key, kind, label: item.label, series: item.type === 'series' }));
+      return allJobs(template, format).map(([item, kind]) => ({ key: item.key, kind, label: item.label, series: isFixed(item) }));
     },
     async mountForShot(key, kind, template, format) {
       let stage = document.getElementById('batch-stage');

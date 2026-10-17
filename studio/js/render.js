@@ -5,7 +5,8 @@
  *               shape that every template understands.
  * buildFlyer()  renders that model into a fixed-size DOM node in one of the
  *               seven templates and four formats. Series posters have their
- *               own fixed designs (from the school's brief).
+ *               own fixed designs (from the school's brief), and so do the
+ *               16 social-media posts (js/posts.js).
  * fitFlyer()    shrinks headline and body text until nothing overflows its
  *               box, and drops list items that still do not fit, so long
  *               content never collides with other elements.
@@ -43,6 +44,7 @@
     answer:    { label: 'Quiz answer',       short: 'Answer',    n: 6 },
     molecule:  { label: 'Molecule of the week', short: 'Molecule', n: 7 },
     series:    { label: 'Poster',            short: 'Poster',    n: 8 },
+    social:    { label: 'Social media post', short: 'Post',      n: 9 },
   };
 
   // The six posters from the school's brief. Text on these is fixed and
@@ -97,6 +99,16 @@
   function buildModel(brand, item, kind, opts = {}) {
     const m = { kind, kindLabel: KINDS[kind].label, brand };
     const tut = brand.tutoring || {};
+
+    if (kind === 'social') {
+      m.id = item.id;
+      m.post = item.id;
+      m.subjectName = window.Posts.POSTS[item.id].label;
+      m.title = esc(m.subjectName);
+      m.dept = { name: 'Royal Crest', accent: '#C9A227' };
+      m.fileBase = `post-${item.id}`;
+      return m;
+    }
 
     if (kind === 'series') {
       m.id = item.id;
@@ -303,6 +315,7 @@
 
   function buildFlyer(m, template, format) {
     if (m.kind === 'series') return buildSeries(m, format);
+    if (m.kind === 'social') return window.Posts.build(m, format);
     const f = FORMATS[format];
     const b = m.brand;
     const root = el('div', `flyer t-${template} f-${format} k-${m.kind} ${f.h > f.w * 1.05 ? 'is-tall' : 'is-wide'} v-${m.visual?.type || 'none'}`);
@@ -652,6 +665,7 @@
    *  that still do not fit. Must run while the flyer is attached to the DOM. */
   function fitFlyer(root) {
     if (root.classList.contains('sr')) return fitSeries(root);
+    if (root.classList.contains('ps')) return true;   // social posts: fixed, hand-fitted designs
     const regions = [...root.querySelectorAll(REGIONS)];
     const titles = [...root.querySelectorAll('.fl-title[data-fit]')];
     const bodies = [...root.querySelectorAll('.fl-body[data-fit]')];
@@ -689,6 +703,7 @@
   function caption(m) {
     const b = m.brand;
     const plain = (h) => String(h).replace(/<sub>(.*?)<\/sub>/g, (_, d) => d.replace(/\d/g, (x) => '₀₁₂₃₄₅₆₇₈₉'[x])).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
+    if (m.kind === 'social') return window.Posts.caption(m);
     const lines = [];
     if (m.kind === 'series') {
       const L = (k) => CATALOGUE[k].map(([, l]) => l).join(' • ');
