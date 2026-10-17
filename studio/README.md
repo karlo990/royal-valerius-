@@ -14,9 +14,24 @@ ready-made WhatsApp caption for each.
 | 25 clubs, sports and indoor games × 4 types (spotlight, fun fact, quiz, quiz answer) | 100 |
 | "Molecule of the week" (PubChem + RDKit) | 17 |
 | Series posters (portrait, A4, story; five of them also square) | 6 |
+| Social media posts (portrait only) | 16 |
 
 That is up to 267 flyers per template and size, and about 7,400 combinations in
 all. Every combination is checked to fit.
+
+### Social media posts
+
+Sixteen ready-made designs for the Facebook and Instagram feed (portrait 4:5,
+1080 × 1350), under **Social media posts** at the top of the list: Boarding
+pass, Fees receipt, Periodic table, Newspaper front page, Skill tree (game),
+Boarders’ menu, Lock-screen alerts, Parents’ quiz, Weather forecast, Polaroid
+board, Movie poster, Recipe card, Chess: next move, Treasure map, Chalkboard
+equation and Playlist. Like the series posters they have their own fixed
+design, so the template choice does not apply. *Edit text* works on every line,
+the phone number follows *School details*, and each comes with a caption. The
+markup is in `js/posts.js` and the styles in `css/posts.css`. Facts on them
+(fees, menu, subjects, trades) come from the 2027 prospectus: check them before
+posting if the prospectus changes.
 
 ### The series posters (from the brief)
 
