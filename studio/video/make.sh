@@ -12,4 +12,4 @@ if [ -n "${1:-}" ]; then python3 tools/import_voices.py "$1"; else python3 tools
 python3 tools/timeline.py
 python3 tools/music.py
 node tools/render.mjs video 30
-if [ -n "${MUSIC:-}" ]; then python3 tools/mix.py --music "$MUSIC" --music-start "${MUSIC_START:-0}"; else python3 tools/mix.py; fi
+if [ -n "${MUSIC:-}" ]; then python3 tools/mix.py --music "$MUSIC" --music-start "${MUSIC_START:-0}" --bed "${MUSIC_BED:-0.18}"; else python3 tools/mix.py; fi
