@@ -304,7 +304,7 @@ address { font-style: normal; }
   border-radius: 6px;
 }
 .brand-crest { width: 40px; height: auto; }
-.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.15; white-space: nowrap; }
 .brand-name {
   font-family: var(--font-display);
   font-size: 1.25rem;
@@ -347,6 +347,7 @@ address { font-style: normal; }
 
 .header-actions { display: flex; align-items: center; gap: 20px; }
 .header-phone {
+  white-space: nowrap;
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text);
@@ -354,6 +355,14 @@ address { font-style: normal; }
   transition: color 0.25s;
 }
 .header-phone:hover { color: var(--navy-700); }
+.header-portal {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.875rem; font-weight: 700; color: var(--navy-800);
+  padding: 7px 14px; border: 1.5px solid var(--gold-500); border-radius: 999px;
+  transition: background 0.25s, color 0.25s;
+}
+.header-portal svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.header-portal:hover { background: var(--navy-900); border-color: var(--navy-900); color: var(--white); }
 
 .menu-toggle {
   display: none;
@@ -1271,8 +1280,18 @@ address { font-style: normal; }
 .js [data-parallax].is-settled img { transition: none; }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 1280px) {
+@media (max-width: 1640px) {
   .header-phone { display: none; }
+}
+@media (min-width: 1081px) and (max-width: 1320px) {
+  .header-portal { padding: 8px; }
+  .header-portal span { display: none; }   /* icon only while the full nav is showing */
+  .header-inner { gap: 16px; }
+  .primary-nav a { padding: 10px 8px; font-size: 0.85rem; }
+  .primary-nav a::after { left: 8px; right: 8px; }
+}
+@media (max-width: 640px) {
+  .header-portal { display: none; }   /* it lives in the mobile menu instead */
 }
 
 @media (max-width: 1080px) {
