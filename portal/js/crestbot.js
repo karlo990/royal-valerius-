@@ -67,7 +67,7 @@
     }
     if (has(/fee|balance|owe|pay|invoice|money/)) {
       const f = ctx.fees;
-      return { text: f.balance > 0 ? `${f.term}: invoiced US$${f.invoiced}, paid US$${f.paid}. **Balance US$${f.balance}** (due ${day(f.due)}). Pay via the Fees tab or the Royal Crest Connect app.` : `${f.term} fees are fully paid (US$${f.paid}). Thank you! ✅`, actions: [{ label: 'Open fees', route: '#/fees' }] };
+      return { text: f.balance > 0 ? `${f.term}: invoiced US$${f.invoiced}, paid US$${f.paid}. **Balance US$${f.balance}** (due ${day(f.due)}). Pay at the bursar's office or on the RCA Portal app.` : `${f.term} fees are fully paid (US$${f.paid}). Thank you! ✅`, actions: [{ label: 'Open fees', route: '#/fees' }] };
     }
     if (has(/attend|absent|late|present|missed|bunk/)) {
       const a = ctx.attendance, n = (k) => a.filter((d) => d.status === k).length, rate = (n('present') + n('late')) / a.length;

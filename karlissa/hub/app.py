@@ -465,7 +465,7 @@ def register(body: RegisterIn, request: Request):
                    body.learner_name.strip(), adm, body.form, body.residence, body.message, db.now_iso(), ip))
         db.audit(c, f"public:{pretty_phone(phone)}", "registration.new", ref, body.learner_name, ip)
     return {"ref": ref, "status": "pending",
-            "message": "Thank you. The school office will check your details, usually within one working day. "
+            "message": "The school office will check your details, usually within one working day. "
                        "Once approved, sign in with your child's admission number and your phone number."}
 
 
