@@ -1,0 +1,15 @@
+.env
+node_modules/
+build/stills/
+build/video_silent.mp4
+build/music.wav
+build/render.log
+build/*.jpg
+audio/
+out/
+assets/wall/
+assets/class/
+music/
+voice-kit/.env
+voice-kit/audio/
+voice-kit/voices.zip

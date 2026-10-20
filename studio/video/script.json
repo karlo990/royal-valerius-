@@ -1,0 +1,279 @@
+{
+ "title": "Mandarin Connect — Case Study 01: Chitungwiza → Beijing",
+ "voices": {
+  "WEN": {
+   "name": "Wén Lǎoshī (Teacher Wen)",
+   "voice_id": "4AfodMgwXps9oZFhHzoj"
+  },
+  "SAM": {
+   "name": "Sam (commentator)",
+   "voice_id": "FSjbVsYdGQ5KJ6l0Ul2r"
+  }
+ },
+ "_note": "say = text sent to ElevenLabs (Chinese characters where Mandarin must be pronounced); cap = on-screen caption.",
+ "lines": [
+  {
+   "id": "l01",
+   "scene": "open",
+   "who": "WEN",
+   "say": "你好！",
+   "cap": "Nǐ hǎo!"
+  },
+  {
+   "id": "l02",
+   "scene": "open",
+   "who": "SAM",
+   "say": "Wait. Did you hear that? That was hello. 你好.",
+   "cap": "Wait. Did you hear that? That was hello. Nǐ hǎo."
+  },
+  {
+   "id": "l03",
+   "scene": "open",
+   "who": "WEN",
+   "say": "你好! I'm Teacher Wen. Today, we teach Mandarin to a learner from Chitungwiza.",
+   "cap": "Nǐ hǎo! I’m Teacher Wen. Today, we teach Mandarin to a learner from Chitungwiza."
+  },
+  {
+   "id": "l04",
+   "scene": "title",
+   "who": "SAM",
+   "say": "Chitungwiza to Beijing. Mandarin for absolute beginners. Let's watch.",
+   "cap": "Chitungwiza to Beijing. Mandarin for absolute beginners. Let’s watch."
+  },
+  {
+   "id": "l05",
+   "scene": "case",
+   "who": "SAM",
+   "say": "Meet Tendai. Thirteen, from Chitungwiza. Mandarin? Zero words.",
+   "cap": "Meet Tendai. Thirteen, from Chitungwiza. Mandarin? Zero words."
+  },
+  {
+   "id": "l06",
+   "scene": "case",
+   "who": "WEN",
+   "say": "Perfect. Zero is my favourite place to start.",
+   "cap": "Perfect. Zero is my favourite place to start."
+  },
+  {
+   "id": "l07",
+   "scene": "heritage",
+   "who": "WEN",
+   "say": "First, where does Mandarin come from? Three thousand years of written history.",
+   "cap": "First, where does Mandarin come from? Three thousand years of written history."
+  },
+  {
+   "id": "l08",
+   "scene": "heritage",
+   "who": "SAM",
+   "say": "Give us the highlights!",
+   "cap": "Give us the highlights!"
+  },
+  {
+   "id": "l09",
+   "scene": "heritage",
+   "who": "WEN",
+   "say": "In 221 BC, 秦始皇, the first emperor, gives China one script.",
+   "cap": "221 BC: Qín Shǐhuáng, the first emperor, gives China one script.",
+   "cue": "qin"
+  },
+  {
+   "id": "l10",
+   "scene": "heritage",
+   "who": "WEN",
+   "say": "The 汉 dynasty gives characters their name: 汉字.",
+   "cap": "The Hàn dynasty gives characters their name: Hànzì.",
+   "cue": "han"
+  },
+  {
+   "id": "l11",
+   "scene": "heritage",
+   "who": "SAM",
+   "say": "Wait. Kublai Khan? The Mongol emperor?",
+   "cap": "Wait. Kublai Khan? The Mongol emperor?",
+   "cue": "yuan"
+  },
+  {
+   "id": "l12",
+   "scene": "heritage",
+   "who": "WEN",
+   "say": "Yes! His 元 dynasty made Beijing the capital. Later, the 明 emperors rebuilt the Great Wall.",
+   "cap": "Yes! His Yuán dynasty made Beijing the capital. Later, the Míng emperors rebuilt the Great Wall.",
+   "cue": "ming"
+  },
+  {
+   "id": "l13",
+   "scene": "heritage",
+   "who": "WEN",
+   "say": "And Mandarin? It comes from 官话: the speech of the emperor's officials.",
+   "cap": "And “Mandarin”? It comes from Guānhuà: the speech of the emperor’s officials.",
+   "cue": "guan"
+  },
+  {
+   "id": "l14",
+   "scene": "heritage",
+   "who": "SAM",
+   "say": "So Tendai is learning the language of emperors. No pressure!",
+   "cap": "So Tendai is learning the language of emperors. No pressure!"
+  },
+  {
+   "id": "l15",
+   "scene": "tones",
+   "who": "WEN",
+   "say": "Lesson one. Tones. Listen. 妈。 麻。 马。 骂。",
+   "cap": "Lesson one. Tones. Listen. Mā. Má. Mǎ. Mà."
+  },
+  {
+   "id": "l16",
+   "scene": "tones",
+   "who": "SAM",
+   "say": "Wait, did you hear that? Same sound. Four different words.",
+   "cap": "Wait, did you hear that? Same sound. Four different words."
+  },
+  {
+   "id": "l17",
+   "scene": "tones",
+   "who": "WEN",
+   "say": "Mother. Hemp. Horse. Scold. Change the tone, change the meaning.",
+   "cap": "Mother. Hemp. Horse. Scold. Change the tone, change the meaning."
+  },
+  {
+   "id": "l18",
+   "scene": "tones",
+   "who": "SAM",
+   "say": "Here's the secret. Tendai already speaks a tonal language: Shona.",
+   "cap": "Here’s the secret. Tendai already speaks a tonal language: Shona."
+  },
+  {
+   "id": "l19",
+   "scene": "tones",
+   "who": "WEN",
+   "say": "Exactly. Shona uses tone too, so Tendai's ear is already trained.",
+   "cap": "Exactly. Shona uses tone too, so Tendai’s ear is already trained."
+  },
+  {
+   "id": "l20",
+   "scene": "face",
+   "who": "WEN",
+   "say": "Lesson two. Point, and say. 眼睛. Eyes.",
+   "cap": "Lesson two. Point and say. Yǎnjing: eyes.",
+   "cue": "eyes"
+  },
+  {
+   "id": "l21",
+   "scene": "face",
+   "who": "SAM",
+   "say": "眼睛.",
+   "cap": "Yǎnjing."
+  },
+  {
+   "id": "l22",
+   "scene": "face",
+   "who": "WEN",
+   "say": "鼻子. Nose. 嘴. Mouth.",
+   "cap": "Bízi: nose. Zuǐ: mouth.",
+   "cue": "nose-mouth"
+  },
+  {
+   "id": "l23",
+   "scene": "face",
+   "who": "SAM",
+   "say": "鼻子. 嘴. Okay, that's actually easy.",
+   "cap": "Bízi. Zuǐ. Okay, that’s actually easy."
+  },
+  {
+   "id": "l24",
+   "scene": "chars",
+   "who": "WEN",
+   "say": "Lesson three. Characters are pictures. This is 人. A person, walking.",
+   "cap": "Lesson three. Characters are pictures. This is rén: a person, walking.",
+   "cue": "ren"
+  },
+  {
+   "id": "l25",
+   "scene": "chars",
+   "who": "WEN",
+   "say": "口, an open mouth. 木, a tree. Two trees? 林. A forest.",
+   "cap": "Kǒu: an open mouth. Mù: a tree. Two trees? Lín: a forest.",
+   "cue": "kou-mu-lin"
+  },
+  {
+   "id": "l26",
+   "scene": "chars",
+   "who": "SAM",
+   "say": "Hold on. Two trees make a forest? That's genius.",
+   "cap": "Hold on. Two trees make a forest? That’s genius."
+  },
+  {
+   "id": "l27",
+   "scene": "chars",
+   "who": "WEN",
+   "say": "And 日, the sun. See the picture, never forget it.",
+   "cap": "And rì: the sun. See the picture, never forget it.",
+   "cue": "ri"
+  },
+  {
+   "id": "l28",
+   "scene": "class",
+   "who": "SAM",
+   "say": "Day five. Tendai stands up in class. Listen.",
+   "cap": "Day five. Tendai stands up in class. Listen."
+  },
+  {
+   "id": "l29",
+   "scene": "class",
+   "who": "SAM",
+   "say": "你好！我叫 Tendai。我是津巴布韦人。",
+   "cap": "Nǐ hǎo! Wǒ jiào Tendai. Wǒ shì Jīnbābùwéi rén.",
+   "learner": true
+  },
+  {
+   "id": "l30",
+   "scene": "class",
+   "who": "WEN",
+   "say": "Wait, did you hear that? My name is Tendai, I'm Zimbabwean. Beautiful tones! 太棒了！",
+   "cap": "Wait, did you hear that? “My name is Tendai, I’m Zimbabwean.” Beautiful tones! Tài bàng le!"
+  },
+  {
+   "id": "l31",
+   "scene": "results",
+   "who": "SAM",
+   "say": "Five days. Four tones, twelve words, five picture characters, and a first conversation.",
+   "cap": "Five days. Four tones, twelve words, five picture characters, and a first conversation."
+  },
+  {
+   "id": "l32",
+   "scene": "results",
+   "who": "WEN",
+   "say": "That's how we teach. Pictures, stories, tone games, and speaking from day one.",
+   "cap": "That’s how we teach. Pictures, stories, tone games, and speaking from day one."
+  },
+  {
+   "id": "l33",
+   "scene": "parents",
+   "who": "SAM",
+   "say": "Parents: if a beginner can do this in five days, imagine your child after a term.",
+   "cap": "Parents: if a beginner can do this in five days, imagine your child after a term."
+  },
+  {
+   "id": "l34",
+   "scene": "parents",
+   "who": "WEN",
+   "say": "Mandarin Connect starts with Form One, in January twenty twenty-seven.",
+   "cap": "Mandarin Connect starts with Form 1, in January 2027."
+  },
+  {
+   "id": "l35",
+   "scene": "outro",
+   "who": "SAM",
+   "say": "Royal Crest Academy. Call or WhatsApp zero seven one four, four zero four, zero nine zero.",
+   "cap": "Royal Crest Academy. Call or WhatsApp 0714 404 090."
+  },
+  {
+   "id": "l36",
+   "scene": "outro",
+   "who": "WEN",
+   "say": "再见！",
+   "cap": "Zàijiàn! Goodbye!"
+  }
+ ]
+}
