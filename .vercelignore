@@ -1,0 +1,4 @@
+# Python sources and tests for the portal API stay in the repo, not on the website
+portal/api/*.py
+**/__pycache__
+**/.pytest_cache

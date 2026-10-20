@@ -1,0 +1,1673 @@
+{
+ "TODAY": "2027-03-10",
+ "users": {
+  "learner": {
+   "role": "learner",
+   "name": "Tanaka Moyo",
+   "students": [
+    "RCA-27-0142"
+   ]
+  },
+  "parent": {
+   "role": "parent",
+   "name": "Mrs R. Moyo",
+   "students": [
+    "RCA-27-0142",
+    "RCA-27-0087"
+   ]
+  }
+ },
+ "students": {
+  "RCA-27-0142": {
+   "id": "RCA-27-0142",
+   "admission_no": "RCA-27-0142",
+   "name": "Tanaka Moyo",
+   "first": "Tanaka",
+   "form": "Form 1",
+   "stream": "1 Blue",
+   "house": "Kariba",
+   "residence": "Boarder",
+   "hostel": "Block A",
+   "class_teacher": "Mrs C. Binda",
+   "xp": 1240,
+   "level": 4,
+   "next_level_xp": 1500,
+   "merits": 18,
+   "demerits": 1,
+   "position": 7,
+   "class_size": 38,
+   "trend": [
+    {
+     "label": "Wk 2",
+     "avg": 58
+    },
+    {
+     "label": "Wk 4",
+     "avg": 61
+    },
+    {
+     "label": "Wk 6",
+     "avg": 60
+    },
+    {
+     "label": "Wk 8",
+     "avg": 65
+    },
+    {
+     "label": "Mid",
+     "avg": 68
+    },
+    {
+     "label": "Wk 10",
+     "avg": 70
+    },
+    {
+     "label": "Wk 12",
+     "avg": 72
+    }
+   ],
+   "results": [
+    {
+     "term": "T1-2027",
+     "label": "Term 1 · 2027",
+     "published": true,
+     "subjects": [
+      {
+       "code": "MAT",
+       "name": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "ca": 26,
+       "exam": 36,
+       "total": 62,
+       "grade": "C",
+       "comment": "Good progress; revise past papers regularly.",
+       "class_avg": 62
+      },
+      {
+       "code": "ENG",
+       "name": "English Language",
+       "teacher": "Mrs C. Binda",
+       "ca": 32,
+       "exam": 50,
+       "total": 82,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 60
+      },
+      {
+       "code": "SHO",
+       "name": "ChiShona",
+       "teacher": "Mr K. Mutasa",
+       "ca": 30,
+       "exam": 46,
+       "total": 76,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 59
+      },
+      {
+       "code": "SCI",
+       "name": "Combined Science",
+       "teacher": "Ms J. Chikore",
+       "ca": 36,
+       "exam": 51,
+       "total": 87,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 60
+      },
+      {
+       "code": "CSC",
+       "name": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "ca": 33,
+       "exam": 47,
+       "total": 80,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 64
+      },
+      {
+       "code": "GEO",
+       "name": "Geography",
+       "teacher": "Mrs F. Dube",
+       "ca": 28,
+       "exam": 42,
+       "total": 70,
+       "grade": "B",
+       "comment": "Strong grasp of the topic, well done.",
+       "class_avg": 64
+      },
+      {
+       "code": "HIS",
+       "name": "History",
+       "teacher": "Mr A. Sibanda",
+       "ca": 32,
+       "exam": 50,
+       "total": 82,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 57
+      },
+      {
+       "code": "HER",
+       "name": "Heritage Studies",
+       "teacher": "Mrs F. Dube",
+       "ca": 28,
+       "exam": 42,
+       "total": 70,
+       "grade": "B",
+       "comment": "Strong grasp of the topic, well done.",
+       "class_avg": 61
+      },
+      {
+       "code": "BAK",
+       "name": "Bakery & Food Production",
+       "teacher": "Mrs L. Moyo",
+       "ca": 37,
+       "exam": 51,
+       "total": 88,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 61
+      }
+     ]
+    },
+    {
+     "term": "T2-2027",
+     "label": "Term 2 · 2027",
+     "published": false,
+     "subjects": [
+      {
+       "code": "MAT",
+       "name": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "ca": 28,
+       "exam": 41,
+       "total": 69,
+       "grade": "B",
+       "comment": "Strong grasp of the topic, well done.",
+       "class_avg": 56
+      },
+      {
+       "code": "ENG",
+       "name": "English Language",
+       "teacher": "Mrs C. Binda",
+       "ca": 33,
+       "exam": 51,
+       "total": 84,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 60
+      },
+      {
+       "code": "SHO",
+       "name": "ChiShona",
+       "teacher": "Mr K. Mutasa",
+       "ca": 29,
+       "exam": 43,
+       "total": 72,
+       "grade": "B",
+       "comment": "Very good effort; push for an A with more practice.",
+       "class_avg": 59
+      },
+      {
+       "code": "SCI",
+       "name": "Combined Science",
+       "teacher": "Ms J. Chikore",
+       "ca": 35,
+       "exam": 54,
+       "total": 89,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 64
+      },
+      {
+       "code": "CSC",
+       "name": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "ca": 33,
+       "exam": 49,
+       "total": 82,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 60
+      },
+      {
+       "code": "GEO",
+       "name": "Geography",
+       "teacher": "Mrs F. Dube",
+       "ca": 29,
+       "exam": 46,
+       "total": 75,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 62
+      },
+      {
+       "code": "HIS",
+       "name": "History",
+       "teacher": "Mr A. Sibanda",
+       "ca": 34,
+       "exam": 49,
+       "total": 83,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 59
+      },
+      {
+       "code": "HER",
+       "name": "Heritage Studies",
+       "teacher": "Mrs F. Dube",
+       "ca": 33,
+       "exam": 46,
+       "total": 79,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 56
+      },
+      {
+       "code": "BAK",
+       "name": "Bakery & Food Production",
+       "teacher": "Mrs L. Moyo",
+       "ca": 35,
+       "exam": 52,
+       "total": 87,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 57
+      }
+     ]
+    }
+   ],
+   "attendance": [
+    {
+     "date": "2027-01-11",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-12",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-13",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-14",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-15",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-18",
+     "status": "late"
+    },
+    {
+     "date": "2027-01-19",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-20",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-21",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-22",
+     "status": "late"
+    },
+    {
+     "date": "2027-01-25",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-26",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-27",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-28",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-29",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-01",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-02",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-03",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-04",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-05",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-08",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-09",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-10",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-11",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-12",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-15",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-16",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-17",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-18",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-19",
+     "status": "late"
+    },
+    {
+     "date": "2027-02-22",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-23",
+     "status": "late"
+    },
+    {
+     "date": "2027-02-24",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-25",
+     "status": "late"
+    },
+    {
+     "date": "2027-02-26",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-01",
+     "status": "absent"
+    },
+    {
+     "date": "2027-03-02",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-03",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-04",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-05",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-08",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-09",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-10",
+     "status": "present"
+    }
+   ],
+   "timetable": [
+    {
+     "day": "Mon",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 1"
+      },
+      {
+       "start": "08:20",
+       "code": "SHO",
+       "subject": "ChiShona",
+       "teacher": "Mr K. Mutasa",
+       "room": "Room 2"
+      },
+      {
+       "start": "09:10",
+       "code": "CSC",
+       "subject": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "room": "Room 3"
+      },
+      {
+       "start": "10:20",
+       "code": "HIS",
+       "subject": "History",
+       "teacher": "Mr A. Sibanda",
+       "room": "Room 4"
+      },
+      {
+       "start": "11:10",
+       "code": "BAK",
+       "subject": "Bakery & Food Production",
+       "teacher": "Mrs L. Moyo",
+       "room": "Room 5"
+      },
+      {
+       "start": "12:00",
+       "code": "ENG",
+       "subject": "English Language",
+       "teacher": "Mrs C. Binda",
+       "room": "Room 6"
+      },
+      {
+       "start": "14:00",
+       "code": "SCI",
+       "subject": "Combined Science",
+       "teacher": "Ms J. Chikore",
+       "room": "Room 1"
+      }
+     ]
+    },
+    {
+     "day": "Tue",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "SCI",
+       "subject": "Combined Science",
+       "teacher": "Ms J. Chikore",
+       "room": "Room 2"
+      },
+      {
+       "start": "08:20",
+       "code": "GEO",
+       "subject": "Geography",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 3"
+      },
+      {
+       "start": "09:10",
+       "code": "HER",
+       "subject": "Heritage Studies",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 4"
+      },
+      {
+       "start": "10:20",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 5"
+      },
+      {
+       "start": "11:10",
+       "code": "SHO",
+       "subject": "ChiShona",
+       "teacher": "Mr K. Mutasa",
+       "room": "Room 6"
+      },
+      {
+       "start": "12:00",
+       "code": "CSC",
+       "subject": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "room": "Room 1"
+      },
+      {
+       "start": "14:00",
+       "code": "HIS",
+       "subject": "History",
+       "teacher": "Mr A. Sibanda",
+       "room": "Workshop"
+      }
+     ]
+    },
+    {
+     "day": "Wed",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "HIS",
+       "subject": "History",
+       "teacher": "Mr A. Sibanda",
+       "room": "Room 3"
+      },
+      {
+       "start": "08:20",
+       "code": "BAK",
+       "subject": "Bakery & Food Production",
+       "teacher": "Mrs L. Moyo",
+       "room": "Room 4"
+      },
+      {
+       "start": "09:10",
+       "code": "ENG",
+       "subject": "English Language",
+       "teacher": "Mrs C. Binda",
+       "room": "Room 5"
+      },
+      {
+       "start": "10:20",
+       "code": "SCI",
+       "subject": "Combined Science",
+       "teacher": "Ms J. Chikore",
+       "room": "Room 6"
+      },
+      {
+       "start": "11:10",
+       "code": "GEO",
+       "subject": "Geography",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 1"
+      },
+      {
+       "start": "12:00",
+       "code": "HER",
+       "subject": "Heritage Studies",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 2"
+      },
+      {
+       "start": "14:00",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 3"
+      }
+     ]
+    },
+    {
+     "day": "Thu",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 4"
+      },
+      {
+       "start": "08:20",
+       "code": "SHO",
+       "subject": "ChiShona",
+       "teacher": "Mr K. Mutasa",
+       "room": "Room 5"
+      },
+      {
+       "start": "09:10",
+       "code": "CSC",
+       "subject": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "room": "Room 6"
+      },
+      {
+       "start": "10:20",
+       "code": "HIS",
+       "subject": "History",
+       "teacher": "Mr A. Sibanda",
+       "room": "Room 1"
+      },
+      {
+       "start": "11:10",
+       "code": "BAK",
+       "subject": "Bakery & Food Production",
+       "teacher": "Mrs L. Moyo",
+       "room": "Room 2"
+      },
+      {
+       "start": "12:00",
+       "code": "ENG",
+       "subject": "English Language",
+       "teacher": "Mrs C. Binda",
+       "room": "Room 3"
+      },
+      {
+       "start": "14:00",
+       "code": "SCI",
+       "subject": "Combined Science",
+       "teacher": "Ms J. Chikore",
+       "room": "Workshop"
+      }
+     ]
+    },
+    {
+     "day": "Fri",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "SCI",
+       "subject": "Combined Science",
+       "teacher": "Ms J. Chikore",
+       "room": "Room 5"
+      },
+      {
+       "start": "08:20",
+       "code": "GEO",
+       "subject": "Geography",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 6"
+      },
+      {
+       "start": "09:10",
+       "code": "HER",
+       "subject": "Heritage Studies",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 1"
+      },
+      {
+       "start": "10:20",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 2"
+      },
+      {
+       "start": "11:10",
+       "code": "SHO",
+       "subject": "ChiShona",
+       "teacher": "Mr K. Mutasa",
+       "room": "Room 3"
+      },
+      {
+       "start": "12:00",
+       "code": "CSC",
+       "subject": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "room": "Room 4"
+      },
+      {
+       "start": "14:00",
+       "code": "HIS",
+       "subject": "History",
+       "teacher": "Mr A. Sibanda",
+       "room": "Room 5"
+      }
+     ]
+    }
+   ],
+   "skills": [
+    {
+     "form": 1,
+     "trade": "Bakery & Food Production",
+     "status": "active",
+     "progress": 0.72,
+     "badge": "Bread & pastry basics"
+    },
+    {
+     "form": 2,
+     "trade": "Arc & Gas Welding",
+     "status": "locked",
+     "progress": 0
+    },
+    {
+     "form": 3,
+     "trade": "Solar PV Installation",
+     "status": "locked",
+     "progress": 0
+    },
+    {
+     "form": 4,
+     "trade": "Carpentry & Joinery",
+     "status": "locked",
+     "progress": 0
+    },
+    {
+     "form": 5,
+     "trade": "Cosmetology & Design",
+     "status": "locked",
+     "progress": 0
+    }
+   ],
+   "assignments": [
+    {
+     "id": "a1",
+     "subject": "Mathematics",
+     "title": "Algebra exercise 4B (Q1–20)",
+     "due": "2027-03-11",
+     "status": "pending"
+    },
+    {
+     "id": "a2",
+     "subject": "Combined Science",
+     "title": "Lab report: separating mixtures",
+     "due": "2027-03-12",
+     "status": "pending"
+    },
+    {
+     "id": "a3",
+     "subject": "English Language",
+     "title": "Composition: “My first week at Royal Crest”",
+     "due": "2027-03-15",
+     "status": "pending"
+    },
+    {
+     "id": "a4",
+     "subject": "Bakery & Food Production",
+     "title": "Practical: bread rolls (bring an apron)",
+     "due": "2027-03-16",
+     "status": "pending"
+    },
+    {
+     "id": "a5",
+     "subject": "History",
+     "title": "Great Zimbabwe timeline",
+     "due": "2027-03-08",
+     "status": "submitted"
+    }
+   ],
+   "fees": {
+    "currency": "USD",
+    "term": "Term 1 · 2027",
+    "due": "2027-01-15",
+    "lines": [
+     [
+      "Tuition",
+      250
+     ],
+     [
+      "Development levy (SDC)",
+      150
+     ],
+     [
+      "Boarding",
+      300
+     ],
+     [
+      "Practicals",
+      100
+     ],
+     [
+      "Science",
+      50
+     ]
+    ],
+    "invoiced": 850,
+    "paid": 600,
+    "balance": 250,
+    "payments": [
+     {
+      "date": "2027-01-08",
+      "amount": 400,
+      "ref": "RC-0091",
+      "method": "EcoCash"
+     },
+     {
+      "date": "2027-02-12",
+      "amount": 200,
+      "ref": "RC-0178",
+      "method": "Bank transfer"
+     }
+    ]
+   }
+  },
+  "RCA-27-0087": {
+   "id": "RCA-27-0087",
+   "admission_no": "RCA-27-0087",
+   "name": "Rufaro Moyo",
+   "first": "Rufaro",
+   "form": "Form 3",
+   "stream": "3 Gold",
+   "house": "Mutirikwi",
+   "residence": "Boarder",
+   "hostel": "Block B",
+   "class_teacher": "Mr R. Zhou",
+   "xp": 2980,
+   "level": 9,
+   "next_level_xp": 3200,
+   "merits": 26,
+   "demerits": 0,
+   "position": 3,
+   "class_size": 34,
+   "trend": [
+    {
+     "label": "Wk 2",
+     "avg": 66
+    },
+    {
+     "label": "Wk 4",
+     "avg": 69
+    },
+    {
+     "label": "Wk 6",
+     "avg": 71
+    },
+    {
+     "label": "Wk 8",
+     "avg": 70
+    },
+    {
+     "label": "Mid",
+     "avg": 74
+    },
+    {
+     "label": "Wk 10",
+     "avg": 76
+    },
+    {
+     "label": "Wk 12",
+     "avg": 77
+    }
+   ],
+   "results": [
+    {
+     "term": "T1-2027",
+     "label": "Term 1 · 2027",
+     "published": true,
+     "subjects": [
+      {
+       "code": "MAT",
+       "name": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "ca": 32,
+       "exam": 48,
+       "total": 80,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 55
+      },
+      {
+       "code": "ENG",
+       "name": "English Language",
+       "teacher": "Mrs C. Binda",
+       "ca": 35,
+       "exam": 49,
+       "total": 84,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 64
+      },
+      {
+       "code": "CHE",
+       "name": "Chemistry",
+       "teacher": "Ms J. Chikore",
+       "ca": 31,
+       "exam": 47,
+       "total": 78,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 65
+      },
+      {
+       "code": "PHY",
+       "name": "Physics",
+       "teacher": "Mr R. Zhou",
+       "ca": 38,
+       "exam": 57,
+       "total": 95,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 64
+      },
+      {
+       "code": "BIO",
+       "name": "Biology",
+       "teacher": "Ms N. Hove",
+       "ca": 33,
+       "exam": 50,
+       "total": 83,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 61
+      },
+      {
+       "code": "CSC",
+       "name": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "ca": 30,
+       "exam": 46,
+       "total": 76,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 62
+      },
+      {
+       "code": "GEO",
+       "name": "Geography",
+       "teacher": "Mrs F. Dube",
+       "ca": 35,
+       "exam": 53,
+       "total": 88,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 65
+      },
+      {
+       "code": "ACC",
+       "name": "Principles of Accounts",
+       "teacher": "Mr S. Banda",
+       "ca": 34,
+       "exam": 52,
+       "total": 86,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 61
+      },
+      {
+       "code": "SPV",
+       "name": "Solar PV Installation",
+       "teacher": "Eng. T. Mhlanga",
+       "ca": 36,
+       "exam": 55,
+       "total": 91,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 64
+      }
+     ]
+    },
+    {
+     "term": "T2-2027",
+     "label": "Term 2 · 2027",
+     "published": false,
+     "subjects": [
+      {
+       "code": "MAT",
+       "name": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "ca": 30,
+       "exam": 47,
+       "total": 77,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 62
+      },
+      {
+       "code": "ENG",
+       "name": "English Language",
+       "teacher": "Mrs C. Binda",
+       "ca": 37,
+       "exam": 56,
+       "total": 93,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 59
+      },
+      {
+       "code": "CHE",
+       "name": "Chemistry",
+       "teacher": "Ms J. Chikore",
+       "ca": 33,
+       "exam": 51,
+       "total": 84,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 57
+      },
+      {
+       "code": "PHY",
+       "name": "Physics",
+       "teacher": "Mr R. Zhou",
+       "ca": 39,
+       "exam": 59,
+       "total": 98,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 59
+      },
+      {
+       "code": "BIO",
+       "name": "Biology",
+       "teacher": "Ms N. Hove",
+       "ca": 35,
+       "exam": 53,
+       "total": 88,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 64
+      },
+      {
+       "code": "CSC",
+       "name": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "ca": 34,
+       "exam": 47,
+       "total": 81,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 61
+      },
+      {
+       "code": "GEO",
+       "name": "Geography",
+       "teacher": "Mrs F. Dube",
+       "ca": 40,
+       "exam": 56,
+       "total": 96,
+       "grade": "A",
+       "comment": "Outstanding work, keep leading the class.",
+       "class_avg": 56
+      },
+      {
+       "code": "ACC",
+       "name": "Principles of Accounts",
+       "teacher": "Mr S. Banda",
+       "ca": 31,
+       "exam": 46,
+       "total": 77,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 64
+      },
+      {
+       "code": "SPV",
+       "name": "Solar PV Installation",
+       "teacher": "Eng. T. Mhlanga",
+       "ca": 37,
+       "exam": 56,
+       "total": 93,
+       "grade": "A",
+       "comment": "Excellent understanding and neat presentation.",
+       "class_avg": 57
+      }
+     ]
+    }
+   ],
+   "attendance": [
+    {
+     "date": "2027-01-11",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-12",
+     "status": "excused"
+    },
+    {
+     "date": "2027-01-13",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-14",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-15",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-18",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-19",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-20",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-21",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-22",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-25",
+     "status": "late"
+    },
+    {
+     "date": "2027-01-26",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-27",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-28",
+     "status": "present"
+    },
+    {
+     "date": "2027-01-29",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-01",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-02",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-03",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-04",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-05",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-08",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-09",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-10",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-11",
+     "status": "excused"
+    },
+    {
+     "date": "2027-02-12",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-15",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-16",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-17",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-18",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-19",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-22",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-23",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-24",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-25",
+     "status": "present"
+    },
+    {
+     "date": "2027-02-26",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-01",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-02",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-03",
+     "status": "late"
+    },
+    {
+     "date": "2027-03-04",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-05",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-08",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-09",
+     "status": "present"
+    },
+    {
+     "date": "2027-03-10",
+     "status": "present"
+    }
+   ],
+   "timetable": [
+    {
+     "day": "Mon",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 1"
+      },
+      {
+       "start": "08:20",
+       "code": "CHE",
+       "subject": "Chemistry",
+       "teacher": "Ms J. Chikore",
+       "room": "Room 2"
+      },
+      {
+       "start": "09:10",
+       "code": "BIO",
+       "subject": "Biology",
+       "teacher": "Ms N. Hove",
+       "room": "Room 3"
+      },
+      {
+       "start": "10:20",
+       "code": "GEO",
+       "subject": "Geography",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 4"
+      },
+      {
+       "start": "11:10",
+       "code": "SPV",
+       "subject": "Solar PV Installation",
+       "teacher": "Eng. T. Mhlanga",
+       "room": "Room 5"
+      },
+      {
+       "start": "12:00",
+       "code": "ENG",
+       "subject": "English Language",
+       "teacher": "Mrs C. Binda",
+       "room": "Room 6"
+      },
+      {
+       "start": "14:00",
+       "code": "PHY",
+       "subject": "Physics",
+       "teacher": "Mr R. Zhou",
+       "room": "Room 1"
+      }
+     ]
+    },
+    {
+     "day": "Tue",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "PHY",
+       "subject": "Physics",
+       "teacher": "Mr R. Zhou",
+       "room": "Room 2"
+      },
+      {
+       "start": "08:20",
+       "code": "CSC",
+       "subject": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "room": "Room 3"
+      },
+      {
+       "start": "09:10",
+       "code": "ACC",
+       "subject": "Principles of Accounts",
+       "teacher": "Mr S. Banda",
+       "room": "Room 4"
+      },
+      {
+       "start": "10:20",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 5"
+      },
+      {
+       "start": "11:10",
+       "code": "CHE",
+       "subject": "Chemistry",
+       "teacher": "Ms J. Chikore",
+       "room": "Room 6"
+      },
+      {
+       "start": "12:00",
+       "code": "BIO",
+       "subject": "Biology",
+       "teacher": "Ms N. Hove",
+       "room": "Room 1"
+      },
+      {
+       "start": "14:00",
+       "code": "GEO",
+       "subject": "Geography",
+       "teacher": "Mrs F. Dube",
+       "room": "Workshop"
+      }
+     ]
+    },
+    {
+     "day": "Wed",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "GEO",
+       "subject": "Geography",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 3"
+      },
+      {
+       "start": "08:20",
+       "code": "SPV",
+       "subject": "Solar PV Installation",
+       "teacher": "Eng. T. Mhlanga",
+       "room": "Room 4"
+      },
+      {
+       "start": "09:10",
+       "code": "ENG",
+       "subject": "English Language",
+       "teacher": "Mrs C. Binda",
+       "room": "Room 5"
+      },
+      {
+       "start": "10:20",
+       "code": "PHY",
+       "subject": "Physics",
+       "teacher": "Mr R. Zhou",
+       "room": "Room 6"
+      },
+      {
+       "start": "11:10",
+       "code": "CSC",
+       "subject": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "room": "Room 1"
+      },
+      {
+       "start": "12:00",
+       "code": "ACC",
+       "subject": "Principles of Accounts",
+       "teacher": "Mr S. Banda",
+       "room": "Room 2"
+      },
+      {
+       "start": "14:00",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 3"
+      }
+     ]
+    },
+    {
+     "day": "Thu",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 4"
+      },
+      {
+       "start": "08:20",
+       "code": "CHE",
+       "subject": "Chemistry",
+       "teacher": "Ms J. Chikore",
+       "room": "Room 5"
+      },
+      {
+       "start": "09:10",
+       "code": "BIO",
+       "subject": "Biology",
+       "teacher": "Ms N. Hove",
+       "room": "Room 6"
+      },
+      {
+       "start": "10:20",
+       "code": "GEO",
+       "subject": "Geography",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 1"
+      },
+      {
+       "start": "11:10",
+       "code": "SPV",
+       "subject": "Solar PV Installation",
+       "teacher": "Eng. T. Mhlanga",
+       "room": "Room 2"
+      },
+      {
+       "start": "12:00",
+       "code": "ENG",
+       "subject": "English Language",
+       "teacher": "Mrs C. Binda",
+       "room": "Room 3"
+      },
+      {
+       "start": "14:00",
+       "code": "PHY",
+       "subject": "Physics",
+       "teacher": "Mr R. Zhou",
+       "room": "Workshop"
+      }
+     ]
+    },
+    {
+     "day": "Fri",
+     "periods": [
+      {
+       "start": "07:30",
+       "code": "PHY",
+       "subject": "Physics",
+       "teacher": "Mr R. Zhou",
+       "room": "Room 5"
+      },
+      {
+       "start": "08:20",
+       "code": "CSC",
+       "subject": "Computer Science",
+       "teacher": "Mr P. Ndlovu",
+       "room": "Room 6"
+      },
+      {
+       "start": "09:10",
+       "code": "ACC",
+       "subject": "Principles of Accounts",
+       "teacher": "Mr S. Banda",
+       "room": "Room 1"
+      },
+      {
+       "start": "10:20",
+       "code": "MAT",
+       "subject": "Mathematics",
+       "teacher": "Mr T. Gama",
+       "room": "Room 2"
+      },
+      {
+       "start": "11:10",
+       "code": "CHE",
+       "subject": "Chemistry",
+       "teacher": "Ms J. Chikore",
+       "room": "Room 3"
+      },
+      {
+       "start": "12:00",
+       "code": "BIO",
+       "subject": "Biology",
+       "teacher": "Ms N. Hove",
+       "room": "Room 4"
+      },
+      {
+       "start": "14:00",
+       "code": "GEO",
+       "subject": "Geography",
+       "teacher": "Mrs F. Dube",
+       "room": "Room 5"
+      }
+     ]
+    }
+   ],
+   "skills": [
+    {
+     "form": 1,
+     "trade": "Bakery & Food Production",
+     "status": "done",
+     "progress": 1,
+     "badge": "Certified baker (internal)"
+    },
+    {
+     "form": 2,
+     "trade": "Arc & Gas Welding",
+     "status": "done",
+     "progress": 1,
+     "badge": "Safe welding practice"
+    },
+    {
+     "form": 3,
+     "trade": "Solar PV Installation",
+     "status": "active",
+     "progress": 0.41,
+     "badge": "Panel wiring basics"
+    },
+    {
+     "form": 4,
+     "trade": "Carpentry & Joinery",
+     "status": "locked",
+     "progress": 0
+    },
+    {
+     "form": 5,
+     "trade": "Cosmetology & Design",
+     "status": "locked",
+     "progress": 0
+    }
+   ],
+   "assignments": [
+    {
+     "id": "b1",
+     "subject": "Chemistry",
+     "title": "Titration practical write-up",
+     "due": "2027-03-11",
+     "status": "pending"
+    },
+    {
+     "id": "b2",
+     "subject": "Physics",
+     "title": "Ohm’s law worksheet",
+     "due": "2027-03-13",
+     "status": "pending"
+    },
+    {
+     "id": "b3",
+     "subject": "Solar PV Installation",
+     "title": "Wiring diagram: 2-panel system",
+     "due": "2027-03-17",
+     "status": "pending"
+    }
+   ],
+   "fees": {
+    "currency": "USD",
+    "term": "Term 1 · 2027",
+    "due": "2027-01-15",
+    "lines": [
+     [
+      "Tuition",
+      250
+     ],
+     [
+      "Development levy (SDC)",
+      150
+     ],
+     [
+      "Boarding",
+      300
+     ],
+     [
+      "Practicals",
+      100
+     ],
+     [
+      "Science",
+      50
+     ]
+    ],
+    "invoiced": 850,
+    "paid": 850,
+    "balance": 0,
+    "payments": [
+     {
+      "date": "2027-01-06",
+      "amount": 850,
+      "ref": "RC-0042",
+      "method": "Bank transfer"
+     }
+    ]
+   }
+  }
+ },
+ "notices": [
+  {
+   "id": "n1",
+   "date": "2027-03-09",
+   "title": "Visiting Sunday: 14 March",
+   "body": "Parents may visit boarders from 10:00 to 15:00. Please sign in at the gate.",
+   "tag": "Boarding"
+  },
+  {
+   "id": "n2",
+   "date": "2027-03-05",
+   "title": "Mid-term reports published",
+   "body": "Term 1 mid-term results are now available in the Results tab.",
+   "tag": "Academics"
+  },
+  {
+   "id": "n3",
+   "date": "2027-03-01",
+   "title": "Science fair: entries open",
+   "body": "Learners may enter projects in Chemistry, Physics and Robotics. Deadline 26 March.",
+   "tag": "Clubs"
+  }
+ ]
+}

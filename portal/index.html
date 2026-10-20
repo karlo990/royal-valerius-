@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crest Quest · Royal Crest Academy portal</title>
+<meta name="description" content="Crest Quest: the Royal Crest Academy portal for learners and parents. Marks, attendance, homework, timetable, skills and fees, with Kudzi the Crestbot.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0C1638">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/portal/css/portal.css">
+</head>
+<body>
+
+<section class="signin" id="signin" hidden>
+  <div class="si-brand">
+    <a class="logo" href="/"><img src="/assets/img/crest-128.webp" alt=""><span><b>Crest Quest</b><small>Royal Crest Academy</small></span></a>
+    <div class="si-hero">
+      <h1>Your progress,<br><em>unlocked.</em></h1>
+      <p>The Royal Crest Academy portal for learners and parents. See marks, attendance, homework, timetable, skills and fees in one place, with Kudzi the Crestbot to help.</p>
+      <div class="si-bot"><canvas class="px" id="si-bot" width="130"></canvas><div class="speech">Mhoro! I'm <b>Kudzi</b>, your Crestbot. Sign in and ask me how you're doing.</div></div>
+    </div>
+    <div class="hud"><span>Science</span><span>Innovation</span><span>Skill</span><span>Intake 2027</span></div>
+  </div>
+  <div class="si-form">
+    <div class="si-card">
+      <h2>Sign in</h2>
+      <p>Use the details the school office gave you.</p>
+      <div class="seg" role="group" aria-label="I am a"><button type="button" data-role="parent" aria-pressed="true">Parent / guardian</button><button type="button" data-role="learner" aria-pressed="false">Learner</button></div>
+      <form id="si-form" novalidate>
+        <label class="field"><span id="si-id-label">Parent phone number</span><input id="si-id" name="identifier" autocomplete="username" required></label>
+        <label class="field"><span>PIN</span><input id="si-pin" name="pin" type="password" inputmode="numeric" autocomplete="current-password" required></label>
+        <div class="si-err" id="si-err" role="alert"></div>
+        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+      <p class="si-help">Forgot your PIN? Call or WhatsApp the school office on <a href="tel:+263714404090">+263 714 404 090</a>.</p>
+      <div class="demo" id="demo" hidden>
+        <h3>Try the demo</h3>
+        <p>Sample data only. Parent: <code>0771234567</code> · Learner: <code>RCA-27-0142</code> · PIN <code>2027</code></p>
+        <div class="row"><button class="btn btn-gold btn-sm" type="button" data-demo="parent">Demo as a parent</button><button class="btn btn-ghost btn-sm" type="button" data-demo="learner">Demo as a learner</button></div>
+      </div>
+      <a class="back-home" href="/">← Back to the Royal Crest Academy website</a>
+    </div>
+  </div>
+</section>
+
+<div class="app" id="app" hidden></div>
+
+<script src="/portal/js/config.js"></script>
+<script src="/portal/js/mock.js"></script>
+<script src="/portal/js/api.js"></script>
+<script src="/portal/js/charts.js"></script>
+<script src="/portal/js/crestbot.js"></script>
+<script src="/portal/js/app.js"></script>
+</body>
+</html>
