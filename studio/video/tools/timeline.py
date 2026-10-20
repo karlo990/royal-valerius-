@@ -5,7 +5,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 S = json.load(open(ROOT / "script.json"))
 LEAD = {"open": 2.8}; TAIL = {"outro": 3.6, "parents": 0.4}
 GAP_LINE, GAP_SCENE = 0.28, 0.8
-HOLD_AFTER = {"l15": 0.6, "l22": 0.3, "l25": 0.3, "l29": 0.5, "l13": 0.3}
+HOLD_AFTER = {"l15": 0.5, "l22": 0.3, "l25": 0.3, "l29": 0.5, "l13": 0.3}
 
 def cjk(c): return '㐀' <= c <= '鿿'
 def estimate(text):
