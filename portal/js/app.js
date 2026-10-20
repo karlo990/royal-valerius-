@@ -52,7 +52,8 @@
       e.preventDefault();
       const btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Signing in…';
       try {
-        await API.login({ role, identifier: $('#si-id').value.replace(/\s/g, ''), password: $('#si-pin').value });
+        const ses = await API.login({ role, identifier: $('#si-id').value.replace(/\s/g, ''), password: $('#si-pin').value });
+        notifyNative({ type: 'rc-session', token: ses.token, user: ses.user });   // the app keeps you signed in
         $('#si-pin').value = ''; boot();
       } catch (ex) { $('#si-err').textContent = ex.message || 'Could not sign in.'; } finally { btn.disabled = false; btn.textContent = 'Sign in'; }
     };
@@ -63,6 +64,8 @@
     }));
     BOT.sprite($('#si-bot'));
     $('#go-register').onclick = () => openRegister();
+    setTimeout(() => appPopup(false), 1200);
+    const ga = $('#get-app'); if (ga) ga.onclick = () => appPopup(true);
     $('#go-status').onclick = () => openStatus();
     $$('[data-back]').forEach((b) => (b.onclick = () => showCard('si-card')));
   }
@@ -137,8 +140,9 @@
 
   /* ───────────── app shell ───────────── */
   async function boot() {
-    const hs = location.hash.match(/session=([^&]+)/);
-    if (hs) { API.setSession({ token: decodeURIComponent(hs[1]), user: null }); history.replaceState(null, '', location.pathname + location.search + '#/overview'); }
+    const hs = location.hash.match(/session=([^&]+)/), hr = location.hash.match(/route=([a-z]+)/);
+    if (hs) { API.setSession({ token: decodeURIComponent(hs[1]), user: null }); history.replaceState(null, '', `${location.pathname}${location.search}#/${hr ? hr[1] : 'overview'}`); }
+    if (location.hash === '#register' && !API.session) { showSignin(); history.replaceState(null, '', location.pathname + location.search); return openRegister(); }
     if (!API.session) return showSignin();
     try { state.user = await API.me(); } catch (e) { return showSignin(); }
     state.ids = state.user.students; state.id = state.id && state.ids.includes(state.id) ? state.id : state.ids[0];
@@ -157,7 +161,7 @@
       <aside class="side">
         <a class="logo" href="${C.SITE}"><img src="/assets/img/crest-128.webp" alt=""><span><b>Crest Quest</b><small>Royal Crest Academy</small></span></a>
         <nav class="nav" aria-label="Portal">${nav}</nav>
-        <div class="side-app"><b>On your phone?</b>Get alerts for marks, notices and fees in the Royal Crest Connect app.<br><a href="${C.APP_DEEP_LINK}/overview">Open the app →</a></div>
+        <div class="side-app"><b>On your phone?</b>Get alerts for marks, notices and fees in the Royal Crest Connect app.<br><a href="#" id="side-app">Get the RCA Portal app →</a></div>
         <div class="side-links">${API.live() && !state.user.preview ? '<button type="button" id="chpw">Change my password</button>' : ''}</div>
         <button class="signout" type="button">Sign out · ${esc(state.user.name)}</button>
       </aside>
@@ -173,7 +177,8 @@
       <nav class="tabbar" aria-label="Sections">${TABS.map((k) => `<a href="#/${k}" data-r="${k}">${icon(k)}<span>${ROUTES.find((r) => r[0] === k)[1]}</span></a>`).join('')}</nav>`;
     if (state.user.preview) $('.main').insertAdjacentHTML('afterbegin', '<div class="preview-bar">Staff preview: this is exactly what the family sees (read-only, ends in one hour)</div>');
     const cp = $('#chpw'); if (cp) cp.onclick = changePassword;
-    $('.signout').onclick = async () => { await API.logout(); state.cache = {}; location.hash = ''; showSignin(); };
+    const sa = $('#side-app'); if (sa) sa.onclick = (e) => { e.preventDefault(); appPopup(true); };
+    $('.signout').onclick = async () => { await API.logout(); state.cache = {}; location.hash = ''; notifyNative({ type: 'rc-signed-out', reason: '' }); showSignin(); };
     $('.search').onclick = palette;
     $$('.kid').forEach((b) => (b.onclick = async () => { state.id = b.dataset.id; await loadStudent(state.id); if (state.bot) state.bot.reset(); route(); }));
   }
@@ -217,7 +222,7 @@
     notifyNative({ type: 'rc-route', route: r[0] });
   }
   window.addEventListener('hashchange', route);
-  window.addEventListener('rc:signed-out', () => showSignin('Your session ended. Please sign in again.'));
+  window.addEventListener('rc:signed-out', () => { notifyNative({ type: 'rc-signed-out', reason: 'expired' }); showSignin('Your session ended. Please sign in again.'); });
 
   /* ───────────── views ───────────── */
   const avg = (subs) => Math.round(subs.reduce((a, b) => a + b.total, 0) / (subs.length || 1));
@@ -327,6 +332,33 @@
     if (row) { const p = row.periods.find((q) => q.start >= now); if (p) return { ...p, today: true }; }
     return { ...S().timetable[0].periods[0], today: false };
   }
+
+  /* ───────────── "Get the app" popup (blurred) ───────────── */
+  const APK = '/downloads/rca-portal.apk';
+  const isAndroid = /Android/i.test(navigator.userAgent), isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  function appPopup(force) {
+    if (C.EMBED || $('.getapp')) return;
+    let seen = 0; try { seen = Number(localStorage.getItem('rc_app_popup') || 0); } catch (e) { /* private */ }
+    if (!force && Date.now() - seen < 14 * 864e5) return;
+    const box = document.createElement('div'); box.className = 'getapp'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'Get the RCA Portal app');
+    const ios = isIOS && !isAndroid;
+    box.innerHTML = `<div class="ga-card">
+      <button class="ga-x" type="button" aria-label="Close">✕</button>
+      <div class="ga-icon"><img src="/assets/img/crest-128.webp" alt=""></div>
+      <h2>RCA Portal<br><em>in your pocket</em></h2>
+      <p>Your child's marks, attendance, homework and fees, with Kudzi, in one tap. Sign in once and stay signed in.</p>
+      <ul class="ga-points"><li>No account to create: admission number + your phone</li><li>Updates the moment the school posts them</li><li>Tiny download: under 2 MB</li></ul>
+      ${ios ? `<div class="ga-ios"><b>On iPhone:</b> tap <span class="ga-share">Share ⬆︎</span> below, then <b>Add to Home Screen</b>. It opens like an app.</div>`
+            : `<a class="btn btn-primary btn-block ga-dl" href="${APK}" download="RCA-Portal.apk">⬇︎ Download for Android (APK)</a>
+               <p class="ga-help">After downloading, open the file and allow “Install unknown apps” for your browser once. The app is signed by Royal Crest Academy.</p>`}
+      <button class="ga-later" type="button">Maybe later</button></div>`;
+    document.body.appendChild(box);
+    requestAnimationFrame(() => box.classList.add('on'));
+    const close = () => { try { localStorage.setItem('rc_app_popup', String(Date.now())); } catch (e) { /* private */ } box.classList.remove('on'); setTimeout(() => box.remove(), 250); };
+    $('.ga-x', box).onclick = close; $('.ga-later', box).onclick = close; box.onclick = (e) => { if (e.target === box) close(); };
+    const dl = $('.ga-dl', box); if (dl) dl.addEventListener('click', () => setTimeout(close, 400));
+  }
+  window.RC_APP_POPUP = appPopup;
 
   /* ───────────── live updates from the hub ───────────── */
   function toast(msg) { const t = document.createElement('div'); t.className = 'toast-rc'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 5000); }
