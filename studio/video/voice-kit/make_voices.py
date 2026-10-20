@@ -20,6 +20,10 @@ def api_key():
         for line in env.read_text(encoding="utf-8").splitlines():
             if line.startswith("ELEVENLABS_API_KEY="):
                 key = line.split("=", 1)[1].strip()
+    if not key and not sys.stdin.isatty():
+        sys.exit("No API key found, and this window can't ask for one (PowerShell ISE can't).\n"
+                 "Either double-click make_voices.bat, or run:\n"
+                 '  $env:ELEVENLABS_API_KEY="YOUR_KEY"; py make_voices.py')
     if not key:
         key = input("Paste your ElevenLabs API key and press Enter: ").strip()
     if not key:
@@ -75,5 +79,5 @@ if __name__ == "__main__":
     try:
         main()
     finally:
-        if os.name == "nt" and not os.environ.get("NO_PAUSE"):
+        if os.name == "nt" and not os.environ.get("NO_PAUSE") and sys.stdin.isatty():
             input("Press Enter to close…")
