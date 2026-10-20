@@ -215,9 +215,10 @@ const S=720, C=S/2;
 function cover(ctx,im,zoom=1,ox=0,oy=0,alpha=1){ if(!im) return; ctx.save();ctx.globalAlpha*=alpha;
   const s=S*zoom; ctx.drawImage(im,C-s/2+ox,C-s/2+oy,s,s); ctx.restore()}
 async function clip(ctx,dir,f0,f1,u,zoom=1.04,alpha=1){ // u 0..1 across [f0,f1] with frame blending
-  const x=lerp(f0,f1,clamp(u)); const a=Math.floor(x), b=Math.min(f1,a+1), k=x-a;
+  const x=lerp(f0,f1,clamp(u)); const a=Math.floor(x), b=Math.min(Math.max(f0,f1),a+1), k=x-a;
   const [ia,ib]=await Promise.all([img(fr(dir,a)),img(fr(dir,b))]);
   cover(ctx,ia,zoom,0,0,alpha); if(k>0.01) cover(ctx,ib,zoom,0,0,alpha*k)}
+function layer(){const c=document.createElement('canvas');c.width=c.height=S;return{c,g:c.getContext('2d')}}
 async function photo(ctx,src,u,z0=1.02,z1=1.1,alpha=1){cover(ctx,await img(src),lerp(z0,z1,clamp(u)),0,0,alpha)}
 
 // Hanzi Writer stroke data → animated brush strokes (prog 0..1 over all strokes)
@@ -307,14 +308,15 @@ const SC={
        <div class="tli" data-on="${cue('l13','官')}"><span class="c two">官话</span><div><div class="y">GUĀNHUÀ</div><div class="t">“Speech of officials”</div><div class="d">The root of the word Mandarin</div></div></div></div>`,cue('l07','three')]],
    async lens(ctx,t,s){
      const marks=[['秦',cue('l09','秦')-.3,'秦始皇','Qín Shǐhuáng'],['汉',cue('l10','汉')-.3,'汉字','Hànzì'],['元',cue('l11'),'忽必烈','Kublai Khan'],['明',cue('l12','明')-.2,null],['官话',cue('l13','官')-.3,'官话','Guānhuà']];
-     if(t<marks[0][1]){await clip(ctx,'wall',150,1,(t-s.start)/(marks[0][1]-s.start),1.1);return}
-     let cur=marks.filter(m=>t>=m[1]).pop(); const k=(t-cur[1]);
-     if(cur[0]==='明'){await clip(ctx,'wall',300,454,k/((cue('l13','官')-.3)-cur[1]),1.06);
-       ctx.fillStyle='rgba(10,19,48,.0)';return}
-     lacquerDisc(ctx); const chars=[...cur[0]]; const size=chars.length>1?250:340, w=size*chars.length, x0=C-w/2, y0=chars.length>1?190:150;
-     chars.forEach((c,i)=>drawChar(ctx,c,x0+i*size,y0,size,(k-.1-i*.9)/1.2,'#F2D48A',{glow:'rgba(255,214,120,.5)',blur:26}));
-     if(cur[2]){ctx.save();ctx.globalAlpha=eo((k-1.2)/.5);ctx.textAlign='center';ctx.fillStyle='#F7E7BE';ctx.font='700 40px "Noto Serif SC"';ctx.fillText(cur[2],C,600);
-       ctx.font='italic 500 30px Newsreader';ctx.fillStyle='rgba(247,231,190,.8)';ctx.fillText(cur[3],C,640);ctx.restore()}},
+     const draw=async(g,i)=>{ // i=-1: Great Wall intro, else marks[i]
+       if(i<0){await clip(g,'wall',150,1,(t-s.start)/(marks[0][1]-s.start),1.1);return}
+       const cur=marks[i], k=t-cur[1];
+       if(cur[0]==='明'){await clip(g,'wall',300,454,k/((cue('l13','官')-.3)-cur[1]),1.06);return}
+       heritageMark(g,cur,k)};
+     let i=-1; marks.forEach((m,j)=>{if(t>=m[1])i=j});
+     const since=i<0?1e9:t-marks[i][1], X=.6;
+     if(i>=0&&since<X){await draw(ctx,i-1); const o=layer(); await draw(o.g,i); ctx.globalAlpha=eio(since/X); ctx.drawImage(o.c,0,0); ctx.globalAlpha=1}
+     else await draw(ctx,i)},
    update(t){document.querySelectorAll('.tli').forEach(e=>{const on=+e.dataset.on,k=eo((t-on)/.5);e.style.opacity=lerp(.32,1,k);e.classList.toggle('on',t>=on);
      e.querySelector('.c').style.transform=`scale(${1+.18*Math.max(0,1-Math.abs(t-on-.3)/.6)})`})}},
  tones:{nv:0,cta:1,tag:()=>'DAY 01',
@@ -360,13 +362,16 @@ const SC={
      [`<div class="bd" style="font-size:15px">See the picture first, then the strokes. That is how the memory sticks.</div>`,cue('l27','See')]],
    async lens(ctx,t,s){paperDisc(ctx); practiceGrid(ctx,150,150,420,'rgba(200,55,45,.35)');
      const it=[['人','l24','人'],['口','l25','口'],['木','l25','木'],['林','l25','林'],['日','l27','日']].map(([c,l,k])=>[c,cue(l,k)-.15]);
+     const item=(g,i)=>{ if(i<0){g.save();g.globalAlpha=.9;pict(g,'人',1);g.restore();return}
+       const [c,a]=it[i], k=t-a, nxt=it[i+1]?it[i+1][1]:1e9, dur=Math.min(nxt-a,2.4);
+       g.save();g.globalAlpha=1-eo(k/(dur*.45));pict(g,c,1);g.restore();
+       drawChar(g,c,170,170,380,(k-.15)/(dur*.75),'#13215a');
+       g.save();g.globalAlpha=eo((k-dur*.5)/.4);g.textAlign='center';g.font='italic 500 46px Newsreader';g.fillStyle='#C8372D';
+       g.fillText({人:'rén',口:'kǒu',木:'mù',林:'lín',日:'rì'}[c],C,628);g.restore()};
      let i=-1; it.forEach((x,j)=>{if(t>=x[1])i=j});
-     if(i<0){ctx.save();ctx.globalAlpha=.9;pict(ctx,'人',1);ctx.restore();return}
-     const [c,a]=it[i], k=t-a, nxt=it[i+1]?it[i+1][1]:1e9, dur=Math.min(nxt-a,2.4);
-     ctx.save();ctx.globalAlpha=1-eo(k/(dur*.45));pict(ctx,c,1);ctx.restore();
-     drawChar(ctx,c,170,170,380,(k-.15)/(dur*.75),'#13215a');
-     ctx.save();ctx.globalAlpha=eo((k-dur*.5)/.4);ctx.textAlign='center';ctx.font='italic 500 46px Newsreader';ctx.fillStyle='#C8372D';
-     ctx.fillText({人:'rén',口:'kǒu',木:'mù',林:'lín',日:'rì'}[c],C,628);ctx.restore()},
+     const since=i<0?1e9:t-it[i][1], X=.35;
+     if(i>0&&since<X){const a=layer(),b=layer(); item(a.g,i-1); item(b.g,i); ctx.globalAlpha=1-eio(since/X); ctx.drawImage(a.c,0,0); ctx.globalAlpha=eio(since/X); ctx.drawImage(b.c,0,0); ctx.globalAlpha=1}
+     else item(ctx,i)},
    update(t){document.querySelectorAll('.tile').forEach(e=>{const a=+e.dataset.at,k=eo((t-a)/.4);e.style.opacity=lerp(.28,1,k);
      const pulse=Math.max(0,1-Math.abs(t-a-.3)/.8);e.style.transform=`translateY(${-6*pulse}px)`;e.style.boxShadow=pulse>0?`0 0 0 ${3*pulse}px rgba(200,55,45,.5)`:''})}},
  class:{nv:0,cta:1,tag:()=>'DAY 05',
@@ -403,6 +408,11 @@ const SC={
    async lens(ctx,t,s){ctx.fillStyle='#fff';ctx.fillRect(0,0,S,S);await photo(ctx,'../assets/crest.jpg',(t-s.start)/(s.end-s.start),.92,1.0)}},
 };
 
+
+function heritageMark(g,cur,k){lacquerDisc(g); const chars=[...cur[0]]; const size=chars.length>1?250:340, w=size*chars.length, x0=C-w/2, y0=chars.length>1?190:150;
+     chars.forEach((c,i)=>drawChar(g,c,x0+i*size,y0,size,(k-.1-i*.9)/1.2,'#F2D48A',{glow:'rgba(255,214,120,.5)',blur:26}));
+     if(cur[2]){g.save();g.globalAlpha=eo((k-1.2)/.5);g.textAlign='center';g.fillStyle='#F7E7BE';g.font='700 40px "Noto Serif SC"';g.fillText(cur[2],C,600);
+       g.font='italic 500 30px Newsreader';g.fillStyle='rgba(247,231,190,.8)';g.fillText(cur[3],C,640);g.restore()}}
 /* stylised learner face (Tendai) with pointers */
 function drawFace(ctx,t){
   const g=ctx.createLinearGradient(0,0,0,S);g.addColorStop(0,'#F4ECDD');g.addColorStop(1,'#E8DCC6');ctx.fillStyle=g;ctx.fillRect(0,0,S,S);
@@ -485,9 +495,10 @@ window.renderAt=async function(t){
   const vis=ORDER.filter(id=>W[id]>0).sort((a,b)=>W[a]-W[b]);
   // draw outgoing fully, incoming on top with its weight
   const main=vis.reduce((a,b)=>W[b]>=(W[a]??-1)?b:a,vis[0]);
+  let acc=0;
   for(const id of [...vis].sort((a,b)=>SCN[a].start-SCN[b].start)){
-    const off=document.createElement('canvas'); off.width=off.height=S; const oc=off.getContext('2d');
-    await SC[id].lens(oc,t,SCN[id]); ctx.globalAlpha=id===vis.sort((a,b)=>SCN[a].start-SCN[b].start)[0]?1:W[id]; ctx.drawImage(off,0,0); ctx.globalAlpha=1}
+    const o=layer(); await SC[id].lens(o.g,t,SCN[id]); acc+=W[id];
+    ctx.globalAlpha=acc>0?W[id]/acc:1; ctx.drawImage(o.c,0,0); ctx.globalAlpha=1}
   // tag
   const tg=$('#tag'); tg.textContent=SC[main].tag(t); tg.classList.toggle('red',!!SC[main].red);
   // CTA
