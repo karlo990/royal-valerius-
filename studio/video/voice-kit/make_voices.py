@@ -47,6 +47,9 @@ def speak(key, voice_id, who, text):
                          f"isn't in your account. Add the voice from the Voice Library, then run again.\n{msg}")
             if e.code == 404:
                 sys.exit(f"\nVoice {voice_id} not found. Add it to 'My Voices' in ElevenLabs, then run again.\n{msg}")
+            if e.code != 429 and e.code < 500:
+                sys.exit(f"\nElevenLabs refused line {who} ({e.code}). Its message:\n{msg}\n"
+                         "Send this message to Claude.")
             wait = 5 * (attempt + 1)
             print(f"   ElevenLabs said {e.code}; retrying in {wait}s…"); time.sleep(wait)
         except urllib.error.URLError as e:
