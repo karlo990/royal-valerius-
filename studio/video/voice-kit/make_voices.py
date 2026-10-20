@@ -7,6 +7,9 @@ Needs only Python 3 (python.org). No extra packages.
 import base64, json, os, pathlib, sys, time, urllib.error, urllib.request, zipfile
 
 HERE = pathlib.Path(__file__).resolve().parent
+for _s in (sys.stdout, sys.stderr):  # Windows consoles can't print pinyin tone marks by default
+    try: _s.reconfigure(encoding="utf-8", errors="replace")
+    except Exception: pass
 OUT = HERE / "audio"
 SETTINGS = {  # Teacher Wen: warm and steady · Sam: livelier commentator
     "WEN": {"stability": 0.45, "similarity_boost": 0.8, "style": 0.35, "use_speaker_boost": True},
@@ -41,7 +44,7 @@ def speak(key, voice_id, who, text):
         except urllib.error.HTTPError as e:
             msg = e.read().decode("utf-8", "replace")[:400]
             if e.code == 401:
-                sys.exit(f"\nElevenLabs rejected the API key (401). Check the key in .env.\n{msg}")
+                sys.exit(f"\nElevenLabs rejected the API key (401). If it says missing_permissions, give the key the Text to Speech permission. Otherwise check the key.\n{msg}")
             if e.code in (402, 403):
                 sys.exit(f"\nElevenLabs refused the request ({e.code}). Usually: out of credits, or the voice "
                          f"isn't in your account. Add the voice from the Voice Library, then run again.\n{msg}")
