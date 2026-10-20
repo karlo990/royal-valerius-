@@ -26,23 +26,75 @@
     <div class="hud"><span>Science</span><span>Innovation</span><span>Skill</span><span>Intake 2027</span></div>
   </div>
   <div class="si-form">
-    <div class="si-card">
+    <div class="si-card" id="si-card">
+      <div class="si-status" id="si-status" hidden><i></i><span>Connecting to the school server…</span></div>
       <h2>Sign in</h2>
-      <p>Use the details the school office gave you.</p>
+      <p>For parents, guardians and learners of Royal Crest Academy.</p>
       <div class="seg" role="group" aria-label="I am a"><button type="button" data-role="parent" aria-pressed="true">Parent / guardian</button><button type="button" data-role="learner" aria-pressed="false">Learner</button></div>
       <form id="si-form" novalidate>
-        <label class="field"><span id="si-id-label">Parent phone number</span><input id="si-id" name="identifier" autocomplete="username" required></label>
-        <label class="field"><span>PIN</span><input id="si-pin" name="pin" type="password" inputmode="numeric" autocomplete="current-password" required></label>
+        <label class="field"><span>Learner's admission number</span><input id="si-id" name="identifier" autocomplete="username" autocapitalize="characters" placeholder="e.g. RCA-27-0142" required></label>
+        <label class="field"><span id="si-pw-label">Password: your phone number</span><input id="si-pin" name="password" type="password" autocomplete="current-password" placeholder="e.g. 0771 234 567" required><small class="si-tip" id="si-tip">Use the phone number the school has for you, in any format. You can choose your own password after signing in.</small></label>
         <div class="si-err" id="si-err" role="alert"></div>
         <button class="btn btn-primary btn-block" type="submit">Sign in</button>
       </form>
-      <p class="si-help">Forgot your PIN? Call or WhatsApp the school office on <a href="tel:+263714404090">+263 714 404 090</a>.</p>
+      <div class="si-new"><span>New to Crest Quest?</span><button class="btn btn-gold btn-sm" type="button" id="go-register">Register as a parent</button><button class="linkish" type="button" id="go-status">Check a registration</button></div>
+      <p class="si-help">Trouble signing in? Call or WhatsApp the school office on <a href="tel:+263714404090">+263 714 404 090</a>.</p>
       <div class="demo" id="demo" hidden>
         <h3>Try the demo</h3>
-        <p>Sample data only. Parent: <code>0771234567</code> · Learner: <code>RCA-27-0142</code> · PIN <code>2027</code></p>
+        <p>Sample data only. Admission number <code>RCA-27-0142</code> · phone <code>0771234567</code></p>
         <div class="row"><button class="btn btn-gold btn-sm" type="button" data-demo="parent">Demo as a parent</button><button class="btn btn-ghost btn-sm" type="button" data-demo="learner">Demo as a learner</button></div>
       </div>
       <a class="back-home" href="/">← Back to the Royal Crest Academy website</a>
+    </div>
+
+    <div class="si-card" id="reg-card" hidden>
+      <button class="linkish back" type="button" data-back>← Back to sign in</button>
+      <h2>Register as a parent</h2>
+      <p>Tell us who you are and who your child is. The school office checks the details and links your account, usually within one working day.</p>
+      <ol class="steps" aria-label="Steps"><li class="on">You</li><li>Your child</li><li>Confirm</li></ol>
+      <form id="reg-form" novalidate>
+        <fieldset data-step="1">
+          <label class="field"><span>Your full name</span><input name="parent_name" autocomplete="name" required></label>
+          <label class="field"><span>Phone number (this becomes your password)</span><input name="phone" type="tel" autocomplete="tel" placeholder="0771 234 567 or +44 7700 900123" required></label>
+          <label class="field"><span>Email (optional)</span><input name="email" type="email" autocomplete="email"></label>
+          <label class="field"><span>Relationship to the learner</span><select name="relationship"><option>Mother</option><option>Father</option><option>Guardian</option><option>Grandparent</option><option>Aunt</option><option>Uncle</option><option>Sponsor</option></select></label>
+          <label class="field"><span>Home address (optional)</span><input name="address" autocomplete="street-address"></label>
+        </fieldset>
+        <fieldset data-step="2" hidden>
+          <label class="field"><span>Learner's full name</span><input name="learner_name" required></label>
+          <label class="field"><span>Admission number (if you have one)</span><input name="admission_no" autocapitalize="characters" placeholder="e.g. RCA-27-0142"></label>
+          <label class="field"><span>Form</span><select name="form"><option value="1">Form 1</option><option value="2">Form 2</option><option value="3">Form 3</option><option value="4">Form 4</option><option value="5">Form 5</option></select></label>
+          <label class="field"><span>Boarding</span><select name="residence"><option>Boarder</option><option>Day scholar</option></select></label>
+          <label class="field"><span>Anything the office should know (optional)</span><textarea name="message" rows="3"></textarea></label>
+          <input name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+        </fieldset>
+        <fieldset data-step="3" hidden>
+          <div class="review" id="reg-review"></div>
+          <label class="check"><input type="checkbox" name="consent"> I agree that Royal Crest Academy keeps these details to run my child's portal account, as required by the Cyber and Data Protection Act.</label>
+        </fieldset>
+        <div class="si-err" id="reg-err" role="alert"></div>
+        <div class="reg-nav"><button class="btn btn-ghost" type="button" id="reg-prev" hidden>Back</button><button class="btn btn-primary" type="submit" id="reg-next">Next</button></div>
+      </form>
+    </div>
+
+    <div class="si-card" id="done-card" hidden>
+      <div class="si-bot sm"><canvas class="px" id="done-bot" width="96"></canvas></div>
+      <h2 id="done-title">Thank you!</h2>
+      <p id="done-msg"></p>
+      <div class="ref" id="done-ref" hidden><small>Your reference</small><b></b></div>
+      <button class="btn btn-primary btn-block" type="button" data-back>Back to sign in</button>
+    </div>
+
+    <div class="si-card" id="status-card" hidden>
+      <button class="linkish back" type="button" data-back>← Back to sign in</button>
+      <h2>Check a registration</h2>
+      <form id="st-form" novalidate>
+        <label class="field"><span>Reference (e.g. REG-7K3F2A)</span><input name="ref" autocapitalize="characters" required></label>
+        <label class="field"><span>Your phone number</span><input name="phone" type="tel" required></label>
+        <div class="si-err" id="st-err" role="alert"></div>
+        <button class="btn btn-primary btn-block" type="submit">Check</button>
+      </form>
+      <div class="notice-box" id="st-out" hidden></div>
     </div>
   </div>
 </section>

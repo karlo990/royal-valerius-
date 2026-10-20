@@ -1,5 +1,9 @@
 # Crest Quest API (`/api/v1`)
 
+> **Live server:** the Royal Crest hub in `karlissa/` (see `karlissa/SETUP.md`) implements this contract for real,
+> with sign-in by admission number + parent's phone number, parent registration, the Control Room dashboard and backups.
+> The portal uses it by default (`HUB` in `portal/js/config.js`); `?demo=1` switches back to the built-in demo data.
+
 The contract between three pieces:
 
 1. **The portal**: `/portal/` on the website (learners and parents).

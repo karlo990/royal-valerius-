@@ -38,10 +38,13 @@
     let role = 'parent';
     const setRole = (r) => {
       role = r; roleBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.role === r)));
-      $('#si-id-label').textContent = r === 'parent' ? 'Parent phone number' : 'Admission number';
-      $('#si-id').placeholder = r === 'parent' ? 'e.g. 0771 234 567' : 'e.g. RCA-27-0142';
-      $('#si-id').inputMode = r === 'parent' ? 'tel' : 'text';
+      $('#si-pw-label').textContent = r === 'parent' ? 'Password: your phone number' : "Password: your parent's phone number";
+      $('#si-tip').textContent = r === 'parent'
+        ? 'Use the phone number the school has for you, in any format. You can choose your own password after signing in.'
+        : "Use the phone number of the parent the school has on record, unless you've set your own password.";
     };
+    showCard('si-card');
+    serverStatus();
     roleBtns.forEach((b) => (b.onclick = () => setRole(b.dataset.role)));
     setRole(role);
     $('#si-err').textContent = err || '';
@@ -49,20 +52,93 @@
       e.preventDefault();
       const btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Signing in…';
       try {
-        await API.login({ role, identifier: $('#si-id').value.replace(/\s/g, ''), pin: $('#si-pin').value });
+        await API.login({ role, identifier: $('#si-id').value.replace(/\s/g, ''), password: $('#si-pin').value });
         $('#si-pin').value = ''; boot();
       } catch (ex) { $('#si-err').textContent = ex.message || 'Could not sign in.'; } finally { btn.disabled = false; btn.textContent = 'Sign in'; }
     };
     $('#demo').hidden = !(C.DEMO && !API.live());
     $$('#demo [data-demo]').forEach((b) => (b.onclick = () => {
       const r = b.dataset.demo, d = API.DEMO_LOGINS[r]; setRole(r);
-      $('#si-id').value = d.identifier; $('#si-pin').value = d.pin; form.requestSubmit();
+      $('#si-id').value = d.identifier; $('#si-pin').value = d.password; form.requestSubmit();
     }));
     BOT.sprite($('#si-bot'));
+    $('#go-register').onclick = () => openRegister();
+    $('#go-status').onclick = () => openStatus();
+    $$('[data-back]').forEach((b) => (b.onclick = () => showCard('si-card')));
+  }
+  function showCard(id) { ['si-card', 'reg-card', 'done-card', 'status-card'].forEach((c) => ($(`#${c}`).hidden = c !== id)); scrollTo(0, 0); }
+
+  // Is the hub awake? Free Hugging Face Spaces sleep when idle and take a minute to wake.
+  let statusTimer = null;
+  async function serverStatus() {
+    const el = $('#si-status'); clearTimeout(statusTimer);
+    if (!API.live()) { el.hidden = true; return; }
+    el.hidden = false;
+    try {
+      await API.health();
+      el.className = 'si-status ok'; $('span', el).textContent = 'Connected to the school server';
+    } catch (e) {
+      el.className = 'si-status wait';
+      $('span', el).innerHTML = 'The school server is waking up… <a href="?demo=1" style="color:inherit">try the demo</a>';
+      statusTimer = setTimeout(serverStatus, 6000);
+    }
+  }
+
+  /* ───────────── parent registration ───────────── */
+  function openRegister() {
+    showCard('reg-card');
+    const form = $('#reg-form'), steps = $$('fieldset', form), dots = $$('#reg-card .steps li');
+    let step = 1;
+    const show = () => {
+      steps.forEach((f) => (f.hidden = Number(f.dataset.step) !== step));
+      dots.forEach((d, i) => d.classList.toggle('on', i < step));
+      $('#reg-prev').hidden = step === 1; $('#reg-next').textContent = step === 3 ? 'Send registration' : 'Next';
+      $('#reg-err').textContent = '';
+      if (step === 3) {
+        const v = Object.fromEntries(new FormData(form));
+        $('#reg-review').innerHTML = `<dl><dt>Parent</dt><dd>${esc(v.parent_name)} (${esc(v.relationship)})</dd><dt>Phone</dt><dd>${esc(v.phone)}</dd>${v.email ? `<dt>Email</dt><dd>${esc(v.email)}</dd>` : ''}
+          <dt>Learner</dt><dd>${esc(v.learner_name)}</dd><dt>Form</dt><dd>Form ${esc(v.form)} · ${esc(v.residence)}</dd>${v.admission_no ? `<dt>Admission no.</dt><dd>${esc(v.admission_no.toUpperCase())}</dd>` : ''}</dl>`;
+      }
+      const f = $(`fieldset[data-step="${step}"] input, fieldset[data-step="${step}"] select`, form); if (f) f.focus();
+    };
+    const need = (names) => names.every((n) => { const el = form.elements[n]; if (!el.value.trim()) { $('#reg-err').textContent = 'Please fill in the highlighted fields.'; el.focus(); return false; } return true; });
+    $('#reg-prev').onclick = () => { step -= 1; show(); };
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      if (step === 1) { if (!need(['parent_name', 'phone'])) return; if (form.elements.phone.value.replace(/\D/g, '').length < 9) { $('#reg-err').textContent = 'Please enter your full phone number.'; return; } step = 2; return show(); }
+      if (step === 2) { if (!need(['learner_name'])) return; step = 3; return show(); }
+      const v = Object.fromEntries(new FormData(form));
+      if (!form.elements.consent.checked) { $('#reg-err').textContent = 'Please tick the box to agree.'; return; }
+      const btn = $('#reg-next'); btn.disabled = true; btn.textContent = 'Sending…';
+      try {
+        const r = await API.register({ ...v, form: Number(v.form), email: v.email || null, admission_no: v.admission_no || null, consent: true });
+        form.reset(); step = 1; show();
+        $('#done-title').textContent = r.status === 'already_registered' ? "You're already registered" : 'Thank you!';
+        $('#done-msg').textContent = r.message || '';
+        $('#done-ref').hidden = !r.ref; if (r.ref) $('#done-ref b').textContent = r.ref;
+        showCard('done-card'); BOT.sprite($('#done-bot'));
+      } catch (ex) { $('#reg-err').textContent = ex.message; } finally { btn.disabled = false; btn.textContent = step === 3 ? 'Send registration' : 'Next'; }
+    };
+    show();
+  }
+  function openStatus() {
+    showCard('status-card');
+    const f = $('#st-form'); $('#st-out').hidden = true;
+    f.onsubmit = async (e) => {
+      e.preventDefault(); $('#st-err').textContent = '';
+      try {
+        const r = await API.registerStatus({ ref: f.elements.ref.value.trim(), phone: f.elements.phone.value });
+        $('#st-out').hidden = false;
+        $('#st-out').innerHTML = `<b>${esc({ pending: 'Waiting for the office', approved: 'Approved ✓', rejected: 'Not approved' }[r.status] || r.status)}</b><br>${esc(r.message || '')}`;
+        if (r.admission_no) { $('#si-id').value = r.admission_no; }
+      } catch (ex) { $('#st-err').textContent = ex.message; }
+    };
   }
 
   /* ───────────── app shell ───────────── */
   async function boot() {
+    const hs = location.hash.match(/session=([^&]+)/);
+    if (hs) { API.setSession({ token: decodeURIComponent(hs[1]), user: null }); history.replaceState(null, '', location.pathname + location.search + '#/overview'); }
     if (!API.session) return showSignin();
     try { state.user = await API.me(); } catch (e) { return showSignin(); }
     state.ids = state.user.students; state.id = state.id && state.ids.includes(state.id) ? state.id : state.ids[0];
@@ -72,6 +148,7 @@
     await loadStudent(state.id);
     if (!state.bot) state.bot = BOT.mount(ctx);
     notifyNative({ type: 'rc-portal-ready', role: state.user.role, students: state.ids });
+    pollSync();
     route();
   }
   function shell() {
@@ -81,6 +158,7 @@
         <a class="logo" href="${C.SITE}"><img src="/assets/img/crest-128.webp" alt=""><span><b>Crest Quest</b><small>Royal Crest Academy</small></span></a>
         <nav class="nav" aria-label="Portal">${nav}</nav>
         <div class="side-app"><b>On your phone?</b>Get alerts for marks, notices and fees in the Royal Crest Connect app.<br><a href="${C.APP_DEEP_LINK}/overview">Open the app →</a></div>
+        <div class="side-links">${API.live() && !state.user.preview ? '<button type="button" id="chpw">Change my password</button>' : ''}</div>
         <button class="signout" type="button">Sign out · ${esc(state.user.name)}</button>
       </aside>
       <div class="main">
@@ -93,6 +171,8 @@
         <main class="content" id="view" tabindex="-1"></main>
       </div>
       <nav class="tabbar" aria-label="Sections">${TABS.map((k) => `<a href="#/${k}" data-r="${k}">${icon(k)}<span>${ROUTES.find((r) => r[0] === k)[1]}</span></a>`).join('')}</nav>`;
+    if (state.user.preview) $('.main').insertAdjacentHTML('afterbegin', '<div class="preview-bar">Staff preview: this is exactly what the family sees (read-only, ends in one hour)</div>');
+    const cp = $('#chpw'); if (cp) cp.onclick = changePassword;
     $('.signout').onclick = async () => { await API.logout(); state.cache = {}; location.hash = ''; showSignin(); };
     $('.search').onclick = palette;
     $$('.kid').forEach((b) => (b.onclick = async () => { state.id = b.dataset.id; await loadStudent(state.id); if (state.bot) state.bot.reset(); route(); }));
@@ -105,7 +185,7 @@
       state.cache[id] = { ...p, results, attendance, timetable, assignments, skills, fees };
     }
     const s = state.cache[id];
-    state.term = (s.results.filter((r) => r.published).slice(-1)[0] || s.results[0]);
+    state.term = (s.results.filter((r) => r.published).slice(-1)[0] || s.results[0] || { term: '', label: 'This term', published: false, subjects: [] });
     $$('.kid').forEach((b) => {
       const k = state.cache[b.dataset.id];
       b.setAttribute('aria-pressed', String(b.dataset.id === id));
@@ -162,15 +242,15 @@
           </div>
           <div class="pbot"><div class="tip">${tip}</div><canvas class="px" data-bot width="130"></canvas></div>
         </section>
-        <div class="card span-3 stat">${CH.ring(avg(t.subjects) / 100, { label: `${avg(t.subjects)}%` })}<div><b>Average</b><span>${esc(t.label)}</span></div></div>
+        <div class="card span-3 stat">${t.subjects.length ? CH.ring(avg(t.subjects) / 100, { label: `${avg(t.subjects)}%` }) : CH.ring(0, { label: '—' })}<div><b>Average</b><span>${t.subjects.length ? esc(t.label) : 'Results not published yet'}</span></div></div>
         <div class="card span-3 stat"><div class="ico">${icon('star')}</div><div><b>${s.position}<small class="muted" style="font-size:18px"> / ${s.class_size}</small></b><span>Class position · ${esc(s.stream)}</span></div></div>
         <div class="card span-3 stat" data-route="#/attendance" style="cursor:pointer">${CH.ring(a.rate, { label: `${Math.round(a.rate * 100)}%` })}<div><b>Attendance</b><span>${a.n('absent')} absent · ${a.n('late')} late</span></div></div>
         ${parent
           ? `<div class="card span-3 stat" data-route="#/fees" style="cursor:pointer"><div class="ico">${icon('fees')}</div><div><b>${money(s.fees.balance)}</b><span>${s.fees.balance > 0 ? `Balance · due ${fmt(s.fees.due)}` : 'Fees fully paid ✓'}</span></div></div>`
           : `<div class="card span-3 stat" data-route="#/timetable" style="cursor:pointer"><div class="ico">${icon('timetable')}</div><div><b>${esc(nextLesson().subject)}</b><span>Next lesson · ${esc(nextLesson().start)} · ${esc(nextLesson().room)}</span></div></div>`}
-        <section class="card span-8"><h2>Progress this term <a href="#/results">All results →</a></h2>${CH.line(s.trend, innerWidth < 700 ? { w: 360, h: 230 } : {})}</section>
+        <section class="card span-8"><h2>Progress this term <a href="#/results">All results →</a></h2>${s.trend.length ? CH.line(s.trend, innerWidth < 700 ? { w: 360, h: 230 } : {}) : '<div class="empty-card"><b>No published results yet</b>Your progress chart appears when the school publishes the first term results.</div>'}</section>
         <section class="card span-4"><h2>Due soon</h2><ul class="list">${due.slice(0, 4).map((d) => `<li>${dateTile(d.due)}<div class="li-main"><b>${esc(d.title)}</b><span>${esc(d.subject)}</span></div></li>`).join('') || '<li class="muted">Nothing due. 🎉</li>'}</ul></section>
-        <section class="card span-8"><h2>Subjects · ${esc(t.label)} <a href="#/results">Details →</a></h2>${CH.bars(t.subjects)}<p class="muted" style="font-size:12.5px;margin:12px 0 0">The thin line on each bar is the class average.</p></section>
+        <section class="card span-8"><h2>Subjects · ${esc(t.label)} <a href="#/results">Details →</a></h2>${t.subjects.length ? CH.bars(t.subjects) : '<div class="empty-card">Subject marks appear here once results are published.</div>'}<p class="muted" style="font-size:12.5px;margin:12px 0 0">The thin line on each bar is the class average.</p></section>
         <section class="card span-4"><h2>Notices <a href="#/notices">All →</a></h2><ul class="list">${state.notices.slice(0, 3).map((n) => `<li>${dateTile(n.date)}<div class="li-main"><b>${esc(n.title)}</b><span>${esc(n.tag)}</span></div></li>`).join('')}</ul></section>
       </div>`;
     },
@@ -190,6 +270,7 @@
     },
     timetable() {
       const s = S(), dname = new Date(today() + 'T00:00').toLocaleDateString('en-GB', { weekday: 'short' }).slice(0, 3), nl = nextLesson();
+      if (!s.timetable.length) return '<section class="card"><div class="empty-card"><b>Timetable coming soon</b>The school has not put this class timetable on the portal yet.</div></section>';
       const rows = s.timetable[0].periods.map((p, i) => `<tr><td class="time">${p.start}</td>${s.timetable.map((d) => {
         const q = d.periods[i], cls = d.day === dname ? (q.start === nl.start && nl.today ? 'today now' : 'today') : '';
         return `<td class="${cls}"><b>${esc(q.subject)}</b><span>${esc(q.room)}</span></td>`; }).join('')}</tr>`).join('');
@@ -203,18 +284,19 @@
       </section></div>`;
     },
     fees() {
-      const f = S().fees, paidPct = Math.round((f.paid / f.invoiced) * 100);
+      const f = S().fees, paidPct = f.invoiced ? Math.round((f.paid / f.invoiced) * 100) : 0;
       return `<div class="grid">
         <section class="card span-6"><h2>Balance · ${esc(f.term)}</h2><div class="bal ${f.balance ? '' : 'zero'}">${money(f.balance)}</div>
           <div class="prog"><i style="width:${paidPct}%"></i></div><p class="muted" style="margin:0 0 16px">${money(f.paid)} paid of ${money(f.invoiced)} · ${f.balance ? `due ${fmt(f.due, { day: 'numeric', month: 'long', year: 'numeric' })}` : 'fully paid, thank you'}</p>
           <div class="callout">Pay at the bursar's office or through the Royal Crest Connect app. Always ask for an official receipt for every payment.</div>
           <p style="margin:16px 0 0;display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary btn-sm" href="${C.APP_DEEP_LINK}/fees?student=${encodeURIComponent(S().id)}">Open in the app</a><a class="btn btn-ghost btn-sm" href="tel:${C.PHONE.replace(/\s/g, '')}">${icon('phone')}Call the bursar</a></p></section>
         <section class="card span-6"><h2>Termly fees (all-inclusive)</h2><table class="lines">${f.lines.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${money(v)}</td></tr>`).join('')}<tr class="tot"><td>Total per term</td><td>${money(f.invoiced)}</td></tr></table></section>
-        <section class="card span-12"><h2>Payments received</h2><ul class="list">${f.payments.map((p) => `<li>${dateTile(p.date)}<div class="li-main"><b>${money(p.amount)}</b><span>${esc(p.method)} · receipt ${esc(p.ref)}</span></div><span class="tag ok">Received</span></li>`).join('')}</ul></section>
+        <section class="card span-12"><h2>Payments received</h2><ul class="list">${(f.payments.length ? '' : '<li class="muted">No payments recorded yet this term.</li>') + f.payments.map((p) => `<li>${dateTile(p.date)}<div class="li-main"><b>${money(p.amount)}</b><span>${esc(p.method)} · receipt ${esc(p.ref)}</span></div><span class="tag ok">Received</span></li>`).join('')}</ul></section>
       </div>`;
     },
     notices() {
-      return `<div class="grid">${state.notices.map((n) => `<article class="card span-12 notice">${dateTile(n.date)}<div><span class="tag">${esc(n.tag)}</span><h3>${esc(n.title)}</h3><p>${esc(n.body)}</p></div></article>`).join('')}</div>`;
+      if (!state.notices.length) return '<div class="card"><div class="empty-card"><b>No notices</b>School news will appear here.</div></div>';
+    return `<div class="grid">${state.notices.map((n) => `<article class="card span-12 notice">${dateTile(n.date)}<div><span class="tag">${esc(n.tag)}</span><h3>${esc(n.title)}</h3><p>${esc(n.body)}</p></div></article>`).join('')}</div>`;
     },
   };
   const after = {
@@ -224,10 +306,15 @@
         if (!t.published) { $('#res').innerHTML = `<div class="card"><h2>${esc(t.label)}</h2><p class="muted" style="margin:0">Results for this term are not published yet. Kudzi will let you know when they are.</p></div>`; return; }
         const url = API.reportUrl(S().id, t.term);
         $('#res').innerHTML = `<div class="card"><div class="summary"><div><b>${avg(subs)}%</b><span>Average</span></div><div><b>${S().position} / ${S().class_size}</b><span>Class position</span></div><div><b>${subs.filter((x) => x.grade === 'A').length}</b><span>A grades</span></div><div><b>${esc(S().class_teacher)}</b><span>Class teacher</span></div>
-          <div style="margin-left:auto">${url ? `<a class="btn btn-ghost btn-sm" href="${esc(url)}">Download report (PDF)</a>` : '<span class="muted" style="font-size:13px">PDF report available once connected to the school server</span>'}</div></div>
+          <div style="margin-left:auto">${url ? '<button class="btn btn-ghost btn-sm" type="button" id="rep">Report card (print or save as PDF)</button>' : '<span class="muted" style="font-size:13px">PDF report available once connected to the school server</span>'}</div></div>
           <div class="table-wrap"><table class="res"><thead><tr><th>Subject</th><th>CA /40</th><th>Exam /60</th><th>Total</th><th>Grade</th><th>vs class</th><th>Teacher's comment</th></tr></thead><tbody>
           ${subs.map((x) => { const d = x.total - x.class_avg; return `<tr><td><b>${esc(x.name)}</b><br><span class="muted" style="font-size:12.5px">${esc(x.teacher)}</span></td><td class="num">${x.ca}</td><td class="num">${x.exam}</td><td class="num">${x.total}%</td><td><em class="grade g-${x.grade}">${x.grade}</em></td><td><span class="vs ${d >= 0 ? 'up' : 'down'}">${d >= 0 ? '▲' : '▼'} ${Math.abs(d)}</span></td><td class="cmt">${esc(x.comment)}</td></tr>`; }).join('')}
           </tbody></table></div></div>`;
+        const rb = $('#rep');
+        if (rb) rb.onclick = async () => {
+          const w = window.open('', '_blank');
+          try { const html = await API.reportHtml(S().id, state.term.term); w.document.open(); w.document.write(html); w.document.close(); } catch (ex) { if (w) w.close(); toast(ex.message); }
+        };
       };
       $$('.tabs button').forEach((b) => (b.onclick = () => { state.term = S().results.find((r) => r.term === b.dataset.term); $$('.tabs button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); draw(); }));
       draw();
@@ -235,9 +322,46 @@
   };
   function nextLesson() {
     const d = new Date(today() + 'T00:00'), name = d.toLocaleDateString('en-GB', { weekday: 'short' }).slice(0, 3);
+    if (!S().timetable.length) return { start: '—', subject: 'Timetable soon', room: '', today: false };
     const row = S().timetable.find((r) => r.day === name), now = API.live() ? new Date().toTimeString().slice(0, 5) : '10:05';
     if (row) { const p = row.periods.find((q) => q.start >= now); if (p) return { ...p, today: true }; }
     return { ...S().timetable[0].periods[0], today: false };
+  }
+
+  /* ───────────── live updates from the hub ───────────── */
+  function toast(msg) { const t = document.createElement('div'); t.className = 'toast-rc'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 5000); }
+  let cursor = null;
+  async function pollSync() {
+    if (!API.live() || !API.session || !state.user) return;
+    try {
+      const r = await API.sync(cursor);
+      if (cursor !== null && r.changes.length) {
+        const ids = new Set(r.changes.map((c) => c.learner_id).filter(Boolean));
+        if (ids.size && ![...ids].some((x) => !state.ids.includes(x))) ids.forEach((x) => delete state.cache[x]); else state.cache = {};
+        try { state.notices = await API.notices(); } catch (e) { /* keep */ }
+        await loadStudent(state.id); route();
+        toast(r.changes[r.changes.length - 1].summary);
+      }
+      cursor = r.cursor;
+    } catch (e) { /* offline: try later */ }
+  }
+  setInterval(pollSync, 45000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) pollSync(); });
+  function changePassword() {
+    const box = document.createElement('div'); box.className = 'cmdk';
+    box.innerHTML = `<form class="cmdk-box" style="padding:22px"><h2 style="font:500 24px var(--serif);margin:0 0 6px">Choose your own password</h2>
+      <p class="muted" style="margin:0 0 16px;font-size:14px">${state.user.password_is_phone ? 'Right now your password is your phone number.' : 'Enter your current password, then the new one.'}</p>
+      <label class="field"><span>Current password</span><input name="current" type="password" autocomplete="current-password" required></label>
+      <label class="field"><span>New password (6+ characters)</span><input name="new" type="password" autocomplete="new-password" minlength="6" required></label>
+      <div class="si-err"></div><div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn btn-ghost" type="button" data-x>Cancel</button><button class="btn btn-primary" type="submit">Save</button></div></form>`;
+    document.body.appendChild(box);
+    const f = $('form', box), close = () => box.remove();
+    $('[data-x]', box).onclick = close; box.onclick = (e) => { if (e.target === box) close(); };
+    f.onsubmit = async (e) => {
+      e.preventDefault();
+      try { await API.changePassword({ current: f.elements.current.value, new: f.elements.new.value }); state.user.password_is_phone = false; close(); toast('Password changed. Use it next time you sign in.'); } catch (ex) { $('.si-err', box).textContent = ex.message; }
+    };
+    f.elements.current.focus();
   }
 
   /* ───────────── command palette (Ctrl/⌘ K, or "/") ───────────── */

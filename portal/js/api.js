@@ -35,12 +35,14 @@
     if (!s || !session || !session.user.students.includes(id)) throw new ApiError(404, 'Learner not found');
     return s;
   };
-  const DEMO_LOGINS = { learner: { identifier: 'RCA-27-0142', pin: '2027' }, parent: { identifier: '0771234567', pin: '2027' } };
+  const DEMO_LOGINS = { learner: { identifier: 'RCA-27-0142', password: '0771234567' }, parent: { identifier: 'RCA-27-0142', password: '0771234567' } };
+  const digits = (x) => String(x || '').replace(/\D/g, '').slice(-9);
   const mock = {
-    login({ role, identifier, pin }) {
+    login({ role, identifier, password }) {
       const d = DEMO_LOGINS[role];
-      if (!d || identifier.trim().toUpperCase() !== d.identifier.toUpperCase() || pin !== d.pin) return Promise.reject(new ApiError(401, 'Those details do not match. Use the demo details shown below.'));
-      return wait({ token: `demo-${role}`, user: M().users[role], demo: true });
+      const ok = d && ['RCA-27-0142', 'RCA-27-0087'].includes(identifier.trim().toUpperCase()) && digits(password) === digits(d.password);
+      if (!ok) return Promise.reject(new ApiError(401, 'Those details do not match. Use the demo details shown below.'));
+      return wait({ token: `demo-${role}`, user: { ...M().users[role], password_is_phone: true }, demo: true });
     },
     me: () => wait(session.user),
     student: (id) => { const s = stu(id); const { results, attendance, timetable, assignments, fees, skills, ...p } = s; return wait(p); },
@@ -53,12 +55,30 @@
     notices: () => wait(M().notices),
     crestbot: () => Promise.reject(new ApiError(503, 'offline')),      // chat falls back to the local brain
     registerDevice: () => wait({ ok: true }),
-    sync: () => wait({ since: null, changes: [] }),
+    sync: () => wait({ cursor: '0', changes: [] }),
+    register: () => wait({ ref: 'REG-DEMO1', status: 'pending', message: 'Demo only: nothing was sent. On the live portal the school office checks your details, usually within one working day.' }),
+    registerStatus: () => wait({ status: 'pending', message: 'Demo only.' }),
+    password: () => Promise.reject(new ApiError(400, 'Passwords can only be changed on the live portal.')),
   };
+  async function publicPost(path, body) {
+    const res = await fetch(root() + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    let j = null; try { j = await res.json(); } catch (e) { /* empty */ }
+    if (!res.ok) throw new ApiError(res.status, (j && (typeof j.detail === 'string' ? j.detail : 'Please check the form and try again.')) || res.statusText);
+    return j;
+  }
 
   const API = {
     live, ApiError, DEMO_LOGINS,
     get session() { return session; },
+    async health() { if (!live()) return { ok: true, demo: true }; const r = await fetch(`${root()}/health`, { cache: 'no-store' }); if (!r.ok) throw new ApiError(r.status, 'offline'); return r.json(); },
+    register: (b) => (live() ? publicPost('/register', b) : mock.register(b)),
+    registerStatus: (b) => (live() ? publicPost('/register/status', b) : mock.registerStatus(b)),
+    changePassword: (b) => (live() ? http('POST', '/me/password', b) : mock.password(b)),
+    async reportHtml(id, term) {
+      const r = await fetch(`${root()}/students/${encodeURIComponent(id)}/report${term ? `?term=${encodeURIComponent(term)}` : ''}`, { headers: { Authorization: `Bearer ${session.token}` } });
+      if (!r.ok) throw new ApiError(r.status, 'No published report for that term yet.');
+      return r.text();
+    },
     async login(creds) {
       const s = live() ? await http('POST', '/auth/login', creds) : await mock.login(creds);
       saveSession(s); return s;
@@ -73,7 +93,7 @@
     assignments: (id) => (live() ? http('GET', `/students/${encodeURIComponent(id)}/assignments`) : mock.assignments(id)),
     skills: (id) => (live() ? http('GET', `/students/${encodeURIComponent(id)}/skills`) : mock.skills(id)),
     fees: (id) => (live() ? http('GET', `/students/${encodeURIComponent(id)}/fees`) : mock.fees(id)),
-    reportUrl: (id, term) => (live() ? `${root()}/students/${encodeURIComponent(id)}/reports/${encodeURIComponent(term)}.pdf` : null),
+    reportUrl: (id, term) => (live() ? `${root()}/students/${encodeURIComponent(id)}/report?term=${encodeURIComponent(term)}` : null),
     notices: () => (live() ? http('GET', '/notices') : mock.notices()),
     // Crestbot ("Kudzi"): the future AI server answers here; until then the portal's local brain does.
     crestbot: (payload) => (live() ? http('POST', '/crestbot/chat', payload) : mock.crestbot(payload)),
