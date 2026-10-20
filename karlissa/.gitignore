@@ -1,0 +1,5 @@
+hub-data/
+__pycache__/
+.pytest_cache/
+sync/karlissa_sync.json
+sync/karlissa_sync.log

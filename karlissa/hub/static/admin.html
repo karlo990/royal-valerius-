@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Control Room · Royal Crest Academy</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0c1638">
+<link rel="icon" href="/admin/static/crest.webp">
+<link rel="preload" href="/admin/static/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/admin/static/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/admin/static/admin.css?v=1">
+</head>
+<body>
+<section class="login" id="login" hidden>
+  <div class="login-art">
+    <div class="crest"><img src="/admin/static/crest.webp" alt=""><div><b>Royal Crest Academy</b><small>Control Room</small></div></div>
+    <div>
+      <p class="eyebrow" style="color:var(--gold-500)">Staff only</p>
+      <h1>The whole school, <em>live</em>, in one room.</h1>
+      <p>Learners, families, marks, registers, fees, notices and Kudzi the Crestbot, with every change backed up automatically.</p>
+    </div>
+    <ul>
+      <li>Approve parent registrations as they arrive</li>
+      <li>Enter marks, mark registers, record payments</li>
+      <li>Everything appears on the Crest Quest portal at once</li>
+      <li>One-click zip of everything, synced to the school PC</li>
+    </ul>
+  </div>
+  <div class="login-form">
+    <form class="login-card" id="login-form" novalidate>
+      <p class="eyebrow">Sign in</p>
+      <h2>Welcome back</h2>
+      <p class="muted" style="margin:0 0 20px">Use your staff username. The owner account is <code>admin</code>.</p>
+      <div class="notice" id="setup-note" hidden style="margin-bottom:16px">No one can sign in yet. In the Hugging Face Space, open <b>Settings → Variables and secrets</b> and add a secret called <code>ADMIN_PASSWORD</code>, then restart the Space.</div>
+      <label class="field"><span>Username</span><input id="lg-user" autocomplete="username" required value="admin"></label>
+      <label class="field"><span>Password</span><input id="lg-pass" type="password" autocomplete="current-password" required></label>
+      <div class="err" id="lg-err" role="alert"></div>
+      <button class="btn primary block" type="submit">Sign in</button>
+      <p class="hint" style="margin-top:18px">Parents and learners use the <a href="https://royalcrestzw.vercel.app/portal/">Crest Quest portal</a> instead.</p>
+    </form>
+  </div>
+</section>
+
+<div class="shell" id="shell" hidden>
+  <aside class="side" id="side">
+    <a class="brand" href="#/overview"><img src="/admin/static/crest.webp" alt=""><span><b>Royal Crest</b><small>Control Room</small></span></a>
+    <nav id="nav" aria-label="Dashboard"></nav>
+    <div class="foot" id="foot"></div>
+  </aside>
+  <div class="main">
+    <header class="top">
+      <button class="btn ghost sm menu-btn" id="menu-btn" type="button" aria-label="Menu">☰</button>
+      <div><div class="crumb" id="crumb">Royal Crest Academy</div><h1 id="title">Overview</h1></div>
+      <div class="spacer"></div>
+      <span class="live" id="live" title="Live updates"><i></i><span>Connecting…</span></span>
+      <button class="jump" id="jump" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Find a learner or page</span><kbd>Ctrl K</kbd></button>
+    </header>
+    <main class="view" id="view" tabindex="-1"></main>
+  </div>
+</div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script src="/admin/static/admin.js?v=1"></script>
+</body>
+</html>

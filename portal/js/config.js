@@ -7,7 +7,8 @@
  * DEMO      Show the "Try the demo" buttons on the sign-in screen.
  */
 window.RC_CONFIG = Object.assign({
-  API_BASE: '',
+  HUB: 'https://davincii-code-karlissa.hf.space',   // the Royal Crest hub (Karlissa Space)
+  API_BASE: null,                                   // null = use HUB; '' = demo data only
   API_VERSION: 'v1',
   DEMO: true,
   SCHOOL: 'Royal Crest Academy',
@@ -18,6 +19,9 @@ window.RC_CONFIG = Object.assign({
 
 (() => {
   const q = new URLSearchParams(location.search);
-  if (q.get('api')) window.RC_CONFIG.API_BASE = q.get('api').replace(/\/$/, '');
+  const C = window.RC_CONFIG;
+  if (C.API_BASE === null) C.API_BASE = C.HUB;
+  if (q.get('api')) C.API_BASE = q.get('api').replace(/\/$/, '');
+  if (q.get('demo') === '1') C.API_BASE = '';
   window.RC_CONFIG.EMBED = q.get('embed') === '1' || q.get('embed') === 'app';   // inside the app's WebView
 })();
