@@ -15,3 +15,6 @@ voice-kit/audio/
 voice-kit/voices.zip
 build/seg_*.mp4
 build/sync.jpg
+build/video_silent_portrait.mp4
+build/render_p.log
+build/portrait.jpg

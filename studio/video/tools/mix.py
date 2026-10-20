@@ -16,11 +16,12 @@ ap.add_argument('--music', default=str(ROOT/'build/music.wav'))
 ap.add_argument('--music-start', type=float, default=0.0, help='seconds into the song to start from')
 ap.add_argument('--bed', type=float, default=0.42, help='music level in gaps (linear)')
 ap.add_argument('--name')
+ap.add_argument('--video', default=str(ROOT/'build/video_silent.mp4'))
 a = ap.parse_args()
 name = a.name or ('royal-crest-mandarin-connect' if TL['real_audio'] else 'royal-crest-mandarin-connect_PREVIEW_no-voice')
 total = TL['total']; (ROOT/'out').mkdir(exist_ok=True)
 
-ins = ['-i', str(ROOT/'build/video_silent.mp4'), '-ss', str(a.music_start), '-i', a.music]
+ins = ['-i', a.video, '-ss', str(a.music_start), '-i', a.music]
 flt, labels = [], []
 voiced = [l for l in TL['lines'] if (ROOT/'audio'/f"{l['id']}.mp3").exists()]
 for i, l in enumerate(voiced):

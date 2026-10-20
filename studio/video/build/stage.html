@@ -145,6 +145,18 @@ canvas{display:block}
 .bye p{font:italic 400 24px var(--serif);color:var(--navy)}
 .bye p small{display:block;font:700 12px var(--sans);font-style:normal;letter-spacing:.16em;color:var(--body)}
 
+/* portrait 9:16 layout (720×1280 logical → 1080×1920) */
+.portrait html,.portrait body,html.portrait,html.portrait body{width:720px;height:1280px}
+.portrait #stage{width:720px;height:1280px}
+.portrait #bg{width:720px;height:1280px}
+.portrait #dial{left:60px;top:118px}
+.portrait .copy{top:690px!important;width:586px}
+.portrait .bd{max-width:586px}
+.portrait .hl{font-size:46px}
+.portrait #comm{left:67px;top:1110px;width:586px}
+.portrait .cta{top:1188px;width:586px}
+.portrait .pill{top:34px}
+.portrait #brush{width:486px;height:250px}
 /* CTA + commentary */
 .cta{position:absolute;left:67px;top:624px;width:486px;height:60px;border-radius:30px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 26px;z-index:6;
   background:color-mix(in srgb,#fff calc(var(--nv)*100%),var(--navy));box-shadow:0 14px 30px -14px rgba(10,19,48,.6)}
@@ -250,20 +262,24 @@ const GRAIN=document.createElement('canvas');GRAIN.width=GRAIN.height=512;(()=>{
   const r=()=>(s=(s*16807)%2147483647)/2147483647;for(let i=0;i<d.data.length;i+=4){const v=180+r()*75;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=r()*26}g.putImageData(d,0,0)})();
 
 /* ---------- background ---------- */
+const PORTRAIT=location.search.includes('portrait'); if(PORTRAIT) document.documentElement.classList.add('portrait');
+const BW=PORTRAIT?720:1280, BH=PORTRAIT?1280:720, DS=PORTRAIT?.88:1;
+$('#bg').width=BW*1.5; $('#bg').height=BH*1.5;
 const bg=$('#bg').getContext('2d'); bg.scale(1.5,1.5);
 const DUST=Array.from({length:46},(_,i)=>({x:(i*397)%1280,y:(i*233)%720,r:1+(i%5)*.7,sp:.15+(i%7)*.05,ph:i*1.7}));
 function drawBg(t,nv){
-  // paper
-  let g=bg.createRadialGradient(860,300,60,700,360,900);g.addColorStop(0,'#FCF9F2');g.addColorStop(1,'#EFE5D2');bg.fillStyle=g;bg.fillRect(0,0,1280,720);
-  bg.globalAlpha=.55;for(let x=0;x<1280;x+=512)for(let y=0;y<720;y+=512)bg.drawImage(GRAIN,x,y);bg.globalAlpha=1;
-  bg.fillStyle='rgba(255,255,255,.45)';bg.fillRect(399,0,2,720);bg.fillRect(868,0,2,720);
-  bg.save();bg.strokeStyle='rgba(200,55,45,.10)';bg.lineWidth=2.2;cloud(bg,150,560,1.4);cloud(bg,300,640,.9);cloud(bg,1200,150,1.1);cloud(bg,520,90,.8);bg.restore();
-  bg.save();for(let i=0;i<7;i++){const x=(i*211+t*6)%1300-10,y=120+((i*137)%480)+Math.sin(t*.4+i)*12,r=40+(i%3)*30;
+  const W=BW,H=BH,sx=W/1280,sy=H/720, cx=PORTRAIT?360:860, cy=PORTRAIT?420:300;
+  let g=bg.createRadialGradient(cx,cy,60,cx-100*sx,cy+60*sy,Math.max(W,H)*.75);g.addColorStop(0,'#FCF9F2');g.addColorStop(1,'#EFE5D2');bg.fillStyle=g;bg.fillRect(0,0,W,H);
+  bg.globalAlpha=.55;for(let x=0;x<W;x+=512)for(let y=0;y<H;y+=512)bg.drawImage(GRAIN,x,y);bg.globalAlpha=1;
+  bg.fillStyle='rgba(255,255,255,.45)';bg.fillRect(Math.round(W*.312),0,2,H);bg.fillRect(Math.round(W*.678),0,2,H);
+  const CL=PORTRAIT?[[110,1040,1.3],[600,980,.9],[620,150,1],[120,700,.8]]:[[150,560,1.4],[300,640,.9],[1200,150,1.1],[520,90,.8]];
+  bg.save();bg.strokeStyle='rgba(200,55,45,.10)';bg.lineWidth=2.2;for(const [x,y,k] of CL)cloud(bg,x,y,k);bg.restore();
+  bg.save();for(let i=0;i<7;i++){const x=(i*211+t*6)%(W+20)-10,y=120*sy+((i*137)%Math.round(480*sy))+Math.sin(t*.4+i)*12,r=40+(i%3)*30;
     const rg=bg.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,'rgba(210,174,76,.16)');rg.addColorStop(1,'rgba(210,174,76,0)');bg.fillStyle=rg;bg.fillRect(x-r,y-r,2*r,2*r)}bg.restore();
   if(nv<=0) return;
-  bg.save();bg.globalAlpha=nv;g=bg.createRadialGradient(880,320,40,820,360,860);g.addColorStop(0,'#1c2d72');g.addColorStop(.6,'#0f1a48');g.addColorStop(1,'#070e26');bg.fillStyle=g;bg.fillRect(0,0,1280,720);
-  bg.strokeStyle='rgba(210,174,76,.12)';bg.lineWidth=2;cloud(bg,150,580,1.5);cloud(bg,330,660,1);cloud(bg,1180,140,1.2);cloud(bg,470,70,.9);
-  for(const d of DUST){const y=(d.y-t*d.sp*20+720)%720,a=.25+.25*Math.sin(t*1.3+d.ph);bg.fillStyle=`rgba(226,194,106,${a})`;bg.beginPath();bg.arc(d.x+Math.sin(t*.5+d.ph)*8,y,d.r,0,7);bg.fill()}
+  bg.save();bg.globalAlpha=nv;g=bg.createRadialGradient(PORTRAIT?360:880,PORTRAIT?420:320,40,PORTRAIT?360:820,PORTRAIT?520:360,Math.max(W,H)*.7);g.addColorStop(0,'#1c2d72');g.addColorStop(.6,'#0f1a48');g.addColorStop(1,'#070e26');bg.fillStyle=g;bg.fillRect(0,0,W,H);
+  bg.strokeStyle='rgba(210,174,76,.12)';bg.lineWidth=2;for(const [x,y,k] of CL)cloud(bg,x,y,k*1.1);
+  for(const d of DUST){const x=d.x*sx,y=(d.y*sy-t*d.sp*20+H)%H,a=.25+.25*Math.sin(t*1.3+d.ph);bg.fillStyle=`rgba(226,194,106,${a})`;bg.beginPath();bg.arc(x+Math.sin(t*.5+d.ph)*8,y,d.r,0,7);bg.fill()}
   bg.restore()}
 
 /* ---------- ticks ---------- */
@@ -462,7 +478,7 @@ function pict(ctx,c,a){ctx.save();ctx.strokeStyle='#8a6a1c';ctx.lineWidth=16;ctx
 /* ---------- build copy layers ---------- */
 const ORDER=TL.scenes.map(s=>s.id);
 ORDER.forEach(id=>{const s=SCN[id],d=SC[id]; const div=document.createElement('div'); div.className='copy'+(d.nv?' nv':''); div.id='c_'+id;
-  if(d.top) div.style.top=d.top+'px';
+  if(d.top&&!PORTRAIT) div.style.top=d.top+'px';
   const items=d.copy(); div.innerHTML=items.map(x=>x[0]).join(''); [...div.children].forEach((el,i)=>{el.dataset.in=items[i][1]??(s.start+.35+i*.16)});
   div.style.opacity=0; $('#copies').appendChild(div)});
 
@@ -485,7 +501,7 @@ window.renderAt=async function(t){
   drawBg(t,nv);
   $('#ring').style.transform=`rotate(${t*3}deg)`;
   // dial entrance on open
-  const o=SCN.open; const dk=eo((t-o.start-.1)/1.4); $('#dial').style.transform=`scale(${lerp(.86,1,dk)})`; $('#dial').style.opacity=dk;
+  const o=SCN.open; const dk=eo((t-o.start-.1)/1.4); $('#dial').style.transform=`scale(${DS*lerp(.86,1,dk)})`; $('#dial').style.opacity=dk;
   // copy layers
   for(const id of ORDER){const el=$('#c_'+id),w=W[id]; el.style.opacity=w; el.style.visibility=w>0?'visible':'hidden'; if(w<=0) continue;
     for(const c of el.children){const k=eo((t-c.dataset.in)/.7); c.style.opacity=k; c.style.translate=`0 ${(1-k)*16}px`}
