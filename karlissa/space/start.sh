@@ -163,6 +163,9 @@ echo "==> WORKER_PORT        : $WORKER_PORT"
 echo "==> INTERNAL_API_KEY   : ${INTERNAL_API_KEY:+SET}"
 
 # ── 8. Ensure nginx.conf is in place ─────────────────────────────────────────
+# Lock the ATLAS trace dashboard with the same ADMIN_PASSWORD as the Control Room (user: admin)
+python3 -c "import crypt,os; print('admin:' + crypt.crypt(os.environ.get('ADMIN_PASSWORD') or os.urandom(24).hex(), crypt.mksalt(crypt.METHOD_SHA512)))" > /tmp/atlas.htpasswd
+chmod 644 /tmp/atlas.htpasswd
 echo "==> Checking nginx.conf..."
 nginx -t && echo "==> nginx config OK."
 
