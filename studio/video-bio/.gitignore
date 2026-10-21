@@ -10,3 +10,4 @@ build/*.jpg
 build/render*.log
 build/parts*.txt
 .env
+assets/slide/
