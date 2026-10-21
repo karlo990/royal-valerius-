@@ -4,7 +4,7 @@ import { spawn } from 'child_process';
 import fs from 'fs'; import path from 'path'; import url from 'url';
 const ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..');
 const [mode = 'stills', arg, T0, T1, OUTN] = process.argv.slice(2);
-const b = await chromium.launch({ args: ['--allow-file-access-from-files', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const b = await chromium.launch({ args: ['--allow-file-access-from-files', '--enable-unsafe-swiftshader'] });
 const PORTRAIT = !!process.env.PORTRAIT;
 const p = await b.newPage({ viewport: PORTRAIT ? { width: 720, height: 1280 } : { width: 1280, height: 720 }, deviceScaleFactor: 1.5 });
 p.on('pageerror', e => console.error('PAGEERR', e.message)); p.on('console', m => m.type() === 'error' && console.error('CONSOLE', m.text()));

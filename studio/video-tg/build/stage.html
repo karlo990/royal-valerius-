@@ -241,18 +241,18 @@ function pCam(pitchDeg,W,H,horizonY,margin){const p=pitchDeg*Math.PI/180,f=[0,Ma
   return{f,r,u,F,cx:W/2,cy:horizonY-F*hy}}
 function pProj(c,p){const z=dot(p,c.f);if(z<0.15)return null;return[c.cx+c.F*dot(p,c.r)/z,c.cy-c.F*dot(p,c.u)/z,z]}
 function pVP(c,d){let z=dot(d,c.f);if(Math.abs(z)<1e-4)return null;if(z<0){d=d.map(v=>-v);z=-z}return[c.cx+c.F*dot(d,c.r)/z,c.cy-c.F*dot(d,c.u)/z]}
-function perspDraw(ctx,pitch,which,guideA){
+function perspDraw(ctx,pitch,which,guideA){const fadeOther=clamp(Math.abs(pitch)/14);
   sheet(ctx);const m=70;let hY=pitch>0.5?S*.74:pitch<-0.5?S*.26:S/2;const c=pCam(pitch,S,S,hY,m);
   if(Math.abs(pitch)>0.5){const v=pVP(c,E3),target=pitch>0?m+10:S-m-10,d=target-v[1];c.cy+=d;hY+=d}
   const V=[pVP(c,E1),pVP(c,E2),Math.abs(pitch)>0.5?pVP(c,E3):null];
-  const show=which==='up'?b=>b.c[1]>=0:which==='down'?b=>b.c[1]<=0:()=>true;
-  const items=PBOX.filter(show).map(b=>{const vs=pVerts(b),ps=vs.map(v=>pProj(c,v));return{b,vs,ps,z:ps.reduce((a,p)=>a+(p?p[2]:0),0)/8}}).filter(o=>o.ps.every(Boolean)).sort((a,b)=>b.z-a.z);
+  const other=b=>(pitch>0&&b.c[1]<0)||(pitch<0&&b.c[1]>0);
+  const items=PBOX.filter(b=>!other(b)||fadeOther<1).map(b=>{const vs=pVerts(b),ps=vs.map(v=>pProj(c,v));return{b,vs,ps,z:ps.reduce((a,p)=>a+(p?p[2]:0),0)/8}}).filter(o=>o.ps.every(Boolean)).sort((a,b)=>b.z-a.z);
   ctx.save();ctx.globalAlpha=guideA;for(const o of items){const xs=o.ps.map(p=>p[0]),ys=o.ps.map(p=>p[1]);
     for(const i of new Set([xs.indexOf(Math.min(...xs)),xs.indexOf(Math.max(...xs)),ys.indexOf(Math.min(...ys)),ys.indexOf(Math.max(...ys))]))
       for(const P of V)if(P)ln(ctx,P,[o.ps[i][0]+(o.ps[i][0]-P[0])*.3,o.ps[i][1]+(o.ps[i][1]-P[1])*.3],1,{w:1.2,col:'rgba(120,128,145,.55)'})}ctx.restore();
-  for(const o of items){const ctr=[o.b.c[0],o.b.level?o.b.c[1]:(o.b.c[1]>0?o.b.c[1]+o.b.s[2]/2:o.b.c[1]-o.b.s[2]/2),o.b.c[2]];
+  for(const o of items){ctx.save();ctx.globalAlpha=other(o.b)?1-fadeOther:1;const ctr=[o.b.c[0],o.b.level?o.b.c[1]:(o.b.c[1]>0?o.b.c[1]+o.b.s[2]/2:o.b.c[1]-o.b.s[2]/2),o.b.c[2]];
     const vis=PF.map(f=>{const cc=f.reduce((a,i)=>[a[0]+o.vs[i][0]/4,a[1]+o.vs[i][1]/4,a[2]+o.vs[i][2]/4],[0,0,0]);let n=cross(sub3(o.vs[f[1]],o.vs[f[0]]),sub3(o.vs[f[2]],o.vs[f[0]]));if(dot(n,sub3(cc,ctr))<0)n=n.map(v=>-v);return dot(n,sub3([0,0,0],cc))>0});
-    PF.forEach((f,i)=>{if(!vis[i])return;ctx.beginPath();f.forEach((k,j)=>{const p=o.ps[k];j?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])});ctx.closePath();ctx.fillStyle=o.b.c[1]>0?'#FDF1EF':o.b.c[1]<0?'#EEF5FB':'#fff';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.6;ctx.stroke()})}
+    PF.forEach((f,i)=>{if(!vis[i])return;ctx.beginPath();f.forEach((k,j)=>{const p=o.ps[k];j?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])});ctx.closePath();ctx.fillStyle=o.b.c[1]>0?'#FDF1EF':o.b.c[1]<0?'#EEF5FB':'#fff';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.6;ctx.stroke()});ctx.restore()}
   ln(ctx,[0,hY],[S,hY],1,{w:2,col:'#13215a'});label(ctx,'HORIZON · EYE LEVEL',110,hY+16,{font:'600 13px "Plex Mono"',col:'#13215a'});
   const dotv=(P,txt,col)=>{if(!P)return;const x=clamp(P[0],16,S-16),y=clamp(P[1],16,S-16);ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y,9,0,7);ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.stroke();
     label(ctx,txt,x+(x<C?40:-40),y+(y<C?26:-26),{col,font:'600 17px "Plex Mono"'})};
@@ -327,10 +327,10 @@ const BIM=(()=>{ if(!window.THREE) return null;
     pipe(L,[[-7.4,y+.02,4.4],[7.6,y+.02,4.4]],.11,'drain','IfcPipeSegment');for(const x of [-3,1.2,4.2])pipe(L,[[x,y+.15,3.9],[x,y+.15,1.8]],.06,'hot','IfcPipeSegment');
     for(const x of [-2.2,2])pipe(L,[[x,y+.15,-3.3],[x,y+.15,-1.2]],.06,'cold','IfcPipeSegment')})(LAYERS[4]);
   LAYERS.forEach(L=>{const cls={};let vol=0,area=0,len=0;for(const it of L.items){cls[it.ifc]=(cls[it.ifc]||0)+1;vol+=it.vol||0;area+=it.area||0;len+=it.len||0}L.q={cls,vol,area,len}});
-  let curSel=-9;
-  function select(sel){if(sel===curSel)return;curSel=sel;LAYERS.forEach((L,j)=>{for(const [k,m] of Object.entries(L.mats)){const b=BASE[k],dim=sel>=0&&j!==sel;m.transparent=dim||!!b.transparent;m.opacity=dim?.12:(b.opacity??1);m.depthWrite=!dim&&!b.transparent;m.needsUpdate=true}})}
+  function dimLayers(dims){LAYERS.forEach((L,j)=>{const d=dims?dims[j]:0;for(const [k,m] of Object.entries(L.mats)){const b=BASE[k],op=(b.opacity??1)*lerp(1,.12,d),tr=d>.001||!!b.transparent;
+    if(m.transparent!==tr){m.transparent=tr;m.needsUpdate=true} m.opacity=op; const dw=!tr; if(m.depthWrite!==dw){m.depthWrite=dw;m.needsUpdate=true}}})}
   // st: {explode, yaw, pitch, select, drop:[0..1 per layer]}
-  function render(st){select(st.select??-1);
+  function render(st){dimLayers(st.dims);
     LAYERS.forEach((L,i)=>{const d=st.drop?st.drop[i]:1;L.group.position.y=L.y0+GAP[i]*st.explode+(1-eo(d))*14;L.group.visible=d>0});
     const top=LAYERS[4].y0+GAP[4]*st.explode+2.5,mid=top/2-.4,R=(40+top*1.1)*(st.zoom||1);
     camera.position.set(Math.sin(st.yaw)*Math.cos(st.pitch)*R,mid+Math.sin(st.pitch)*R,Math.cos(st.yaw)*Math.cos(st.pitch)*R);camera.lookAt(0,mid,0);camera.updateProjectionMatrix();
@@ -513,13 +513,16 @@ const SC={
  persp:{nv:0,cta:1,tag:t=>t<cue('t19')?'2-POINT':t<cue('t21','Look down')?'VP3 ↑':'VP3 ↓',
    copy:()=>[[`<div class="eb"><span class="n">04</span>LESSON FOUR · PERSPECTIVE</div>`],[`<h1 class="hl">Two points. <em>Then three.</em></h1>`],
      [`<div class="card rows">${[['VP1 · VP2','Width and depth run to the horizon','',cue('t17','two vanishing')],['VP3 ↑','Looking up: verticals meet in the sky','up',cue('t19','third')],['VP3 ↓','Looking down: verticals meet below','down',cue('t21','Look down')]].map(([n,d,c,a])=>`<div class="row p" data-at="${a}"><i class="${c}"></i><div><b>${n}</b><small>${d}</small></div></div>`).join('')}</div>`,cue('t17','two vanishing')-.3]],
-   async lens(ctx,t,s){const up=cue('t19','Look up'),bj=cue('t20')-.2,bjEnd=cue('t21','Look down')-.4,dn=cue('t21','Look down');
-     const pitch=t<dn?lerp(0,40,eio((t-up)/1.6)):lerp(40,-40,eio((t-dn)/1.4));
-     const draw=g=>perspDraw(g,pitch,t<dn-.2?(pitch>.5?'up':'all'):'down',clamp((t-s.start-.4)/1));
+   async lens(ctx,t,s){const up=cue('t19','Look up'),bj=cue('t20')-.2,bjEnd=cue('t21','Look down')-.4,dn=cue('t21','Look down'),ga=clamp((t-s.start-.4)/1);
+     // dissolve between views rather than tilting through level, where the third point jumps in from infinity
+     const level=g=>perspDraw(g,0,'all',ga), upV=g=>perspDraw(g,lerp(10,40,eio((t-up)/1.6)),'up',ga), dnV=g=>perspDraw(g,-lerp(10,40,eio((t-dn)/1.4)),'down',ga);
      const burj=async g=>{await clip(g,'burj',230,422,(t-bj)/(bjEnd-bj),1.04);const k=clamp((t-bj-1.2)/1);if(k>0){g.save();g.globalAlpha=k*.85;const P=[C,-260];
        for(const x of [60,170,280,440,550,660])ln(g,[x,S],P,1,{w:2,col:'#E2C26A'});g.fillStyle='#D9473C';g.beginPath();g.arc(C,26,10,0,7);g.fill();label(g,'VP3 ↑',C+56,30,{col:'#fff',font:'600 18px "Plex Mono"'});g.restore()}};
-     if(t<bj-.6||t>bjEnd+.6){draw(ctx);return}
-     if(t<bjEnd) await xfade(ctx,t,bj-.6,.6,async g=>draw(g),burj); else await xfade(ctx,t,bjEnd,.6,burj,async g=>draw(g))},
+     if(t<up+.7){await xfade(ctx,t,up,.7,async g=>level(g),async g=>upV(g));return}
+     if(t<bj-.6){upV(ctx);return}
+     if(t<bjEnd){await xfade(ctx,t,bj-.6,.6,async g=>upV(g),burj);return}
+     if(t<dn+.2){await xfade(ctx,t,bjEnd,.6,burj,async g=>upV(g));return}
+     await xfade(ctx,t,dn+.2,.7,async g=>upV(g),async g=>dnV(g))},
    update(t){document.querySelectorAll('.row.p').forEach(e=>{e.style.opacity=lerp(.3,1,eo((t-e.dataset.at)/.5))})}},
  section:{nv:0,cta:1,tag:()=>'A–A',
    copy:()=>[[`<div class="eb"><span class="n">05</span>LESSON FIVE · SECTIONS</div>`],[`<h1 class="hl">Slice it. <em>Hatch it. Size it.</em></h1>`],
@@ -533,7 +536,12 @@ const SC={
    async lens(ctx,t,s){const tB=cue('t25','BIM')+.3;
      const lap=g=>clip(g,'laptop',1,300,(t-s.start)/(tB-s.start+1),1.04);
      const model=g=>{if(!BIM){sheet(g);return}const st=bimState(t);g.drawImage(BIM.render(st),0,0)};
-     if(t<tB-.8){await lap(ctx);return} await xfade(ctx,t,tB-.8,.9,lap,async g=>model(g))},
+     const tBu=cue('t29','build');
+     if(t<tB-.8){await lap(ctx);return}
+     if(t<tBu-.6){await xfade(ctx,t,tB-.8,.9,lap,async g=>model(g));return}
+     const pre=g=>{const st=bimState(tBu-.25);g.drawImage(BIM.render(st),0,0)};
+     if(t<tBu+.7){await xfade(ctx,t,tBu-.6,1.0,async g=>pre(g),async g=>model(g));return}
+     model(ctx)},
    update(t){const c=$('#bimcard');if(!c||!BIM)return;const st=bimState(t),L=BIM.LAYERS;let key,html;
      if(st.build>=0){key='b'+st.build;html=`<div class="hd">BUILD SEQUENCE<span>4D</span></div><dl><div><dt>Step</dt><dd><big>${st.build+1}</big> of 5</dd></div><div><dt>Placing</dt><dd>${L[st.build].name}</dd></div><div><dt>Order</dt><dd>Site → slab → frame → services</dd></div></dl>`}
      else if(st.select===1){const q=L[1].q;key='l';html=`<div class="hd">02 · LIVING LEVEL<span>IfcBuildingStorey</span></div><dl>${Object.entries(q.cls).slice(0,4).map(([k,v])=>`<div><dt><code>${k}</code></dt><dd>× ${v}</dd></div>`).join('')}<div><dt>Concrete</dt><dd><big>${q.vol.toFixed(1)}</big> m³</dd></div></dl>`}
@@ -568,6 +576,9 @@ const SC={
 function bimState(t){const tB=cue('t25','BIM')+.3,t27=cue('t27'),tSv=cue('t28','services'),tBu=cue('t29','build');
   const st={explode:eio((t-tB-.4)/2.2),yaw:-.9+(t-tB)*.09,pitch:.42,select:-1,build:-1,zoom:1};
   if(t>=t27&&t<tSv)st.select=1; if(t>=tSv&&t<tBu)st.select=4;
+  const target=(sel,j)=>sel>=0&&j!==sel?1:0, SEL=[[-1e9,-1],[t27,1],[tSv,4],[tBu-.2,-1]];
+  let i=0;while(i+1<SEL.length&&t>=SEL[i+1][0])i++;const prev=i?SEL[i-1][1]:-1,cur=SEL[i][1],k=eio((t-SEL[i][0])/.45);
+  st.dims=[0,1,2,3,4].map(j=>lerp(target(prev,j),target(cur,j),k));
   if(t>=tBu-.2){const k=(t-tBu+.2);st.drop=[0,1,2,3,4].map(i=>clamp((k-i*.7)/.7));st.build=Math.min(4,Math.floor(Math.max(0,k)/.7));st.explode=lerp(1,.25,eio((k-3.5)/1.5))}
   return st}
 

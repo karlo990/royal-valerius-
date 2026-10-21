@@ -13,3 +13,4 @@ build/render*.log
 .env
 build/parts*.txt
 build/sync.jpg
+build/portrait_chk.jpg
