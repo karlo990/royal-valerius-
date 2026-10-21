@@ -2,7 +2,7 @@ ROYAL CREST · TECHNICAL GRAPHICS FILM: VOICE KIT
 ================================================
 
 Makes the 39 voice lines for "Every building starts as a line":
-  Teacher Tinashe  JBFqnCBsd6RMwjVu3G6B  (ElevenLabs premade voice "George")
+  Teacher Tinashe  IgGJCWnIbnBRMGhMU9Z6  (Charlotte, warm South African)
   Sam              FSjbVsYdGQ5KJ6l0Ul2r  (same commentator as the Mandarin film)
 
 Windows (PowerShell), in the folder where you unzipped this kit:

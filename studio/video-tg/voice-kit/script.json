@@ -1,10 +1,10 @@
 {
  "title": "Technical Graphics at Royal Crest: Every building starts as a line",
  "voices": {
-  "TIN": {"name": "Teacher Tinashe", "voice_id": "JBFqnCBsd6RMwjVu3G6B"},
+  "TIN": {"name": "Teacher Tinashe", "voice_id": "IgGJCWnIbnBRMGhMU9Z6"},
   "SAM": {"name": "Sam (commentator)", "voice_id": "FSjbVsYdGQ5KJ6l0Ul2r"}
  },
- "_note": "say = text sent to ElevenLabs (numbers spelled out where they must be read a certain way); cap = on-screen caption. TIN uses ElevenLabs' premade voice 'George'; swap voice_id for any voice in your account.",
+ "_note": "say = text sent to ElevenLabs (numbers spelled out where they must be read a certain way); cap = on-screen caption. TIN uses 'Charlotte – Warm South African' from the account's voice list; swap voice_id for any voice in your account.",
  "lines": [
   {"id": "t01", "scene": "open", "who": "TIN", "say": "Every building in Zimbabwe started the same way.", "cap": "Every building in Zimbabwe started the same way."},
   {"id": "t02", "scene": "open", "who": "SAM", "say": "With bricks?", "cap": "With bricks?"},
