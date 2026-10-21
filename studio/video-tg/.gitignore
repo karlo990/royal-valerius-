@@ -1,0 +1,13 @@
+node_modules
+assets/compass/
+assets/burj/
+assets/laptop/
+assets/isoroom/
+music/
+audio/
+out/
+build/stills/
+build/*.mp4
+build/*.jpg
+build/render*.log
+.env
