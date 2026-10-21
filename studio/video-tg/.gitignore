@@ -11,3 +11,5 @@ build/*.mp4
 build/*.jpg
 build/render*.log
 .env
+build/parts*.txt
+build/sync.jpg
