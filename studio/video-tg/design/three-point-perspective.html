@@ -1,0 +1,265 @@
+<title>Three-Point Perspective</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Gowun+Dodum&display=swap">
+<style>
+/* Layout: a drafting board. The 3D sheet takes the left, a narrow control rail sits on the right
+   and drops under the sheet on phones. Colours follow the sketch: grey construction, red = looking up,
+   blue = looking down, with Royal Crest navy ink and gold vanishing points. */
+:root{
+  --paper:#F6F7F4; --sheet:#FFFFFF; --ink:#13215A; --edge:#1B1E2B; --guide:#B8BDC8; --grid:#E7EAF0;
+  --up:#D9473C; --down:#3F8FD0; --vp:#B88A14; --muted:#5F6577; --line:#DCDFE6; --chip:#EEF0F4; --accent:#13215A; --onaccent:#FFFFFF;
+  --f-display:"Newsreader",Georgia,serif; --f-ui:"Plus Jakarta Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace; --f-ko:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0C1226; --sheet:#111A35; --ink:#E9ECF6; --edge:#F1F3FA; --guide:#4A5578; --grid:#18234A;
+  --up:#FF7A6E; --down:#6DB7F2; --vp:#E2C26A; --muted:#A3AAC2; --line:#26315A; --chip:#18234A; --accent:#E2C26A; --onaccent:#0C1226; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#0C1226; --sheet:#111A35; --ink:#E9ECF6; --edge:#F1F3FA; --guide:#4A5578; --grid:#18234A;
+  --up:#FF7A6E; --down:#6DB7F2; --vp:#E2C26A; --muted:#A3AAC2; --line:#26315A; --chip:#18234A; --accent:#E2C26A; --onaccent:#0C1226; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 48px;display:grid;gap:20px}
+header{display:grid;gap:6px}
+.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+h1{margin:0;font:400 clamp(2rem,4.6vw,3.2rem)/1.04 var(--f-display);letter-spacing:-.01em;text-wrap:balance}
+h1 em{color:var(--up)}
+.ko{font-family:var(--f-ko);color:var(--muted);font-size:1.02rem}
+.board{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+.sheet{justify-self:start!important;position:relative;background:var(--sheet);border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  aspect-ratio:3/5;width:min(100%,calc(86vh * 3 / 5));max-width:100%;justify-self:center;touch-action:pan-y;cursor:grab}
+.sheet:active{cursor:grabbing}
+.sheet canvas{display:block;width:100%;height:100%}
+.hint{position:absolute;left:12px;bottom:10px;font:500 .72rem var(--f-mono);color:var(--muted);pointer-events:none}
+.rail{display:grid;gap:18px;min-width:0}
+.group{display:grid;gap:8px}
+.group > b{font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.seg button{font:700 .84rem var(--f-ui);padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--chip);color:var(--ink);cursor:pointer;text-align:left;display:grid;gap:1px}
+.seg button small{font:400 .72rem var(--f-ko);color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--onaccent);border-color:var(--accent)}
+.seg button[aria-pressed="true"] small{color:var(--onaccent);opacity:.8}
+button:focus-visible,input:focus-visible{outline:2px solid var(--vp);outline-offset:2px}
+.slider{display:grid;gap:4px}
+.slider label{display:flex;justify-content:space-between;font-size:.84rem;font-weight:600}
+.slider output{font:500 .84rem var(--f-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--vp)}
+.checks{display:grid;gap:6px}
+.checks label{display:flex;gap:9px;align-items:center;font-size:.88rem;cursor:pointer}
+.checks input{accent-color:var(--vp);width:16px;height:16px}
+.vps{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.vps li{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;font-size:.86rem;line-height:1.4}
+.vps li i{width:12px;height:12px;border-radius:50%;margin-top:4px;background:var(--vp)}
+.vps li i.up{background:var(--up)} .vps li i.down{background:var(--down)} .vps li i.off{background:var(--guide)}
+.vps li span{min-width:0}
+.vps li small{display:block;color:var(--muted);font-size:.78rem}
+.note{font-size:.88rem;color:var(--muted);max-width:62ch;margin:0}
+.note b{color:var(--ink)}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Technical Graphics · Perspective drawing</div>
+    <h1>Three-point perspective, <em>built in 3D</em></h1>
+    <div class="ko">《3점투시》 위를 보거나 아래를 봤을 때 · looking up or looking down</div>
+  </header>
+
+  <div class="board">
+    <div class="sheet" id="sheet" aria-label="3D perspective drawing. Drag sideways to turn the view.">
+      <canvas id="cv"></canvas>
+      <div class="hint">drag sideways to turn · double-click to reset</div>
+    </div>
+
+    <div class="rail">
+      <div class="group"><b>View</b>
+        <div class="seg" role="group" aria-label="View">
+          <button id="m-both" data-mode="both" aria-pressed="true">Both, like the sketch<small>위·아래 함께</small></button>
+          <button id="m-up" data-mode="up" aria-pressed="false">Looking up<small>위를 볼 때</small></button>
+          <button id="m-down" data-mode="down" aria-pressed="false">Looking down<small>아래를 볼 때</small></button>
+          <button id="m-level" data-mode="level" aria-pressed="false">Eye level<small>2점투시</small></button>
+        </div>
+      </div>
+      <div class="group">
+        <div class="slider"><label for="pitch">Camera tilt <output id="pitchOut">45°</output></label>
+          <input type="range" id="pitch" min="10" max="70" value="45" step="1"></div>
+        <div class="slider"><label for="yaw">Turn <output id="yawOut">0°</output></label>
+          <input type="range" id="yaw" min="-30" max="30" value="0" step="1"></div>
+      </div>
+      <div class="group"><b>Show</b>
+        <div class="checks">
+          <label><input type="checkbox" id="c-guides" checked> Construction lines to the vanishing points</label>
+          <label><input type="checkbox" id="c-arrows" checked> Direction arrows on edges</label>
+          <label><input type="checkbox" id="c-hidden"> Hidden edges, dashed</label>
+        </div>
+      </div>
+      <div class="group"><b>Vanishing points</b>
+        <ul class="vps" id="vps"></ul>
+      </div>
+    </div>
+  </div>
+
+  <p class="note"><b>Why three points?</b> Width and depth lines run to two vanishing points on the horizon (VP1, VP2). When the camera tilts up, vertical lines also converge, to a third point above (VP3). When it tilts down, they converge to a point below. Level the camera and the verticals become parallel again, which is two-point perspective. The sketch shows both cases on one sheet: the top half is drawn looking up and the bottom half looking down, sharing the same horizon.</p>
+</div>
+
+<script>
+(()=>{
+const cv=document.getElementById('cv'), sheet=document.getElementById('sheet'), ctx=cv.getContext('2d');
+const $=id=>document.getElementById(id);
+const state={mode:'both',pitch:45,yaw:0,guides:true,arrows:true,hidden:false,anim:0};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+/* ---- scene: boxes turned 45° so width and depth run to two side vanishing points ---- */
+const A=45*Math.PI/180, E1=[Math.cos(A),0,Math.sin(A)], E2=[-Math.sin(A),0,Math.cos(A)], E3=[0,1,0];
+// [centre along forward, sideways, height of base, width(E1), depth(E2), height]
+const BOXES=[
+  // above eye level (looking up)
+  {c:[-2.3,1.1,6.4], s:[1.9,1.6,3.4]}, {c:[0.4,2.4,7.6], s:[1.7,1.7,4.6]}, {c:[2.6,0.9,6.6], s:[1.2,1.3,2.6]},
+  // below eye level (looking down)
+  {c:[-2.3,-1.3,6.6], s:[1.9,1.5,3.1]}, {c:[0.2,-2.3,7.8], s:[1.6,1.7,3.0]}, {c:[2.5,-1.1,6.4], s:[1.9,1.7,3.6]},
+  // the small cube sitting on the horizon
+  {c:[0.5,0,6.2], s:[0.7,0.7,0.7], level:true},
+];
+// vertical extent: boxes above hang from c.y upward, boxes below hang downward from c.y, level cube centred
+function boxVerts(b){
+  const [x,y,z]=b.c,[w,d,h]=b.s, vs=[];
+  const y0=b.level?y-h/2:(y>0?y:y-h), y1=y0+h;
+  for(const sy of [y0,y1]) for(const [i,j] of [[-1,-1],[1,-1],[1,1],[-1,1]])
+    vs.push([x+E1[0]*w/2*i+E2[0]*d/2*j, sy, z+E1[2]*w/2*i+E2[2]*d/2*j]);
+  return vs;
+}
+const FACES=[[0,1,2,3],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]];
+const EDGES=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2], sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+
+/* ---- camera at the origin (eye level y=0), with a shifted lens so the horizon sits where we place it ---- */
+function camera(pitchDeg,yawDeg,W,H,horizonY,margin){
+  const p=pitchDeg*Math.PI/180, y=yawDeg*Math.PI/180;
+  const f=[Math.sin(y)*Math.cos(p),Math.sin(p),Math.cos(y)*Math.cos(p)], r=[Math.cos(y),0,-Math.sin(y)], u=cross(f,r);
+  // offsets at focal length 1: x of each side vanishing point, y of the horizon and of the vertical vanishing point
+  const off=d=>{let z=dot(d,f); if(Math.abs(z)<1e-4) return null; if(z<0){d=d.map(v=>-v);z=-z} return [dot(d,r)/z,-dot(d,u)/z]};
+  const h=[Math.sin(y),0,Math.cos(y)], hy=-dot(h,u)/dot(h,f), v1=off(E1), v2=off(E2), v3=off(E3);
+  let F=Infinity;
+  for(const v of [v1,v2]) if(v) F=Math.min(F,(W/2-margin)/Math.max(1e-3,Math.abs(v[0])));
+  if(v3&&Math.abs(pitchDeg)>0.5){ const room=pitchDeg>0?horizonY-margin:H-horizonY-margin; F=Math.min(F,room/Math.abs(v3[1]-hy)) }
+  if(!isFinite(F)) F=W;
+  return {f,r,u,F,cx:W/2,cy:horizonY-F*hy};
+}
+function proj(cam,p){const z=dot(p,cam.f); if(z<0.15) return null; return [cam.cx+cam.F*dot(p,cam.r)/z, cam.cy-cam.F*dot(p,cam.u)/z, z]}
+function vp(cam,d){let z=dot(d,cam.f); if(Math.abs(z)<1e-4) return null; if(z<0){d=[-d[0],-d[1],-d[2]];z=-z} return [cam.cx+cam.F*dot(d,cam.r)/z, cam.cy-cam.F*dot(d,cam.u)/z]}
+
+/* ---- drawing ---- */
+let W=0,H=0,DPR=1;
+function resize(){const r=sheet.getBoundingClientRect();DPR=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;cv.width=W*DPR;cv.height=H*DPR;draw()}
+function line(a,b,col,w,dash){ctx.beginPath();ctx.setLineDash(dash||[]);ctx.strokeStyle=col;ctx.lineWidth=w;ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();ctx.setLineDash([])}
+function extend(from,through,k){return [through[0]+(through[0]-from[0])*k,through[1]+(through[1]-from[1])*k]}
+function arrow(a,b,col){const L=Math.hypot(b[0]-a[0],b[1]-a[1]); if(L<4) return; const ux=(b[0]-a[0])/L,uy=(b[1]-a[1])/L;
+  const tip=[b[0]+ux*22,b[1]+uy*22]; line(a,tip,col,2.2);
+  ctx.beginPath();ctx.fillStyle=col;ctx.moveTo(tip[0]+ux*2,tip[1]+uy*2);ctx.lineTo(tip[0]-ux*10-uy*5,tip[1]-uy*10+ux*5);ctx.lineTo(tip[0]-ux*10+uy*5,tip[1]-uy*10-ux*5);ctx.closePath();ctx.fill()}
+
+function renderView(cam,clip,which){
+  const C={edge:css('--edge'),guide:css('--guide'),up:css('--up'),down:css('--down'),sheet:css('--sheet'),grid:css('--grid')};
+  ctx.save(); if(clip){ctx.beginPath();ctx.rect(clip[0],clip[1],clip[2],clip[3]);ctx.clip()}
+  const V1=vp(cam,E1),V2=vp(cam,E2),V3=vp(cam,E3);
+  const show=which==='up'?b=>b.c[1]>=0:which==='down'?b=>b.c[1]<=0:()=>true;
+  const items=BOXES.filter(show).map(b=>{const vs=boxVerts(b);const ps=vs.map(v=>proj(cam,v));const zc=ps.reduce((a,p)=>a+(p?p[2]:0),0)/8;return{b,vs,ps,zc}})
+    .filter(o=>o.ps.every(Boolean)).sort((a,b)=>b.zc-a.zc);
+  const ga=state.guides?Math.min(1,state.anim):0;
+  // construction lines first (under the boxes)
+  if(ga>0){ctx.globalAlpha=.85*ga;
+    for(const o of items){ const xs=o.ps.map(p=>p[0]), ys=o.ps.map(p=>p[1]);
+      // the outermost corners of each box: enough to show where every edge is heading
+      const pick=new Set([xs.indexOf(Math.min(...xs)),xs.indexOf(Math.max(...xs)),ys.indexOf(Math.min(...ys)),ys.indexOf(Math.max(...ys))]);
+      for(const i of pick) for(const P of [V1,V2,V3]) if(P) line(P,extend(P,o.ps[i],.35),C.guide,1) }
+    ctx.globalAlpha=1}
+  for(const o of items){
+    const vis=FACES.map(f=>{const c=f.reduce((a,i)=>[a[0]+o.vs[i][0]/4,a[1]+o.vs[i][1]/4,a[2]+o.vs[i][2]/4],[0,0,0]);
+      const n=cross(sub(o.vs[f[1]],o.vs[f[0]]),sub(o.vs[f[2]],o.vs[f[0]]));const out=dot(n,sub(c,[o.b.c[0],o.b.level?o.b.c[1]:(o.b.c[1]>0?o.b.c[1]+o.b.s[2]/2:o.b.c[1]-o.b.s[2]/2),o.b.c[2]]))>0?n:[-n[0],-n[1],-n[2]];
+      return dot(out,sub([0,0,0],c))>0});
+    const visEdge=new Set(); FACES.forEach((f,i)=>{if(vis[i])for(let k=0;k<4;k++){const a=f[k],b=f[(k+1)%4];visEdge.add(Math.min(a,b)+'-'+Math.max(a,b))}});
+    if(state.hidden) for(const [a,b] of EDGES) if(!visEdge.has(Math.min(a,b)+'-'+Math.max(a,b))) line(o.ps[a],o.ps[b],C.guide,1.2,[6,5]);
+    FACES.forEach((f,i)=>{if(!vis[i])return;ctx.beginPath();f.forEach((k,j)=>{const p=o.ps[k];j?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])});ctx.closePath();ctx.fillStyle=C.sheet;ctx.globalAlpha=.92;ctx.fill();ctx.globalAlpha=1});
+    for(const k of visEdge){const [a,b]=k.split('-').map(Number);line(o.ps[a],o.ps[b],C.edge,1.8)}
+    if(state.arrows&&!o.b.level){ // arrows along the three edges that leave the corner nearest the viewer
+      const col=o.b.c[1]>0?C.up:C.down; let n=0; o.ps.forEach((p,i)=>{if(p[2]<o.ps[n][2])n=i});
+      for(const [a,b] of EDGES){ if(a!==n&&b!==n) continue; const m=a===n?b:a; if(!visEdge.has(Math.min(a,b)+'-'+Math.max(a,b))) continue;
+        ctx.globalAlpha=Math.min(1,state.anim*1.5);arrow(o.ps[n],o.ps[m],col);ctx.globalAlpha=1 }
+    }
+  }
+  ctx.restore();
+  return {V1,V2,V3};
+}
+function dotVP(P,label,col,align){ if(!P) return; const C=css('--sheet');
+  const x=Math.max(10,Math.min(W-10,P[0])), y=Math.max(10,Math.min(H-10,P[1])), off=x!==P[0]||y!==P[1];
+  ctx.beginPath();ctx.fillStyle=col;ctx.arc(x,y,off?4:6,0,7);ctx.fill();ctx.lineWidth=2;ctx.strokeStyle=C;ctx.stroke();
+  ctx.font='600 12px "IBM Plex Mono", monospace';ctx.fillStyle=col;ctx.textAlign=align||'left';ctx.textBaseline='middle';
+  if(align==='center'){ctx.textAlign='left'} const lx=align==='right'?x-12:x+12, ly=align==='center'?y:y-14;
+  ctx.fillText(label+(off?' →':''),lx,ly)}
+
+function draw(){
+  if(!W) return; ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,W,H);
+  const C={grid:css('--grid'),ink:css('--ink'),vp:css('--vp'),up:css('--up'),down:css('--down'),muted:css('--muted'),guide:css('--guide')};
+  // faint drafting grid
+  ctx.strokeStyle=C.grid;ctx.lineWidth=1;for(let x=(W/2)%24;x<W;x+=24){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+  for(let y=(H/2)%24;y<H;y+=24){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  const m=Math.max(18,W*.04), P=state.pitch, Y=state.yaw; let hY, list=[];
+  if(state.mode==='both'){
+    hY=H/2;
+    const up=camera(P,Y,W,H,hY,m), dn=camera(-P,Y,W,H,hY,m);
+    const F=Math.min(up.F,dn.F); up.F=dn.F=F; // same scale on both halves so the horizon points line up
+    for(const c of [up,dn]){const h=[Math.sin(Y*Math.PI/180),0,Math.cos(Y*Math.PI/180)];c.cy=hY+c.F*dot(h,c.u)/dot(h,c.f)}
+    const a=renderView(up,[0,0,W,hY]), b=renderView(dn,[0,hY,W,H-hY]);
+    list=[['VP1',a.V1,C.vp,'side'],['VP2',a.V2,C.vp,'side'],['VP3 ↑',a.V3,C.up,'up'],['VP3 ↓',b.V3,C.down,'down']];
+    ctx.font='14px "Gowun Dodum", sans-serif';ctx.textAlign='right';ctx.textBaseline='middle';
+    ctx.fillStyle=C.up;ctx.fillText('↑ 위를 볼 때',W-m,hY-H*.16);ctx.fillStyle=C.down;ctx.fillText('↓ 아래를 볼 때',W-m,hY+H*.16);
+  } else {
+    const pitch=state.mode==='up'?P:state.mode==='down'?-P:0;
+    hY=state.mode==='up'?H*.74:state.mode==='down'?H*.26:H/2;
+    const c=camera(pitch,Y,W,H,hY,m);
+    if(pitch!==0){ // slide the sheet so the third vanishing point sits near the edge and the boxes fill the page
+      const v=vp(c,E3), target=pitch>0?m+26:H-m-26, d=target-v[1]; c.cy+=d; hY+=d }
+    const a=renderView(c,null,state.mode);
+    list=[['VP1',a.V1,C.vp,'side'],['VP2',a.V2,C.vp,'side']];
+    if(state.mode!=='level') list.push([state.mode==='up'?'VP3 ↑':'VP3 ↓',a.V3,state.mode==='up'?C.up:C.down,state.mode]);
+  }
+  // horizon and the central vertical, as in the sketch
+  ctx.globalAlpha=Math.min(1,state.anim*1.4);
+  ctx.strokeStyle=C.ink;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(0,hY);ctx.lineTo(W,hY);ctx.stroke();
+  const v3=list.filter(l=>l[0].startsWith('VP3'));
+  if(v3.length){ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(v3[0][1][0],Math.max(0,Math.min(H,v3[0][1][1])));ctx.lineTo(v3[v3.length-1][1][0],v3.length>1?Math.max(0,Math.min(H,v3[1][1][1])):hY);ctx.stroke()}
+  ctx.font='600 11px "IBM Plex Mono", monospace';ctx.fillStyle=C.muted;ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText('HORIZON · EYE LEVEL',m,hY+8);
+  for(const [lab,Pt,col,kind] of list) dotVP(Pt,lab,col,kind==='side'?(Pt&&Pt[0]<W/2?'left':'right'):'center');
+  ctx.globalAlpha=1;
+  legend(list);
+}
+function legend(list){
+  const desc={VP1:'Width lines run here, on the horizon.',VP2:'Depth lines run here, on the horizon.','VP3 ↑':'Vertical lines meet above you: you are looking up.','VP3 ↓':'Vertical lines meet below you: you are looking down.'};
+  let html=list.map(([l,p,_,k])=>`<li><i class="${k==='up'?'up':k==='down'?'down':''}"></i><span><b>${l}</b><small>${desc[l]}</small></span></li>`).join('');
+  if(state.mode==='level') html+=`<li><i class="off"></i><span><b>No VP3</b><small>The camera is level, so vertical lines stay parallel. That is two-point perspective.</small></span></li>`;
+  const el=$('vps'); if(el.innerHTML!==html) el.innerHTML=html;
+}
+
+/* ---- controls ---- */
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{state.mode=b.dataset.mode;
+  document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));$('pitch').disabled=state.mode==='level';intro()}));
+$('pitch').addEventListener('input',e=>{state.pitch=+e.target.value;$('pitchOut').textContent=e.target.value+'°';draw()});
+$('yaw').addEventListener('input',e=>{state.yaw=+e.target.value;$('yawOut').textContent=e.target.value+'°';draw()});
+[['c-guides','guides'],['c-arrows','arrows'],['c-hidden','hidden']].forEach(([id,k])=>$(id).addEventListener('change',e=>{state[k]=e.target.checked;draw()}));
+let drag=null;
+sheet.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:state.yaw};sheet.setPointerCapture(e.pointerId)});
+sheet.addEventListener('pointermove',e=>{if(!drag)return;const v=Math.max(-30,Math.min(30,Math.round(drag.y+(e.clientX-drag.x)/6)));if(v!==state.yaw){state.yaw=v;$('yaw').value=v;$('yawOut').textContent=v+'°';draw()}});
+sheet.addEventListener('pointerup',()=>drag=null);sheet.addEventListener('pointercancel',()=>drag=null);
+sheet.addEventListener('dblclick',()=>{state.yaw=0;$('yaw').value=0;$('yawOut').textContent='0°';draw()});
+function intro(){ if(reduce){state.anim=1;draw();return} const t0=performance.now();
+  (function step(t){state.anim=Math.min(1.2,(t-t0)/700);draw();if(state.anim<1.2)requestAnimationFrame(step)})(t0)}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+new ResizeObserver(resize).observe(sheet);
+document.fonts&&document.fonts.ready.then(draw);
+state.anim=1; resize(); intro();
+})();
+</script>
