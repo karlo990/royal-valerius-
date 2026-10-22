@@ -11,3 +11,4 @@ build/render*.log
 build/parts*.txt
 .env
 assets/slide/
+build/mix_*.log
