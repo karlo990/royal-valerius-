@@ -1,0 +1,63 @@
+{
+ "title": "Bakery at Royal Crest: The science of a perfect cake",
+ "voices": {
+  "CHF": {"name": "Chef Chipo", "voice_id": "IgGJCWnIbnBRMGhMU9Z6"},
+  "SAM": {"name": "Sam (commentator)", "voice_id": "FSjbVsYdGQ5KJ6l0Ul2r"}
+ },
+ "_note": "say = text sent to ElevenLabs (numbers spelled out where they must be read a certain way); cap = on-screen caption. CHF uses 'Charlotte – Warm South African' from the account's voice list; swap voice_id for any voice in your account.",
+ "lines": [
+  {"id": "k01", "scene": "open", "who": "CHF", "say": "Butter. Sugar. Eggs. Flour. Four plain ingredients.", "cap": "Butter. Sugar. Eggs. Flour. Four plain ingredients."},
+  {"id": "k02", "scene": "open", "who": "SAM", "say": "That's it? That's a cake?", "cap": "That’s it? That’s a cake?"},
+  {"id": "k03", "scene": "open", "who": "CHF", "say": "Add a little science, and a lot of skill, and yes. That's a cake.", "cap": "Add a little science, and a lot of skill, and yes. That’s a cake."},
+  {"id": "k04", "scene": "open", "who": "SAM", "say": "Wait. Did you say science? In a kitchen?", "cap": "Wait. Did you say science? In a kitchen?"},
+
+  {"id": "k05", "scene": "title", "who": "SAM", "say": "Welcome to the bakery at Royal Crest Academy, in Bikita. Today: the science of a perfect cake, from the mixing bowl to the business.", "cap": "Welcome to the bakery at Royal Crest Academy, in Bikita. Today: the science of a perfect cake, from the mixing bowl to the business."},
+
+  {"id": "k06", "scene": "recipe", "who": "CHF", "say": "Lesson one. The recipe. Two hundred and twenty-five grams each of butter, sugar and self-raising flour. Four eggs. A splash of milk.", "cap": "Lesson one: the recipe. 225 g each of butter, sugar and self-raising flour. Four eggs. A splash of milk."},
+  {"id": "k07", "scene": "recipe", "who": "SAM", "say": "Grams? Not cups?", "cap": "Grams? Not cups?"},
+  {"id": "k08", "scene": "recipe", "who": "CHF", "say": "Grams. A baker weighs everything. Baking is chemistry, and chemistry needs exact amounts.", "cap": "Grams. A baker weighs everything. Baking is chemistry, and chemistry needs exact amounts."},
+
+  {"id": "k09", "scene": "cream", "who": "CHF", "say": "Lesson two. Creaming. We beat the butter and sugar together until it turns pale and fluffy.", "cap": "Lesson two: creaming. We beat the butter and sugar together until it turns pale and fluffy."},
+  {"id": "k10", "scene": "cream", "who": "CHF", "say": "Every sharp sugar crystal cuts tiny pockets into the butter, and traps millions of air bubbles.", "cap": "Every sharp sugar crystal cuts tiny pockets into the butter, and traps millions of air bubbles."},
+  {"id": "k11", "scene": "cream", "who": "SAM", "say": "So the fluffy part is air?", "cap": "So the fluffy part is air?"},
+  {"id": "k12", "scene": "cream", "who": "CHF", "say": "Air. Then we beat in the eggs, one at a time, and fold in the flour gently, so we don't knock the air out.", "cap": "Air. Then we beat in the eggs, one at a time, and fold in the flour gently, so we don’t knock the air out."},
+
+  {"id": "k13", "scene": "rise", "who": "CHF", "say": "Lesson three. Why a cake rises. Self-raising flour contains baking powder: bicarbonate of soda, and a dry acid.", "cap": "Lesson three: why a cake rises. Self-raising flour contains baking powder: bicarbonate of soda, and a dry acid."},
+  {"id": "k14", "scene": "rise", "who": "CHF", "say": "Add liquid and heat, and they react, and release carbon dioxide gas.", "cap": "Add liquid and heat, and they react, and release carbon dioxide gas."},
+  {"id": "k15", "scene": "rise", "who": "SAM", "say": "Wait. The same gas we breathe out?", "cap": "Wait. The same gas we breathe out?"},
+  {"id": "k16", "scene": "rise", "who": "CHF", "say": "The same gas. It flows into those air bubbles from the creaming, and blows them up like tiny balloons. The whole cake rises.", "cap": "The same gas. It flows into those air bubbles from the creaming, and blows them up like tiny balloons. The whole cake rises."},
+
+  {"id": "k17", "scene": "oven", "who": "CHF", "say": "Lesson four. The oven, at one hundred and eighty degrees. Inside the tin, the cake changes in stages.", "cap": "Lesson four: the oven, at 180 °C. Inside the tin, the cake changes in stages."},
+  {"id": "k18", "scene": "oven", "who": "CHF", "say": "First the gas expands and the batter rises. At about seventy degrees, the egg proteins set, and lock the bubbles in place.", "cap": "First the gas expands and the batter rises. At about 70 °C, the egg proteins set, and lock the bubbles in place."},
+  {"id": "k19", "scene": "oven", "who": "CHF", "say": "Then the outside browns. Sugars and proteins react, and make that golden crust, and that smell.", "cap": "Then the outside browns. Sugars and proteins react, and make that golden crust, and that smell."},
+  {"id": "k20", "scene": "oven", "who": "SAM", "say": "The best smell in the whole school.", "cap": "The best smell in the whole school."},
+  {"id": "k21", "scene": "oven", "who": "CHF", "say": "Twenty-five minutes. Push a skewer into the middle. If it comes out clean, it's done.", "cap": "25 minutes. Push a skewer into the middle. If it comes out clean, it’s done."},
+
+  {"id": "k22", "scene": "build", "who": "CHF", "say": "Lesson five. Building the cake. Two sponges, cooled completely.", "cap": "Lesson five: building the cake. Two sponges, cooled completely."},
+  {"id": "k23", "scene": "build", "who": "CHF", "say": "A layer of jam. A layer of buttercream. The second sponge. A thin crumb coat, then chill it, then the final coat.", "cap": "A layer of jam. A layer of buttercream. The second sponge. A thin crumb coat, then chill it, then the final coat."},
+  {"id": "k24", "scene": "build", "who": "SAM", "say": "Hold on. It's built in layers, like the house in the technical graphics film!", "cap": "Hold on. It’s built in layers, like the house in the Technical Graphics film!"},
+  {"id": "k25", "scene": "build", "who": "CHF", "say": "Exactly. Plan it, build it in layers, and every layer has a job.", "cap": "Exactly. Plan it, build it in layers, and every layer has a job."},
+
+  {"id": "k26", "scene": "decorate", "who": "CHF", "say": "Lesson six. Decorating. Piping bags, nozzles, a turntable and a steady hand.", "cap": "Lesson six: decorating. Piping bags, nozzles, a turntable and a steady hand."},
+  {"id": "k27", "scene": "decorate", "who": "SAM", "say": "Wait. Is that our school crest, on the cake?", "cap": "Wait. Is that our school crest, on the cake?"},
+  {"id": "k28", "scene": "decorate", "who": "CHF", "say": "Birthdays, weddings, graduations. A cake is the centre of every celebration. And people pay well for a beautiful one.", "cap": "Birthdays, weddings, graduations. A cake is the centre of every celebration. And people pay well for a beautiful one."},
+
+  {"id": "k29", "scene": "business", "who": "SAM", "say": "Okay. So how much does a cake actually make?", "cap": "Okay. So how much does a cake actually make?"},
+  {"id": "k30", "scene": "business", "who": "CHF", "say": "Lesson seven. Costing. Add up every ingredient, the electricity and the box. Say, nine dollars.", "cap": "Lesson seven: costing. Add up every ingredient, the electricity and the box. Say, $9."},
+  {"id": "k31", "scene": "business", "who": "CHF", "say": "Sell the decorated cake for twenty-five dollars, and that's sixteen dollars profit. Bake five cakes a week, and it's a business.", "cap": "Sell the decorated cake for $25, and that’s $16 profit. Bake five cakes a week, and it’s a business."},
+  {"id": "k32", "scene": "business", "who": "SAM", "say": "Maths, science, and money. In one cake.", "cap": "Maths, science, and money. In one cake."},
+
+  {"id": "k33", "scene": "careers", "who": "SAM", "say": "So what does this mean for a child from Bikita?", "cap": "So what does this mean for a child from Bikita?"},
+  {"id": "k34", "scene": "careers", "who": "CHF", "say": "A skill for life. Baker. Pastry chef. Cake designer. Hotel and catering chef. Food technologist. Or the owner of their own bakery.", "cap": "A skill for life. Baker. Pastry chef. Cake designer. Hotel and catering chef. Food technologist. Or the owner of their own bakery."},
+  {"id": "k35", "scene": "careers", "who": "SAM", "say": "And every wedding, every hotel and every supermarket in Zimbabwe needs bakers.", "cap": "And every wedding, every hotel and every supermarket in Zimbabwe needs bakers."},
+
+  {"id": "k36", "scene": "school", "who": "SAM", "say": "At Royal Crest, it starts in Form One. Bakery and Food Production is a practical trade, alongside the sciences, and taught for ZIMSEC, Cambridge and HEXCO.", "cap": "At Royal Crest, it starts in Form 1. Bakery and Food Production is a practical trade, alongside the sciences, and taught for ZIMSEC, Cambridge and HEXCO."},
+  {"id": "k37", "scene": "school", "who": "CHF", "say": "Science. Innovation. Skill. Your child leaves with a certificate, and a skill they can earn from.", "cap": "Science. Innovation. Skill. Your child leaves with a certificate, and a skill they can earn from."},
+
+  {"id": "k38", "scene": "parents", "who": "SAM", "say": "Parents: Form One places for January twenty twenty-seven are limited.", "cap": "Parents: Form 1 places for January 2027 are limited."},
+  {"id": "k39", "scene": "parents", "who": "CHF", "say": "Come and taste it for yourself.", "cap": "Come and taste it for yourself."},
+
+  {"id": "k40", "scene": "outro", "who": "SAM", "say": "Royal Crest Academy, Bikita. Call or WhatsApp zero seven one four, four zero four, zero nine zero.", "cap": "Royal Crest Academy, Bikita. Call or WhatsApp 0714 404 090."},
+  {"id": "k41", "scene": "outro", "who": "CHF", "say": "Bake it with science. Sell it with skill.", "cap": "Bake it with science. Sell it with skill."}
+ ]
+}
