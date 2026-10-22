@@ -252,6 +252,8 @@ function drawBg(t,nv){const W=BW,H=BH;
 (()=>{let g='';for(let i=0;i<144;i++){const a=i*2.5*Math.PI/180,r1=243,r2=i%6?252:262;
   g+=`<line class="tick" x1="${300+r1*Math.sin(a)}" y1="${300-r1*Math.cos(a)}" x2="${300+r2*Math.sin(a)}" y2="${300-r2*Math.cos(a)}"/>`}$('#ticks').innerHTML=g})();
 
+// blend from a free-spinning yaw to a posed yaw, taking the short way round
+const yawTo=(a,b,k)=>{const T=Math.PI*2;b+=T*Math.round((a-b)/T);return lerp(a,b,clamp(k))};
 /* ---------- 3D biology models (Three.js r128) ---------- */
 const BASEC={A:'#2EAD6B',T:'#E04848',G:'#E8B020',C:'#3A7BD5',U:'#A05BE0'};
 const PAIR={A:'T',T:'A',G:'C',C:'G'};
@@ -334,7 +336,7 @@ const BIO=(()=>{ if(!window.THREE) return null;
   const rbc={scene:new THREE.Scene(),cam:new THREE.PerspectiveCamera(34,1,.05,400)};lights(rbc.scene);
   const prof=[];const NP=40;for(let i=0;i<=NP;i++){const r=i/NP,T=Math.sqrt(Math.max(0,1-r*r))*(.81+7.83*r*r-4.39*r*r*r*r)/3.91;prof.push(new THREE.Vector2(Math.max(1e-4,r),T/2))}
   for(let i=NP;i>=0;i--){const r=i/NP,T=Math.sqrt(Math.max(0,1-r*r))*(.81+7.83*r*r-4.39*r*r*r*r)/3.91;prof.push(new THREE.Vector2(Math.max(1e-4,r),-T/2))}
-  const discGeo=new THREE.LatheGeometry(prof,64);discGeo.computeVertexNormals();
+  const discGeo=new THREE.LatheGeometry(prof,64);rbc.scene.fog=new THREE.Fog(0x0B2438,55,112);discGeo.computeVertexNormals();
   const redM=new THREE.MeshPhysicalMaterial({color:new THREE.Color('#C41E2A'),roughness:.38,clearcoat:.35,clearcoatRoughness:.4,side:THREE.DoubleSide});
   const hero=new THREE.Mesh(discGeo,redM);hero.scale.setScalar(2.2);rbc.scene.add(hero);
   // sickle: a tapered crescent tube
@@ -345,7 +347,7 @@ const BIO=(()=>{ if(!window.THREE) return null;
   const clipP=new THREE.Plane(new THREE.Vector3(0,0,-1),10);
   // vessel and flowing cells
   const vessel=new THREE.Mesh(new THREE.CylinderGeometry(6,6,120,48,1,true),new THREE.MeshStandardMaterial({color:0x7A1F2A,roughness:.9,side:THREE.BackSide}));vessel.rotation.x=Math.PI/2;rbc.scene.add(vessel);
-  const NF=90,flow=new THREE.InstancedMesh(discGeo,redM,NF);rbc.scene.add(flow);const FL=Array.from({length:NF},(_,i)=>({r:Math.sqrt(((i*37)%100)/100)*4.6,a:i*2.39996,z:(i*1.31)%120,s:.9+((i*13)%10)/40,rx:i*.7,ry:i*1.9,sp:.6+((i*7)%10)/14}));
+  const NF=90,flow=new THREE.InstancedMesh(discGeo,redM,NF);rbc.scene.add(flow);const FL=Array.from({length:NF},(_,i)=>({r:2.6+Math.sqrt(((i*37)%100)/100)*2.0,a:i*2.39996,z:(i*1.31)%120,s:.9+((i*13)%10)/40,rx:i*.7,ry:i*1.9,sp:.6+((i*7)%10)/14}));
   const M4=new THREE.Matrix4(),Q=new THREE.Quaternion(),E=new THREE.Euler();
   // st: {mode:'hero'|'flow', yaw, cut 0..1, sickle 0..1, t}
   function rbcRender(st){const t=st.t;
@@ -463,27 +465,29 @@ const SC={
    async lens(ctx,t,s){deepLens(ctx);if(!BIO)return;const at=cue('b06','A always'),gc=cue('b06','G always'),bil=cue('b08','three billion');
      const hl=t>=at&&t<gc+2.2?(t<gc?'AT':'GC'):null, idx=hl==='AT'?SEQ.findIndex((b,i)=>i>9&&(b==='A'||b==='T')):hl==='GC'?SEQ.findIndex((b,i)=>i>11&&(b==='G'||b==='C')):null;
      const z=t<bil?lerp(1,1.35,eio((t-at+.5)/1)):lerp(1.35,.7,eio((t-bil)/1.6));
-     const o=BIO.dnaRender({build:1,yaw:hl?.2+Math.sin(t*.4)*.12:t*.5,zoom:z,hlIdx:idx});ctx.drawImage(o.cv,0,0);
-     if(hl){const i=idx;dnaLabels(ctx,o,`${SEQ[i]} – ${PAIR[SEQ[i]]}`)}}},
+     const h=eio((t-at+.7)/.8)*(1-eio((t-gc-2.2)/.8)),hk=t<gc?'AT':'GC',ix=hk==='AT'?SEQ.findIndex((b,i)=>i>9&&(b==='A'||b==='T')):SEQ.findIndex((b,i)=>i>11&&(b==='G'||b==='C'));
+     const o=BIO.dnaRender({build:1,yaw:yawTo(t*.5,.2+Math.sin(t*.4)*.12,h),zoom:z,hlIdx:h>0?ix:null});ctx.drawImage(o.cv,0,0);
+     if(h>0){ctx.save();ctx.globalAlpha=clamp(h*1.5-.5);dnaLabels(ctx,o,`${SEQ[ix]} – ${PAIR[SEQ[ix]]}`);ctx.restore()}}},
  rna:{nv:0,cta:1,tag:t=>t<cue('b10','unzips')?'DNA vs RNA':t<cue('b12')?'TRANSCRIPTION':t<cue('b13')?'TRANSLATION':'DNA vs RNA',
    copy:()=>[[`<div class="eb"><span class="n">02</span>LESSON TWO · RNA</div>`],[`<h1 class="hl">DNA vs RNA: <em>the difference.</em></h1>`],
      [`<div class="card cmp"><div class="ch"><span></span><b>DNA</b><b class="r">RNA</b></div>${[['Strands','Two','One','one strand'],['Sugar','Deoxyribose','Ribose','ribose'],['Bases',`${bp('A')}${bp('T')}${bp('G')}${bp('C')}`,`${bp('A')}${bp('U')}${bp('G')}${bp('C')}`,'uracil'],['Job','Master plan','Working copy','photocopy']].map(([k,a,b,w],i)=>
        `<div class="cr" data-at="${i<3?cue('b11',w):cue('b13',w)}"><span>${k}</span><em>${a}</em><em class="r">${b}</em></div>`).join('')}</div>`,cue('b10')]],
    async lens(ctx,t,s){deepLens(ctx);if(!BIO)return;const uz=cue('b10','unzips'),cp=cue('b10','copies'),lv=cue('b12','leaves'),rd=cue('b12','reads');
      const st={build:1,yaw:Math.sin(t*.3)*.25,horiz:eio((t-uz+.8)/1),open:eio((t-uz)/1.2),rna:clamp((t-cp)/2.4),rnaAlone:eio((t-lv)/1),transl:clamp((t-rd)/4.5),zoom:1};
-     if(t<uz-.8)st.yaw=t*.5;const o=BIO.dnaRender(st);ctx.drawImage(o.cv,0,0);
-     if(st.open>.5&&st.rnaAlone<.1)label(ctx,'RNA copy forming',C,640,{col:'#E9F7F5',a:clamp((t-cp)/.6),font:'600 18px "Plex Mono"'});
-     if(st.rnaAlone>.5){label(ctx,'mRNA',150,520,{col:'#D7B4FF',font:'600 18px "Plex Mono"'});label(ctx,'RIBOSOME',C,470,{col:'#E9F7F5',a:clamp((t-rd)/.6),font:'600 16px "Plex Mono"'});label(ctx,'PROTEIN',C+130,170,{col:'#F5D57A',a:clamp((t-rd-1.5)/.6),font:'600 16px "Plex Mono"'})}},
+     st.yaw=yawTo(t*.5,Math.sin(t*.3)*.25,eio((t-uz+1.8)/1));const ra=st.rnaAlone;
+     await xfade(ctx,t,lv,1,async g=>{deepLens(g);g.drawImage(BIO.dnaRender({...st,rnaAlone:0}).cv,0,0)},async g=>{deepLens(g);g.drawImage(BIO.dnaRender({...st,rnaAlone:1}).cv,0,0)});
+     if(st.open>.5)label(ctx,'RNA copy forming',C,640,{col:'#E9F7F5',a:clamp((t-cp)/.6)*(1-ra),font:'600 18px "Plex Mono"'});
+     if(ra>0){ctx.save();ctx.globalAlpha=ra;label(ctx,'mRNA',150,520,{col:'#D7B4FF',font:'600 18px "Plex Mono"'});label(ctx,'RIBOSOME',C,470,{col:'#E9F7F5',a:clamp((t-rd)/.6),font:'600 16px "Plex Mono"'});label(ctx,'PROTEIN',C+130,170,{col:'#F5D57A',a:clamp((t-rd-1.5)/.6),font:'600 16px "Plex Mono"'});ctx.restore()}},
    update(t){document.querySelectorAll('.cr').forEach(e=>{const a=+e.dataset.at,k=eo((t-a)/.5);e.style.opacity=lerp(.25,1,k)})}},
  rbc:{nv:0,cta:1,tag:t=>t<cue('b17','bone marrow')-1?'7 µm DISC':t<cue('b18','Change')?'2 MILLION/S':'GAG → GTG',
    copy:()=>[[`<div class="eb"><span class="n">03</span>LESSON THREE · RED BLOOD CELLS</div>`],[`<h1 class="hl">Built to <em>carry oxygen.</em></h1>`],
      [`<div class="card rows">${[['Shape','A disc, thinner in the middle','disc'],['Inside','Haemoglobin, which carries oxygen','haemoglobin'],['Nucleus','None, so there is more room for haemoglobin','nucleus'],['Made in','Bone marrow, about 2 million a second','bone marrow']].map(([n,d,w],i)=>`<div class="row f" data-at="${i<2?cue('b15',w):i===2?cue('b16'):cue('b17',w)}"><i class="cy"></i><div><b>${n}</b><small>${d}</small></div></div>`).join('')}</div>`,cue('b15','disc')-.3],
      [`<div class="chips"><span class="chip gold">Sickle cell: one letter, GAG → GTG</span></div>`,cue('b18','one letter')]],
    async lens(ctx,t,s){deepLens(ctx);if(!BIO)return;const nn=cue('b16'),fl=cue('b17','bone marrow')-.4,sk=cue('b18','sickle');
-     const hero=g=>{const o=BIO.rbcRender({mode:'hero',t,yaw:t*.4,cut:eio((t-nn)/.9)*clamp((fl-t)/.5+1),sickle:eio((t-sk)/1.4)});g.drawImage(o.cv,0,0);
+     const hero=g=>{deepLens(g);const o=BIO.rbcRender({mode:'hero',t,yaw:t*.4,cut:eio((t-nn)/.9)*clamp((fl-t)/.5+1),sickle:eio((t-sk)/1.4)});g.drawImage(o.cv,0,0);
        if(t>=nn&&t<fl)label(g,'NO NUCLEUS',C,600,{col:'#E9F7F5',font:'600 20px "Plex Mono"',a:clamp((t-nn-.5)/.4)});
        if(t>=sk-1.5){label(g,'GAG → GTG',C,110,{col:'#F5D57A',font:'600 24px "Plex Mono"',a:clamp((t-sk+1.5)/.5)});label(g,'SICKLE CELL',C,620,{col:'#E9F7F5',font:'600 18px "Plex Mono"',a:clamp((t-sk-.3)/.5)})}};
-     const flow=g=>{const o=BIO.rbcRender({mode:'flow',t});g.drawImage(o.cv,0,0);const n=Math.floor(Math.max(0,t-fl)*2e6);label(g,n.toLocaleString('en-GB')+' made',C,620,{col:'#E9F7F5',font:'600 22px "Plex Mono"',a:clamp((t-fl-.6)/.4)})};
+     const flow=g=>{deepLens(g);const o=BIO.rbcRender({mode:'flow',t});g.drawImage(o.cv,0,0);const n=Math.floor(Math.max(0,t-fl)*2e6);label(g,n.toLocaleString('en-GB')+' made',C,620,{col:'#E9F7F5',font:'600 22px "Plex Mono"',a:clamp((t-fl-.6)/.4)})};
      const back=cue('b18','Change')-.6;
      if(t<fl){hero(ctx);return} if(t<back){await xfade(ctx,t,fl,.7,async g=>hero(g),async g=>flow(g));return} await xfade(ctx,t,back,.7,async g=>flow(g),async g=>hero(g))},
    update(t){document.querySelectorAll('.row.f').forEach(e=>{e.style.opacity=lerp(.25,1,eo((t-e.dataset.at)/.5))})}},
@@ -501,10 +505,13 @@ const SC={
  virus:{nv:0,cta:1,tag:t=>t<cue('b25','locks')?'VIRUS':t<cue('b27','vaccines')?'HIJACK':'VACCINES',
    copy:()=>[[`<div class="eb"><span class="n">05</span>LESSON FIVE · VIRUSES</div>`],[`<h1 class="hl">Not even <em>a cell.</em></h1>`],
      [`<div class="card rows">${[['Genes in a coat','DNA or RNA inside a protein shell','b23','protein'],['Hijacker','Locks onto your cells to copy itself','b25','locks'],['Antibiotics','Do not work on viruses','b27','Antibiotics'],['Vaccines','Train your body to fight back','b27','vaccines']].map(([n,d,l,w],i)=>`<div class="row v" data-at="${cue(l,w)}"><i class="${i===2?'up':'cy'}"></i><div><b>${n}</b><small>${d}</small></div></div>`).join('')}</div>`,cue('b23','protein')-.3]],
-   async lens(ctx,t,s){deepLens(ctx);if(!BIO)return;const o=BIO.virRender({t,open:eio((t-cue('b23','genes'))/1)*(1-eio((t-cue('b25','locks')+.3)/.6)),dock:eio((t-cue('b25','locks'))/1.4)*(t<cue('b27')?1:0),inject:clamp((t-cue('b25','hijacks'))/1.6),ab:eio((t-cue('b27','vaccines'))/1.6)});
-     ctx.drawImage(o.cv,0,0);
+   async lens(ctx,t,s){deepLens(ctx);if(!BIO)return;const Lk=cue('b25','locks'),E=cue('b27')-.4;
+     const base={t,open:eio((t-cue('b23','genes'))/1)*(1-eio((t-Lk+.3)/.6))};
+     const free=async g=>{deepLens(g);g.drawImage(BIO.virRender({...base,dock:0,inject:0,ab:eio((t-cue('b27','vaccines'))/1.6)}).cv,0,0)};
+     const dock=async g=>{deepLens(g);g.drawImage(BIO.virRender({...base,dock:Math.max(.002,eio((t-Lk)/1.4)),inject:clamp((t-cue('b25','hijacks'))/1.6),ab:0}).cv,0,0)};
+     if(t<Lk)await free(ctx);else if(t<E)await xfade(ctx,t,Lk,.7,free,dock);else await xfade(ctx,t,E,.8,dock,free);
      if(t>cue('b23','genes')&&t<cue('b25','locks'))label(ctx,'GENES (RNA)',C,620,{col:'#D7B4FF',font:'600 18px "Plex Mono"',a:clamp((t-cue('b23','genes')-.4)/.5)});
-     if(t>cue('b25','locks')+.6&&t<cue('b27'))label(ctx,'YOUR CELL',C,640,{col:'#E9F7F5',font:'600 18px "Plex Mono"',a:clamp((t-cue('b25','locks')-.6)/.5)});
+     if(t>cue('b25','locks')+.6&&t<cue('b27'))label(ctx,'YOUR CELL',C,640,{col:'#E9F7F5',font:'600 18px "Plex Mono"',a:clamp((t-cue('b25','locks')-.6)/.5)*clamp((cue('b27')-t)/.4)});
      if(t>cue('b27','vaccines')+.6)label(ctx,'ANTIBODIES',C,620,{col:'#E9F7F5',font:'600 18px "Plex Mono"',a:clamp((t-cue('b27','vaccines')-.6)/.5)})},
    update(t){document.querySelectorAll('.row.v').forEach(e=>{e.style.opacity=lerp(.25,1,eo((t-e.dataset.at)/.5))})}},
  scale:{nv:1,cta:1,tag:t=>t<cue('b29','bacterium')?'7 µm':t<cue('b29','virus')?'2 µm':t<cue('b29','DNA')?'0.1 µm':'2 nm',
