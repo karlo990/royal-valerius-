@@ -11,3 +11,4 @@ For the two Open Day posts, add `?tall` to the URL for the portrait 1080 × 1350
 | `open-day-practicals.html` / `post-open-day-practicals-*.png` | "Hands-on at Royal Crest", ten practicals with departments instead of times |
 
 The Open Day date isn't set anywhere yet; add it to the caption when it is fixed.
+| `fees-receipt-square.html` / `post-fees-receipt-square.png` | "What US$850 a term really buys", square version of the studio's portrait Fees receipt post |
