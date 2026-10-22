@@ -192,7 +192,7 @@ function scaleDraw(ctx,t,keys){deepLens(ctx);
   const dx=vx+.075,dy=vy,dw=.002*ppu;if(dw>1.2){ctx.save();const len=.03*ppu;for(let s=0;s<2;s++){ctx.strokeStyle=s?'#8FC3EA':'#E2C26A';ctx.lineWidth=Math.max(1.5,dw*.18);ctx.beginPath();
       for(let i=0;i<=80;i++){const u=i/80,x=X(dx)+u*len,y=Yv(dy)+Math.sin(u*len/(dw*1.7)*Math.PI+s*Math.PI)*dw/2;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()}
     for(let i=0;i<40;i++){const u=i/40,x=X(dx)+u*len,y1=Yv(dy)+Math.sin(u*len/(dw*1.7)*Math.PI)*dw/2,y2=Yv(dy)+Math.sin(u*len/(dw*1.7)*Math.PI+Math.PI)*dw/2;ctx.strokeStyle=Object.values(BASEC)[i%4];ctx.lineWidth=Math.max(1,dw*.08);ctx.beginPath();ctx.moveTo(x,y1);ctx.lineTo(x,y2);ctx.stroke()}
-    ctx.restore();if(dw>20)lab('DNA · 2 nm wide',Math.min(X(dx)+len*.25,C+120),Yv(dy)+dw*1.2+26)}
+    ctx.restore();if(dw>20)lab('DNA · 2 nm wide',C,Math.max(70,Yv(dy)-dw*1.3-30))}
   // scale bar: pick a round length that is 80–200 px
   const units=[[10,'10 µm'],[5,'5 µm'],[2,'2 µm'],[1,'1 µm'],[.5,'0.5 µm'],[.2,'200 nm'],[.1,'100 nm'],[.05,'50 nm'],[.02,'20 nm'],[.01,'10 nm'],[.005,'5 nm'],[.002,'2 nm'],[.001,'1 nm']];
   const [u,txt]=units.find(([v])=>v*ppu<=220)||units[units.length-1];const w=u*ppu;ctx.save();ctx.strokeStyle='#E9F7F5';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(C-w/2,620);ctx.lineTo(C+w/2,620);ctx.moveTo(C-w/2,610);ctx.lineTo(C-w/2,630);ctx.moveTo(C+w/2,610);ctx.lineTo(C+w/2,630);ctx.stroke();ctx.restore();lab(txt,C,595)}
