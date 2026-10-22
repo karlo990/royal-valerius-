@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Royal Crest step-and-repeat backdrop</title>
+<style>
+/* 3 m × 2.4 m media backdrop, drawn at 1 cm = 10 px (3000 × 2400) */
+@font-face{font-family:RcSerif;font-weight:400 700;src:url(../../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:RcSerif;font-style:italic;font-weight:400 700;src:url(../../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:RcSans;font-weight:200 800;src:url(../../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2")}
+@page{size:3000px 2400px;margin:0}
+:root{--navy:#0a1f5c;--gold:#c9a227;--gold-deep:#a8841a}
+html,body{margin:0;background:#fff}
+#bd{position:relative;width:3000px;height:2400px;overflow:hidden;background:#fff}
+.u{position:absolute;display:flex;align-items:center;gap:22px;transform:translate(-50%,-50%);white-space:nowrap}
+.u img{height:200px;display:block}
+.u .t b{display:block;font:500 74px/.92 RcSerif,serif;color:var(--navy);letter-spacing:-.01em}
+.u .t b em{display:block;font-style:italic;color:var(--gold)}
+.u .t small{display:block;margin-top:14px;font:800 17px RcSans,sans-serif;letter-spacing:.3em;color:var(--gold-deep)}
+.u.alt{gap:18px}
+.u.alt .t b{font-size:60px}
+.u.alt .t small{color:var(--navy);letter-spacing:.24em}
+/* thin gold rule framing the top and bottom edges */
+#bd::before,#bd::after{content:"";position:absolute;left:0;right:0;height:26px;background:var(--navy);z-index:2}
+#bd::before{top:0;border-bottom:8px solid var(--gold)} #bd::after{bottom:0;border-top:8px solid var(--gold)}
+</style></head><body>
+<div id="bd"></div>
+<script>
+// staggered grid: every other row shifts half a column, like a press wall
+const COLW=1000, ROWH=330, bd=document.getElementById('bd');
+const A=`<img src="../../assets/brand/crest-640.webp" alt=""><div class="t"><b>Royal Crest <em>Academy</em></b><small>SCIENCE · INNOVATION · SKILL</small></div>`;
+const B=`<img src="../../assets/brand/crest-640.webp" alt="" style="height:150px"><div class="t"><b>Bikita<em>Masvingo</em></b><small>FORM 1 · 2027 · 0714 404 090</small></div>`;
+let r=0;
+for(let y=190;y<2400+ROWH;y+=ROWH,r++){
+  for(let c=-1;c<4;c++){
+    const x=c*COLW+(r%2?COLW/2:0)+250;
+    const alt=(r%2===1)&&((c+r)%2===0);
+    const d=document.createElement('div');d.className='u'+(alt?' alt':'');d.innerHTML=alt?B:A;
+    d.style.left=x+'px';d.style.top=y+'px';bd.appendChild(d)}}
+</script>
+</body></html>
