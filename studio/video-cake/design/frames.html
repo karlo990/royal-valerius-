@@ -21,8 +21,8 @@
 .lock{position:absolute;left:44px;top:30px;display:flex;align-items:center;gap:12px;color:#fff;z-index:5}
 .lock img{width:40px}.lock b{display:block;font-size:14px;letter-spacing:.14em;font-weight:800}.lock small{display:block;font-size:10.5px;letter-spacing:.16em;font-weight:700;color:var(--gold-hi)}
 .light .lock{color:var(--navy)}.light .lock small{color:var(--rasp)}
-.rail{position:absolute;left:360px;right:220px;top:38px;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;z-index:5}
-.rail div{font:600 9.5px var(--mono);letter-spacing:.08em;color:rgba(255,255,255,.55);padding-top:9px;position:relative;white-space:nowrap}
+.rail{position:absolute;left:350px;right:200px;top:38px;display:grid;grid-template-columns:repeat(8,1fr);gap:6px;z-index:5}
+.rail div{font:600 9px var(--mono);letter-spacing:.06em;color:rgba(255,255,255,.55);padding-top:9px;position:relative;white-space:nowrap}
 .rail div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:2px;background:rgba(255,255,255,.18)}
 .rail div.done::before{background:rgba(226,185,59,.7)}.rail div.on{color:#fff}.rail div.on::before{background:linear-gradient(90deg,var(--gold) 62%,rgba(255,255,255,.18) 62%)}
 .light .rail div{color:rgba(42,26,18,.45)}.light .rail div::before{background:rgba(42,26,18,.12)}.light .rail div.on{color:var(--ink)}.light .rail div.done::before{background:var(--rasp)}
@@ -56,6 +56,7 @@
 .call{position:absolute;z-index:4;width:210px}
 .call .n{font:600 11px var(--mono);color:var(--gold-hi);letter-spacing:.1em}.call b{display:block;font:400 25px/1.05 var(--serif);color:#fff;margin:3px 0 4px}.call small{font-size:11.5px;line-height:1.4;color:rgba(255,255,255,.7);display:block}
 .call.r{text-align:left}.call.l{text-align:right}
+.light .call .n{color:var(--rasp)}.light .call b{color:var(--navy)}.light .call small{color:#6a5560}
 </style></head><body>
 <div id="f"><canvas class="full" id="bgc" width="1920" height="1080"></canvas><div class="lay" id="dom"></div>
 <canvas class="full lay" id="fx" width="1920" height="1080" style="pointer-events:none;z-index:3"></canvas>
@@ -141,10 +142,69 @@ const CAKE=(()=>{ if(!window.THREE) return null;
     const ancL=[];[0,1,2,3].forEach(i=>ancL.push(P(-RAD*.9,BASE[i]+HT[i]/2+ex*i*1.15,0)));ancL.push(P(-RAD-.05,SH+ex*5,0));ancL.push(P(-RAD-.13,SH+.4+ex*6.6,0));
     return{cv,anc,ancW:anc,ancL}}
   return{render,setCrest}})();
+
+/* ---------- cake builder: any type, cut open to show the inside ---------- */
+const KB=(()=>{const N=800,cv=document.createElement('canvas');cv.width=cv.height=N;
+  const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:true});R.setPixelRatio(1);R.setSize(N,N,false);R.setClearColor(0,0);
+  R.outputEncoding=THREE.sRGBEncoding;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
+  const cam=new THREE.PerspectiveCamera(28,1,.1,100);
+  const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:new THREE.Color(c),roughness:.6,side:THREE.DoubleSide},o));
+  const texCache={};function tex(base,dots,seed,n=1100,sz=2.2){const k=base+dots+seed;if(texCache[k])return texCache[k];const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d');g.fillStyle=base;g.fillRect(0,0,256,256);const r=rng(seed);
+    for(let i=0;i<n;i++){g.fillStyle=dots[i%dots.length];g.globalAlpha=.4+r()*.55;g.beginPath();g.arc(r()*256,r()*256,.6+r()*sz,0,7);g.fill()}const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;return texCache[k]=t}
+  const crumb=(c,d,seed)=>M('#fff',{map:tex(c,d,seed),roughness:.9});
+  function build(sp){const sc=new THREE.Scene();sc.add(new THREE.HemisphereLight(0xFFF5F8,0x6A4A55,.85));const k=new THREE.DirectionalLight(0xFFF0E6,1.4);k.position.set(5,9,8);sc.add(k);const rim=new THREE.DirectionalLight(0xFFC4D6,.6);rim.position.set(-6,4,-5);sc.add(rim);
+    const r=2,W=sp.cut?Math.PI/2.6:0,t0=W/2,tl=Math.PI*2-W,t=sp.frost?.13:0;let y=0;const g=new THREE.Group();sc.add(g);
+    const board=new THREE.Mesh(new THREE.CylinderGeometry(2.75,2.75,.1,96),M(sp.board||'#E2B93B',{metalness:.6,roughness:.3}));board.position.y=-.05;g.add(board);
+    const face=(a,w,h,yc,mat,off=0)=>{const p=new THREE.Mesh(new THREE.PlaneGeometry(w,h),mat);p.rotation.y=a-Math.PI/2;const d=new THREE.Vector3(Math.sin(a),0,Math.cos(a));p.position.copy(d.multiplyScalar(off+w/2));p.position.y=yc;g.add(p)};
+    for(const L of sp.layers){const mat=L.tex?crumb(...L.tex):M(L.col,{roughness:L.rough??.6});const top=L.tex?crumb(L.tex[0],L.tex[1],L.tex[2]+1):mat;
+      const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,L.h,96,1,false,t0,tl),[mat,top,top]);m.position.y=y+L.h/2;g.add(m);
+      if(sp.cut)[t0,-t0].forEach(a=>face(a,r,L.h,y+L.h/2,L.tex?crumb(L.tex[0],L.tex[1],L.tex[2]+2):mat));y+=L.h}
+    const H=y;
+    if(sp.frost){const fm=M(sp.frost.col,{roughness:sp.frost.rough??.5,metalness:sp.frost.metal??0});const sh=new THREE.Mesh(new THREE.CylinderGeometry(r+t,r+t,H+t,96,1,true,t0,tl),fm);sh.position.y=(H+t)/2;g.add(sh);
+      const tp=new THREE.Mesh(new THREE.CylinderGeometry(r+t,r+t,t,96,1,false,t0,tl),fm);tp.position.y=H+t/2;g.add(tp);
+      if(sp.cut)[t0,-t0].forEach(a=>{face(a,t,H+t,(H+t)/2,fm,r);face(a,r,t,H+t/2,fm,0)});
+      if(sp.marzipan&&sp.cut)[t0,-t0].forEach(a=>face(a,.05,H,H/2,M('#F2D27A'),r))}
+    const top=H+t;
+    if(sp.glaze){const gz=new THREE.Mesh(new THREE.CylinderGeometry(r+t+.04,r+t+.04,.06,96,1,false,t0,tl),M(sp.glaze,{roughness:.15,metalness:.1}));gz.position.y=top+.02;g.add(gz)}
+    const around=(n,fn)=>{for(let i=0;i<n;i++){const a=t0+(i+.5)/n*tl;fn(a,i)}};
+    if(sp.drip)around(30,(a,i)=>{const len=.25+((i*37)%10)/14,m=M(sp.drip,{roughness:.18,metalness:.1});const c=new THREE.Mesh(new THREE.CylinderGeometry(.075,.075,len,10),m);const ro=r+t+.03;
+      c.position.set(Math.sin(a)*ro,top-len/2,Math.cos(a)*ro);g.add(c);const b=new THREE.Mesh(new THREE.SphereGeometry(.085,12,8),m);b.position.set(Math.sin(a)*ro,top-len,Math.cos(a)*ro);g.add(b)});
+    if(sp.rose)around(sp.rose.n||14,(a)=>{const m=M(sp.rose.col,{roughness:.45});const s=new THREE.Mesh(new THREE.SphereGeometry(.19,16,12),m);s.scale.y=.75;const c=new THREE.Mesh(new THREE.ConeGeometry(.14,.24,10),m);c.position.y=.17;const o=new THREE.Group();o.add(s,c);
+      o.position.set(Math.sin(a)*1.75,top+.05,Math.cos(a)*1.75);g.add(o)});
+    if(sp.scallop){const m=M(sp.scallop,{roughness:.4});const n=12;for(let i=0;i<n;i++){const a0=t0+i/n*tl,a1=t0+(i+1)/n*tl,pts=[];for(let k=0;k<=12;k++){const u=k/12,a=lerp(a0,a1,u),ro=r+t+.03;pts.push(new THREE.Vector3(Math.sin(a)*ro,top-.25-.32*Math.sin(Math.PI*u),Math.cos(a)*ro))}
+      g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),24,.035,6,false),m));const d=new THREE.Mesh(new THREE.SphereGeometry(.07,10,8),m);const a=a0,ro=r+t+.04;d.position.set(Math.sin(a)*ro,top-.22,Math.cos(a)*ro);g.add(d)}}
+    if(sp.ribbon){const rb=new THREE.Mesh(new THREE.CylinderGeometry(r+t+.02,r+t+.02,.3,96,1,true,t0,tl),M(sp.ribbon,{roughness:.35}));rb.position.y=.32;g.add(rb)}
+    if(sp.cherries)for(let i=0;i<sp.cherries;i++){const a=t0+(i+.5)/sp.cherries*tl,c=new THREE.Mesh(new THREE.SphereGeometry(.16,16,12),M('#B0102A',{roughness:.2}));c.position.set(Math.sin(a)*1.3,top+.15,Math.cos(a)*1.3);g.add(c)}
+    if(sp.carrots)for(let i=0;i<sp.carrots;i++){const a=t0+(i+.5)/sp.carrots*tl,c=new THREE.Mesh(new THREE.ConeGeometry(.09,.42,10),M('#F07A1A',{roughness:.5}));c.rotation.z=Math.PI/2;c.rotation.y=-a;c.position.set(Math.sin(a)*1.45,top+.1,Math.cos(a)*1.45);g.add(c);
+      const l=new THREE.Mesh(new THREE.ConeGeometry(.06,.14,6),M('#3C9A4A'));l.position.copy(c.position).add(new THREE.Vector3(Math.sin(a)*.26,0,Math.cos(a)*.26));l.rotation.copy(c.rotation);l.rotation.z=-Math.PI/2;g.add(l)}
+    if(sp.flowers)for(let i=0;i<sp.flowers;i++){const a=t0+(i+.5)/sp.flowers*tl,cx=Math.sin(a)*1.2,cz=Math.cos(a)*1.2,pm=M('#F49AB6',{roughness:.5});for(let p=0;p<5;p++){const q=new THREE.Mesh(new THREE.SphereGeometry(.13,12,8),pm);q.scale.y=.4;q.position.set(cx+Math.cos(p*1.256)*.17,top+.06,cz+Math.sin(p*1.256)*.17);g.add(q)}
+      const ce=new THREE.Mesh(new THREE.SphereGeometry(.08,10,8),M('#F2C14E'));ce.position.set(cx,top+.1,cz);g.add(ce)}
+    if(sp.dust){const r2=rng(5),dm=M('#FFFFFF',{roughness:1});for(let i=0;i<260;i++){const a=r2()*6.28,rr=Math.sqrt(r2())*1.95;if(sp.cut&&Math.abs(((a+Math.PI)%(2*Math.PI))-Math.PI)<W/2)continue;const d=new THREE.Mesh(new THREE.SphereGeometry(.025,4,3),dm);d.position.set(Math.sin(a)*rr,top+.02,Math.cos(a)*rr);g.add(d)}}
+    if(sp.crumbs){const r2=rng(8),cm=M(sp.crumbs);for(let i=0;i<90;i++){const a=r2()*6.28,rr=1.55+r2()*.35;if(sp.cut&&Math.abs(((a+Math.PI)%(2*Math.PI))-Math.PI)<W/2+.05)continue;const d=new THREE.Mesh(new THREE.BoxGeometry(.07,.07,.07),cm);d.position.set(Math.sin(a)*rr,top+.04,Math.cos(a)*rr);d.rotation.set(r2()*3,r2()*3,0);g.add(d)}}
+    g.rotation.y=sp.yaw??-.35;return{sc,H:top}}
+  const cache={};
+  function render(key,sp){if(cache[key])return cache[key];const {sc,H}=build(sp);const tilt=sp.tilt??.42,dist=sp.dist??11.5;cam.position.set(0,H/2+Math.sin(tilt)*dist,Math.cos(tilt)*dist);cam.lookAt(0,H/2-.2,0);
+    R.render(sc,cam);const c=document.createElement('canvas');c.width=c.height=N;c.getContext('2d').drawImage(cv,0,0);return cache[key]=c}
+  return{render}})();
+const SPONGE=['#E9C88C',['#D7AE6C','#F6DFAE','#CFA062'],11],CHOC=['#4A2A1A',['#3A1F12','#5E3824','#2E180E'],21],RV=['#A3132E',['#8C0F25','#B8213B','#7A0C1F'],31],
+  CARROT=['#C98A4A',['#F07A1A','#B87A38','#E2A060','#8A5A2A'],41],FRUIT=['#5A3320',['#B0102A','#2A1520','#3C7A3A','#E08A2A','#1E0E0A'],51],WINE=['#3E1418',['#6A0E1E','#2A0A0E','#B0102A','#1A0608'],61];
+const TYPES={
+  victoria:{layers:[{h:.8,tex:SPONGE},{h:.1,col:'#B0102A',rough:.25},{h:.16,col:'#FFF8EE'},{h:.8,tex:SPONGE}],cut:true,dust:true},
+  chocolate:{layers:[{h:.75,tex:CHOC},{h:.14,col:'#2A140A',rough:.25},{h:.75,tex:CHOC}],cut:true,frost:{col:'#2E170C',rough:.22},drip:'#2A140A',rose:{col:'#3A1F12',n:10}},
+  redvelvet:{layers:[{h:.62,tex:RV},{h:.14,col:'#FBF4EA'},{h:.62,tex:RV},{h:.14,col:'#FBF4EA'},{h:.62,tex:RV}],cut:true,frost:{col:'#FBF4EA',rough:.55},crumbs:'#A3132E'},
+  carrot:{layers:[{h:.8,tex:CARROT},{h:.16,col:'#FBF4EA'},{h:.8,tex:CARROT}],cut:true,frost:{col:'#FBF4EA',rough:.6},carrots:7},
+  fruit:{layers:[{h:1.7,tex:FRUIT}],cut:true,frost:{col:'#FFFFFF',rough:.45},marzipan:true,scallop:'#FFFFFF',ribbon:'#C8436B',flowers:3},
+  wine:{layers:[{h:1.6,tex:WINE}],cut:true,frost:{col:'#FFFFFF',rough:.45},marzipan:true,ribbon:'#7A1022',cherries:6},
+  // icing demos
+  butter:{layers:[{h:.8,tex:SPONGE},{h:.16,col:'#FFF8EE'},{h:.8,tex:SPONGE}],frost:{col:'#FFF4E4',rough:.55},rose:{col:'#FFE0EA',n:16},cut:false,yaw:-.3},
+  royal:{layers:[{h:1.6,tex:FRUIT}],frost:{col:'#FFFFFF',rough:.35},scallop:'#FFFFFF',cut:false,flowers:0},
+  fondant:{layers:[{h:1.6,tex:SPONGE}],frost:{col:'#E27A9C',rough:.3},flowers:5,ribbon:'#FFFFFF',cut:false},
+  ganache:{layers:[{h:1.5,tex:CHOC}],frost:{col:'#FBF4EA',rough:.55},drip:'#2A140A',glaze:'#2A140A',cherries:5,cut:false}};
+
 const F=+(new URLSearchParams(location.search).get('f')||1);
 const bgc=$('#bgc').getContext('2d');bgc.scale(1.5,1.5);const fx=$('#fx').getContext('2d');fx.scale(1.5,1.5);
 const W=1280,H=720,dom=$('#dom');
-const LESSONS=['RECIPE','CREAMING','RISING','OVEN','LAYERS','DECORATING','COSTING'];
+const LESSONS=['RECIPE','CREAMING','RISING','OVEN','LAYERS','ICING','CAKE TYPES','COSTING'];
 const WA='<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z"/></svg>';
 function chrome(active,light,who,name,cap){if(light)$('#f').classList.add('light');
   dom.insertAdjacentHTML('beforeend',`<div class="lock"><img src="../../assets/brand/crest-640.webp"><div><b>ROYAL CREST ACADEMY</b><small>BIKITA · MASVINGO</small></div></div>
@@ -163,24 +223,24 @@ function rays(g,ox,oy,n,len,col,seed){const r=rng(seed);g.save();g.globalComposi
 function txt(g,s,x,y,o={}){g.save();g.font=o.font||'600 14px "Plex Mono"';g.fillStyle=o.col||'#fff';g.textAlign=o.align||'center';g.textBaseline='middle';g.globalAlpha=o.a??1;if(o.ls)g.letterSpacing=o.ls;g.fillText(s,x,y);g.restore()}
 
 /* ===== FRAME 1 · title: the hero cake, full bleed ===== */
-async function f1(){chrome(0,false,'C','CHEF CHIPO · BAKERY','Add a little <em>science</em>, and a lot of <em>skill</em>, and yes. That’s a cake.');
-  let g=bgc.createLinearGradient(0,0,0,H);g.addColorStop(0,'#2A160D');g.addColorStop(.62,'#1A0D07');g.addColorStop(1,'#0E0704');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
-  g=bgc.createRadialGradient(830,300,20,830,330,620);g.addColorStop(0,'rgba(140,72,36,.55)');g.addColorStop(1,'rgba(0,0,0,0)');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
-  rays(bgc,1180,-60,9,900,'rgba(255,196,120,.9)',4);
-  // table surface with soft reflection
-  g=bgc.createLinearGradient(0,520,0,H);g.addColorStop(0,'rgba(60,32,18,0)');g.addColorStop(.25,'rgba(70,38,22,.85)');g.addColorStop(1,'#120804');bgc.fillStyle=g;bgc.fillRect(0,520,W,200);
+async function f1(){chrome(0,true,'C','CHEF CHIPO · BAKERY','Add a little <em>science</em>, and a lot of <em>skill</em>, and yes. That’s a cake.');
+  let g=bgc.createRadialGradient(860,300,40,760,380,900);g.addColorStop(0,'#FFF7F9');g.addColorStop(.55,'#F9DCE5');g.addColorStop(1,'#EFB9CB');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  // soft background bokeh
+  const r=rng(12);for(let i=0;i<22;i++){const x=500+r()*780,y=r()*560,R=20+r()*70;bgc.save();bgc.filter='blur(10px)';bgc.globalAlpha=.25+r()*.25;bgc.fillStyle=i%3?'#FFFFFF':'#F49AB6';bgc.beginPath();bgc.arc(x,y,R,0,7);bgc.fill();bgc.restore()}
+  rays(bgc,1180,-60,9,900,'rgba(255,255,255,.95)',4);
+  g=bgc.createLinearGradient(0,520,0,H);g.addColorStop(0,'rgba(236,170,192,0)');g.addColorStop(.25,'rgba(236,170,192,.75)');g.addColorStop(1,'#DE93AE');bgc.fillStyle=g;bgc.fillRect(0,520,W,200);
   const im=await img('../assets/crest.jpg');CAKE.setCrest(im);
   const o=CAKE.render({drop:[1,1,1,1,1,1],explode:0,rose:1,crest:1,stand:1,yaw:.5,tilt:.34,zoom:.74,shift:.2,ly:.9});
-  bgc.save();bgc.globalAlpha=.18;bgc.translate(0,1065);bgc.scale(1,-.35);bgc.filter='blur(6px)';bgc.drawImage(o.cv,0,0,W,H);bgc.restore();
-  bgc.drawImage(o.cv,0,0,W,H);bloom(bgc,o.cv,0,0,W,H,.35,30);
-  dust(fx,120,7,'#FFE2B8',{maxR:11,alpha:.6,area:[600,0,680,720]});dust(fx,30,8,'#FFE2B8',{maxR:3,alpha:.35,area:[0,0,600,720]});
-  leak([[1150,40,520,'rgba(255,150,60,.55)'],[60,700,420,'rgba(200,67,107,.35)']]);
+  bgc.save();bgc.globalAlpha=.22;bgc.translate(0,1065);bgc.scale(1,-.35);bgc.filter='blur(6px)';bgc.drawImage(o.cv,0,0,W,H);bgc.restore();
+  bgc.drawImage(o.cv,0,0,W,H);bloom(bgc,o.cv,0,0,W,H,.18,30);
+  dust(fx,110,7,'#FFFFFF',{maxR:10,alpha:.75,area:[600,0,680,720]});dust(fx,40,9,'#F7A8C1',{maxR:7,alpha:.6,area:[560,0,720,720]});
+  leak([[1150,40,520,'rgba(255,255,255,.6)'],[60,700,420,'rgba(242,154,182,.35)'],[1280,700,380,'rgba(242,193,78,.25)']]);
   dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:170px;width:560px">
-   <div class="k">BAKERY &amp; FOOD PRODUCTION · A FILM IN 7 LESSONS</div>
-   <div style="font:800 22px var(--sans);letter-spacing:.32em;color:#fff;margin:22px 0 4px">THE SCIENCE OF</div>
-   <div style="font:italic 400 92px/.9 var(--serif);color:var(--gold-hi)">a perfect</div>
-   <div style="font:400 168px/.86 var(--serif);color:#fff;letter-spacing:-.03em;text-shadow:0 20px 60px rgba(0,0,0,.5)">cake.</div>
-   <div style="margin-top:22px;font-size:16px;line-height:1.5;color:rgba(255,255,255,.75);max-width:430px">From the mixing bowl to the business. Filmed in the bakery at Royal Crest Academy, Bikita.</div></div>`)}
+   <div class="k">BAKERY &amp; FOOD PRODUCTION · A FILM IN 8 LESSONS</div>
+   <div style="font:800 22px var(--sans);letter-spacing:.32em;color:var(--navy);margin:22px 0 4px">THE SCIENCE OF</div>
+   <div style="font:italic 400 92px/.9 var(--serif);color:var(--rasp)">a perfect</div>
+   <div style="font:400 168px/.86 var(--serif);color:var(--navy);letter-spacing:-.03em">cake.</div>
+   <div style="margin-top:22px;font-size:16px;line-height:1.5;color:#6a5560;max-width:430px">From the mixing bowl to the business. Filmed in the bakery at Royal Crest Academy, Bikita.</div></div>`)}
 
 /* ===== FRAME 2 · why it rises: a left-to-right process panorama ===== */
 async function f2(){chrome(3,true,'C','CHEF CHIPO · BAKERY','Add liquid and heat, and they react, and release <em>carbon dioxide</em> gas.');
@@ -209,19 +269,20 @@ async function f2(){chrome(3,true,'C','CHEF CHIPO · BAKERY','Add liquid and hea
     NaHCO<sub style="font-size:.55em">3</sub> + acid <span style="color:var(--gold);font-family:var(--sans)">→</span> <b style="color:var(--rasp);font-weight:500">CO<sub style="font-size:.55em">2</sub>↑</b> + water</div>`)}
 
 /* ===== FRAME 3 · the exploded cake, an editorial spread ===== */
-async function f3(){chrome(5,false,'S','SAM · COMMENTARY','Hold on. It’s built in <em>layers</em>, like the house in the Technical Graphics film!');
-  let g=bgc.createRadialGradient(640,330,40,640,360,760);g.addColorStop(0,'#3A2216');g.addColorStop(.6,'#1D0F09');g.addColorStop(1,'#0C0603');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
-  bgc.save();bgc.strokeStyle='rgba(255,226,184,.05)';bgc.lineWidth=1;for(let x=0;x<W;x+=40){bgc.beginPath();bgc.moveTo(x,0);bgc.lineTo(x,H);bgc.stroke()}for(let y=0;y<H;y+=40){bgc.beginPath();bgc.moveTo(0,y);bgc.lineTo(W,y);bgc.stroke()}bgc.restore();
-  // registration marks
-  bgc.strokeStyle='rgba(226,185,59,.5)';bgc.lineWidth=1.5;[[300,110],[980,110],[300,600],[980,600]].forEach(([x,y])=>{bgc.beginPath();bgc.moveTo(x-10,y);bgc.lineTo(x+10,y);bgc.moveTo(x,y-10);bgc.lineTo(x,y+10);bgc.stroke()});
+async function f3(){chrome(5,true,'S','SAM · COMMENTARY','Hold on. It’s built in <em>layers</em>, like the house in the Technical Graphics film!');
+  let g=bgc.createRadialGradient(640,330,40,640,360,760);g.addColorStop(0,'#FFF8FA');g.addColorStop(.6,'#F8DCE5');g.addColorStop(1,'#EDBCCC');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  bgc.save();bgc.strokeStyle='rgba(200,67,107,.08)';bgc.lineWidth=1;for(let x=0;x<W;x+=40){bgc.beginPath();bgc.moveTo(x,0);bgc.lineTo(x,H);bgc.stroke()}for(let y=0;y<H;y+=40){bgc.beginPath();bgc.moveTo(0,y);bgc.lineTo(W,y);bgc.stroke()}bgc.restore();
+  bgc.strokeStyle='rgba(200,67,107,.55)';bgc.lineWidth=1.5;[[300,110],[980,110],[300,600],[980,600]].forEach(([x,y])=>{bgc.beginPath();bgc.moveTo(x-10,y);bgc.lineTo(x+10,y);bgc.moveTo(x,y-10);bgc.lineTo(x,y+10);bgc.stroke()});
+  // soft floor shadow
+  g=bgc.createRadialGradient(640,640,10,640,640,300);g.addColorStop(0,'rgba(160,60,90,.25)');g.addColorStop(1,'rgba(160,60,90,0)');bgc.fillStyle=g;bgc.fillRect(300,560,680,160);
   const o=CAKE.render({drop:[1,1,1,1,1,1],explode:1,rose:0,crest:0,stand:0,yaw:.55,tilt:.22,zoom:1.02,shift:0});
-  bgc.drawImage(o.cv,0,0,W,H);bloom(bgc,o.cv,0,0,W,H,.22,24);
+  bgc.drawImage(o.cv,0,0,W,H);bloom(bgc,o.cv,0,0,W,H,.12,24);
   const names=[['01','Sponge','The structure. Air and egg protein, set by heat.'],['02','Jam','Flavour and moisture between the sponges.'],['03','Buttercream','The glue that holds the layers together.'],['04','Sponge','The second layer, cooled completely first.'],['05','Crumb coat','A thin coat that locks in the crumbs.'],['06','Final coat','The smooth finish we decorate on.']];
   const side=[1,-1,1,-1,1,-1];
   o.ancW.forEach((p,i)=>{const s=side[i],q=s>0?o.ancW[i]:o.ancL[i],cx=s>0?1000:280,y=q[1];
-    bgc.save();bgc.strokeStyle='rgba(245,213,122,.8)';bgc.lineWidth=1.4;bgc.beginPath();bgc.moveTo(q[0],q[1]);bgc.lineTo(cx-(s>0?16:-16),y);bgc.stroke();bgc.fillStyle='#F5D57A';bgc.beginPath();bgc.arc(q[0],q[1],4,0,7);bgc.fill();bgc.restore();
+    bgc.save();bgc.strokeStyle='rgba(200,67,107,.85)';bgc.lineWidth=1.4;bgc.beginPath();bgc.moveTo(q[0],q[1]);bgc.lineTo(cx-(s>0?16:-16),y);bgc.stroke();bgc.fillStyle='#C8436B';bgc.beginPath();bgc.arc(q[0],q[1],4,0,7);bgc.fill();bgc.restore();
     dom.insertAdjacentHTML('beforeend',`<div class="call ${s>0?'r':'l'}" style="${s>0?`left:${cx}px`:`left:${cx-210}px`};top:${y-28}px"><div class="n">${names[i][0]}</div><b>${names[i][1]}</b><small>${names[i][2]}</small></div>`)});
-  dust(fx,90,13,'#FFE2B8',{maxR:8,alpha:.45});leak([[640,-80,560,'rgba(255,170,90,.35)']]);
+  dust(fx,70,13,'#FFFFFF',{maxR:8,alpha:.6});leak([[640,-80,560,'rgba(255,255,255,.55)'],[1280,720,420,'rgba(242,154,182,.3)']]);
   dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:1000px;top:120px"><div class="k">LESSON 05 · BUILDING</div><div class="h" style="font-size:44px;margin-top:8px">Every layer<br><em>has a job.</em></div></div>`)}
 
 /* ===== FRAME 4 · the oven as a thermal image ===== */
@@ -256,7 +317,7 @@ async function f4(){chrome(4,false,'C','CHEF CHIPO · BAKERY','At about <em>70 �
     <div style="position:absolute;left:32%;top:13px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.25),0 0 24px #fff;transform:translateX(-50%)"></div></div>`)}
 
 /* ===== FRAME 5 · the business: big numbers, wide chart ===== */
-async function f5(){chrome(7,true,'C','CHEF CHIPO · BAKERY','Sell the decorated cake for <em>$25</em>, and that’s <em>$16 profit</em>. Bake five cakes a week, and it’s a business.');
+async function f5(){chrome(8,true,'C','CHEF CHIPO · BAKERY','Sell the decorated cake for <em>$25</em>, and that’s <em>$16 profit</em>. Bake five cakes a week, and it’s a business.');
   let g=bgc.createLinearGradient(0,0,W,H);g.addColorStop(0,'#FFFBF4');g.addColorStop(1,'#F3E4CD');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
   // waterfall: each cost steps up, then the price bar, then profit
   const items=[['Butter',2.0,'#F3D46E'],['Sugar',.8,'#E9E4DA'],['Eggs',1.2,'#D9B08A'],['Flour',.9,'#EFE6D4'],['Icing',2.3,'#E8A0B4'],['Power',.8,'#9AD0C2'],['Box',1.0,'#B9BEC6']];
@@ -275,12 +336,40 @@ async function f5(){chrome(7,true,'C','CHEF CHIPO · BAKERY','Sell the decorated
   // confetti sprinkles with motion blur
   const r=rng(77),cols=['#E8A0B4','#F2C14E','#9AD0C2','#C8436B','#13215a'];for(let i=0;i<70;i++){const x=r()*W,y=r()*H*.9,a=r()*6,l=6+r()*8,z=r();fx.save();fx.translate(x,y);fx.rotate(a);fx.filter=z>.8?`blur(${(z-.8)*20}px)`:'none';fx.globalAlpha=.75;fx.fillStyle=cols[i%5];fx.beginPath();fx.roundRect(-l/2,-2,l,4,2);fx.fill();fx.restore()}
   leak([[0,0,480,'rgba(255,200,140,.35)']]);
-  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:112px;width:400px"><div class="k">LESSON 07 · COSTING</div>
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:112px;width:400px"><div class="k">LESSON 08 · COSTING</div>
     <div style="font:400 190px/.8 var(--serif);color:var(--rasp);letter-spacing:-.04em;margin-top:44px">$16</div>
     <div style="font:800 15px var(--sans);letter-spacing:.2em;color:var(--navy);margin-top:4px">PROFIT ON EVERY CAKE</div>
     <div class="glass" style="margin-top:18px;padding:12px 18px 8px;width:380px"><div style="display:flex;gap:16px;align-items:center"><div style="font:400 44px var(--serif);color:var(--navy)">$80</div><div style="font-size:13px;line-height:1.4;color:#5a4a40">a week, from<br><b style="color:var(--navy)">five cakes</b></div></div><canvas id="five" width="516" height="108" style="width:344px;height:72px;display:block"></canvas></div>
     <div style="font-size:10.5px;color:#8a7a70;margin-top:10px">Example figures. Prices vary.</div></div>`);
   const fv=$('#five').getContext('2d'),sq=CH*1.05,sx=(CW-sq)/2,sy=(CH-sq)/2+40;for(let i=0;i<5;i++)fv.drawImage(FIVE,sx,sy,sq,sq,i*100+2,0,108,108)}
 
-window.ready=(async()=>{await Promise.all(['600 14px "Plex Mono"','400 14px "Plex Mono"','500 14px "Plus Jakarta Sans"','800 14px "Plus Jakarta Sans"','400 40px Newsreader','italic 400 40px Newsreader'].map(x=>document.fonts.load(x)));await document.fonts.ready;await [0,f1,f2,f3,f4,f5][F]();await new Promise(r=>setTimeout(r,250));return true})();
+/* ===== FRAME 6 · icing: four kinds, four jobs ===== */
+async function f6(){chrome(6,true,'C','CHEF CHIPO · BAKERY','Royal icing: egg white and icing sugar. It <em>sets hard</em>, so it’s used on <em>wedding cakes</em>.');
+  let g=bgc.createLinearGradient(0,0,W,H);g.addColorStop(0,'#FFF8FA');g.addColorStop(1,'#F6D3DF');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  const r=rng(3);for(let i=0;i<14;i++){bgc.save();bgc.filter='blur(14px)';bgc.globalAlpha=.3;bgc.fillStyle=i%2?'#FFFFFF':'#F49AB6';bgc.beginPath();bgc.arc(r()*W,r()*H,30+r()*80,0,7);bgc.fill();bgc.restore()}
+  const C4=[['butter','Buttercream','Butter + icing sugar','Soft and creamy. For piping and filling.','PIPE IT'],['royal','Royal icing','Egg white + icing sugar','Sets hard, so it holds fine lines. Wedding cakes.','SETS HARD'],
+    ['fondant','Fondant','Rolled sugar paste','Rolled thin, draped like a sheet, smoothed by hand.','ROLL & DRAPE'],['ganache','Ganache','Cream + melted chocolate','Poured warm over the top, so it drips down the sides.','POUR & DRIP']];
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:100px;display:flex;align-items:baseline;gap:22px"><div class="k">LESSON 06 · ICING</div><div class="h" style="font-size:40px">Four icings, <em>four jobs.</em></div></div>
+   ${C4.map(([k,n,rec,d,tag],i)=>`<div class="abs glass" style="left:${64+i*290}px;top:${i===1?156:166}px;width:276px;height:${i===1?352:336}px;padding:0 18px 16px;${i===1?'border:2px solid var(--rasp);box-shadow:0 30px 50px -26px rgba(200,67,107,.7)':''}">
+     <canvas id="ic${i}" width="480" height="420" style="width:240px;height:210px;display:block;margin:0 auto"></canvas>
+     <div style="font:600 10.5px var(--mono);letter-spacing:.1em;color:var(--rasp)">0${i+1} · ${tag}</div><div style="font:400 26px var(--serif);color:var(--navy);margin:2px 0">${n}</div>
+     <div style="font-size:12px;font-weight:700;color:#7a5a66">${rec}</div><div style="font-size:12.5px;line-height:1.4;color:#5a4a50;margin-top:4px">${d}</div></div>`).join('')}
+   <div class="abs" style="left:64px;right:64px;top:528px;display:flex;align-items:center;gap:10px;font:600 11px var(--mono);color:var(--navy);letter-spacing:.06em">
+     ${['CRUMB COAT','CHILL 20 MIN','FINAL COAT · PALETTE KNIFE + TURNTABLE','PIPE · BAG + STAR NOZZLE'].map((t,i)=>`<span style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.7);border:1px solid rgba(200,67,107,.25);border-radius:16px;padding:7px 12px"><b style="width:18px;height:18px;border-radius:50%;background:var(--rasp);color:#fff;display:grid;place-items:center;font-size:10px">${i+1}</b>${t}</span>${i<3?'<span style="color:var(--rasp)">→</span>':''}`).join('')}</div>`);
+  C4.forEach(([k],i)=>{const c=KB.render(k,TYPES[k]);$('#ic'+i).getContext('2d').drawImage(c,40,90,720,630,0,0,480,420)});
+  dust(fx,40,4,'#FFFFFF',{maxR:6,alpha:.6});leak([[0,0,520,'rgba(255,255,255,.5)'],[1280,720,460,'rgba(242,154,182,.3)']])}
+
+/* ===== FRAME 7 · cake types, each cut open ===== */
+async function f7(){chrome(7,true,'S','SAM · COMMENTARY','<em>Red velvet.</em> Now that’s my favourite.');
+  let g=bgc.createLinearGradient(0,0,W,H);g.addColorStop(0,'#FFF9FB');g.addColorStop(1,'#F5CFDC');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  const T6=[['victoria','Victoria sponge','Light and simple, with jam and cream.','CLASSIC'],['chocolate','Chocolate','Rich and dark, with ganache drips.','RICH'],['redvelvet','Red velvet','Soft red sponge, cream cheese icing.','♥ SAM’S FAVOURITE'],
+    ['carrot','Carrot cake','Moist and spiced, cream cheese icing.','SPICED'],['fruit','Fruit cake','Raisins, cherries and peel, under marzipan and royal icing. Keeps for months.','WEDDINGS'],['wine','Wine cake','A rich, dark fruit cake soaked in red wine.','CELEBRATIONS']];
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:100px;display:flex;align-items:baseline;gap:22px"><div class="k">LESSON 07 · CAKE TYPES</div><div class="h" style="font-size:40px">Every cake <em>is different.</em></div></div>
+   ${T6.map(([k,n,d,tag],i)=>{const x=64+(i%3)*388,y=166+Math.floor(i/3)*222,on=i===2;return `<div class="abs glass" style="left:${x}px;top:${y}px;width:376px;height:208px;display:flex;align-items:center;gap:6px;padding-right:16px;${on?'border:2px solid var(--rasp);box-shadow:0 30px 50px -26px rgba(200,67,107,.7)':''}">
+     <canvas id="ty${i}" width="380" height="380" style="width:190px;height:190px;flex:none"></canvas><div><div style="font:600 10px var(--mono);letter-spacing:.1em;color:${on?'#fff':'var(--rasp)'};${on?'background:var(--rasp);padding:3px 8px;border-radius:10px;display:inline-block':''}">${tag}</div>
+     <div style="font:400 26px/1.05 var(--serif);color:var(--navy);margin:6px 0 5px">${n}</div><div style="font-size:12.5px;line-height:1.4;color:#5a4a50">${d}</div></div></div>`}).join('')}`);
+  T6.forEach(([k],i)=>{const c=KB.render(k,TYPES[k]);$('#ty'+i).getContext('2d').drawImage(c,40,60,720,720,0,0,380,380)});
+  dust(fx,40,6,'#FFFFFF',{maxR:6,alpha:.6});leak([[1280,0,520,'rgba(255,255,255,.5)'],[0,720,420,'rgba(242,154,182,.3)']])}
+
+window.ready=(async()=>{await Promise.all(['600 14px "Plex Mono"','400 14px "Plex Mono"','500 14px "Plus Jakarta Sans"','800 14px "Plus Jakarta Sans"','400 40px Newsreader','italic 400 40px Newsreader'].map(x=>document.fonts.load(x)));await document.fonts.ready;await [0,f1,f2,f3,f4,f5,f6,f7][F]();await new Promise(r=>setTimeout(r,250));return true})();
 </script></body></html>
