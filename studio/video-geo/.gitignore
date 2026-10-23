@@ -13,3 +13,6 @@ build/parts*.txt
 assets/slide/
 build/mix_*.log
 assets/clipfr/
+build/sfx/
+build/sfx.wav
+build/music_arr.wav

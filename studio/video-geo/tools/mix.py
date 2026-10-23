@@ -17,6 +17,8 @@ ap.add_argument('--music-start', type=float, default=0.0, help='seconds into the
 ap.add_argument('--bed', type=float, default=0.42, help='music level in gaps (linear)')
 ap.add_argument('--name')
 ap.add_argument('--loop-from', type=float, default=None, help='if the film is longer than the song, continue the song from this second with a crossfade')
+ap.add_argument('--sfx', default=None, help='effects track (build/sfx.wav) laid on top, not ducked')
+ap.add_argument('--sfx-gain', type=float, default=1.0)
 ap.add_argument('--video', default=str(ROOT/'build/video_silent.mp4'))
 a = ap.parse_args()
 name = a.name or ('royal-crest-biology' if TL['real_audio'] else 'royal-crest-biology_PREVIEW_no-voice')
@@ -43,6 +45,11 @@ if labels:
     flt.append(f"[vo][duck]amix=inputs=2:normalize=0:duration=longest,atrim=0:{total:.2f}[pre]")
 else:
     flt.append(music + "[pre]")
+if a.sfx:
+    k = ins.count('-i'); ins += ['-i', a.sfx]
+    flt[-1] = flt[-1][:-len('[pre]')] + '[pre0]'
+    flt.append(f"[{k}:a]aresample=48000,aformat=channel_layouts=stereo,volume={a.sfx_gain},apad,atrim=0:{total:.2f}[fx];"
+               f"[pre0][fx]amix=inputs=2:normalize=0:duration=first[pre]")
 
 def run(extra_tail, out_args, lvl='error'):
     cmd = ['ffmpeg', '-y', '-hide_banner', '-nostats', '-v', lvl, *ins, '-filter_complex', ';'.join(flt + [extra_tail]), *out_args]
