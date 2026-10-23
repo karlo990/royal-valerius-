@@ -1,0 +1,224 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Geography film — style frames</title>
+<style>
+@font-face{font-family:"Newsreader";font-style:normal;font-weight:200 800;src:url(../../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:"Newsreader";font-style:italic;font-weight:200 800;src:url(../../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:"Plus Jakarta Sans";font-weight:400 800;src:url(../../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2")}
+@font-face{font-family:"Plex Mono";font-weight:400;src:url(../../assets/fonts/IBMPlexMono-Regular.woff2) format("woff2")}
+@font-face{font-family:"Plex Mono";font-weight:600;src:url(../../assets/fonts/IBMPlexMono-SemiBold.woff2) format("woff2")}
+:root{--sky:#1E7BC4;--sky-deep:#0E4F86;--sky-hi:#9FD4FF;--gold:#E2B93B;--gold-hi:#F5D57A;--navy:#13215a;--ink:#10223a;--mute:#4f6378;
+  --serif:"Newsreader",serif;--sans:"Plus Jakarta Sans",sans-serif;--mono:"Plex Mono",monospace}
+*{box-sizing:border-box}html,body{margin:0;background:#000}
+#f{position:relative;width:1280px;height:720px;overflow:hidden;font-family:var(--sans)}
+#bgc{position:absolute;inset:0;width:1280px;height:720px}
+.lay{position:absolute;inset:0;pointer-events:none}
+#grain{z-index:8;opacity:.08;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+#vig{z-index:3;background:radial-gradient(120% 95% at 50% 45%,transparent 60%,rgba(5,20,40,.35) 100%)}
+.lock{position:absolute;left:44px;top:30px;display:flex;align-items:center;gap:12px;color:#fff;z-index:6}
+.lock img{width:40px}.lock b{display:block;font-size:14px;letter-spacing:.14em;font-weight:800}.lock small{display:block;font-size:10.5px;letter-spacing:.16em;font-weight:700;color:var(--gold-hi)}
+.light .lock{color:var(--navy)}.light .lock small{color:var(--sky)}
+.rail{position:absolute;left:350px;right:200px;top:38px;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;z-index:6}
+.rail div{font:600 9px var(--mono);letter-spacing:.06em;color:rgba(255,255,255,.6);padding-top:9px;position:relative;white-space:nowrap}
+.rail div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:2px;background:rgba(255,255,255,.22)}
+.rail div.done::before{background:var(--gold)}.rail div.on{color:#fff}.rail div.on::before{background:linear-gradient(90deg,var(--gold) 55%,rgba(255,255,255,.22) 55%)}
+.light .rail div{color:rgba(16,34,58,.5)}.light .rail div::before{background:rgba(16,34,58,.12)}.light .rail div.on{color:var(--ink)}.light .rail div.done::before{background:var(--sky)}.light .rail div.on::before{background:linear-gradient(90deg,var(--sky) 55%,rgba(16,34,58,.12) 55%)}
+.pill{position:absolute;right:44px;top:28px;height:34px;padding:0 16px 0 6px;border-radius:17px;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(10px);color:#fff;font-size:12.5px;font-weight:800;letter-spacing:.16em;z-index:6}
+.pill i{width:24px;height:24px;border-radius:50%;background:var(--gold);display:grid;place-items:center}.pill svg{width:15px;height:15px}
+.light .pill{background:rgba(255,255,255,.75);border-color:rgba(16,34,58,.12);color:var(--navy)}
+.lower{position:absolute;left:44px;bottom:30px;width:720px;min-height:62px;padding:11px 18px 11px 12px;border-radius:18px;display:flex;gap:13px;align-items:center;z-index:6;background:rgba(8,24,44,.55);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px) saturate(1.2)}
+.light .lower{background:rgba(255,255,255,.75);border-color:rgba(16,34,58,.1)}
+.lower .av{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff;font-weight:800;background:var(--sky)}.lower .av.s{background:var(--navy);border:2px solid var(--gold)}
+.lower small{display:block;font:800 9.5px var(--sans);letter-spacing:.18em;color:var(--gold-hi)}.light .lower small{color:var(--sky)}
+.lower p{margin:2px 0 0;font-size:15px;line-height:1.35;color:#fff}.light .lower p{color:var(--ink)}.lower p em{font-style:normal;color:var(--gold-hi);font-weight:700}.light .lower p em{color:var(--sky-deep)}
+.cta{position:absolute;right:44px;bottom:36px;display:flex;align-items:center;gap:10px;z-index:6;color:#fff;font-size:11px;font-weight:800;letter-spacing:.16em}.light .cta{color:var(--ink)}
+.cta b{height:40px;padding:0 16px;border-radius:20px;background:var(--gold);color:var(--navy);display:flex;align-items:center;font-size:16px;letter-spacing:.02em}
+.abs{position:absolute;z-index:4}
+.k{font:600 11px var(--mono);letter-spacing:.14em;color:var(--gold-hi)}.light .k{color:var(--sky)}
+.h{font:400 50px/0.98 var(--serif);letter-spacing:-.015em;color:#fff}.h em{font-style:italic;color:var(--gold-hi)}.light .h{color:var(--navy)}.light .h em{color:var(--sky)}
+.glass{background:rgba(255,255,255,.7);border:1px solid rgba(16,34,58,.08);backdrop-filter:blur(14px);border-radius:16px;box-shadow:0 22px 40px -28px rgba(10,40,80,.6)}
+.dglass{background:rgba(8,24,44,.5);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);border-radius:16px}
+.calc div{display:grid;grid-template-columns:1fr auto;gap:14px;padding:8px 0;border-top:1px solid rgba(16,34,58,.08);font-size:13.5px;color:var(--ink)}.calc div:first-child{border-top:0}
+.calc b{font:600 14px var(--mono);color:var(--sky-deep)}
+</style></head><body>
+<div id="f"><canvas id="bgc" width="1920" height="1080"></canvas><div class="lay" id="vig"></div><div class="lay" id="dom" style="z-index:4"></div><div class="lay" id="grain"></div></div>
+<script src="../node_modules/three/build/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),lerp=(a,b,x)=>a+(b-a)*x,eo=x=>1-Math.pow(1-clamp(x),3);
+function rng(seed){let s=seed;return()=>(s=(s*16807)%2147483647)/2147483647}
+const W=1280,H=720,CW=1920,CH=1080;const F=+(new URLSearchParams(location.search).get('f')||1);
+const g=$('#bgc').getContext('2d');g.scale(1.5,1.5);const dom=$('#dom');
+const IMG={};const img=src=>IMG[src]||(IMG[src]=new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src}));
+function txt(s,x,y,o={}){g.save();g.font=o.font||'600 13px "Plex Mono"';g.fillStyle=o.col||'#fff';g.textAlign=o.align||'center';g.textBaseline='middle';if(o.bg){const w=g.measureText(s).width+18;g.fillStyle=o.bg;g.beginPath();g.roundRect(x-(o.align==='left'?9:w/2),y-13,w,26,13);g.fill();g.fillStyle=o.col||'#fff'}g.fillText(s,x,y);g.restore()}
+const LESSONS=['SITING','STEVENSON SCREEN','READINGS','WIND & RAIN','IN THE CLOUDS','CAREERS'];
+function chrome(active,light,who,name,cap){if(light)$('#f').classList.add('light');
+  dom.insertAdjacentHTML('beforeend',`<div class="lock"><img src="../../assets/brand/crest-640.webp"><div><b>ROYAL CREST ACADEMY</b><small>BIKITA · MASVINGO</small></div></div>
+  <div class="rail">${LESSONS.map((l,i)=>`<div class="${i+1<active?'done':i+1===active?'on':''}">0${i+1} ${l}</div>`).join('')}</div>
+  <div class="pill"><i><svg viewBox="0 0 24 24" fill="none" stroke="#13215a" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg></i>GEOGRAPHY</div>
+  <div class="lower"><div class="av ${who==='S'?'s':''}">${who}</div><div><small>${name}</small><p>${cap}</p></div></div>
+  <div class="cta">FORM 1 · 2027<b>0714 404 090</b></div>`)}
+function dimLine(a,b,label,o={}){const col=o.col||'#F5D57A';g.save();g.strokeStyle=col;g.fillStyle=col;g.lineWidth=1.6;g.setLineDash(o.dash||[]);g.beginPath();g.moveTo(a[0],a[1]);g.lineTo(b[0],b[1]);g.stroke();g.setLineDash([]);
+  const an=Math.atan2(b[1]-a[1],b[0]-a[0]);for(const [p,s] of [[a,1],[b,-1]]){g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(p[0]+s*10*Math.cos(an-.4),p[1]+s*10*Math.sin(an-.4));g.lineTo(p[0]+s*10*Math.cos(an+.4),p[1]+s*10*Math.sin(an+.4));g.closePath();g.fill()}g.restore();
+  txt(label,(a[0]+b[0])/2+(o.dx||0),(a[1]+b[1])/2+(o.dy||0),{bg:'rgba(8,24,44,.82)',col:col,font:'600 12.5px "Plex Mono"'})}
+
+/* ---------- 3D weather station ---------- */
+const ST=(()=>{const cv=document.createElement('canvas');cv.width=CW;cv.height=CH;
+  const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:true});R.setPixelRatio(1);R.setSize(CW,CH,false);R.outputEncoding=THREE.sRGBEncoding;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+  const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(32,CW/CH,.1,800);sc.fog=new THREE.Fog(0xCFE6F5,60,260);
+  const sun=new THREE.DirectionalLight(0xFFF1D8,1.9);sun.position.set(-30,40,-20);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-30,right:30,top:30,bottom:-30,near:1,far:150});sc.add(sun);
+  sc.add(new THREE.HemisphereLight(0xCFE8FF,0x6A7A3A,.75));
+  const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:new THREE.Color(c),roughness:.7},o));
+  function tex(base,dots,seed,n=4000,sz=2){const c=document.createElement('canvas');c.width=c.height=512;const q=c.getContext('2d');q.fillStyle=base;q.fillRect(0,0,512,512);const r=rng(seed);for(let i=0;i<n;i++){q.fillStyle=dots[i%dots.length];q.globalAlpha=.3+r()*.5;q.fillRect(r()*512,r()*512,1+r()*sz,2+r()*sz*2)}const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;return t}
+  const grassT=tex('#7C9A3E',['#6B8A33','#93B04C','#5E7A2C','#A8B85A','#8C7A40'],3,9000);grassT.repeat.set(40,40);
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(600,600),M('#fff',{map:grassT,roughness:.95}));ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;sc.add(ground);
+  const mowT=tex('#86A548',['#7B9A40','#97B556','#6E8C36'],5,6000);mowT.repeat.set(6,6);const mown=new THREE.Mesh(new THREE.CircleGeometry(9,64),M('#fff',{map:mowT,roughness:.9}));mown.rotation.x=-Math.PI/2;mown.position.y=.01;mown.receiveShadow=true;sc.add(mown);
+  const white=M('#F7F7F2',{roughness:.55}),wood=M('#E9E7E0',{roughness:.6}),metal=M('#B8BEC6',{metalness:.7,roughness:.35}),copper=M('#B87333',{metalness:.75,roughness:.35});
+  const add=(geo,m,x,y,z,cast=true)=>{const me=new THREE.Mesh(geo,m);me.position.set(x,y,z);me.castShadow=cast;me.receiveShadow=true;sc.add(me);return me};
+  // Stevenson screen: legs, louvred box, double roof; the door faces south (+z here)
+  const scr=new THREE.Group();sc.add(scr);const SW=.86,SD=.6,SH=.62,BY=1.05;
+  for(const [x,z] of [[-.38,-.25],[.38,-.25],[-.38,.25],[.38,.25]]){const l=new THREE.Mesh(new THREE.BoxGeometry(.07,BY,.07),wood);l.position.set(x,BY/2,z);l.castShadow=true;scr.add(l)}
+  const floor=new THREE.Mesh(new THREE.BoxGeometry(SW,.03,SD),white);floor.position.y=BY;scr.add(floor);
+  const louv=(w,axis,pos,sign)=>{for(let i=0;i<14;i++){const s=new THREE.Mesh(new THREE.BoxGeometry(axis==='x'?w:.012,.05,axis==='x'?.012:w),white);s.position.set(axis==='x'?0:pos,BY+.04+i*.042,axis==='x'?pos:0);s.rotation[axis==='x'?'x':'z']=sign*.75;s.castShadow=true;scr.add(s)}
+    for(const e of [-1,1]){const p=new THREE.Mesh(new THREE.BoxGeometry(axis==='x'?.05:.04,SH,axis==='x'?.04:.05),white);p.position.set(axis==='x'?e*(w/2):pos,BY+SH/2,axis==='x'?pos:e*(w/2));scr.add(p)}};
+  louv(SW,'x',-SD/2,1);louv(SD,'z',-SW/2,1);louv(SD,'z',SW/2,-1);
+  const door=new THREE.Group();door.position.set(-SW/2,0,SD/2);scr.add(door);for(let i=0;i<14;i++){const s=new THREE.Mesh(new THREE.BoxGeometry(SW,.05,.012),white);s.position.set(SW/2,BY+.04+i*.042,0);s.rotation.x=-.75;s.castShadow=true;door.add(s)}
+  for(const e of [0,1]){const p=new THREE.Mesh(new THREE.BoxGeometry(.05,SH,.04),white);p.position.set(e*SW,BY+SH/2,0);door.add(p)}
+  const r1=new THREE.Mesh(new THREE.BoxGeometry(SW+.16,.03,SD+.16),white);r1.position.y=BY+SH+.03;scr.add(r1);
+  const roof=new THREE.Mesh(new THREE.BoxGeometry(SW+.24,.035,SD+.3),white);roof.position.set(0,BY+SH+.13,0);roof.rotation.x=-.12;roof.castShadow=true;scr.add(roof);
+  // instruments inside
+  const thermG=new THREE.Group();thermG.position.set(0,BY+.25,0);scr.add(thermG);
+  const tube=(pts,r,m)=>new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p))),40,r,8,false),m);
+  const glass=M('#E8F4FF',{roughness:.1,metalness:0,transparent:true,opacity:.7}),red=M('#C8102E',{roughness:.3}),hg=M('#C9CED6',{metalness:.9,roughness:.2}),muslin=M('#F2EEE2',{roughness:1});
+  const six=new THREE.Group();six.add(tube([[-.08,.25,0],[-.08,-.05,0],[-.06,-.11,0],[0,-.13,0],[.06,-.11,0],[.08,-.05,0],[.08,.25,0]],.012,glass));six.add(tube([[-.08,.05,0],[-.08,-.05,0],[-.06,-.11,0],[0,-.13,0],[.06,-.11,0],[.08,-.05,0],[.08,.1,0]],.007,hg));
+  const bulb=new THREE.Mesh(new THREE.SphereGeometry(.03,16,12),glass);bulb.position.set(-.08,.27,0);six.add(bulb);six.position.set(-.18,0,.02);thermG.add(six);
+  for(const [x,wet] of [[.12,0],[.24,1]]){const t=new THREE.Mesh(new THREE.CylinderGeometry(.008,.008,.38,10),glass);t.position.set(x,0,.02);thermG.add(t);const c=new THREE.Mesh(new THREE.CylinderGeometry(.004,.004,.24,8),red);c.position.set(x,-.04,.02);thermG.add(c);
+    const b=new THREE.Mesh(new THREE.SphereGeometry(.016,12,10),wet?muslin:glass);b.position.set(x,-.2,.02);thermG.add(b);if(wet){const w=tube([[x,-.21,.02],[x,-.27,.02],[x+.02,-.3,.02]],.006,muslin);thermG.add(w);const pot=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,.06,16),glass);pot.position.set(x+.02,-.33,.02);thermG.add(pot)}}
+  const frame=new THREE.Mesh(new THREE.BoxGeometry(.6,.04,.04),wood);frame.position.set(0,.22,-.04);thermG.add(frame);const frame2=frame.clone();frame2.position.y=-.24;thermG.add(frame2);
+  scr.position.set(0,0,0);
+  // rain gauge, 30 cm rim
+  const rg=new THREE.Group();sc.add(rg);rg.position.set(2.6,0,1.2);const body=new THREE.Mesh(new THREE.CylinderGeometry(.0635,.0635,.3,32),copper);body.position.y=.15;body.castShadow=true;rg.add(body);
+  const rim=new THREE.Mesh(new THREE.TorusGeometry(.0635,.006,8,32),copper);rim.rotation.x=Math.PI/2;rim.position.y=.3;rg.add(rim);const fun=new THREE.Mesh(new THREE.ConeGeometry(.06,.05,32,1,true),metal);fun.rotation.x=Math.PI;fun.position.y=.28;rg.add(fun);
+  // 10 m mast: wind vane and cup anemometer
+  const mast=add(new THREE.CylinderGeometry(.04,.05,10,16),metal,-3.2,5,-1.5);
+  const top=new THREE.Group();top.position.set(-3.2,10,-1.5);sc.add(top);
+  const vane=new THREE.Group();vane.position.y=-.35;top.add(vane);const arrowM=M('#2B2F36',{metalness:.5,roughness:.4});
+  const shaft=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,1,8),arrowM);shaft.rotation.z=Math.PI/2;vane.add(shaft);const head=new THREE.Mesh(new THREE.ConeGeometry(.05,.16,12),arrowM);head.rotation.z=Math.PI/2;head.position.x=.56;vane.add(head);
+  const fin=new THREE.Mesh(new THREE.BoxGeometry(.24,.18,.01),arrowM);fin.position.x=-.48;vane.add(fin);vane.rotation.y=-Math.PI/2*0.9;
+  const NSEW=new THREE.Group();NSEW.position.y=-.55;top.add(NSEW);for(let i=0;i<4;i++){const a=new THREE.Mesh(new THREE.BoxGeometry(.4,.012,.012),arrowM);a.rotation.y=i*Math.PI/2;a.position.set(Math.cos(i*Math.PI/2)*.2,0,-Math.sin(i*Math.PI/2)*.2);NSEW.add(a)}
+  const anem=new THREE.Group();anem.position.y=.05;top.add(anem);for(let i=0;i<3;i++){const a=i*Math.PI*2/3;const arm=new THREE.Mesh(new THREE.CylinderGeometry(.008,.008,.28,6),metal);arm.rotation.z=Math.PI/2;arm.rotation.y=a;arm.position.set(Math.cos(a)*.14,0,-Math.sin(a)*.14);anem.add(arm);
+    const cup=new THREE.Mesh(new THREE.SphereGeometry(.05,16,10,0,Math.PI*2,0,Math.PI/2),M('#F2F2F2',{side:THREE.DoubleSide,roughness:.4}));cup.rotation.z=Math.PI/2;cup.rotation.y=a+Math.PI/2;cup.position.set(Math.cos(a)*.29,0,-Math.sin(a)*.29);anem.add(cup)}
+  // fence
+  const post=M('#8A7A5A',{roughness:.9});for(let i=0;i<16;i++){const a=i/16*Math.PI*2;add(new THREE.CylinderGeometry(.04,.05,1.1,8),post,Math.cos(a)*7.5,.55,Math.sin(a)*7.5)}
+  const wire=new THREE.Mesh(new THREE.TorusGeometry(7.5,.008,4,96),metal);wire.rotation.x=Math.PI/2;wire.position.y=.95;sc.add(wire);const wire2=wire.clone();wire2.position.y=.55;sc.add(wire2);
+  // msasa tree (10 m) and granite kopjes
+  const tree=new THREE.Group();tree.position.set(14,0,-12);sc.add(tree);const tr=new THREE.Mesh(new THREE.CylinderGeometry(.22,.35,5.5,10),M('#5A4636',{roughness:1}));tr.position.y=2.75;tr.castShadow=true;tree.add(tr);
+  const leaf=[M('#4E7A2E',{roughness:.9}),M('#6A8F34',{roughness:.9}),M('#8C5A2A',{roughness:.9})];const rt=rng(7);for(let i=0;i<26;i++){const s=new THREE.Mesh(new THREE.SphereGeometry(1.2+rt()*.9,12,10),leaf[i%3]);s.scale.y=.55;s.position.set((rt()-.5)*6,7+rt()*2.6,(rt()-.5)*6);s.castShadow=true;tree.add(s)}
+  const granite=M('#9A948A',{roughness:.85,map:tex('#9A948A',['#8A847A','#B0AAA0','#6E6A62'],9,5000)});const rk=rng(4);
+  for(let i=0;i<18;i++){const s=new THREE.Mesh(new THREE.SphereGeometry(4+rk()*10,24,16),granite);s.scale.set(1,.55+rk()*.4,1);s.position.set(-120+i*14+rk()*10,-1,-150-rk()*40);sc.add(s)}
+  for(let i=0;i<6;i++){const s=new THREE.Mesh(new THREE.SphereGeometry(2+rk()*3,20,14),granite);s.scale.y=.7;s.position.set(-40+i*16,-.5,-60-rk()*10);s.castShadow=true;sc.add(s)}
+  const bushM=M('#5D7E30',{roughness:.95});for(let i=0;i<40;i++){const s=new THREE.Mesh(new THREE.SphereGeometry(.8+rk()*1.6,10,8),bushM);s.scale.y=.6;const a=rk()*6.28,d=22+rk()*60;s.position.set(Math.cos(a)*d,.3,Math.sin(a)*d-20);sc.add(s)}
+  function render(st){door.rotation.y=-(st.door||0)*1.9;anem.rotation.y=st.t*6;cam.position.set(...st.cam);cam.lookAt(...st.look);cam.fov=st.fov||32;cam.updateProjectionMatrix();
+    if(st.shift)cam.setViewOffset(CW,CH,-st.shift*CW,0,CW,CH);else cam.clearViewOffset();R.render(sc,cam);
+    const P=(x,y,z)=>{const v=new THREE.Vector3(x,y,z).project(cam);return[(v.x*.5+.5)*W,(-v.y*.5+.5)*H]};return{cv,P}}
+  return{render}})();
+function sky(top='#2E86D1',bot='#CFE6F5'){const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,top);gr.addColorStop(.65,bot);gr.addColorStop(1,bot);g.fillStyle=gr;g.fillRect(0,0,W,H)}
+// clouds built from many shaded puffs inside a profile, clipped to a flat base (the condensation level)
+const CLC=document.createElement('canvas');CLC.width=CW;CLC.height=CH;const clg=CLC.getContext('2d');
+function cloudShape(cx,base,top,prof,seed,o={}){const G=g;const r=rng(seed),n=Math.round((o.n||220)*1.6),Hh=base-top;clg.setTransform(1.5,0,0,1.5,0,0);clg.clearRect(0,0,W,H);{const g=clg;g.save();g.beginPath();g.rect(0,0,W,base+(o.soft||4));g.clip();
+  const pts=[];for(let i=0;i<n;i++){const v=Math.pow(r(),o.bias||1),y=base-v*Hh,hw=prof(v),x=cx+(r()*2-1)*hw*(.75+.25*r())+(o.shear?o.shear(v):0),R=((o.rmin||10)+r()*(o.rmax||26)*(.6+.4*(1-v*.5)))*1.25;pts.push([x,y,R,v])}
+  pts.sort((p,q)=>q[1]-p[1]);
+  for(const [x,y,R,v] of pts){const lit=clamp(.6+.4*v+(cx-x)/(prof(v)*4+1)*.35),sh=o.dark||0,cTop=Math.round(lerp(lerp(212,255,lit),lerp(90,130,lit),sh)),cBot=Math.round(lerp(lerp(168,222,lit),lerp(60,95,lit),sh));
+    const gr=g.createRadialGradient(x-R*.25,y-R*.3,R*.15,x,y,R);gr.addColorStop(0,`rgba(${cTop},${cTop},${Math.min(255,cTop+5)},.9)`);gr.addColorStop(.55,`rgba(${cBot},${cBot+3},${cBot+10},.55)`);gr.addColorStop(1,`rgba(${cBot},${cBot+3},${cBot+10},0)`);g.fillStyle=gr;g.beginPath();g.arc(x,y,R,0,7);g.fill()}
+  const ub=g.createLinearGradient(0,base-Hh*.25,0,base);ub.addColorStop(0,'rgba(60,72,92,0)');ub.addColorStop(1,`rgba(60,72,92,${o.under??.45})`);g.globalCompositeOperation='source-atop';g.fillStyle=ub;g.fillRect(0,base-Hh*.25,W,Hh*.25+6);g.restore()}
+  G.save();G.setTransform(1,0,0,1,0,0);G.filter='blur(5px)';G.globalAlpha=.85;G.drawImage(CLC,0,0);G.filter='none';G.globalAlpha=.55;G.drawImage(CLC,0,0);G.restore()}
+const cumulus=(cx,base,w,h,seed,o={})=>cloudShape(cx,base,base-h,v=>w/2*Math.sin(Math.PI*(.18+.82*(1-v)))*(1-.3*v),seed,{n:o.n||120,rmin:w*.04,rmax:w*.09,under:.35,...o});
+function cumulonimbus(cx,base,top,seed){const Hh=base-top;cloudShape(cx,base,top,v=>v<.82?lerp(150,120,v)+40*Math.sin(v*9):lerp(140,420,(v-.82)/.18),seed,{n:520,rmin:14,rmax:34,bias:.9,under:.6,shear:v=>v>.8?(v-.8)*420:0})}
+function rainShaft(x0,x1,y0,y1,seed,a=.5){const r=rng(seed);g.save();const gr=g.createLinearGradient(0,y0,0,y1);gr.addColorStop(0,`rgba(120,140,165,${a})`);gr.addColorStop(1,'rgba(120,140,165,0)');g.fillStyle=gr;g.beginPath();g.moveTo(x0,y0);g.lineTo(x1,y0);g.lineTo(x1-30,y1);g.lineTo(x0-30,y1);g.closePath();g.fill();
+  g.strokeStyle='rgba(225,236,248,.55)';g.lineWidth=1.2;for(let i=0;i<120;i++){const x=x0+r()*(x1-x0),y=y0+r()*(y1-y0);g.beginPath();g.moveTo(x,y);g.lineTo(x-3,y+16);g.stroke()}g.restore()}
+
+/* ===== FRAME 1 · siting the station ===== */
+async function f1(){chrome(1,true,'T','TEACHER TENDAI · GEOGRAPHY','The rule is distance: at least <em>twice the height</em> of anything nearby. A 10 m tree means 20 m away.');
+  sky('#5FA7E0','#E6F2FA');cumulus(820,190,300,110,3);cumulus(1100,150,220,80,8);cumulus(560,240,180,60,11,{n:70});
+  const o=ST.render({t:0,door:0,cam:[11,5.5,15],look:[4,3.6,-4],fov:46,shift:.1});g.drawImage(o.cv,0,0,W,H);const P=o.P;
+  dimLine(P(-3.9,0,-1.5),P(-3.9,10,-1.5),'10 m',{dx:-30});
+  dimLine(P(.62,0,.32),P(.62,1.3,.32),'1.25–2 m',{dx:56});
+  dimLine(P(2.75,0,1.35),P(2.75,.3,1.35),'30 cm',{dx:44});
+  dimLine(P(.4,.05,-.4),P(13.8,.05,-11.6),'≥ 2 × 10 m = 20 m',{dy:-14,dash:[6,5]});
+  txt('STEVENSON SCREEN',...P(0,2.25,0),{bg:'rgba(255,255,255,.88)',col:'#0E4F86',font:'700 12px "Plex Mono"'});txt('RAIN GAUGE',...[P(2.6,.8,1.2)[0]+60,P(2.6,.8,1.2)[1]+10],{bg:'rgba(255,255,255,.88)',col:'#0E4F86',font:'700 12px "Plex Mono"'});
+  const pv=P(-3.2,10.2,-1.5);txt('WIND VANE + ANEMOMETER',pv[0]+110,pv[1]-14,{bg:'rgba(255,255,255,.88)',col:'#0E4F86',font:'700 12px "Plex Mono"'});const pt=P(14,9.5,-12);txt('MSASA TREE · 10 m',pt[0],pt[1],{bg:'rgba(255,255,255,.88)',col:'#0E4F86',font:'700 12px "Plex Mono"'});
+  // compass: door faces south
+  const cc=[1150,560];g.save();g.fillStyle='rgba(8,24,44,.75)';g.beginPath();g.arc(cc[0],cc[1],46,0,7);g.fill();g.strokeStyle='#F5D57A';g.lineWidth=2;g.beginPath();g.moveTo(cc[0],cc[1]+30);g.lineTo(cc[0],cc[1]-30);g.stroke();g.restore();
+  txt('N',cc[0],cc[1]-36,{font:'700 12px "Plex Mono"',col:'#F5D57A'});txt('S',cc[0],cc[1]+36,{font:'700 12px "Plex Mono"'});txt('DOOR → S',cc[0],cc[1]+64,{font:'700 11px "Plex Mono"',col:'#fff',bg:'rgba(8,24,44,.75)'});
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:110px"><div class="k">LESSON 01 · SITING THE STATION</div><div class="h" style="margin-top:8px">Open ground.<br><em>Short grass.</em></div></div>`)}
+
+/* ===== FRAME 2 · inside the Stevenson screen + calculations ===== */
+async function f2(){chrome(3,true,'T','TEACHER TENDAI · GEOGRAPHY','Dry bulb 24 °C, wet bulb 19 °C, difference 5. From the table: <em>relative humidity about 60%</em>.');
+  sky('#7FB9E6','#EAF4FB');const o=ST.render({t:0,door:1,cam:[.25,1.62,1.55],look:[.05,1.32,0],fov:36,shift:.17});g.drawImage(o.cv,0,0,W,H);const P=o.P;
+  const lab=(s,p,dx,dy)=>{const q=P(...p);g.save();g.strokeStyle='#0E4F86';g.lineWidth=1.4;g.beginPath();g.moveTo(q[0],q[1]);g.lineTo(q[0]+dx,q[1]+dy);g.stroke();g.fillStyle='#0E4F86';g.beginPath();g.arc(q[0],q[1],3.5,0,7);g.fill();g.restore();txt(s,q[0]+dx,q[1]+dy,{bg:'rgba(255,255,255,.92)',col:'#0E4F86',font:'700 12px "Plex Mono"'})};
+  lab("SIX'S MAX–MIN",[-.18,BYI(.18),.02],-90,-60);lab('DRY BULB 24 °C',[.12,BYI(.0),.02],-10,-150);lab('WET BULB 19 °C',[.24,BYI(-.2),.02],120,-40);lab('LOUVRES: AIR IN, SUN OUT',[.43,1.5,0],120,40);
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:110px"><div class="k">LESSON 03 · READINGS</div><div class="h" style="margin-top:8px">Read it.<br><em>Work it out.</em></div></div>
+   <div class="abs glass calc" style="left:64px;top:250px;width:360px;padding:10px 18px">
+    <div><span>Maximum / minimum</span><b>31 °C / 15 °C</b></div><div><span>Daily range: 31 − 15</span><b>16 °C</b></div><div><span>Daily mean: (31 + 15) ÷ 2</span><b>23 °C</b></div>
+    <div><span>Dry − wet bulb: 24 − 19</span><b>5 °C</b></div><div><span>Relative humidity (table)</span><b style="color:#1E7BC4">≈ 60%</b></div></div>`)}
+const BYI=y=>1.05+.25+y;
+
+/* ===== FRAME 3 · the drone flight: thermal to thunderstorm ===== */
+async function f3(){chrome(5,false,'T','TEACHER TENDAI · GEOGRAPHY','As it rises, it cools, about <em>10 °C every kilometre</em>. At the <em>dew point</em>, water vapour condenses. A cloud is born.');
+  const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#0B3A6E');gr.addColorStop(.45,'#3E8BD0');gr.addColorStop(1,'#BFDDF2');g.fillStyle=gr;g.fillRect(0,0,W,H);
+  // ground strip (Bikita), hot and shimmering
+  const gg=g.createLinearGradient(0,630,0,H);gg.addColorStop(0,'#7C8F45');gg.addColorStop(1,'#4E5E2A');g.fillStyle=gg;g.fillRect(0,630,W,90);
+  for(let i=0;i<9;i++){g.save();g.fillStyle='rgba(150,140,120,.9)';g.beginPath();g.ellipse(60+i*150,640,40+i%3*20,18+i%2*10,0,Math.PI,0);g.fill();g.restore()}
+  const KM=44,Y0=630,yk=k=>Y0-k*KM;
+  for(let c=0;c<3;c++){const x0=760+c*90;for(let i=0;i<12;i++){const y=Y0-10-i*14,w=Math.sin(i*.6+c)*8,k=i/12;g.save();g.strokeStyle=`rgba(${Math.round(lerp(255,190,k))},${Math.round(lerp(140,170,k))},${Math.round(lerp(60,150,k))},.7)`;g.lineWidth=2.5;g.beginPath();g.moveTo(x0+w-12,y+8);g.quadraticCurveTo(x0+w,y-6,x0+w+12,y+8);g.stroke();g.restore()}}
+  rainShaft(760,1000,yk(1.6),Y0,7,.55);
+  cumulonimbus(830,yk(1.6),yk(12),21);cumulus(470,yk(1.6),180,70,31,{n:90});cumulus(1180,yk(1.7),140,60,33,{n:70});
+  g.save();g.setLineDash([8,6]);g.strokeStyle='#F5D57A';g.lineWidth=2;g.beginPath();g.moveTo(200,yk(1.6));g.lineTo(1240,yk(1.6));g.stroke();g.restore();txt('DEW POINT · CLOUD BASE ≈ 1.6 km',330,yk(1.6)-16,{bg:'rgba(8,24,44,.8)',col:'#F5D57A',font:'600 12px "Plex Mono"'});
+  for(let k=0;k<=12;k+=2){const y=yk(k);g.strokeStyle='rgba(255,255,255,.35)';g.beginPath();g.moveTo(1160,y);g.lineTo(1180,y);g.stroke();txt(k+' km',1208,y,{font:'600 11px "Plex Mono"',col:'#fff',bg:'rgba(8,24,44,.7)'});
+    const T=k<=1.6?31-9.8*k:31-9.8*1.6-6*(k-1.6);txt(Math.round(T)+' °C',1132,y,{font:'600 11px "Plex Mono"',col:k<1.6?'#FFB46A':'#9FD4FF',bg:'rgba(8,24,44,.7)'})}
+  // the drone, mid-climb, with HUD
+  const dx=660,dy=yk(1.6)+6;g.save();g.translate(dx,dy);g.fillStyle='#1B2433';g.beginPath();g.roundRect(-22,-8,44,16,6);g.fill();for(const s of [-1,1]){g.fillRect(s*22-2,-3,s*18,4);g.fillStyle='rgba(220,230,240,.55)';g.beginPath();g.ellipse(s*40,-6,18,3,0,0,7);g.fill();g.fillStyle='#1B2433'}g.fillStyle='#F5D57A';g.beginPath();g.arc(0,8,4,0,7);g.fill();g.restore();
+  g.save();g.strokeStyle='rgba(159,212,255,.9)';g.lineWidth=1.5;g.setLineDash([4,4]);g.beginPath();g.moveTo(dx,dy+14);g.lineTo(dx,Y0);g.stroke();g.restore();
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:110px"><div class="k">LESSON 05 · IN THE CLOUDS</div><div class="h" style="margin-top:8px;font-size:44px">Rising air.<br><em>A cloud is born.</em></div></div>
+   <div class="abs dglass" style="left:64px;top:250px;width:230px;padding:12px 16px;font:600 12px var(--mono);color:#fff;line-height:1.9">
+     <div style="color:var(--gold-hi);letter-spacing:.14em;font-size:10.5px">● DRONE · LIVE</div>ALT&nbsp;&nbsp;&nbsp;1,580 m<br>TEMP&nbsp;&nbsp;15.5 °C<br>RH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99 %<br>LIFT&nbsp;&nbsp;+3.2 m/s ↑</div>
+   <div class="abs" style="left:1000px;top:150px;font:600 11px var(--mono);color:#fff;letter-spacing:.1em;width:140px">ANVIL · ~12 km</div><div class="abs" style="left:580px;top:300px;font:600 11px var(--mono);color:#fff;letter-spacing:.1em">CUMULONIMBUS ↗</div>`)}
+
+/* ===== FRAME 4 · three ways to make rain + nimbostratus ===== */
+async function f4(){chrome(5,true,'T','TEACHER TENDAI · GEOGRAPHY','That’s convectional rain, and it brings about <em>90% of Zimbabwe’s rain</em>, from November to March.');
+  const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#EAF4FB');gr.addColorStop(1,'#D3E7F5');g.fillStyle=gr;g.fillRect(0,0,W,H);
+  const panels=[[64,'CONVECTIONAL','Hot ground → rising thermals → cumulonimbus','≈ 90% OF OUR RAIN'],[452,'RELIEF','Moist wind forced up the Eastern Highlands','RAIN SHADOW BEYOND'],[840,'FRONTAL','Warm air rides up over cold air','LESS COMMON HERE']];
+  panels.forEach(([x,t,d,tag],i)=>{g.save();g.fillStyle='rgba(255,255,255,.75)';g.shadowColor='rgba(10,40,80,.25)';g.shadowBlur=30;g.beginPath();g.roundRect(x,150,376,380,18);g.fill();g.restore();
+    g.save();g.beginPath();g.roundRect(x,150,376,260,18);g.clip();const s=g.createLinearGradient(0,150,0,410);s.addColorStop(0,'#4A97D6');s.addColorStop(1,'#BFDDF2');g.fillStyle=s;g.fillRect(x,150,376,260);
+    g.fillStyle='#7C8F45';if(i===1){g.beginPath();g.moveTo(x,410);g.lineTo(x+120,410);g.lineTo(x+240,260);g.lineTo(x+376,410);g.closePath();g.fill();cumulus(x+200,265,170,90,30+i,{n:90})}
+    else{g.fillRect(x,380,376,30)}
+    if(i===0){cumulus(x+190,290,190,150,40,{n:120});for(let k=0;k<3;k++){g.strokeStyle='rgba(255,140,60,.8)';g.lineWidth=3;g.beginPath();g.moveTo(x+140+k*40,375);g.lineTo(x+140+k*40,300);g.stroke();g.fillStyle='rgba(255,140,60,.8)';g.beginPath();g.moveTo(x+132+k*40,305);g.lineTo(x+148+k*40,305);g.lineTo(x+140+k*40,292);g.fill()}}
+    if(i===1){g.strokeStyle='rgba(30,123,196,.9)';g.lineWidth=3;g.beginPath();g.moveTo(x+20,370);g.quadraticCurveTo(x+150,360,x+230,270);g.stroke()}
+    if(i===2){g.fillStyle='rgba(30,123,196,.25)';g.beginPath();g.moveTo(x+376,410);g.lineTo(x+120,410);g.lineTo(x+376,250);g.fill();cumulus(x+250,260,230,60,50,{n:90});g.strokeStyle='rgba(255,140,60,.85)';g.lineWidth=3;g.beginPath();g.moveTo(x+40,390);g.lineTo(x+250,290);g.stroke()}
+    for(let k=0;k<40;k++){const rx=x+(i===1?120:i===2?170:130)+((k*37)%110),ry=300+((k*53)%90);g.strokeStyle='rgba(30,100,170,.45)';g.lineWidth=1.2;g.beginPath();g.moveTo(rx,ry);g.lineTo(rx-3,ry+12);g.stroke()}
+    g.restore();txt(t,x+24,438,{align:'left',col:'#0E4F86',font:'700 14px "Plex Mono"'});txt(tag,x+282,438,{col:'#fff',bg:i===0?'#1E7BC4':'rgba(16,34,58,.7)',font:'700 10px "Plex Mono"'});
+    g.save();g.font='500 14px "Plus Jakarta Sans"';g.fillStyle='#10223a';g.fillText(d,x+24,476);g.restore()});
+  // nimbostratus strip
+  g.save();const ns=g.createLinearGradient(0,548,0,600);ns.addColorStop(0,'#6E7C8E');ns.addColorStop(1,'#4A5668');g.fillStyle=ns;g.beginPath();g.roundRect(64,548,1152,52,14);g.fill();g.restore();
+  for(let k=0;k<120;k++){const rx=70+k*9.6;g.strokeStyle='rgba(255,255,255,.25)';g.beginPath();g.moveTo(rx,560+(k%5)*6);g.lineTo(rx-3,572+(k%5)*6);g.stroke()}
+  txt('NIMBOSTRATUS · thick grey layer · hides the sun · steady rain for hours',640,574,{font:'600 13px "Plex Mono"'});
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:96px;display:flex;align-items:baseline;gap:20px"><div class="k">LESSON 05 · HOW RAIN FORMS</div><div class="h" style="font-size:38px">Three ways <em>to make rain.</em></div></div>`)}
+
+/* ===== FRAME 5 · careers mind map (graph view) ===== */
+async function f5(){chrome(6,false,'T','TEACHER TENDAI · GEOGRAPHY','Meteorology and Climate Science at the <em>University of Zimbabwe</em>. GIS and earth observation, including at <em>Great Zimbabwe University</em> in Masvingo.');
+  const gr=g.createRadialGradient(640,360,40,640,360,800);gr.addColorStop(0,'#13294A');gr.addColorStop(1,'#060E1C');g.fillStyle=gr;g.fillRect(0,0,W,H);
+  const r=rng(5);for(let i=0;i<160;i++){g.fillStyle=`rgba(159,212,255,${.08+r()*.2})`;g.beginPath();g.arc(r()*W,r()*H,r()*1.6,0,7);g.fill()}
+  const C=[730,345];const B=[['Weather & climate','#9FD4FF',-62,[['UZ · BSc Meteorology & Climate Science','MSD forecaster · aviation weather']]],['Maps & satellites','#7FE0C4',-12,[['UZ / CUT / MSU · GIS & Earth Observation','ZINGSA · GIS analyst']]],
+    ['Water','#6FB6FF',38,[['UZ / MSU · Land & Water Resources','ZINWA · hydrologist']]],['Farming','#B6E06F',72,[['Agricultural sciences','AGRITEX · extension officer']]],['Disasters','#FF9A6F',142,[['BUSE · Disaster Management','Civil Protection']]],['Geography & environment','#F5D57A',192,[['MSU / GZU / ZOU · Geography','EMA · environmental officer']]]];
+  const node=(x,y,rad,col,label,o={})=>{g.save();g.shadowColor=col;g.shadowBlur=o.glow||18;g.fillStyle=col;g.beginPath();g.arc(x,y,rad,0,7);g.fill();g.restore();if(label)txt(label,x+(o.dx||0),y+(o.dy??rad+14),{font:o.font||'600 12px "Plex Mono"',col:o.tcol||'#fff',align:o.align||'center'})};
+  const link=(a,b,col,w=1.4)=>{g.save();g.strokeStyle=col;g.globalAlpha=.55;g.lineWidth=w;g.beginPath();g.moveTo(a[0],a[1]);g.lineTo(b[0],b[1]);g.stroke();g.restore()};
+  B.forEach(([name,col,ang,leaves])=>{const a=ang*Math.PI/180,p=[C[0]+Math.cos(a)*170,C[1]+Math.sin(a)*120];link(C,p,col,2);
+    leaves.forEach(([prog,job])=>{const q=[C[0]+Math.cos(a)*290,C[1]+Math.sin(a)*165],j=[C[0]+Math.cos(a)*400,C[1]+Math.sin(a)*215];link(p,q,col);link(q,j,col);
+      const steep=Math.abs(Math.sin(a))>.6,al=steep?'left':Math.cos(a)<-.3?'right':Math.cos(a)>.3?'left':'center';node(q[0],q[1],5,col,prog,{font:'500 10.5px "Plex Mono"',tcol:'rgba(255,255,255,.8)',dy:steep?0:-17,dx:steep?12:al==='left'?-6:al==='right'?6:0,align:al});
+      node(j[0],j[1],7,col,job,{font:'700 11px "Plex Mono"',tcol:col,dy:steep?0:21,dx:steep?14:al==='left'?-8:al==='right'?8:0,align:al})});
+    node(p[0],p[1],11,col,name,{font:'700 12.5px "Plus Jakarta Sans"',tcol:'#fff',dy:Math.abs(Math.sin(a))>.6?0:(Math.sin(a)<0?-20:22),dx:Math.abs(Math.sin(a))>.6?-16:0,align:Math.abs(Math.sin(a))>.6?'right':'center'})});
+  node(C[0],C[1],34,'#E2B93B','',{glow:40});txt('O LEVEL',C[0],C[1]-8,{font:'700 11px "Plex Mono"',col:'#13215a'});txt('GEOGRAPHY',C[0],C[1]+8,{font:'700 11px "Plex Mono"',col:'#13215a'});
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:110px"><div class="k">CAREERS · MIND MAP PROSPECTUS</div><div class="h" style="margin-top:8px;font-size:40px">Where the sky<br><em>can take you.</em></div></div>
+    <div class="abs" style="left:64px;top:560px;font-size:10.5px;color:rgba(255,255,255,.55);width:300px">Programme names from university listings. Confirm with each university before applying.</div>`)}
+
+window.ready=(async()=>{await Promise.all(['600 14px "Plex Mono"','500 14px "Plex Mono"','500 14px "Plus Jakarta Sans"','700 14px "Plus Jakarta Sans"','400 40px Newsreader','italic 400 40px Newsreader'].map(x=>document.fonts.load(x)));await document.fonts.ready;
+  await [0,f1,f2,f3,f4,f5][F]();await new Promise(r=>setTimeout(r,250));return true})();
+</script></body></html>
