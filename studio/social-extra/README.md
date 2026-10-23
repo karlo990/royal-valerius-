@@ -12,5 +12,8 @@ For the two Open Day posts, add `?tall` to the URL for the portrait 1080 × 1350
 
 The Open Day date isn't set anywhere yet; add it to the caption when it is fixed.
 | `fees-receipt-square.html` / `post-fees-receipt-square.png` | "What US$850 a term really buys", square version of the studio's portrait Fees receipt post |
+| `fees-cheque.html` / `post-fees-cheque-portrait.png` | "Pay to the order of your child's future": navy, the fee as a cheque with the five items as its counterfoil |
+| `fees-checkout.html` / `post-fees-checkout-portrait.png` | "Add to cart: one future": the fee as a shopping cart on a phone, meals "free with every order" |
+| `fees-report-card.html` / `post-fees-report-card-portrait.png` | "Value for money: top marks": the fee as an end-of-term report with red-pen comments |
 | `backdrop/step-and-repeat.html` / `backdrop/royal-crest-backdrop-3x2.4m.{pdf,png}` | Step-and-repeat media backdrop, 3 m × 2.4 m (PDF has vector text; PNG is 9000×7200) |
 | `backdrop/facebook-cover.html` / `backdrop/royal-crest-facebook-cover.png` | Facebook Page cover, 1640×924; key content inside the desktop safe band (open with `?guides` to see it) |
