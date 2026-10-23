@@ -1,0 +1,61 @@
+{
+ "title": "Biology at Royal Crest: Life, up close",
+ "voices": {
+  "RUD": {"name": "Teacher Rudo", "voice_id": "KpK2JUuSi307pzhaXdaL"},
+  "SAM": {"name": "Sam (commentator)", "voice_id": "FSjbVsYdGQ5KJ6l0Ul2r"}
+ },
+ "_note": "say = text sent to ElevenLabs; cap = on-screen caption. RUD uses 'Stacy – Warm South African Female' from the account's voice list; swap voice_id for any voice in your account.",
+ "lines": [
+  {"id": "b01", "scene": "open", "who": "RUD", "say": "Inside almost every cell in your body, there are about two metres of DNA.", "cap": "Inside almost every cell in your body, there are about two metres of DNA."},
+  {"id": "b02", "scene": "open", "who": "SAM", "say": "Wait. Two metres? Inside one tiny cell?", "cap": "Wait. Two metres? Inside one tiny cell?"},
+  {"id": "b03", "scene": "open", "who": "RUD", "say": "Coiled up so tightly, it fits inside a nucleus too small to see.", "cap": "Coiled up so tightly, it fits inside a nucleus too small to see."},
+
+  {"id": "b04", "scene": "title", "who": "SAM", "say": "Welcome to the biology lab at Royal Crest Academy, in Bikita. Today: DNA, RNA, red blood cells, bacteria and viruses, in 3D.", "cap": "Welcome to the biology lab at Royal Crest Academy, in Bikita. Today: DNA, RNA, red blood cells, bacteria and viruses, in 3D."},
+
+  {"id": "b05", "scene": "dna", "who": "RUD", "say": "Lesson one. DNA. Two strands, twisted into a double helix, like a ladder with a twist.", "cap": "Lesson one: DNA. Two strands, twisted into a double helix, like a ladder with a twist."},
+  {"id": "b06", "scene": "dna", "who": "RUD", "say": "The rungs are four bases: A, T, G and C. A always pairs with T. G always pairs with C.", "cap": "The rungs are four bases: A, T, G and C. A always pairs with T. G always pairs with C."},
+  {"id": "b07", "scene": "dna", "who": "SAM", "say": "So it's a code, with only four letters?", "cap": "So it’s a code, with only four letters?"},
+  {"id": "b08", "scene": "dna", "who": "RUD", "say": "Four letters, and three billion pairs. That's the instruction book for building you.", "cap": "Four letters, and three billion pairs. That’s the instruction book for building you."},
+
+  {"id": "b09", "scene": "rna", "who": "SAM", "say": "Okay. So what's RNA? What's the difference?", "cap": "Okay. So what’s RNA? What’s the difference?"},
+  {"id": "b10", "scene": "rna", "who": "RUD", "say": "Lesson two. RNA is a working copy. The DNA unzips, and RNA copies one gene.", "cap": "Lesson two: RNA is a working copy. The DNA unzips, and RNA copies one gene."},
+  {"id": "b11", "scene": "rna", "who": "RUD", "say": "RNA has one strand, not two. A different sugar, ribose. And U, uracil, takes the place of T.", "cap": "RNA has one strand, not two. A different sugar, ribose. And U, uracil, takes the place of T."},
+  {"id": "b12", "scene": "rna", "who": "RUD", "say": "The copy leaves the nucleus, and a ribosome reads it, three letters at a time, to build a protein.", "cap": "The copy leaves the nucleus, and a ribosome reads it, three letters at a time, to build a protein."},
+  {"id": "b13", "scene": "rna", "who": "SAM", "say": "So DNA is the master plan, and RNA is the photocopy you take to the building site.", "cap": "So DNA is the master plan, and RNA is the photocopy you take to the building site."},
+  {"id": "b14", "scene": "rna", "who": "RUD", "say": "Exactly.", "cap": "Exactly."},
+
+  {"id": "b15", "scene": "rbc", "who": "RUD", "say": "Lesson three. Red blood cells. A disc, thinner in the middle, packed with haemoglobin, which carries oxygen.", "cap": "Lesson three: red blood cells. A disc, thinner in the middle, packed with haemoglobin, which carries oxygen."},
+  {"id": "b16", "scene": "rbc", "who": "SAM", "say": "Wait. They have no nucleus?", "cap": "Wait. They have no nucleus?"},
+  {"id": "b17", "scene": "rbc", "who": "RUD", "say": "No nucleus, so there's more room for haemoglobin. Your bone marrow makes about two million of them every second.", "cap": "No nucleus, so there’s more room for haemoglobin. Your bone marrow makes about two million of them every second."},
+  {"id": "b18", "scene": "rbc", "who": "RUD", "say": "And here's the DNA link. Change one letter in the haemoglobin gene, and the cell can bend into a sickle shape. That is sickle cell disease.", "cap": "And here’s the DNA link. Change one letter in the haemoglobin gene, and the cell can bend into a sickle shape. That is sickle cell disease."},
+
+  {"id": "b19", "scene": "bact", "who": "RUD", "say": "Lesson four. Bacteria. One single cell, with no nucleus. Its DNA floats free, in a loop.", "cap": "Lesson four: bacteria. One single cell, with no nucleus. Its DNA floats free, in a loop."},
+  {"id": "b20", "scene": "bact", "who": "SAM", "say": "Look at that tail spin!", "cap": "Look at that tail spin!"},
+  {"id": "b21", "scene": "bact", "who": "RUD", "say": "That's a flagellum. It spins like a propeller. Some bacteria help us, like the ones that turn milk into amasi.", "cap": "That’s a flagellum. It spins like a propeller. Some bacteria help us, like the ones that turn milk into amasi."},
+  {"id": "b22", "scene": "bact", "who": "RUD", "say": "Others make us sick, like cholera. That's why we boil water and wash our hands. And antibiotics can kill bacteria.", "cap": "Others make us sick, like cholera. That’s why we boil water and wash our hands. And antibiotics can kill bacteria."},
+
+  {"id": "b23", "scene": "virus", "who": "RUD", "say": "Lesson five. Viruses. Not even a cell. Just genes, DNA or RNA, wrapped in a protein coat.", "cap": "Lesson five: viruses. Not even a cell. Just genes, DNA or RNA, wrapped in a protein coat."},
+  {"id": "b24", "scene": "virus", "who": "SAM", "say": "So how does it make more of itself?", "cap": "So how does it make more of itself?"},
+  {"id": "b25", "scene": "virus", "who": "RUD", "say": "It can't, on its own. It locks onto one of your cells, and hijacks it to make copies.", "cap": "It can’t, on its own. It locks onto one of your cells, and hijacks it to make copies."},
+  {"id": "b26", "scene": "virus", "who": "SAM", "say": "Wait. So antibiotics don't work on viruses?", "cap": "Wait. So antibiotics don’t work on viruses?"},
+  {"id": "b27", "scene": "virus", "who": "RUD", "say": "Correct. Antibiotics are for bacteria. For many viruses, vaccines train your body to fight back.", "cap": "Correct. Antibiotics are for bacteria. For many viruses, vaccines train your body to fight back."},
+
+  {"id": "b28", "scene": "scale", "who": "SAM", "say": "Okay, but how small is all of this?", "cap": "Okay, but how small is all of this?"},
+  {"id": "b29", "scene": "scale", "who": "RUD", "say": "A red blood cell is about seven micrometres across. A bacterium, about two. A virus, about a tenth of a micrometre. And DNA is just two nanometres wide.", "cap": "A red blood cell is about 7 µm across. A bacterium, about 2. A virus, about 0.1 µm. And DNA is just 2 nanometres wide."},
+  {"id": "b30", "scene": "scale", "who": "SAM", "say": "So a virus next to a red blood cell is like a football next to a house?", "cap": "So a virus next to a red blood cell is like a football next to a house?"},
+  {"id": "b31", "scene": "scale", "who": "RUD", "say": "Just about. That's why we need microscopes, and models.", "cap": "Just about. That’s why we need microscopes, and models."},
+
+  {"id": "b32", "scene": "careers", "who": "SAM", "say": "So what does this mean for a child from Bikita?", "cap": "So what does this mean for a child from Bikita?"},
+  {"id": "b33", "scene": "careers", "who": "RUD", "say": "Biology opens doors. Doctor. Nurse. Pharmacist. Medical laboratory scientist. Biotechnologist. Vet. Agricultural scientist.", "cap": "Biology opens doors. Doctor. Nurse. Pharmacist. Medical laboratory scientist. Biotechnologist. Vet. Agricultural scientist."},
+  {"id": "b34", "scene": "careers", "who": "SAM", "say": "And Zimbabwe needs every one of them, in every clinic, hospital, farm and lab.", "cap": "And Zimbabwe needs every one of them, in every clinic, hospital, farm and lab."},
+
+  {"id": "b35", "scene": "school", "who": "SAM", "say": "At Royal Crest, it starts in Form One. Biology, Chemistry and Physics, with real microscopes and real practicals.", "cap": "At Royal Crest, it starts in Form 1. Biology, Chemistry and Physics, with real microscopes and real practicals."},
+  {"id": "b36", "scene": "school", "who": "RUD", "say": "Science. Innovation. Skill. Taught for ZIMSEC and Cambridge.", "cap": "Science. Innovation. Skill. Taught for ZIMSEC and Cambridge."},
+
+  {"id": "b37", "scene": "parents", "who": "SAM", "say": "Parents: Form One places for January twenty twenty-seven are limited.", "cap": "Parents: Form 1 places for January 2027 are limited."},
+  {"id": "b38", "scene": "parents", "who": "RUD", "say": "Come and look down a microscope with us.", "cap": "Come and look down a microscope with us."},
+
+  {"id": "b39", "scene": "outro", "who": "SAM", "say": "Royal Crest Academy, Bikita. Call or WhatsApp zero seven one four, four zero four, zero nine zero.", "cap": "Royal Crest Academy, Bikita. Call or WhatsApp 0714 404 090."},
+  {"id": "b40", "scene": "outro", "who": "RUD", "say": "Look closer. Life is amazing.", "cap": "Look closer. Life is amazing."}
+ ]
+}

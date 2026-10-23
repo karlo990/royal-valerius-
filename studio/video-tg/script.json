@@ -1,0 +1,60 @@
+{
+ "title": "Technical Graphics at Royal Crest: Every building starts as a line",
+ "voices": {
+  "TIN": {"name": "Teacher Tinashe", "voice_id": "IgGJCWnIbnBRMGhMU9Z6"},
+  "SAM": {"name": "Sam (commentator)", "voice_id": "FSjbVsYdGQ5KJ6l0Ul2r"}
+ },
+ "_note": "say = text sent to ElevenLabs (numbers spelled out where they must be read a certain way); cap = on-screen caption. TIN uses 'Charlotte – Warm South African' from the account's voice list; swap voice_id for any voice in your account.",
+ "lines": [
+  {"id": "t01", "scene": "open", "who": "TIN", "say": "Every building in Zimbabwe started the same way.", "cap": "Every building in Zimbabwe started the same way."},
+  {"id": "t02", "scene": "open", "who": "SAM", "say": "With bricks?", "cap": "With bricks?"},
+  {"id": "t03", "scene": "open", "who": "TIN", "say": "With a line. One pencil line, on a drawing board.", "cap": "With a line. One pencil line, on a drawing board."},
+  {"id": "t04", "scene": "open", "who": "SAM", "say": "Wait. Did you hear that? Every building starts as a line.", "cap": "Wait. Did you hear that? Every building starts as a line."},
+
+  {"id": "t05", "scene": "title", "who": "SAM", "say": "Welcome to the drawing room at Royal Crest Academy, in Bikita. Today: Technical Graphics, from the first line to a full 3D model.", "cap": "Welcome to the drawing room at Royal Crest Academy, in Bikita. Today: Technical Graphics, from the first line to a full 3D model."},
+
+  {"id": "t06", "scene": "tools", "who": "TIN", "say": "Lesson one. The tools. A drawing board, a T-square, set squares at forty-five and thirty-sixty degrees, and a compass.", "cap": "Lesson one: the tools. A drawing board, a T-square, set squares at 45° and 30/60°, and a compass."},
+  {"id": "t07", "scene": "tools", "who": "SAM", "say": "That's the compass from the opening shot!", "cap": "That’s the compass from the opening shot!"},
+  {"id": "t08", "scene": "tools", "who": "TIN", "say": "And lines have a language. Thick for outlines. Thin for construction. Dashed for hidden edges. Chain lines for centres.", "cap": "And lines have a language. Thick for outlines. Thin for construction. Dashed for hidden edges. Chain lines for centres."},
+  {"id": "t09", "scene": "tools", "who": "SAM", "say": "So a drawing is a sentence, written in lines.", "cap": "So a drawing is a sentence, written in lines."},
+
+  {"id": "t10", "scene": "iso", "who": "TIN", "say": "Lesson two. Isometric drawing. Lines at thirty degrees, so one drawing shows three faces at once.", "cap": "Lesson two: isometric drawing. Lines at 30°, so one drawing shows three faces at once."},
+  {"id": "t11", "scene": "iso", "who": "SAM", "say": "Wait, that cube just became a house!", "cap": "Wait, that cube just became a house!"},
+  {"id": "t12", "scene": "iso", "who": "TIN", "say": "Box it first, then cut it. That's how engineers think.", "cap": "Box it first, then cut it. That’s how engineers think."},
+
+  {"id": "t13", "scene": "ortho", "who": "TIN", "say": "Lesson three. Orthographic projection. We put the house inside an imaginary glass box.", "cap": "Lesson three: orthographic projection. We put the house inside an imaginary glass box."},
+  {"id": "t14", "scene": "ortho", "who": "SAM", "say": "A glass box?", "cap": "A glass box?"},
+  {"id": "t15", "scene": "ortho", "who": "TIN", "say": "Then we flatten each side. Front view. End view. Plan. Projection lines carry every edge across, so the views line up exactly.", "cap": "Then we flatten each side. Front view. End view. Plan. Projection lines carry every edge across, so the views line up exactly."},
+  {"id": "t16", "scene": "ortho", "who": "SAM", "say": "So a builder can read every size from three flat drawings. Brilliant.", "cap": "So a builder can read every size from three flat drawings. Brilliant."},
+
+  {"id": "t17", "scene": "persp", "who": "TIN", "say": "Lesson four. Perspective: how the eye really sees. Width and depth lines run to two vanishing points on the horizon.", "cap": "Lesson four: perspective, how the eye really sees. Width and depth lines run to two vanishing points on the horizon."},
+  {"id": "t18", "scene": "persp", "who": "SAM", "say": "Two points. So where's the third?", "cap": "Two points. So where’s the third?"},
+  {"id": "t19", "scene": "persp", "who": "TIN", "say": "Look up at a tall building. The vertical lines lean together, and meet at a third point, high in the sky.", "cap": "Look up at a tall building. The vertical lines lean together, and meet at a third point, high in the sky."},
+  {"id": "t20", "scene": "persp", "who": "SAM", "say": "Wait, that's the Burj Khalifa! The tallest building in the world.", "cap": "Wait, that’s the Burj Khalifa! The tallest building in the world."},
+  {"id": "t21", "scene": "persp", "who": "TIN", "say": "And it started as lines on a drawing. Look down from the top, and the third point drops below you. That is three-point perspective.", "cap": "And it started as lines on a drawing. Look down from the top, and the third point drops below you. That is three-point perspective."},
+
+  {"id": "t22", "scene": "section", "who": "TIN", "say": "Lesson five. Sections. A cutting plane slices the building. We hatch the cut, and add dimensions in millimetres.", "cap": "Lesson five: sections. A cutting plane slices the building. We hatch the cut, and add dimensions in millimetres."},
+  {"id": "t23", "scene": "section", "who": "SAM", "say": "So you can see inside a wall, without breaking it.", "cap": "So you can see inside a wall, without breaking it."},
+
+  {"id": "t24", "scene": "bim", "who": "SAM", "say": "Okay. But drawing boards, in twenty twenty-seven?", "cap": "Okay. But drawing boards, in 2027?"},
+  {"id": "t25", "scene": "bim", "who": "TIN", "say": "Here's the twist. Every skill on the board leads to BIM: Building Information Modelling.", "cap": "Here’s the twist. Every skill on the board leads to BIM: Building Information Modelling."},
+  {"id": "t26", "scene": "bim", "who": "TIN", "say": "Now the model comes first. Every wall, slab and pipe knows what it is, what it's made of, and how much of it there is.", "cap": "Now the model comes first. Every wall, slab and pipe knows what it is, what it’s made of, and how much of it there is."},
+  {"id": "t27", "scene": "bim", "who": "SAM", "say": "Wait. Did that model just count its own concrete?", "cap": "Wait. Did that model just count its own concrete?"},
+  {"id": "t28", "scene": "bim", "who": "TIN", "say": "Thirty-five cubic metres, for one floor, straight from the model. Then the services: hot water, cold water, waste and air, all checked before anyone digs.", "cap": "35 m³ for one floor, straight from the model. Then the services: hot water, cold water, waste and air, all checked before anyone digs."},
+  {"id": "t29", "scene": "bim", "who": "SAM", "say": "And then you build it. Layer by layer.", "cap": "And then you build it. Layer by layer."},
+
+  {"id": "t30", "scene": "careers", "who": "SAM", "say": "So what does this mean for a child from Bikita?", "cap": "So what does this mean for a child from Bikita?"},
+  {"id": "t31", "scene": "careers", "who": "TIN", "say": "A profession. Architect. Civil and structural engineer. Quantity surveyor. Draughtsperson and CAD technician. Town planner. BIM coordinator.", "cap": "A profession. Architect. Civil and structural engineer. Quantity surveyor. Draughtsperson and CAD technician. Town planner. BIM coordinator."},
+  {"id": "t32", "scene": "careers", "who": "SAM", "say": "Zimbabwe is building. Roads, homes, schools, mines, and dams like Tokwe-Mukosi, right here in Masvingo province.", "cap": "Zimbabwe is building. Roads, homes, schools, mines, and dams like Tokwe-Mukosi, right here in Masvingo province."},
+  {"id": "t33", "scene": "careers", "who": "TIN", "say": "Every one of those projects needs people who can read and draw the plans. Professionals who can work here at home, or anywhere in the world.", "cap": "Every one of those projects needs people who can read and draw the plans. Professionals who can work here at home, or anywhere in the world."},
+
+  {"id": "t34", "scene": "school", "who": "SAM", "say": "At Royal Crest, it starts in Form One. Technical Graphics on real drawing boards, alongside Building, Wood and Metal Technology, and Computer Science.", "cap": "At Royal Crest, it starts in Form 1. Technical Graphics on real drawing boards, alongside Building, Wood and Metal Technology, and Computer Science."},
+  {"id": "t35", "scene": "school", "who": "TIN", "say": "Science. Innovation. Skill. Taught for ZIMSEC and Cambridge.", "cap": "Science. Innovation. Skill. Taught for ZIMSEC and Cambridge."},
+
+  {"id": "t36", "scene": "parents", "who": "SAM", "say": "Parents: Form One places for January twenty twenty-seven are limited.", "cap": "Parents: Form 1 places for January 2027 are limited."},
+  {"id": "t37", "scene": "parents", "who": "TIN", "say": "Come and see the drawing room for yourself.", "cap": "Come and see the drawing room for yourself."},
+
+  {"id": "t38", "scene": "outro", "who": "SAM", "say": "Royal Crest Academy, Bikita. Call or WhatsApp zero seven one four, four zero four, zero nine zero.", "cap": "Royal Crest Academy, Bikita. Call or WhatsApp 0714 404 090."},
+  {"id": "t39", "scene": "outro", "who": "TIN", "say": "Pick up a pencil. Draw your future.", "cap": "Pick up a pencil. Draw your future."}
+ ]
+}

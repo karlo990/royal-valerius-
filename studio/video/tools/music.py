@@ -28,6 +28,7 @@ while b*beat < DUR-3:
     for j, idx in enumerate(motifs[k % 4]):
         if idx is None: continue
         st = int((b+j)*beat*SR); f = note(mel[idx % len(mel)])
+        if st >= N - SR: continue
         key = (idx, j % 2)
         if key not in cache: cache[key] = pluck(f, 2.6, bright=.3+.4*(j % 2), amp=.32)
         s = cache[key]; e = min(N, st+len(s)); pan = .35+.3*((idx*37) % 10)/10

@@ -1,0 +1,61 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../css/posts.css">
+<style>
+@font-face{font-family:'IBM Plex Mono';font-weight:400;src:url(../assets/fonts/IBMPlexMono-Regular.woff2) format("woff2")}
+html,body{margin:0;background:#000}
+.flyer{position:relative;overflow:hidden;width:1080px;height:1080px}
+.flyer.tall{height:1350px}
+.flyer.ps-playlist .cover b{letter-spacing:.18em}
+.flyer.ps-playlist .cover .day{position:absolute;left:0;right:0;top:20px;text-align:center;font:800 15px PsSans;letter-spacing:.3em;color:var(--deep);opacity:.75}
+.flyer.ps-playlist .tr.end b{color:var(--gold2)}
+.flyer.ps-playlist .tr.end em{opacity:1;color:var(--gold2)}
+/* square 1080×1080 */
+.flyer.ps-playlist.sq .cover{left:70px;top:70px;width:300px;height:300px}
+.flyer.ps-playlist.sq .cover img{width:180px;left:60px;top:48px}
+.flyer.ps-playlist.sq .cover b{bottom:22px;font-size:22px}
+.flyer.ps-playlist.sq .meta{left:410px;top:80px;width:600px}
+.flyer.ps-playlist.sq .meta small{font-size:18px}
+.flyer.ps-playlist.sq .meta h2{font-size:62px;margin:10px 0 12px}
+.flyer.ps-playlist.sq .meta p{font-size:21px;margin:0}
+.flyer.ps-playlist.sq .play{left:410px;top:316px;gap:18px}
+.flyer.ps-playlist.sq .play i{width:68px;height:68px}
+.flyer.ps-playlist.sq .play svg{width:28px;height:28px}
+.flyer.ps-playlist.sq .play span{font-size:23px!important}
+.flyer.ps-playlist.sq .tracks{top:404px}
+.flyer.ps-playlist.sq .tr{grid-template-columns:42px 1fr 96px;padding:3px 0;font-size:22px}
+.flyer.ps-playlist.sq .tr span{font-size:15px;margin-top:1px}
+.flyer.ps-playlist.sq .tr em{font-size:19px}
+.sq.flyer.ps .brand{bottom:30px}
+.sq.flyer.ps .brand img{width:52px}
+.sq.flyer.ps .brand b{font-size:27px}
+.sq.flyer.ps .brand small{font-size:12px}
+.sq.flyer.ps .brand .ph{font-size:27px}
+.sq.flyer.ps .brand .ph i{width:42px;height:42px}
+/* portrait 1080×1350 keeps the studio's original sizes, rows tightened for 10 tracks */
+.flyer.ps-playlist.tall .cover img{top:50px;width:206px;left:77px}
+.flyer.ps-playlist.tall .play{top:456px}
+.flyer.ps-playlist.tall .tracks{top:572px}
+.flyer.ps-playlist.tall .tr{padding:3px 0;font-size:24px}
+.flyer.ps-playlist.tall .tr span{font-size:17px}
+.flyer.ps-playlist.tall .tr em{font-size:21px}
+</style></head><body>
+<div class="flyer ps ps-playlist" id="f">
+<div class="cover abs"><span class="day">OPEN DAY</span><img src="../assets/brand/crest-640.webp" alt=""><b>FORM 1 · 2027</b></div>
+  <div class="abs meta"><small>PLAYLIST · OPEN DAY</small><h2>Open Day at<br>Royal Crest</h2><p>Royal Crest Academy · 10 tracks<br>Bring the whole family</p></div>
+  <div class="abs play"><i><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#071640"/></svg></i><span style="font:700 26px PsSans;opacity:.85">Doors open 08:00</span></div>
+  <div class="abs tracks">
+    <div class="tr on"><span class="n">1</span><div><b>Welcome Home</b><span>Devotion &amp; welcome assembly</span></div><em>08:00</em></div>
+    <div class="tr"><span class="n">2</span><div><b>Maths Masterclass</b><span>Mathematics &amp; Computer Science</span></div><em>08:45</em></div>
+    <div class="tr"><span class="n">3</span><div><b>Mhoro, Hello</b><span>English &amp; ChiShona lessons</span></div><em>09:30</em></div>
+    <div class="tr"><span class="n">4</span><div><b>Chemistry Live</b><span>Biology, Chemistry &amp; Physics labs</span></div><em>10:15</em></div>
+    <div class="tr"><span class="n">5</span><div><b>Queen Cake Break</b><span>Tea with the teachers</span></div><em>11:00</em></div>
+    <div class="tr"><span class="n">6</span><div><b>Bonjour, Nǐ hǎo</b><span>French &amp; Mandarin tasters</span></div><em>11:30</em></div>
+    <div class="tr"><span class="n">7</span><div><b>Ancient Kingdoms</b><span>History, Heritage Studies &amp; Geography</span></div><em>12:15</em></div>
+    <div class="tr"><span class="n">8</span><div><b>Money Moves</b><span>Accounting, Commerce &amp; Economics</span></div><em>13:00</em></div>
+    <div class="tr"><span class="n">9</span><div><b>Sparks Fly</b><span>Technical Graphics &amp; Metal Technology</span></div><em>13:45</em></div>
+    <div class="tr end"><span class="n">10</span><div><b>Meet the Head &amp; Enrol</b><span>Parents' Q&amp;A · Form 1 2027 places</span></div><em>14:30</em></div>
+  </div>
+  <div class="brand light"><div class="b"><img src="../assets/brand/crest-640.webp" alt=""><div><b>Royal Crest Academy</b><small>SCIENCE · INNOVATION · SKILL</small></div></div><div class="ph"><i><svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>0714 404 090</div></div>
+</div>
+<script>if(location.search.includes('tall'))document.getElementById('f').classList.add('tall');else document.getElementById('f').classList.add('sq')</script>
+</body></html>

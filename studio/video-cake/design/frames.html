@@ -1,0 +1,375 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Bakery film — style frames</title>
+<style>
+@font-face{font-family:"Newsreader";font-style:normal;font-weight:200 800;src:url(../../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:"Newsreader";font-style:italic;font-weight:200 800;src:url(../../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:"Plus Jakarta Sans";font-weight:400 800;src:url(../../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2")}
+@font-face{font-family:"Plex Mono";font-weight:400;src:url(../../assets/fonts/IBMPlexMono-Regular.woff2) format("woff2")}
+@font-face{font-family:"Plex Mono";font-weight:600;src:url(../../assets/fonts/IBMPlexMono-SemiBold.woff2) format("woff2")}
+:root{--rasp:#C8436B;--rasp-deep:#8E2A47;--gold:#E2B93B;--gold-hi:#F5D57A;--navy:#13215a;--choc:#1A0E08;--cream:#FBF5EC;--ink:#2A1A12;
+  --serif:"Newsreader",serif;--sans:"Plus Jakarta Sans",sans-serif;--mono:"Plex Mono",monospace}
+*{box-sizing:border-box}html,body{margin:0;background:#000}
+#f{position:relative;width:1280px;height:720px;overflow:hidden;font-family:var(--sans)}
+#f canvas.full{position:absolute;inset:0;width:1280px;height:720px}
+.lay{position:absolute;inset:0}
+/* VFX finishing layers */
+#leak{mix-blend-mode:screen;pointer-events:none}
+#vig{background:radial-gradient(120% 95% at 50% 45%,transparent 55%,rgba(0,0,0,.55) 100%);pointer-events:none}
+.light #vig{background:radial-gradient(120% 95% at 50% 45%,transparent 60%,rgba(90,54,38,.22) 100%)}
+#grain{opacity:.10;mix-blend-mode:overlay;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* chrome */
+.lock{position:absolute;left:44px;top:30px;display:flex;align-items:center;gap:12px;color:#fff;z-index:5}
+.lock img{width:40px}.lock b{display:block;font-size:14px;letter-spacing:.14em;font-weight:800}.lock small{display:block;font-size:10.5px;letter-spacing:.16em;font-weight:700;color:var(--gold-hi)}
+.light .lock{color:var(--navy)}.light .lock small{color:var(--rasp)}
+.rail{position:absolute;left:350px;right:200px;top:38px;display:grid;grid-template-columns:repeat(8,1fr);gap:6px;z-index:5}
+.rail div{font:600 9px var(--mono);letter-spacing:.06em;color:rgba(255,255,255,.55);padding-top:9px;position:relative;white-space:nowrap}
+.rail div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:2px;background:rgba(255,255,255,.18)}
+.rail div.done::before{background:rgba(226,185,59,.7)}.rail div.on{color:#fff}.rail div.on::before{background:linear-gradient(90deg,var(--gold) 62%,rgba(255,255,255,.18) 62%)}
+.light .rail div{color:rgba(42,26,18,.45)}.light .rail div::before{background:rgba(42,26,18,.12)}.light .rail div.on{color:var(--ink)}.light .rail div.done::before{background:var(--rasp)}
+.light .rail div.on::before{background:linear-gradient(90deg,var(--rasp) 62%,rgba(42,26,18,.12) 62%)}
+.pill{position:absolute;right:44px;top:28px;height:34px;padding:0 16px 0 6px;border-radius:17px;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);color:#fff;font-size:12.5px;font-weight:800;letter-spacing:.16em;z-index:5}
+.pill i{width:24px;height:24px;border-radius:50%;background:var(--gold);display:grid;place-items:center}.pill svg{width:15px;height:15px}
+.light .pill{background:rgba(255,255,255,.7);border-color:rgba(42,26,18,.12);color:var(--navy)}
+.lower{position:absolute;left:44px;bottom:30px;width:720px;min-height:62px;padding:11px 18px 11px 12px;border-radius:18px;display:flex;gap:13px;align-items:center;z-index:5;
+  background:rgba(20,10,6,.55);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px) saturate(1.2);box-shadow:0 20px 40px -24px rgba(0,0,0,.7)}
+.light .lower{background:rgba(255,255,255,.72);border-color:rgba(42,26,18,.1)}
+.lower .av{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff;font-weight:800;background:var(--rasp)}.lower .av.s{background:var(--navy);border:2px solid var(--gold)}
+.lower small{display:block;font:800 9.5px var(--sans);letter-spacing:.18em;color:var(--gold-hi)}.light .lower small{color:var(--rasp)}
+.lower p{margin:2px 0 0;font-size:15px;line-height:1.35;color:#fff}.light .lower p{color:var(--ink)}
+.lower p em{font-style:normal;color:var(--gold-hi);font-weight:700}.light .lower p em{color:var(--rasp)}
+.cta{position:absolute;right:44px;bottom:36px;display:flex;align-items:center;gap:10px;z-index:5;color:#fff;font-size:11px;font-weight:800;letter-spacing:.16em}
+.cta b{height:40px;padding:0 16px;border-radius:20px;background:var(--gold);color:var(--navy);display:flex;align-items:center;gap:7px;font-size:16px;letter-spacing:.02em}
+.light .cta{color:var(--ink)}
+.cta svg{width:16px;height:16px}
+/* type */
+.k{font:600 11px var(--mono);letter-spacing:.14em;color:var(--gold-hi)}.light .k{color:var(--rasp)}
+.h{font:400 64px/0.98 var(--serif);letter-spacing:-.015em;color:#fff}.h em{font-style:italic;color:var(--gold-hi)}
+.light .h{color:var(--navy)}.light .h em{color:var(--rasp)}
+.abs{position:absolute;z-index:4}
+.glass{background:rgba(255,255,255,.62);border:1px solid rgba(42,26,18,.08);backdrop-filter:blur(12px);border-radius:16px;box-shadow:0 22px 40px -28px rgba(42,26,18,.6)}
+.dglass{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px);border-radius:16px}
+.steps div{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:center;padding:8px 0;border-top:1px solid rgba(42,26,18,.08);opacity:.38}
+.steps div:first-child{border-top:0}.steps div.on{opacity:1}.steps div.done{opacity:.75}
+.steps i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:600 11px var(--mono);font-style:normal;background:rgba(42,26,18,.08);color:var(--ink)}
+.steps div.on i{background:var(--rasp);color:#fff;box-shadow:0 0 0 5px rgba(200,67,107,.18)}
+.steps b{font-size:13.5px;color:var(--ink);display:block}.steps small{font-size:11.5px;color:#6a5a50}
+.call{position:absolute;z-index:4;width:210px}
+.call .n{font:600 11px var(--mono);color:var(--gold-hi);letter-spacing:.1em}.call b{display:block;font:400 25px/1.05 var(--serif);color:#fff;margin:3px 0 4px}.call small{font-size:11.5px;line-height:1.4;color:rgba(255,255,255,.7);display:block}
+.call.r{text-align:left}.call.l{text-align:right}
+.light .call .n{color:var(--rasp)}.light .call b{color:var(--navy)}.light .call small{color:#6a5560}
+</style></head><body>
+<div id="f"><canvas class="full" id="bgc" width="1920" height="1080"></canvas><div class="lay" id="dom"></div>
+<canvas class="full lay" id="fx" width="1920" height="1080" style="pointer-events:none;z-index:3"></canvas>
+<div class="lay" id="leak" style="z-index:3"></div><div class="lay" id="vig" style="z-index:3"></div><div class="lay" id="grain" style="z-index:6"></div></div>
+<script src="../node_modules/three/build/three.min.js"></script>
+<script>
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),eo=x=>1-Math.pow(1-clamp(x),3),eio=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2},lerp=(a,b,x)=>a+(b-a)*x;
+function rng(seed){let s=seed;return()=>(s=(s*16807)%2147483647)/2147483647}
+const $=s=>document.querySelector(s);const S=720;const CW=1920,CH=1080;
+const IMG={};const img=src=>IMG[src]||(IMG[src]=new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src}));
+const CAKE=(()=>{ if(!window.THREE) return null;
+  const cv=document.createElement('canvas');cv.width=CW;cv.height=CH;
+  const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:true});R.setPixelRatio(1);R.setSize(CW,CH,false);R.setClearColor(0x000000,0);
+  R.outputEncoding=THREE.sRGBEncoding;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.08;
+  const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,CW/CH,.1,200);
+  sc.add(new THREE.HemisphereLight(0xFFF3E2,0x3A2418,.8));const k=new THREE.DirectionalLight(0xFFF0DC,1.45);k.position.set(5,9,8);sc.add(k);
+  const rim=new THREE.DirectionalLight(0xF2C14E,.7);rim.position.set(-7,4,-6);sc.add(rim);sc.add(new THREE.AmbientLight(0xffffff,.12));
+  const mat=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:new THREE.Color(c),roughness:.6,metalness:0},o));
+  function noiseTex(base,dots,seed,n=900){const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d');g.fillStyle=base;g.fillRect(0,0,256,256);const r=rng(seed);
+    for(let i=0;i<n;i++){g.fillStyle=dots[i%dots.length];g.globalAlpha=.35+r()*.5;g.beginPath();g.arc(r()*256,r()*256,.6+r()*2.2,0,7);g.fill()}const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;return t}
+  const spSide=mat('#fff',{map:noiseTex('#C98B45',['#A86A2C','#E2B06C','#B87A38'],7),roughness:.85}),spTop=mat('#fff',{map:noiseTex('#E9C88C',['#D7AE6C','#F6DFAE','#CFA062'],11),roughness:.9});
+  spSide.map.repeat.set(4,1);
+  const jamM=mat('#A5122B',{roughness:.22,metalness:.05}),bcM=mat('#F7EEDB',{roughness:.5}),coatM=mat('#FBF5EC',{roughness:.48,side:THREE.DoubleSide});
+  const crumbM=mat('#F2E2C4',{roughness:.7,transparent:true,opacity:.62,side:THREE.DoubleSide});
+  const RAD=2,SH=.9,levels={};const root=new THREE.Group();sc.add(root);
+  const board=new THREE.Mesh(new THREE.CylinderGeometry(2.8,2.8,.12,96),mat('#C9A227',{metalness:.65,roughness:.32}));board.position.y=-.06;root.add(board);
+  const stand=new THREE.Group();const st1=new THREE.Mesh(new THREE.CylinderGeometry(2.4,2.4,.14,64),mat('#B9BEC6',{metalness:.7,roughness:.3}));st1.position.y=-.19;
+  const st2=new THREE.Mesh(new THREE.CylinderGeometry(.35,.6,1.6,32),mat('#A9AEB6',{metalness:.7,roughness:.32}));st2.position.y=-1.06;const st3=new THREE.Mesh(new THREE.CylinderGeometry(1.5,1.6,.14,64),st1.material);st3.position.y=-1.9;
+  stand.add(st1,st2,st3);root.add(stand);
+  const layer=(geo,m)=>{const g=new THREE.Group();const me=new THREE.Mesh(geo,m);g.add(me);root.add(g);return g};
+  // bottom → top: sponge, jam, buttercream, sponge, crumb coat, final coat
+  const L=[layer(new THREE.CylinderGeometry(RAD,RAD,SH,96),[spSide,spTop,spTop]),layer(new THREE.CylinderGeometry(RAD*.95,RAD*.95,.12,96),jamM),
+    layer(new THREE.CylinderGeometry(RAD*.97,RAD*.97,.18,96),bcM),layer(new THREE.CylinderGeometry(RAD,RAD,SH,96),[spSide,spTop,spTop])];
+  const BASE=[0,SH,SH+.12,SH+.3];const HT=[SH,.12,.18,SH];
+  const shell=(r,h,m)=>{const g=new THREE.Group();const s=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,96,1,true),m);s.position.y=h/2;const tp=new THREE.Mesh(new THREE.CylinderGeometry(r,r,.05,96),m);tp.position.y=h;g.add(s,tp);root.add(g);return g};
+  const crumb=shell(RAD+.05,SH*2+.35,crumbM),coat=shell(RAD+.13,SH*2+.43,coatM);
+  const ribbon=new THREE.Mesh(new THREE.CylinderGeometry(RAD+.16,RAD+.16,.34,96,1,true),mat('#B83A5E',{roughness:.35,side:THREE.DoubleSide}));ribbon.position.y=.42;coat.add(ribbon);
+  // piping: rosettes round the top edge, beads round the base, gold dragées
+  const roseG=new THREE.Group();root.add(roseG);const roses=[];const roseM=mat('#FFF8EE',{roughness:.45}),goldM=mat('#E2B93B',{metalness:.85,roughness:.25});
+  for(let i=0;i<18;i++){const g=new THREE.Group();const b=new THREE.Mesh(new THREE.SphereGeometry(.2,20,14),roseM);b.scale.set(1,.75,1);const c=new THREE.Mesh(new THREE.ConeGeometry(.15,.24,12),roseM);c.position.y=.18;
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(.17,.055,8,20),roseM);ring.rotation.x=Math.PI/2;ring.position.y=.04;const d=new THREE.Mesh(new THREE.SphereGeometry(.05,10,8),goldM);d.position.y=.33;g.add(b,c,ring,d);
+    const a=i/18*Math.PI*2;g.position.set(Math.cos(a)*1.86,SH*2+.43,Math.sin(a)*1.86);roseG.add(g);roses.push(g)}
+  const beads=[];for(let i=0;i<46;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.1,12,10),i%2?roseM:goldM);const a=i/46*Math.PI*2;m.position.set(Math.cos(a)*(RAD+.2),.1,Math.sin(a)*(RAD+.2));root.add(m);beads.push(m)}
+  let crestTex=null;const plaqueM=[mat('#FFFFFF',{roughness:.4}),mat('#FFFFFF',{roughness:.45}),mat('#FFFFFF')];
+  const plaque=new THREE.Mesh(new THREE.CylinderGeometry(1.08,1.08,.05,64),plaqueM);plaque.position.y=SH*2+.47;root.add(plaque);
+  function setCrest(im){if(crestTex||!im)return;crestTex=new THREE.Texture(im);crestTex.encoding=THREE.sRGBEncoding;crestTex.needsUpdate=true;plaqueM[1].map=crestTex;plaqueM[1].needsUpdate=true}
+
+  /* ingredients for the opening */
+  const ing=new THREE.Group();sc.add(ing);
+  const wood=new THREE.Mesh(new THREE.BoxGeometry(9.6,.3,3.2),mat('#8A5A36',{map:noiseTex('#8A5A36',['#6E4426','#A06C44'],5,1400),roughness:.75}));wood.position.y=-.15;ing.add(wood);
+  const butter=new THREE.Group();const bb=new THREE.Mesh(new THREE.BoxGeometry(1.7,.75,1),mat('#F3D46E',{roughness:.35}));bb.position.y=.375;
+  const wrap=new THREE.Mesh(new THREE.BoxGeometry(1.0,.77,1.02),mat('#FFFFFF',{roughness:.5}));wrap.position.set(.38,.375,0);butter.add(bb,wrap);
+  const sugar=new THREE.Group();const bowl=new THREE.Mesh(new THREE.SphereGeometry(.85,32,16,0,Math.PI*2,Math.PI/2,Math.PI/2),mat('#2A5BA8',{roughness:.3,side:THREE.DoubleSide}));bowl.position.y=.85;
+  const heap=new THREE.Mesh(new THREE.SphereGeometry(.8,32,12,0,Math.PI*2,0,Math.PI/2.6),mat('#FFFFFF',{map:noiseTex('#F7F7F4',['#FFFFFF','#E4E4E0'],3,3000),roughness:.35}));heap.position.y=.62;heap.scale.y=.6;sugar.add(bowl,heap);
+  const eggs=new THREE.Group();const prof=[];for(let i=0;i<=24;i++){const a=i/24*Math.PI;prof.push(new THREE.Vector2(Math.sin(a)*.36*(1-.18*Math.cos(a)),-Math.cos(a)*.5))}
+  const eggG=new THREE.LatheGeometry(prof,32);const eggM=mat('#D9B08A',{roughness:.55});[[-.45,0],[.35,-.2],[.05,.45],[.6,.42]].forEach(([x,z],i)=>{const e=new THREE.Mesh(eggG,eggM);e.position.set(x,.36,z);e.rotation.z=i%2?1.35:-1.4;e.rotation.y=i*.7;eggs.add(e)});
+  const flour=new THREE.Group();const bag=new THREE.Mesh(new THREE.BoxGeometry(1.2,1.7,.8),mat('#EFE6D4',{roughness:.9}));bag.position.y=.85;const band=new THREE.Mesh(new THREE.BoxGeometry(1.22,.5,.82),mat('#C0396B',{roughness:.6}));band.position.y=.85;
+  const fl=new THREE.Mesh(new THREE.SphereGeometry(.45,24,10,0,Math.PI*2,0,Math.PI/2),mat('#FAF6EE',{roughness:1}));fl.position.set(1.05,0,.4);fl.scale.y=.45;flour.add(bag,band,fl);
+  const ITEMS=[butter,sugar,eggs,flour];ing.add(...ITEMS);[-3.4,-1.15,1.05,3.25].forEach((x,i)=>{ITEMS[i].position.x=x});
+
+  // st: {mode:'cake'|'ing', yaw, tilt, zoom, drop[6] 0..1, explode 0..1, rose 0..1, crest 0..1, stand 0..1, items[4] 0..1}
+  function render(st){const yaw=st.yaw||0;
+    const ingOn=st.mode==='ing';ing.visible=ingOn;root.visible=!ingOn;
+    if(ingOn){ITEMS.forEach((m,i)=>{const k=st.items?.[i]??1;m.visible=k>0;m.position.y=(1-eo(k))*3.5;m.scale.setScalar(Math.max(.001,lerp(.6,1,eo(k))))});
+      ing.rotation.y=yaw;cam.position.set(0,4.8,14.5/(st.zoom||1));cam.lookAt(0,.7,0)}
+    else{const ex=st.explode||0,drop=st.drop||[1,1,1,1,1,1];const out={};
+      L.forEach((g,i)=>{const d=drop[i]??1;g.visible=d>0;g.position.y=BASE[i]+HT[i]/2+(1-eo(d))*4+ex*i*1.15;g.children[0].material.transparent=d<1;
+        [].concat(g.children[0].material).forEach(m=>{m.transparent=d<1;m.opacity=clamp(d*2)})});
+      const sh=[[crumb,drop[4]??1,5.0],[coat,drop[5]??1,6.6]];
+      sh.forEach(([g,d,lift])=>{g.visible=d>0;g.position.y=(1-eo(d))*4+ex*lift;g.children.forEach(m=>{m.material.transparent=true;m.material.opacity=g===crumb?.62*clamp(d*2):clamp(d*2)})});
+      // once the final coat is on and we are not exploded, the inner layers and crumb coat are hidden by it
+      const covered=(drop[5]??1)>=1&&ex<.02;L.forEach(g=>{if(covered)g.visible=false});if(covered)crumb.visible=false;
+      const rose=st.rose||0;roses.forEach((g,i)=>{const k=clamp(rose*18-i);g.visible=k>0;g.scale.setScalar(Math.max(.001,eo(k)));g.position.y=SH*2+.43+ex*6.6});
+      beads.forEach((m,i)=>{const k=clamp((st.rose||0)*46*1.1-i);m.visible=k>0;m.scale.setScalar(Math.max(.001,eo(k)))});
+      plaque.visible=(st.crest||0)>0;plaque.scale.setScalar(Math.max(.001,eo(st.crest||0)));plaque.position.y=SH*2+.47+ex*6.6;
+      stand.visible=(st.stand||0)>0;stand.position.y=(1-(st.stand||0))*-3;
+      root.rotation.y=yaw;const tilt=st.tilt??.32,dist=(11+ex*10)/(st.zoom||1),ly=st.ly??(1.1+ex*3.7);
+      cam.position.set(0,ly+Math.sin(tilt)*dist,Math.cos(tilt)*dist);cam.lookAt(0,ly,0)}
+    if(st.shift)cam.setViewOffset(CW,CH,-st.shift*CW,0,CW,CH);else cam.clearViewOffset();cam.updateProjectionMatrix();R.render(sc,cam);
+    // screen anchors for labels (right edge of each layer)
+    const P=(x,y,z)=>{const v=new THREE.Vector3(x,y,z).applyAxisAngle(new THREE.Vector3(0,1,0),root.rotation.y).project(cam);return[(v.x*.5+.5)*1280,(-v.y*.5+.5)*720]};
+    const anc=[];const ex=st.explode||0;[0,1,2,3].forEach(i=>anc.push(P(RAD*.9,BASE[i]+HT[i]/2+ex*i*1.15,0)));anc.push(P(RAD+.05,SH+ex*5,0));anc.push(P(RAD+.13,SH+.4+ex*6.6,0));
+    const ancL=[];[0,1,2,3].forEach(i=>ancL.push(P(-RAD*.9,BASE[i]+HT[i]/2+ex*i*1.15,0)));ancL.push(P(-RAD-.05,SH+ex*5,0));ancL.push(P(-RAD-.13,SH+.4+ex*6.6,0));
+    return{cv,anc,ancW:anc,ancL}}
+  return{render,setCrest}})();
+
+/* ---------- cake builder: any type, cut open to show the inside ---------- */
+const KB=(()=>{const N=800,cv=document.createElement('canvas');cv.width=cv.height=N;
+  const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:true});R.setPixelRatio(1);R.setSize(N,N,false);R.setClearColor(0,0);
+  R.outputEncoding=THREE.sRGBEncoding;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
+  const cam=new THREE.PerspectiveCamera(28,1,.1,100);
+  const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:new THREE.Color(c),roughness:.6,side:THREE.DoubleSide},o));
+  const texCache={};function tex(base,dots,seed,n=1100,sz=2.2){const k=base+dots+seed;if(texCache[k])return texCache[k];const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d');g.fillStyle=base;g.fillRect(0,0,256,256);const r=rng(seed);
+    for(let i=0;i<n;i++){g.fillStyle=dots[i%dots.length];g.globalAlpha=.4+r()*.55;g.beginPath();g.arc(r()*256,r()*256,.6+r()*sz,0,7);g.fill()}const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;return texCache[k]=t}
+  const crumb=(c,d,seed)=>M('#fff',{map:tex(c,d,seed),roughness:.9});
+  function build(sp){const sc=new THREE.Scene();sc.add(new THREE.HemisphereLight(0xFFF5F8,0x6A4A55,.85));const k=new THREE.DirectionalLight(0xFFF0E6,1.4);k.position.set(5,9,8);sc.add(k);const rim=new THREE.DirectionalLight(0xFFC4D6,.6);rim.position.set(-6,4,-5);sc.add(rim);
+    const r=2,W=sp.cut?Math.PI/2.6:0,t0=W/2,tl=Math.PI*2-W,t=sp.frost?.13:0;let y=0;const g=new THREE.Group();sc.add(g);
+    const board=new THREE.Mesh(new THREE.CylinderGeometry(2.75,2.75,.1,96),M(sp.board||'#E2B93B',{metalness:.6,roughness:.3}));board.position.y=-.05;g.add(board);
+    const face=(a,w,h,yc,mat,off=0)=>{const p=new THREE.Mesh(new THREE.PlaneGeometry(w,h),mat);p.rotation.y=a-Math.PI/2;const d=new THREE.Vector3(Math.sin(a),0,Math.cos(a));p.position.copy(d.multiplyScalar(off+w/2));p.position.y=yc;g.add(p)};
+    for(const L of sp.layers){const mat=L.tex?crumb(...L.tex):M(L.col,{roughness:L.rough??.6});const top=L.tex?crumb(L.tex[0],L.tex[1],L.tex[2]+1):mat;
+      const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,L.h,96,1,false,t0,tl),[mat,top,top]);m.position.y=y+L.h/2;g.add(m);
+      if(sp.cut)[t0,-t0].forEach(a=>face(a,r,L.h,y+L.h/2,L.tex?crumb(L.tex[0],L.tex[1],L.tex[2]+2):mat));y+=L.h}
+    const H=y;
+    if(sp.frost){const fm=M(sp.frost.col,{roughness:sp.frost.rough??.5,metalness:sp.frost.metal??0});const sh=new THREE.Mesh(new THREE.CylinderGeometry(r+t,r+t,H+t,96,1,true,t0,tl),fm);sh.position.y=(H+t)/2;g.add(sh);
+      const tp=new THREE.Mesh(new THREE.CylinderGeometry(r+t,r+t,t,96,1,false,t0,tl),fm);tp.position.y=H+t/2;g.add(tp);
+      if(sp.cut)[t0,-t0].forEach(a=>{face(a,t,H+t,(H+t)/2,fm,r);face(a,r,t,H+t/2,fm,0)});
+      if(sp.marzipan&&sp.cut)[t0,-t0].forEach(a=>face(a,.05,H,H/2,M('#F2D27A'),r))}
+    const top=H+t;
+    if(sp.glaze){const gz=new THREE.Mesh(new THREE.CylinderGeometry(r+t+.04,r+t+.04,.06,96,1,false,t0,tl),M(sp.glaze,{roughness:.15,metalness:.1}));gz.position.y=top+.02;g.add(gz)}
+    const around=(n,fn)=>{for(let i=0;i<n;i++){const a=t0+(i+.5)/n*tl;fn(a,i)}};
+    if(sp.drip)around(30,(a,i)=>{const len=.25+((i*37)%10)/14,m=M(sp.drip,{roughness:.18,metalness:.1});const c=new THREE.Mesh(new THREE.CylinderGeometry(.075,.075,len,10),m);const ro=r+t+.03;
+      c.position.set(Math.sin(a)*ro,top-len/2,Math.cos(a)*ro);g.add(c);const b=new THREE.Mesh(new THREE.SphereGeometry(.085,12,8),m);b.position.set(Math.sin(a)*ro,top-len,Math.cos(a)*ro);g.add(b)});
+    if(sp.rose)around(sp.rose.n||14,(a)=>{const m=M(sp.rose.col,{roughness:.45});const s=new THREE.Mesh(new THREE.SphereGeometry(.19,16,12),m);s.scale.y=.75;const c=new THREE.Mesh(new THREE.ConeGeometry(.14,.24,10),m);c.position.y=.17;const o=new THREE.Group();o.add(s,c);
+      o.position.set(Math.sin(a)*1.75,top+.05,Math.cos(a)*1.75);g.add(o)});
+    if(sp.scallop){const m=M(sp.scallop,{roughness:.4});const n=12;for(let i=0;i<n;i++){const a0=t0+i/n*tl,a1=t0+(i+1)/n*tl,pts=[];for(let k=0;k<=12;k++){const u=k/12,a=lerp(a0,a1,u),ro=r+t+.03;pts.push(new THREE.Vector3(Math.sin(a)*ro,top-.25-.32*Math.sin(Math.PI*u),Math.cos(a)*ro))}
+      g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),24,.035,6,false),m));const d=new THREE.Mesh(new THREE.SphereGeometry(.07,10,8),m);const a=a0,ro=r+t+.04;d.position.set(Math.sin(a)*ro,top-.22,Math.cos(a)*ro);g.add(d)}}
+    if(sp.ribbon){const rb=new THREE.Mesh(new THREE.CylinderGeometry(r+t+.02,r+t+.02,.3,96,1,true,t0,tl),M(sp.ribbon,{roughness:.35}));rb.position.y=.32;g.add(rb)}
+    if(sp.cherries)for(let i=0;i<sp.cherries;i++){const a=t0+(i+.5)/sp.cherries*tl,c=new THREE.Mesh(new THREE.SphereGeometry(.16,16,12),M('#B0102A',{roughness:.2}));c.position.set(Math.sin(a)*1.3,top+.15,Math.cos(a)*1.3);g.add(c)}
+    if(sp.carrots)for(let i=0;i<sp.carrots;i++){const a=t0+(i+.5)/sp.carrots*tl,c=new THREE.Mesh(new THREE.ConeGeometry(.09,.42,10),M('#F07A1A',{roughness:.5}));c.rotation.z=Math.PI/2;c.rotation.y=-a;c.position.set(Math.sin(a)*1.45,top+.1,Math.cos(a)*1.45);g.add(c);
+      const l=new THREE.Mesh(new THREE.ConeGeometry(.06,.14,6),M('#3C9A4A'));l.position.copy(c.position).add(new THREE.Vector3(Math.sin(a)*.26,0,Math.cos(a)*.26));l.rotation.copy(c.rotation);l.rotation.z=-Math.PI/2;g.add(l)}
+    if(sp.flowers)for(let i=0;i<sp.flowers;i++){const a=t0+(i+.5)/sp.flowers*tl,cx=Math.sin(a)*1.2,cz=Math.cos(a)*1.2,pm=M('#F49AB6',{roughness:.5});for(let p=0;p<5;p++){const q=new THREE.Mesh(new THREE.SphereGeometry(.13,12,8),pm);q.scale.y=.4;q.position.set(cx+Math.cos(p*1.256)*.17,top+.06,cz+Math.sin(p*1.256)*.17);g.add(q)}
+      const ce=new THREE.Mesh(new THREE.SphereGeometry(.08,10,8),M('#F2C14E'));ce.position.set(cx,top+.1,cz);g.add(ce)}
+    if(sp.dust){const r2=rng(5),dm=M('#FFFFFF',{roughness:1});for(let i=0;i<260;i++){const a=r2()*6.28,rr=Math.sqrt(r2())*1.95;if(sp.cut&&Math.abs(((a+Math.PI)%(2*Math.PI))-Math.PI)<W/2)continue;const d=new THREE.Mesh(new THREE.SphereGeometry(.025,4,3),dm);d.position.set(Math.sin(a)*rr,top+.02,Math.cos(a)*rr);g.add(d)}}
+    if(sp.crumbs){const r2=rng(8),cm=M(sp.crumbs);for(let i=0;i<90;i++){const a=r2()*6.28,rr=1.55+r2()*.35;if(sp.cut&&Math.abs(((a+Math.PI)%(2*Math.PI))-Math.PI)<W/2+.05)continue;const d=new THREE.Mesh(new THREE.BoxGeometry(.07,.07,.07),cm);d.position.set(Math.sin(a)*rr,top+.04,Math.cos(a)*rr);d.rotation.set(r2()*3,r2()*3,0);g.add(d)}}
+    g.rotation.y=sp.yaw??-.35;return{sc,H:top}}
+  const cache={};
+  function render(key,sp){if(cache[key])return cache[key];const {sc,H}=build(sp);const tilt=sp.tilt??.42,dist=sp.dist??11.5;cam.position.set(0,H/2+Math.sin(tilt)*dist,Math.cos(tilt)*dist);cam.lookAt(0,H/2-.2,0);
+    R.render(sc,cam);const c=document.createElement('canvas');c.width=c.height=N;c.getContext('2d').drawImage(cv,0,0);return cache[key]=c}
+  return{render}})();
+const SPONGE=['#E9C88C',['#D7AE6C','#F6DFAE','#CFA062'],11],CHOC=['#4A2A1A',['#3A1F12','#5E3824','#2E180E'],21],RV=['#A3132E',['#8C0F25','#B8213B','#7A0C1F'],31],
+  CARROT=['#C98A4A',['#F07A1A','#B87A38','#E2A060','#8A5A2A'],41],FRUIT=['#5A3320',['#B0102A','#2A1520','#3C7A3A','#E08A2A','#1E0E0A'],51],WINE=['#3E1418',['#6A0E1E','#2A0A0E','#B0102A','#1A0608'],61];
+const TYPES={
+  victoria:{layers:[{h:.8,tex:SPONGE},{h:.1,col:'#B0102A',rough:.25},{h:.16,col:'#FFF8EE'},{h:.8,tex:SPONGE}],cut:true,dust:true},
+  chocolate:{layers:[{h:.75,tex:CHOC},{h:.14,col:'#2A140A',rough:.25},{h:.75,tex:CHOC}],cut:true,frost:{col:'#2E170C',rough:.22},drip:'#2A140A',rose:{col:'#3A1F12',n:10}},
+  redvelvet:{layers:[{h:.62,tex:RV},{h:.14,col:'#FBF4EA'},{h:.62,tex:RV},{h:.14,col:'#FBF4EA'},{h:.62,tex:RV}],cut:true,frost:{col:'#FBF4EA',rough:.55},crumbs:'#A3132E'},
+  carrot:{layers:[{h:.8,tex:CARROT},{h:.16,col:'#FBF4EA'},{h:.8,tex:CARROT}],cut:true,frost:{col:'#FBF4EA',rough:.6},carrots:7},
+  fruit:{layers:[{h:1.7,tex:FRUIT}],cut:true,frost:{col:'#FFFFFF',rough:.45},marzipan:true,scallop:'#FFFFFF',ribbon:'#C8436B',flowers:3},
+  wine:{layers:[{h:1.6,tex:WINE}],cut:true,frost:{col:'#FFFFFF',rough:.45},marzipan:true,ribbon:'#7A1022',cherries:6},
+  // icing demos
+  butter:{layers:[{h:.8,tex:SPONGE},{h:.16,col:'#FFF8EE'},{h:.8,tex:SPONGE}],frost:{col:'#FFF4E4',rough:.55},rose:{col:'#FFE0EA',n:16},cut:false,yaw:-.3},
+  royal:{layers:[{h:1.6,tex:FRUIT}],frost:{col:'#FFFFFF',rough:.35},scallop:'#FFFFFF',cut:false,flowers:0},
+  fondant:{layers:[{h:1.6,tex:SPONGE}],frost:{col:'#E27A9C',rough:.3},flowers:5,ribbon:'#FFFFFF',cut:false},
+  ganache:{layers:[{h:1.5,tex:CHOC}],frost:{col:'#FBF4EA',rough:.55},drip:'#2A140A',glaze:'#2A140A',cherries:5,cut:false}};
+
+const F=+(new URLSearchParams(location.search).get('f')||1);
+const bgc=$('#bgc').getContext('2d');bgc.scale(1.5,1.5);const fx=$('#fx').getContext('2d');fx.scale(1.5,1.5);
+const W=1280,H=720,dom=$('#dom');
+const LESSONS=['RECIPE','CREAMING','RISING','OVEN','LAYERS','ICING','CAKE TYPES','COSTING'];
+const WA='<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z"/></svg>';
+function chrome(active,light,who,name,cap){if(light)$('#f').classList.add('light');
+  dom.insertAdjacentHTML('beforeend',`<div class="lock"><img src="../../assets/brand/crest-640.webp"><div><b>ROYAL CREST ACADEMY</b><small>BIKITA · MASVINGO</small></div></div>
+  <div class="rail">${LESSONS.map((l,i)=>`<div class="${i+1<active?'done':i+1===active?'on':''}">0${i+1} ${l}</div>`).join('')}</div>
+  <div class="pill"><i><svg viewBox="0 0 24 24" fill="none" stroke="#13215a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M5 20v-6h14v6M5 14c2 1.5 4-1.5 7 0s5-1.5 7 0M8 14v-3h8v3M12 11V8"/></svg></i>BAKERY</div>
+  <div class="lower"><div class="av ${who==='S'?'s':''}">${who}</div><div><small>${name}</small><p>${cap}</p></div></div>
+  <div class="cta">FORM 1 · 2027<b>${WA}0714 404 090</b></div>`)}
+function leak(spots){$('#leak').style.background=spots.map(([x,y,r,c])=>`radial-gradient(${r}px ${r}px at ${x}px ${y}px,${c},transparent 70%)`).join(',')}
+// depth-of-field dust: far = small and sharp, near = large and soft
+function dust(g,n,seed,col,{minR=.6,maxR=9,area=[0,0,W,H],alpha=.8}={}){const r=rng(seed);for(let i=0;i<n;i++){const z=Math.pow(r(),2.2),x=area[0]+r()*area[2],y=area[1]+r()*area[3],rad=lerp(minR,maxR,z),blur=z>.55?(z-.55)*18:0;
+  g.save();g.filter=blur?`blur(${blur}px)`:'none';g.globalAlpha=alpha*lerp(.35,.9,1-z*.5);g.fillStyle=col;g.beginPath();g.arc(x,y,rad,0,7);g.fill();g.restore()}}
+// bloom: blurred additive copy of a bright source
+function bloom(g,src,x,y,w,h,amt=.45,blur=28){g.save();g.globalCompositeOperation='screen';g.globalAlpha=amt;g.filter=`blur(${blur}px)`;g.drawImage(src,x,y,w,h);g.restore()}
+function rays(g,ox,oy,n,len,col,seed){const r=rng(seed);g.save();g.globalCompositeOperation='screen';for(let i=0;i<n;i++){const a=2.1+r()*.9,w=.03+r()*.06,gr=g.createRadialGradient(ox,oy,0,ox,oy,len);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');
+  g.fillStyle=gr;g.globalAlpha=.15+r()*.2;g.beginPath();g.moveTo(ox,oy);g.arc(ox,oy,len,a-w,a+w);g.closePath();g.fill()}g.restore()}
+function txt(g,s,x,y,o={}){g.save();g.font=o.font||'600 14px "Plex Mono"';g.fillStyle=o.col||'#fff';g.textAlign=o.align||'center';g.textBaseline='middle';g.globalAlpha=o.a??1;if(o.ls)g.letterSpacing=o.ls;g.fillText(s,x,y);g.restore()}
+
+/* ===== FRAME 1 · title: the hero cake, full bleed ===== */
+async function f1(){chrome(0,true,'C','CHEF CHIPO · BAKERY','Add a little <em>science</em>, and a lot of <em>skill</em>, and yes. That’s a cake.');
+  let g=bgc.createRadialGradient(860,300,40,760,380,900);g.addColorStop(0,'#FFF7F9');g.addColorStop(.55,'#F9DCE5');g.addColorStop(1,'#EFB9CB');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  // soft background bokeh
+  const r=rng(12);for(let i=0;i<22;i++){const x=500+r()*780,y=r()*560,R=20+r()*70;bgc.save();bgc.filter='blur(10px)';bgc.globalAlpha=.25+r()*.25;bgc.fillStyle=i%3?'#FFFFFF':'#F49AB6';bgc.beginPath();bgc.arc(x,y,R,0,7);bgc.fill();bgc.restore()}
+  rays(bgc,1180,-60,9,900,'rgba(255,255,255,.95)',4);
+  g=bgc.createLinearGradient(0,520,0,H);g.addColorStop(0,'rgba(236,170,192,0)');g.addColorStop(.25,'rgba(236,170,192,.75)');g.addColorStop(1,'#DE93AE');bgc.fillStyle=g;bgc.fillRect(0,520,W,200);
+  const im=await img('../assets/crest.jpg');CAKE.setCrest(im);
+  const o=CAKE.render({drop:[1,1,1,1,1,1],explode:0,rose:1,crest:1,stand:1,yaw:.5,tilt:.34,zoom:.74,shift:.2,ly:.9});
+  bgc.save();bgc.globalAlpha=.22;bgc.translate(0,1065);bgc.scale(1,-.35);bgc.filter='blur(6px)';bgc.drawImage(o.cv,0,0,W,H);bgc.restore();
+  bgc.drawImage(o.cv,0,0,W,H);bloom(bgc,o.cv,0,0,W,H,.18,30);
+  dust(fx,110,7,'#FFFFFF',{maxR:10,alpha:.75,area:[600,0,680,720]});dust(fx,40,9,'#F7A8C1',{maxR:7,alpha:.6,area:[560,0,720,720]});
+  leak([[1150,40,520,'rgba(255,255,255,.6)'],[60,700,420,'rgba(242,154,182,.35)'],[1280,700,380,'rgba(242,193,78,.25)']]);
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:170px;width:560px">
+   <div class="k">BAKERY &amp; FOOD PRODUCTION · A FILM IN 8 LESSONS</div>
+   <div style="font:800 22px var(--sans);letter-spacing:.32em;color:var(--navy);margin:22px 0 4px">THE SCIENCE OF</div>
+   <div style="font:italic 400 92px/.9 var(--serif);color:var(--rasp)">a perfect</div>
+   <div style="font:400 168px/.86 var(--serif);color:var(--navy);letter-spacing:-.03em">cake.</div>
+   <div style="margin-top:22px;font-size:16px;line-height:1.5;color:#6a5560;max-width:430px">From the mixing bowl to the business. Filmed in the bakery at Royal Crest Academy, Bikita.</div></div>`)}
+
+/* ===== FRAME 2 · why it rises: a left-to-right process panorama ===== */
+async function f2(){chrome(3,true,'C','CHEF CHIPO · BAKERY','Add liquid and heat, and they react, and release <em>carbon dioxide</em> gas.');
+  let g=bgc.createLinearGradient(0,0,W,0);g.addColorStop(0,'#F6EFE3');g.addColorStop(.5,'#FBF3E4');g.addColorStop(1,'#F7E7CF');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  // zone tints and dividers
+  [[0,'rgba(120,100,80,.05)'],[426,'rgba(74,144,194,.07)'],[853,'rgba(242,193,78,.10)']].forEach(([x,c])=>{bgc.fillStyle=c;bgc.fillRect(x,0,427,H)});
+  bgc.save();bgc.setLineDash([4,8]);bgc.strokeStyle='rgba(42,26,18,.18)';[426,853].forEach(x=>{bgc.beginPath();bgc.moveTo(x,120);bgc.lineTo(x,560);bgc.stroke()});bgc.restore();
+  // ripples of liquid in the middle zone
+  bgc.save();bgc.strokeStyle='rgba(74,144,194,.22)';bgc.lineWidth=1.5;for(let i=0;i<7;i++){bgc.beginPath();bgc.ellipse(640,340,40+i*42,22+i*24,0,0,7);bgc.stroke()}bgc.restore();
+  const r=rng(21),P=(x,y,c,l)=>{bgc.fillStyle=c;bgc.beginPath();bgc.arc(x,y,10,0,7);bgc.fill();txt(bgc,l,x,y+1,{font:'700 10px "Plex Mono"'})};
+  for(let i=0;i<26;i++){P(60+r()*330,150+r()*380,i%2?'#E04848':'#3A7BD5',i%2?'A':'B')}
+  // middle: reacting pairs, CO2 streaking right with motion blur
+  for(let i=0;i<16;i++){const x=470+r()*340,y=150+r()*380;
+    if(i%3){bgc.save();const gr=bgc.createLinearGradient(x-80,y,x,y);gr.addColorStop(0,'rgba(43,43,43,0)');gr.addColorStop(1,'rgba(43,43,43,.35)');bgc.strokeStyle=gr;bgc.lineWidth=12;bgc.lineCap='round';bgc.beginPath();bgc.moveTo(x-80,y);bgc.lineTo(x-14,y);bgc.stroke();bgc.restore();
+      bgc.fillStyle='#E04848';bgc.beginPath();bgc.arc(x-12,y,7,0,7);bgc.arc(x+12,y,7,0,7);bgc.fill();bgc.fillStyle='#2B2B2B';bgc.beginPath();bgc.arc(x,y,9,0,7);bgc.fill()}
+    else{P(x-12,y,'#3A7BD5','B');P(x+12,y,'#E04848','A');bgc.save();bgc.globalCompositeOperation='screen';const s=bgc.createRadialGradient(x,y,0,x,y,40);s.addColorStop(0,'rgba(255,220,120,.9)');s.addColorStop(1,'rgba(255,220,120,0)');bgc.fillStyle=s;bgc.fillRect(x-40,y-40,80,80);bgc.restore()}}
+  // right: air bubbles inflating, one huge out-of-focus bubble in the foreground
+  const bub=(x,y,R,blur=0,a=1)=>{bgc.save();bgc.filter=blur?`blur(${blur}px)`:'none';bgc.globalAlpha=a;const gg=bgc.createRadialGradient(x-R*.3,y-R*.35,R*.1,x,y,R);gg.addColorStop(0,'rgba(255,255,255,.95)');gg.addColorStop(.7,'rgba(255,255,255,.35)');gg.addColorStop(1,'rgba(200,150,90,.35)');
+    bgc.fillStyle=gg;bgc.beginPath();bgc.arc(x,y,R,0,7);bgc.fill();bgc.strokeStyle='rgba(160,110,60,.6)';bgc.lineWidth=2;bgc.stroke();bgc.fillStyle='rgba(255,255,255,.95)';bgc.beginPath();bgc.ellipse(x-R*.38,y-R*.4,R*.18,R*.11,-.6,0,7);bgc.fill();bgc.restore()};
+  bub(960,250,58);bub(1090,380,82);bub(960,470,40);bub(1180,200,34);bub(1230,560,150,14,.85);
+  for(let i=0;i<10;i++){const x=900+r()*300,y=150+r()*380;bgc.fillStyle='#E04848';bgc.beginPath();bgc.arc(x-9,y,5,0,7);bgc.arc(x+9,y,5,0,7);bgc.fill();bgc.fillStyle='#2B2B2B';bgc.beginPath();bgc.arc(x,y,6.5,0,7);bgc.fill()}
+  // zone headings
+  [['01 · DRY',213,'Bicarbonate (B) and acid (A) sit still'],['02 · + LIQUID + HEAT',640,'They react'],['03 · CO₂ INFLATES',1066,'The air bubbles become balloons']].forEach(([h,x,s])=>{txt(bgc,h,x,112,{col:'#C8436B',font:'600 13px "Plex Mono"'});txt(bgc,s,x,132,{col:'#6a5a50',font:'500 12px "Plus Jakarta Sans"'})});
+  dust(fx,60,9,'#FFFFFF',{maxR:7,alpha:.5});leak([[1280,0,520,'rgba(255,200,120,.35)']]);
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:0;right:0;top:572px;text-align:center;font:400 40px var(--serif);color:var(--navy);letter-spacing:-.01em">
+    NaHCO<sub style="font-size:.55em">3</sub> + acid <span style="color:var(--gold);font-family:var(--sans)">→</span> <b style="color:var(--rasp);font-weight:500">CO<sub style="font-size:.55em">2</sub>↑</b> + water</div>`)}
+
+/* ===== FRAME 3 · the exploded cake, an editorial spread ===== */
+async function f3(){chrome(5,true,'S','SAM · COMMENTARY','Hold on. It’s built in <em>layers</em>, like the house in the Technical Graphics film!');
+  let g=bgc.createRadialGradient(640,330,40,640,360,760);g.addColorStop(0,'#FFF8FA');g.addColorStop(.6,'#F8DCE5');g.addColorStop(1,'#EDBCCC');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  bgc.save();bgc.strokeStyle='rgba(200,67,107,.08)';bgc.lineWidth=1;for(let x=0;x<W;x+=40){bgc.beginPath();bgc.moveTo(x,0);bgc.lineTo(x,H);bgc.stroke()}for(let y=0;y<H;y+=40){bgc.beginPath();bgc.moveTo(0,y);bgc.lineTo(W,y);bgc.stroke()}bgc.restore();
+  bgc.strokeStyle='rgba(200,67,107,.55)';bgc.lineWidth=1.5;[[300,110],[980,110],[300,600],[980,600]].forEach(([x,y])=>{bgc.beginPath();bgc.moveTo(x-10,y);bgc.lineTo(x+10,y);bgc.moveTo(x,y-10);bgc.lineTo(x,y+10);bgc.stroke()});
+  // soft floor shadow
+  g=bgc.createRadialGradient(640,640,10,640,640,300);g.addColorStop(0,'rgba(160,60,90,.25)');g.addColorStop(1,'rgba(160,60,90,0)');bgc.fillStyle=g;bgc.fillRect(300,560,680,160);
+  const o=CAKE.render({drop:[1,1,1,1,1,1],explode:1,rose:0,crest:0,stand:0,yaw:.55,tilt:.22,zoom:1.02,shift:0});
+  bgc.drawImage(o.cv,0,0,W,H);bloom(bgc,o.cv,0,0,W,H,.12,24);
+  const names=[['01','Sponge','The structure. Air and egg protein, set by heat.'],['02','Jam','Flavour and moisture between the sponges.'],['03','Buttercream','The glue that holds the layers together.'],['04','Sponge','The second layer, cooled completely first.'],['05','Crumb coat','A thin coat that locks in the crumbs.'],['06','Final coat','The smooth finish we decorate on.']];
+  const side=[1,-1,1,-1,1,-1];
+  o.ancW.forEach((p,i)=>{const s=side[i],q=s>0?o.ancW[i]:o.ancL[i],cx=s>0?1000:280,y=q[1];
+    bgc.save();bgc.strokeStyle='rgba(200,67,107,.85)';bgc.lineWidth=1.4;bgc.beginPath();bgc.moveTo(q[0],q[1]);bgc.lineTo(cx-(s>0?16:-16),y);bgc.stroke();bgc.fillStyle='#C8436B';bgc.beginPath();bgc.arc(q[0],q[1],4,0,7);bgc.fill();bgc.restore();
+    dom.insertAdjacentHTML('beforeend',`<div class="call ${s>0?'r':'l'}" style="${s>0?`left:${cx}px`:`left:${cx-210}px`};top:${y-28}px"><div class="n">${names[i][0]}</div><b>${names[i][1]}</b><small>${names[i][2]}</small></div>`)});
+  dust(fx,70,13,'#FFFFFF',{maxR:8,alpha:.6});leak([[640,-80,560,'rgba(255,255,255,.55)'],[1280,720,420,'rgba(242,154,182,.3)']]);
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:1000px;top:120px"><div class="k">LESSON 05 · BUILDING</div><div class="h" style="font-size:44px;margin-top:8px">Every layer<br><em>has a job.</em></div></div>`)}
+
+/* ===== FRAME 4 · the oven as a thermal image ===== */
+const INF=[[0,[0,0,4]],[.2,[50,10,94]],[.4,[120,28,109]],[.6,[188,55,84]],[.75,[237,105,37]],[.9,[251,182,26]],[1,[252,255,164]]];
+function inferno(v){v=clamp(v);for(let i=1;i<INF.length;i++){if(v<=INF[i][0]){const [a,ca]=INF[i-1],[b,cb]=INF[i],k=(v-a)/(b-a);return ca.map((c,j)=>Math.round(lerp(c,cb[j],k)))}}return INF[6][1]}
+async function f4(){chrome(4,false,'C','CHEF CHIPO · BAKERY','At about <em>70 °C</em>, the egg proteins set, and lock the bubbles in place.');
+  const cw=320,ch=180,c=document.createElement('canvas');c.width=cw;c.height=ch;const g=c.getContext('2d'),d=g.createImageData(cw,ch);
+  const tx0=.34,tx1=.82,ty0=.3,ty1=.72;// tin in normalised coords
+  for(let y=0;y<ch;y++)for(let x=0;x<cw;x++){const u=x/cw,v=y/ch;let T;
+    const inTin=u>tx0&&u<tx1&&v>ty0&&v<ty1;const el=Math.max(Math.exp(-Math.pow((v-.16)/.03,2)),Math.exp(-Math.pow((v-.775)/.025,2)))*(u>.3&&u<.97?1:0);
+    if(inTin){const dx=Math.min(u-tx0,tx1-u)/((tx1-tx0)/2),dy=Math.min(v-ty0,ty1-v)/((ty1-ty0)/2),dd=Math.min(dx*1.4,dy);T=lerp(178,72,Math.pow(clamp(dd*1.6),.6))+Math.sin(u*40+v*30)*1.5}
+    else{const wall=Math.exp(-Math.pow(Math.min(Math.abs(u-tx0),Math.abs(u-tx1))/.012,2))*(v>ty0-.02&&v<ty1+.02?1:0)+Math.exp(-Math.pow((v-ty1-.01)/.012,2))*(u>tx0&&u<tx1?1:0);
+      T=lerp(36,96,clamp(.3+.3*Math.sin(u*3))*clamp((u-.18)*4))+el*120+wall*90}
+    const col=inferno((T-20)/185),k=(y*cw+x)*4;d.data[k]=col[0];d.data[k+1]=col[1];d.data[k+2]=col[2];d.data[k+3]=255}
+  g.putImageData(d,0,0);bgc.imageSmoothingQuality='high';bgc.drawImage(c,0,0,W,H);
+  // isotherms
+  bgc.save();bgc.strokeStyle='rgba(255,255,255,.35)';bgc.setLineDash([3,5]);[.15,.35,.6].forEach(k=>{const ix=lerp(tx0,tx1,0)*W+k*.5*(tx1-tx0)*W*0.9,iy=ty0*H+k*.5*(ty1-ty0)*H*.9;bgc.beginPath();bgc.roundRect(ix,iy,(tx1-tx0)*W-2*(ix-tx0*W),(ty1-ty0)*H-2*(iy-ty0*H),30-k*20);bgc.stroke()});bgc.restore();
+  // heat shimmer above the tin
+  bgc.save();bgc.globalCompositeOperation='screen';bgc.strokeStyle='rgba(255,210,140,.18)';bgc.lineWidth=3;for(let i=0;i<9;i++){const x=tx0*W+20+i*68;bgc.beginPath();for(let y=0;y<130;y+=4)bgc.lineTo(x+Math.sin(y*.09+i)*9,ty0*H-14-y);bgc.stroke()}bgc.restore();
+  // readouts on the image
+  txt(bgc,'CORE 70 °C',(tx0+tx1)/2*W,(ty0+ty1)/2*H,{font:'600 18px "Plex Mono"'});txt(bgc,'CRUST 160 °C',tx1*W+70,ty0*H+40,{font:'600 13px "Plex Mono"',col:'#FFF3C4'});txt(bgc,'OVEN 180 °C',1150,.17*H-24,{font:'600 13px "Plex Mono"',col:'#FFF3C4'});
+  // crosshair on the core
+  const cx=(tx0+tx1)/2*W,cy=(ty0+ty1)/2*H+34;bgc.strokeStyle='#fff';bgc.lineWidth=1.5;bgc.beginPath();bgc.arc(cx,cy,16,0,7);bgc.moveTo(cx-26,cy);bgc.lineTo(cx-8,cy);bgc.moveTo(cx+8,cy);bgc.lineTo(cx+26,cy);bgc.stroke();
+  // colour scale on the right
+  for(let i=0;i<200;i++){const col=inferno(i/200);bgc.fillStyle=`rgb(${col})`;bgc.fillRect(1218,520-i*1.6,10,2)}txt(bgc,'200°',1223,190,{font:'600 10px "Plex Mono"'});txt(bgc,'20°',1223,536,{font:'600 10px "Plex Mono"'});
+  leak([[640,120,500,'rgba(255,140,40,.25)']]);dust(fx,50,3,'#FFD9A0',{maxR:6,alpha:.4});
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:118px;width:330px"><div class="k">LESSON 04 · THE OVEN</div>
+    <div style="font:400 118px/.9 var(--serif);color:#fff;letter-spacing:-.03em;margin-top:10px;text-shadow:0 10px 40px rgba(0,0,0,.5)">70<span style="font-size:.45em;vertical-align:.9em;color:var(--gold-hi)">°C</span></div>
+    <div style="font:800 13px var(--sans);letter-spacing:.2em;color:#fff;margin-top:6px">EGG PROTEINS SET</div><div style="font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.75);margin-top:8px;max-width:250px">The bubbles are locked in. Now the cake can’t sink.</div></div>
+  <div class="abs" style="left:64px;right:64px;top:584px;height:30px">${[['20°',0],['RISE · 40–60°',.22],['SET · 70°',.32],['WATER STEAMS · 100°',.5],['BROWN · 140°+',.72],['OVEN · 180°',.98]].map(([l,p],i)=>`<div style="position:absolute;left:${p*100}%;transform:translateX(-50%);top:0;font:600 10.5px var(--mono);color:${i===2?'#fff':'rgba(255,255,255,.6)'};white-space:nowrap">${l}</div>`).join('')}
+    <div style="position:absolute;left:0;right:0;top:20px;height:4px;border-radius:2px;background:linear-gradient(90deg,#320A5E,#BC3754,#ED6925,#FBB61A,#FCFFA4)"></div>
+    <div style="position:absolute;left:32%;top:13px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.25),0 0 24px #fff;transform:translateX(-50%)"></div></div>`)}
+
+/* ===== FRAME 5 · the business: big numbers, wide chart ===== */
+async function f5(){chrome(8,true,'C','CHEF CHIPO · BAKERY','Sell the decorated cake for <em>$25</em>, and that’s <em>$16 profit</em>. Bake five cakes a week, and it’s a business.');
+  let g=bgc.createLinearGradient(0,0,W,H);g.addColorStop(0,'#FFFBF4');g.addColorStop(1,'#F3E4CD');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  // waterfall: each cost steps up, then the price bar, then profit
+  const items=[['Butter',2.0,'#F3D46E'],['Sugar',.8,'#E9E4DA'],['Eggs',1.2,'#D9B08A'],['Flour',.9,'#EFE6D4'],['Icing',2.3,'#E8A0B4'],['Power',.8,'#9AD0C2'],['Box',1.0,'#B9BEC6']];
+  const x0=520,base=540,sc=15.5,bw=52,gap=12;let acc=0;
+  bgc.strokeStyle='rgba(42,26,18,.12)';bgc.lineWidth=1;[0,5,10,15,20,25].forEach(v=>{const y=base-v*sc;bgc.beginPath();bgc.moveTo(x0-10,y);bgc.lineTo(1230,y);bgc.stroke();txt(bgc,'$'+v,x0-28,y,{col:'#8a7a70',font:'500 11px "Plex Mono"'})});
+  items.forEach(([n,v,c],i)=>{const x=x0+i*(bw+gap),y1=base-acc*sc,y2=base-(acc+v)*sc;bgc.fillStyle=c;bgc.fillRect(x,y2,bw,y1-y2);bgc.strokeStyle='rgba(42,26,18,.25)';bgc.strokeRect(x,y2,bw,y1-y2);
+    if(i<6){bgc.setLineDash([3,3]);bgc.beginPath();bgc.moveTo(x+bw,y2);bgc.lineTo(x+bw+gap,y2);bgc.stroke();bgc.setLineDash([])}
+    txt(bgc,n,x+bw/2,base+16,{col:'#6a5a50',font:'500 10.5px "Plex Mono"'});txt(bgc,'$'+v.toFixed(2),x+bw/2,y2-10,{col:'#2A1A12',font:'600 10.5px "Plex Mono"'});acc+=v});
+  const cx=x0+7*(bw+gap)+18;bgc.fillStyle='#2A1A12';bgc.fillRect(cx,base-9*sc,bw+8,9*sc);txt(bgc,'COST',cx+bw/2+4,base+16,{col:'#2A1A12',font:'600 10.5px "Plex Mono"'});txt(bgc,'$9',cx+bw/2+4,base-9*sc-14,{col:'#2A1A12',font:'700 16px "Plex Mono"'});
+  const px=cx+bw+30;bgc.fillStyle='#13215a';bgc.fillRect(px,base-25*sc,bw+30,25*sc);g=bgc.createLinearGradient(0,base-25*sc,0,base-9*sc);g.addColorStop(0,'#3CCB86');g.addColorStop(1,'#2EAD6B');bgc.fillStyle=g;bgc.fillRect(px,base-25*sc,bw+30,16*sc);
+  txt(bgc,'PRICE',px+(bw+30)/2,base+16,{col:'#13215a',font:'600 10.5px "Plex Mono"'});txt(bgc,'$25',px+(bw+30)/2,base-25*sc-14,{col:'#13215a',font:'700 16px "Plex Mono"'});txt(bgc,'+$16',px+(bw+30)/2,base-17*sc,{font:'700 18px "Plex Mono"'});
+  bgc.save();bgc.globalCompositeOperation='screen';bgc.filter='blur(16px)';bgc.fillStyle='rgba(60,203,134,.55)';bgc.fillRect(px-6,base-25*sc-6,bw+42,16*sc+12);bgc.restore();
+  // five 3D cakes on a shelf, top right
+  const o=CAKE.render({drop:[1,1,1,1,1,1],explode:0,rose:1,crest:0,stand:0,yaw:.6,tilt:.35,zoom:1,shift:0});
+  const FIVE=o.cv;
+  // confetti sprinkles with motion blur
+  const r=rng(77),cols=['#E8A0B4','#F2C14E','#9AD0C2','#C8436B','#13215a'];for(let i=0;i<70;i++){const x=r()*W,y=r()*H*.9,a=r()*6,l=6+r()*8,z=r();fx.save();fx.translate(x,y);fx.rotate(a);fx.filter=z>.8?`blur(${(z-.8)*20}px)`:'none';fx.globalAlpha=.75;fx.fillStyle=cols[i%5];fx.beginPath();fx.roundRect(-l/2,-2,l,4,2);fx.fill();fx.restore()}
+  leak([[0,0,480,'rgba(255,200,140,.35)']]);
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:112px;width:400px"><div class="k">LESSON 08 · COSTING</div>
+    <div style="font:400 190px/.8 var(--serif);color:var(--rasp);letter-spacing:-.04em;margin-top:44px">$16</div>
+    <div style="font:800 15px var(--sans);letter-spacing:.2em;color:var(--navy);margin-top:4px">PROFIT ON EVERY CAKE</div>
+    <div class="glass" style="margin-top:18px;padding:12px 18px 8px;width:380px"><div style="display:flex;gap:16px;align-items:center"><div style="font:400 44px var(--serif);color:var(--navy)">$80</div><div style="font-size:13px;line-height:1.4;color:#5a4a40">a week, from<br><b style="color:var(--navy)">five cakes</b></div></div><canvas id="five" width="516" height="108" style="width:344px;height:72px;display:block"></canvas></div>
+    <div style="font-size:10.5px;color:#8a7a70;margin-top:10px">Example figures. Prices vary.</div></div>`);
+  const fv=$('#five').getContext('2d'),sq=CH*1.05,sx=(CW-sq)/2,sy=(CH-sq)/2+40;for(let i=0;i<5;i++)fv.drawImage(FIVE,sx,sy,sq,sq,i*100+2,0,108,108)}
+
+/* ===== FRAME 6 · icing: four kinds, four jobs ===== */
+async function f6(){chrome(6,true,'C','CHEF CHIPO · BAKERY','Royal icing: egg white and icing sugar. It <em>sets hard</em>, so it’s used on <em>wedding cakes</em>.');
+  let g=bgc.createLinearGradient(0,0,W,H);g.addColorStop(0,'#FFF8FA');g.addColorStop(1,'#F6D3DF');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  const r=rng(3);for(let i=0;i<14;i++){bgc.save();bgc.filter='blur(14px)';bgc.globalAlpha=.3;bgc.fillStyle=i%2?'#FFFFFF':'#F49AB6';bgc.beginPath();bgc.arc(r()*W,r()*H,30+r()*80,0,7);bgc.fill();bgc.restore()}
+  const C4=[['butter','Buttercream','Butter + icing sugar','Soft and creamy. For piping and filling.','PIPE IT'],['royal','Royal icing','Egg white + icing sugar','Sets hard, so it holds fine lines. Wedding cakes.','SETS HARD'],
+    ['fondant','Fondant','Rolled sugar paste','Rolled thin, draped like a sheet, smoothed by hand.','ROLL & DRAPE'],['ganache','Ganache','Cream + melted chocolate','Poured warm over the top, so it drips down the sides.','POUR & DRIP']];
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:100px;display:flex;align-items:baseline;gap:22px"><div class="k">LESSON 06 · ICING</div><div class="h" style="font-size:40px">Four icings, <em>four jobs.</em></div></div>
+   ${C4.map(([k,n,rec,d,tag],i)=>`<div class="abs glass" style="left:${64+i*290}px;top:${i===1?156:166}px;width:276px;height:${i===1?352:336}px;padding:0 18px 16px;${i===1?'border:2px solid var(--rasp);box-shadow:0 30px 50px -26px rgba(200,67,107,.7)':''}">
+     <canvas id="ic${i}" width="480" height="420" style="width:240px;height:210px;display:block;margin:0 auto"></canvas>
+     <div style="font:600 10.5px var(--mono);letter-spacing:.1em;color:var(--rasp)">0${i+1} · ${tag}</div><div style="font:400 26px var(--serif);color:var(--navy);margin:2px 0">${n}</div>
+     <div style="font-size:12px;font-weight:700;color:#7a5a66">${rec}</div><div style="font-size:12.5px;line-height:1.4;color:#5a4a50;margin-top:4px">${d}</div></div>`).join('')}
+   <div class="abs" style="left:64px;right:64px;top:528px;display:flex;align-items:center;gap:10px;font:600 11px var(--mono);color:var(--navy);letter-spacing:.06em">
+     ${['CRUMB COAT','CHILL 20 MIN','FINAL COAT · PALETTE KNIFE + TURNTABLE','PIPE · BAG + STAR NOZZLE'].map((t,i)=>`<span style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.7);border:1px solid rgba(200,67,107,.25);border-radius:16px;padding:7px 12px"><b style="width:18px;height:18px;border-radius:50%;background:var(--rasp);color:#fff;display:grid;place-items:center;font-size:10px">${i+1}</b>${t}</span>${i<3?'<span style="color:var(--rasp)">→</span>':''}`).join('')}</div>`);
+  C4.forEach(([k],i)=>{const c=KB.render(k,TYPES[k]);$('#ic'+i).getContext('2d').drawImage(c,40,90,720,630,0,0,480,420)});
+  dust(fx,40,4,'#FFFFFF',{maxR:6,alpha:.6});leak([[0,0,520,'rgba(255,255,255,.5)'],[1280,720,460,'rgba(242,154,182,.3)']])}
+
+/* ===== FRAME 7 · cake types, each cut open ===== */
+async function f7(){chrome(7,true,'S','SAM · COMMENTARY','<em>Red velvet.</em> Now that’s my favourite.');
+  let g=bgc.createLinearGradient(0,0,W,H);g.addColorStop(0,'#FFF9FB');g.addColorStop(1,'#F5CFDC');bgc.fillStyle=g;bgc.fillRect(0,0,W,H);
+  const T6=[['victoria','Victoria sponge','Light and simple, with jam and cream.','CLASSIC'],['chocolate','Chocolate','Rich and dark, with ganache drips.','RICH'],['redvelvet','Red velvet','Soft red sponge, cream cheese icing.','♥ SAM’S FAVOURITE'],
+    ['carrot','Carrot cake','Moist and spiced, cream cheese icing.','SPICED'],['fruit','Fruit cake','Raisins, cherries and peel, under marzipan and royal icing. Keeps for months.','WEDDINGS'],['wine','Wine cake','A rich, dark fruit cake soaked in red wine.','CELEBRATIONS']];
+  dom.insertAdjacentHTML('beforeend',`<div class="abs" style="left:64px;top:100px;display:flex;align-items:baseline;gap:22px"><div class="k">LESSON 07 · CAKE TYPES</div><div class="h" style="font-size:40px">Every cake <em>is different.</em></div></div>
+   ${T6.map(([k,n,d,tag],i)=>{const x=64+(i%3)*388,y=166+Math.floor(i/3)*222,on=i===2;return `<div class="abs glass" style="left:${x}px;top:${y}px;width:376px;height:208px;display:flex;align-items:center;gap:6px;padding-right:16px;${on?'border:2px solid var(--rasp);box-shadow:0 30px 50px -26px rgba(200,67,107,.7)':''}">
+     <canvas id="ty${i}" width="380" height="380" style="width:190px;height:190px;flex:none"></canvas><div><div style="font:600 10px var(--mono);letter-spacing:.1em;color:${on?'#fff':'var(--rasp)'};${on?'background:var(--rasp);padding:3px 8px;border-radius:10px;display:inline-block':''}">${tag}</div>
+     <div style="font:400 26px/1.05 var(--serif);color:var(--navy);margin:6px 0 5px">${n}</div><div style="font-size:12.5px;line-height:1.4;color:#5a4a50">${d}</div></div></div>`}).join('')}`);
+  T6.forEach(([k],i)=>{const c=KB.render(k,TYPES[k]);$('#ty'+i).getContext('2d').drawImage(c,40,60,720,720,0,0,380,380)});
+  dust(fx,40,6,'#FFFFFF',{maxR:6,alpha:.6});leak([[1280,0,520,'rgba(255,255,255,.5)'],[0,720,420,'rgba(242,154,182,.3)']])}
+
+window.ready=(async()=>{await Promise.all(['600 14px "Plex Mono"','400 14px "Plex Mono"','500 14px "Plus Jakarta Sans"','800 14px "Plus Jakarta Sans"','400 40px Newsreader','italic 400 40px Newsreader'].map(x=>document.fonts.load(x)));await document.fonts.ready;await [0,f1,f2,f3,f4,f5,f6,f7][F]();await new Promise(r=>setTimeout(r,250));return true})();
+</script></body></html>

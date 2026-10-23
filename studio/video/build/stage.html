@@ -145,6 +145,18 @@ canvas{display:block}
 .bye p{font:italic 400 24px var(--serif);color:var(--navy)}
 .bye p small{display:block;font:700 12px var(--sans);font-style:normal;letter-spacing:.16em;color:var(--body)}
 
+/* portrait 9:16 layout (720×1280 logical → 1080×1920) */
+.portrait html,.portrait body,html.portrait,html.portrait body{width:720px;height:1280px}
+.portrait #stage{width:720px;height:1280px}
+.portrait #bg{width:720px;height:1280px}
+.portrait #dial{left:60px;top:118px}
+.portrait .copy{top:690px!important;width:586px}
+.portrait .bd{max-width:586px}
+.portrait .hl{font-size:46px}
+.portrait #comm{left:67px;top:1110px;width:586px}
+.portrait .cta{top:1188px;width:586px}
+.portrait .pill{top:34px}
+.portrait #brush{width:486px;height:250px}
 /* CTA + commentary */
 .cta{position:absolute;left:67px;top:624px;width:486px;height:60px;border-radius:30px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 26px;z-index:6;
   background:color-mix(in srgb,#fff calc(var(--nv)*100%),var(--navy));box-shadow:0 14px 30px -14px rgba(10,19,48,.6)}
@@ -215,9 +227,10 @@ const S=720, C=S/2;
 function cover(ctx,im,zoom=1,ox=0,oy=0,alpha=1){ if(!im) return; ctx.save();ctx.globalAlpha*=alpha;
   const s=S*zoom; ctx.drawImage(im,C-s/2+ox,C-s/2+oy,s,s); ctx.restore()}
 async function clip(ctx,dir,f0,f1,u,zoom=1.04,alpha=1){ // u 0..1 across [f0,f1] with frame blending
-  const x=lerp(f0,f1,clamp(u)); const a=Math.floor(x), b=Math.min(f1,a+1), k=x-a;
+  const x=lerp(f0,f1,clamp(u)); const a=Math.floor(x), b=Math.min(Math.max(f0,f1),a+1), k=x-a;
   const [ia,ib]=await Promise.all([img(fr(dir,a)),img(fr(dir,b))]);
   cover(ctx,ia,zoom,0,0,alpha); if(k>0.01) cover(ctx,ib,zoom,0,0,alpha*k)}
+function layer(){const c=document.createElement('canvas');c.width=c.height=S;return{c,g:c.getContext('2d')}}
 async function photo(ctx,src,u,z0=1.02,z1=1.1,alpha=1){cover(ctx,await img(src),lerp(z0,z1,clamp(u)),0,0,alpha)}
 
 // Hanzi Writer stroke data → animated brush strokes (prog 0..1 over all strokes)
@@ -249,20 +262,24 @@ const GRAIN=document.createElement('canvas');GRAIN.width=GRAIN.height=512;(()=>{
   const r=()=>(s=(s*16807)%2147483647)/2147483647;for(let i=0;i<d.data.length;i+=4){const v=180+r()*75;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=r()*26}g.putImageData(d,0,0)})();
 
 /* ---------- background ---------- */
+const PORTRAIT=location.search.includes('portrait'); if(PORTRAIT) document.documentElement.classList.add('portrait');
+const BW=PORTRAIT?720:1280, BH=PORTRAIT?1280:720, DS=PORTRAIT?.88:1;
+$('#bg').width=BW*1.5; $('#bg').height=BH*1.5;
 const bg=$('#bg').getContext('2d'); bg.scale(1.5,1.5);
 const DUST=Array.from({length:46},(_,i)=>({x:(i*397)%1280,y:(i*233)%720,r:1+(i%5)*.7,sp:.15+(i%7)*.05,ph:i*1.7}));
 function drawBg(t,nv){
-  // paper
-  let g=bg.createRadialGradient(860,300,60,700,360,900);g.addColorStop(0,'#FCF9F2');g.addColorStop(1,'#EFE5D2');bg.fillStyle=g;bg.fillRect(0,0,1280,720);
-  bg.globalAlpha=.55;for(let x=0;x<1280;x+=512)for(let y=0;y<720;y+=512)bg.drawImage(GRAIN,x,y);bg.globalAlpha=1;
-  bg.fillStyle='rgba(255,255,255,.45)';bg.fillRect(399,0,2,720);bg.fillRect(868,0,2,720);
-  bg.save();bg.strokeStyle='rgba(200,55,45,.10)';bg.lineWidth=2.2;cloud(bg,150,560,1.4);cloud(bg,300,640,.9);cloud(bg,1200,150,1.1);cloud(bg,520,90,.8);bg.restore();
-  bg.save();for(let i=0;i<7;i++){const x=(i*211+t*6)%1300-10,y=120+((i*137)%480)+Math.sin(t*.4+i)*12,r=40+(i%3)*30;
+  const W=BW,H=BH,sx=W/1280,sy=H/720, cx=PORTRAIT?360:860, cy=PORTRAIT?420:300;
+  let g=bg.createRadialGradient(cx,cy,60,cx-100*sx,cy+60*sy,Math.max(W,H)*.75);g.addColorStop(0,'#FCF9F2');g.addColorStop(1,'#EFE5D2');bg.fillStyle=g;bg.fillRect(0,0,W,H);
+  bg.globalAlpha=.55;for(let x=0;x<W;x+=512)for(let y=0;y<H;y+=512)bg.drawImage(GRAIN,x,y);bg.globalAlpha=1;
+  bg.fillStyle='rgba(255,255,255,.45)';bg.fillRect(Math.round(W*.312),0,2,H);bg.fillRect(Math.round(W*.678),0,2,H);
+  const CL=PORTRAIT?[[110,1040,1.3],[600,980,.9],[620,150,1],[120,700,.8]]:[[150,560,1.4],[300,640,.9],[1200,150,1.1],[520,90,.8]];
+  bg.save();bg.strokeStyle='rgba(200,55,45,.10)';bg.lineWidth=2.2;for(const [x,y,k] of CL)cloud(bg,x,y,k);bg.restore();
+  bg.save();for(let i=0;i<7;i++){const x=(i*211+t*6)%(W+20)-10,y=120*sy+((i*137)%Math.round(480*sy))+Math.sin(t*.4+i)*12,r=40+(i%3)*30;
     const rg=bg.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,'rgba(210,174,76,.16)');rg.addColorStop(1,'rgba(210,174,76,0)');bg.fillStyle=rg;bg.fillRect(x-r,y-r,2*r,2*r)}bg.restore();
   if(nv<=0) return;
-  bg.save();bg.globalAlpha=nv;g=bg.createRadialGradient(880,320,40,820,360,860);g.addColorStop(0,'#1c2d72');g.addColorStop(.6,'#0f1a48');g.addColorStop(1,'#070e26');bg.fillStyle=g;bg.fillRect(0,0,1280,720);
-  bg.strokeStyle='rgba(210,174,76,.12)';bg.lineWidth=2;cloud(bg,150,580,1.5);cloud(bg,330,660,1);cloud(bg,1180,140,1.2);cloud(bg,470,70,.9);
-  for(const d of DUST){const y=(d.y-t*d.sp*20+720)%720,a=.25+.25*Math.sin(t*1.3+d.ph);bg.fillStyle=`rgba(226,194,106,${a})`;bg.beginPath();bg.arc(d.x+Math.sin(t*.5+d.ph)*8,y,d.r,0,7);bg.fill()}
+  bg.save();bg.globalAlpha=nv;g=bg.createRadialGradient(PORTRAIT?360:880,PORTRAIT?420:320,40,PORTRAIT?360:820,PORTRAIT?520:360,Math.max(W,H)*.7);g.addColorStop(0,'#1c2d72');g.addColorStop(.6,'#0f1a48');g.addColorStop(1,'#070e26');bg.fillStyle=g;bg.fillRect(0,0,W,H);
+  bg.strokeStyle='rgba(210,174,76,.12)';bg.lineWidth=2;for(const [x,y,k] of CL)cloud(bg,x,y,k*1.1);
+  for(const d of DUST){const x=d.x*sx,y=(d.y*sy-t*d.sp*20+H)%H,a=.25+.25*Math.sin(t*1.3+d.ph);bg.fillStyle=`rgba(226,194,106,${a})`;bg.beginPath();bg.arc(x+Math.sin(t*.5+d.ph)*8,y,d.r,0,7);bg.fill()}
   bg.restore()}
 
 /* ---------- ticks ---------- */
@@ -307,14 +324,15 @@ const SC={
        <div class="tli" data-on="${cue('l13','官')}"><span class="c two">官话</span><div><div class="y">GUĀNHUÀ</div><div class="t">“Speech of officials”</div><div class="d">The root of the word Mandarin</div></div></div></div>`,cue('l07','three')]],
    async lens(ctx,t,s){
      const marks=[['秦',cue('l09','秦')-.3,'秦始皇','Qín Shǐhuáng'],['汉',cue('l10','汉')-.3,'汉字','Hànzì'],['元',cue('l11'),'忽必烈','Kublai Khan'],['明',cue('l12','明')-.2,null],['官话',cue('l13','官')-.3,'官话','Guānhuà']];
-     if(t<marks[0][1]){await clip(ctx,'wall',150,1,(t-s.start)/(marks[0][1]-s.start),1.1);return}
-     let cur=marks.filter(m=>t>=m[1]).pop(); const k=(t-cur[1]);
-     if(cur[0]==='明'){await clip(ctx,'wall',300,454,k/((cue('l13','官')-.3)-cur[1]),1.06);
-       ctx.fillStyle='rgba(10,19,48,.0)';return}
-     lacquerDisc(ctx); const chars=[...cur[0]]; const size=chars.length>1?250:340, w=size*chars.length, x0=C-w/2, y0=chars.length>1?190:150;
-     chars.forEach((c,i)=>drawChar(ctx,c,x0+i*size,y0,size,(k-.1-i*.9)/1.2,'#F2D48A',{glow:'rgba(255,214,120,.5)',blur:26}));
-     if(cur[2]){ctx.save();ctx.globalAlpha=eo((k-1.2)/.5);ctx.textAlign='center';ctx.fillStyle='#F7E7BE';ctx.font='700 40px "Noto Serif SC"';ctx.fillText(cur[2],C,600);
-       ctx.font='italic 500 30px Newsreader';ctx.fillStyle='rgba(247,231,190,.8)';ctx.fillText(cur[3],C,640);ctx.restore()}},
+     const draw=async(g,i)=>{ // i=-1: Great Wall intro, else marks[i]
+       if(i<0){await clip(g,'wall',150,1,(t-s.start)/(marks[0][1]-s.start),1.1);return}
+       const cur=marks[i], k=t-cur[1];
+       if(cur[0]==='明'){await clip(g,'wall',300,454,k/((cue('l13','官')-.3)-cur[1]),1.06);return}
+       heritageMark(g,cur,k)};
+     let i=-1; marks.forEach((m,j)=>{if(t>=m[1])i=j});
+     const since=i<0?1e9:t-marks[i][1], X=.6;
+     if(i>=0&&since<X){await draw(ctx,i-1); const o=layer(); await draw(o.g,i); ctx.globalAlpha=eio(since/X); ctx.drawImage(o.c,0,0); ctx.globalAlpha=1}
+     else await draw(ctx,i)},
    update(t){document.querySelectorAll('.tli').forEach(e=>{const on=+e.dataset.on,k=eo((t-on)/.5);e.style.opacity=lerp(.32,1,k);e.classList.toggle('on',t>=on);
      e.querySelector('.c').style.transform=`scale(${1+.18*Math.max(0,1-Math.abs(t-on-.3)/.6)})`})}},
  tones:{nv:0,cta:1,tag:()=>'DAY 01',
@@ -360,13 +378,16 @@ const SC={
      [`<div class="bd" style="font-size:15px">See the picture first, then the strokes. That is how the memory sticks.</div>`,cue('l27','See')]],
    async lens(ctx,t,s){paperDisc(ctx); practiceGrid(ctx,150,150,420,'rgba(200,55,45,.35)');
      const it=[['人','l24','人'],['口','l25','口'],['木','l25','木'],['林','l25','林'],['日','l27','日']].map(([c,l,k])=>[c,cue(l,k)-.15]);
+     const item=(g,i)=>{ if(i<0){g.save();g.globalAlpha=.9;pict(g,'人',1);g.restore();return}
+       const [c,a]=it[i], k=t-a, nxt=it[i+1]?it[i+1][1]:1e9, dur=Math.min(nxt-a,2.4);
+       g.save();g.globalAlpha=1-eo(k/(dur*.45));pict(g,c,1);g.restore();
+       drawChar(g,c,170,170,380,(k-.15)/(dur*.75),'#13215a');
+       g.save();g.globalAlpha=eo((k-dur*.5)/.4);g.textAlign='center';g.font='italic 500 46px Newsreader';g.fillStyle='#C8372D';
+       g.fillText({人:'rén',口:'kǒu',木:'mù',林:'lín',日:'rì'}[c],C,628);g.restore()};
      let i=-1; it.forEach((x,j)=>{if(t>=x[1])i=j});
-     if(i<0){ctx.save();ctx.globalAlpha=.9;pict(ctx,'人',1);ctx.restore();return}
-     const [c,a]=it[i], k=t-a, nxt=it[i+1]?it[i+1][1]:1e9, dur=Math.min(nxt-a,2.4);
-     ctx.save();ctx.globalAlpha=1-eo(k/(dur*.45));pict(ctx,c,1);ctx.restore();
-     drawChar(ctx,c,170,170,380,(k-.15)/(dur*.75),'#13215a');
-     ctx.save();ctx.globalAlpha=eo((k-dur*.5)/.4);ctx.textAlign='center';ctx.font='italic 500 46px Newsreader';ctx.fillStyle='#C8372D';
-     ctx.fillText({人:'rén',口:'kǒu',木:'mù',林:'lín',日:'rì'}[c],C,628);ctx.restore()},
+     const since=i<0?1e9:t-it[i][1], X=.35;
+     if(i>0&&since<X){const a=layer(),b=layer(); item(a.g,i-1); item(b.g,i); ctx.globalAlpha=1-eio(since/X); ctx.drawImage(a.c,0,0); ctx.globalAlpha=eio(since/X); ctx.drawImage(b.c,0,0); ctx.globalAlpha=1}
+     else item(ctx,i)},
    update(t){document.querySelectorAll('.tile').forEach(e=>{const a=+e.dataset.at,k=eo((t-a)/.4);e.style.opacity=lerp(.28,1,k);
      const pulse=Math.max(0,1-Math.abs(t-a-.3)/.8);e.style.transform=`translateY(${-6*pulse}px)`;e.style.boxShadow=pulse>0?`0 0 0 ${3*pulse}px rgba(200,55,45,.5)`:''})}},
  class:{nv:0,cta:1,tag:()=>'DAY 05',
@@ -403,6 +424,11 @@ const SC={
    async lens(ctx,t,s){ctx.fillStyle='#fff';ctx.fillRect(0,0,S,S);await photo(ctx,'../assets/crest.jpg',(t-s.start)/(s.end-s.start),.92,1.0)}},
 };
 
+
+function heritageMark(g,cur,k){lacquerDisc(g); const chars=[...cur[0]]; const size=chars.length>1?250:340, w=size*chars.length, x0=C-w/2, y0=chars.length>1?190:150;
+     chars.forEach((c,i)=>drawChar(g,c,x0+i*size,y0,size,(k-.1-i*.9)/1.2,'#F2D48A',{glow:'rgba(255,214,120,.5)',blur:26}));
+     if(cur[2]){g.save();g.globalAlpha=eo((k-1.2)/.5);g.textAlign='center';g.fillStyle='#F7E7BE';g.font='700 40px "Noto Serif SC"';g.fillText(cur[2],C,600);
+       g.font='italic 500 30px Newsreader';g.fillStyle='rgba(247,231,190,.8)';g.fillText(cur[3],C,640);g.restore()}}
 /* stylised learner face (Tendai) with pointers */
 function drawFace(ctx,t){
   const g=ctx.createLinearGradient(0,0,0,S);g.addColorStop(0,'#F4ECDD');g.addColorStop(1,'#E8DCC6');ctx.fillStyle=g;ctx.fillRect(0,0,S,S);
@@ -452,7 +478,7 @@ function pict(ctx,c,a){ctx.save();ctx.strokeStyle='#8a6a1c';ctx.lineWidth=16;ctx
 /* ---------- build copy layers ---------- */
 const ORDER=TL.scenes.map(s=>s.id);
 ORDER.forEach(id=>{const s=SCN[id],d=SC[id]; const div=document.createElement('div'); div.className='copy'+(d.nv?' nv':''); div.id='c_'+id;
-  if(d.top) div.style.top=d.top+'px';
+  if(d.top&&!PORTRAIT) div.style.top=d.top+'px';
   const items=d.copy(); div.innerHTML=items.map(x=>x[0]).join(''); [...div.children].forEach((el,i)=>{el.dataset.in=items[i][1]??(s.start+.35+i*.16)});
   div.style.opacity=0; $('#copies').appendChild(div)});
 
@@ -475,7 +501,7 @@ window.renderAt=async function(t){
   drawBg(t,nv);
   $('#ring').style.transform=`rotate(${t*3}deg)`;
   // dial entrance on open
-  const o=SCN.open; const dk=eo((t-o.start-.1)/1.4); $('#dial').style.transform=`scale(${lerp(.86,1,dk)})`; $('#dial').style.opacity=dk;
+  const o=SCN.open; const dk=eo((t-o.start-.1)/1.4); $('#dial').style.transform=`scale(${DS*lerp(.86,1,dk)})`; $('#dial').style.opacity=dk;
   // copy layers
   for(const id of ORDER){const el=$('#c_'+id),w=W[id]; el.style.opacity=w; el.style.visibility=w>0?'visible':'hidden'; if(w<=0) continue;
     for(const c of el.children){const k=eo((t-c.dataset.in)/.7); c.style.opacity=k; c.style.translate=`0 ${(1-k)*16}px`}
@@ -485,9 +511,10 @@ window.renderAt=async function(t){
   const vis=ORDER.filter(id=>W[id]>0).sort((a,b)=>W[a]-W[b]);
   // draw outgoing fully, incoming on top with its weight
   const main=vis.reduce((a,b)=>W[b]>=(W[a]??-1)?b:a,vis[0]);
+  let acc=0;
   for(const id of [...vis].sort((a,b)=>SCN[a].start-SCN[b].start)){
-    const off=document.createElement('canvas'); off.width=off.height=S; const oc=off.getContext('2d');
-    await SC[id].lens(oc,t,SCN[id]); ctx.globalAlpha=id===vis.sort((a,b)=>SCN[a].start-SCN[b].start)[0]?1:W[id]; ctx.drawImage(off,0,0); ctx.globalAlpha=1}
+    const o=layer(); await SC[id].lens(o.g,t,SCN[id]); acc+=W[id];
+    ctx.globalAlpha=acc>0?W[id]/acc:1; ctx.drawImage(o.c,0,0); ctx.globalAlpha=1}
   // tag
   const tg=$('#tag'); tg.textContent=SC[main].tag(t); tg.classList.toggle('red',!!SC[main].red);
   // CTA

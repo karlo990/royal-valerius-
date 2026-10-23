@@ -1,0 +1,374 @@
+<title>Exploded BIM House</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an architect's presentation board. The exploded model fills a tall drafting-paper stage;
+   a rail on the right lists the five layers and shows the BIM data for the one you pick. */
+:root{
+  --page:#E9ECEF; --panel:#FFFFFF; --ink:#13215A; --text:#2A3042; --muted:#626A7E; --line:#D7DBE2; --chip:#EFF1F5;
+  --gold:#B8901F; --accent:#13215A; --onaccent:#FFFFFF; --hot:#D9473C; --cold:#3F8FD0;
+  --f-display:"Newsreader",Georgia,serif; --f-ui:"Plus Jakarta Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --page:#0B1124; --panel:#121A33; --ink:#E9ECF6; --text:#D3D8E8; --muted:#9AA3BD; --line:#24304F; --chip:#18223F;
+  --gold:#E2C26A; --accent:#E2C26A; --onaccent:#0B1124; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --page:#0B1124; --panel:#121A33; --ink:#E9ECF6; --text:#D3D8E8; --muted:#9AA3BD; --line:#24304F; --chip:#18223F;
+  --gold:#E2C26A; --accent:#E2C26A; --onaccent:#0B1124; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--text);font-family:var(--f-ui);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1240px;margin:0 auto;padding-block:26px 44px;display:grid;gap:18px}
+header{display:grid;gap:6px}
+.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+h1{margin:0;font:400 clamp(1.9rem,4.2vw,3rem)/1.05 var(--f-display);color:var(--ink);letter-spacing:-.01em;text-wrap:balance}
+h1 em{color:var(--gold)}
+.board{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:start}
+@media (max-width:900px){.board{grid-template-columns:1fr}}
+.stage{position:relative;width:100%;max-width:100%;aspect-ratio:4/5;max-height:88vh;border-radius:6px;overflow:hidden;background:#EDEFF2;
+  border:1px solid var(--line);touch-action:none;cursor:grab;justify-self:center}
+@media (max-width:900px){.stage{aspect-ratio:3/4}}
+.stage:active{cursor:grabbing}
+.stage canvas{display:block;width:100%;height:100%}
+.tags{position:absolute;inset:0;pointer-events:none}
+.tag{position:absolute;transform:translate(-100%,-50%);display:flex;align-items:center;gap:8px;pointer-events:auto;cursor:pointer;
+  background:rgba(255,255,255,.88);border:1px solid #CBD1DA;border-radius:999px;padding:4px 10px 4px 5px;color:#13215A;font:700 12px var(--f-ui);
+  white-space:nowrap;box-shadow:0 6px 16px -10px rgba(19,33,90,.5);transition:opacity .25s}
+.tag i{font:500 11px var(--f-mono);font-style:normal;background:#13215A;color:#fff;border-radius:999px;padding:2px 7px}
+.tag.on{background:#13215A;color:#fff;border-color:#13215A}.tag.on i{background:#B8901F}
+.tag::after{content:"";position:absolute;left:100%;top:50%;width:28px;height:1px;background:#8C94A6}
+.step{position:absolute;left:14px;top:12px;font:600 12px var(--f-mono);color:#13215A;background:rgba(255,255,255,.9);border-radius:6px;padding:6px 10px;pointer-events:none}
+.hint{position:absolute;right:12px;bottom:10px;font:500 11px var(--f-mono);color:#6B7385;pointer-events:none}
+.rail{display:grid;gap:16px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:10px;min-width:0}
+.card > b{font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.layers{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.layers button{width:100%;display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid transparent;
+  background:transparent;border-radius:8px;padding:7px 8px;color:var(--text);font:600 .9rem var(--f-ui);cursor:pointer}
+.layers button:hover{background:var(--chip)}
+.layers button[aria-pressed="true"]{background:var(--chip);border-color:var(--line)}
+.layers .n{font:500 .78rem var(--f-mono);color:var(--muted)}
+.layers small{font:500 .72rem var(--f-mono);color:var(--muted)}
+.btns{display:flex;flex-wrap:wrap;gap:6px}
+.btn{font:700 .82rem var(--f-ui);border-radius:999px;padding:8px 13px;border:1px solid var(--line);background:var(--chip);color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--onaccent);border-color:var(--accent)}
+.btn[aria-pressed="true"]{background:var(--accent);color:var(--onaccent);border-color:var(--accent)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.slider{display:grid;gap:3px}
+.slider label{display:flex;justify-content:space-between;font-size:.84rem;font-weight:600;color:var(--ink)}
+.slider output{font:500 .8rem var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.props{display:grid;gap:0;margin:0}
+.props div{display:grid;grid-template-columns:112px 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:.86rem}
+.props div:first-child{border-top:0}
+.props dt{color:var(--muted);font-weight:600}
+.props dd{margin:0;color:var(--ink);font-variant-numeric:tabular-nums;min-width:0;overflow-wrap:anywhere}
+.props code{font:500 .8rem var(--f-mono)}
+.note{font-size:.84rem;color:var(--muted);margin:0;max-width:68ch}
+.err{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:#13215A;font-size:.95rem}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Technical Graphics · Building Information Modelling</div>
+    <h1>One building, <em>five layers of information</em></h1>
+  </header>
+
+  <div class="board">
+    <div class="stage" id="stage" aria-label="Exploded 3D model of a two-storey house. Drag to turn it.">
+      <canvas id="cv"></canvas>
+      <div class="tags" id="tags"></div>
+      <div class="step" id="step" hidden></div>
+      <div class="hint">drag to turn · scroll or pinch to zoom</div>
+    </div>
+
+    <div class="rail">
+      <div class="card"><b>Layers</b>
+        <ul class="layers" id="layers"></ul>
+      </div>
+      <div class="card"><b>Model</b>
+        <div class="slider"><label for="explode">Explode <output id="explodeOut">100%</output></label>
+          <input type="range" id="explode" min="0" max="100" value="100"></div>
+        <div class="slider"><label for="section">Section cut <output id="sectionOut">off</output></label>
+          <input type="range" id="section" min="0" max="100" value="0"></div>
+        <div class="btns">
+          <button class="btn primary" id="build">Build it, layer by layer</button>
+          <button class="btn" id="spin" aria-pressed="true">Turntable</button>
+          <button class="btn" id="lines" aria-pressed="true">Linework</button>
+        </div>
+      </div>
+      <div class="card" id="bim"><b>BIM data</b>
+        <dl class="props" id="props"></dl>
+      </div>
+      <p class="note">Every element in this model carries information as well as shape: its IFC class (the open standard BIM software uses to share models), its material and its size. The quantities above are calculated from the model itself, the way a quantity surveyor takes off a real BIM model.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(()=>{
+const stage=document.getElementById('stage'), cv=document.getElementById('cv'), $=id=>document.getElementById(id);
+if(!window.THREE){stage.insertAdjacentHTML('beforeend','<div class="err">The 3D library did not load. Check your connection and reload the page.</div>');return}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- renderer, scene, camera ---------- */
+const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,preserveDrawingBuffer:true});
+renderer.outputEncoding=THREE.sRGBEncoding; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=0.84;
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap; renderer.localClippingEnabled=true;
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0xEDEFF2);
+const camera=new THREE.PerspectiveCamera(30,1,0.5,900);
+scene.add(new THREE.HemisphereLight(0xF4F6FA,0x9AA2B0,0.42));
+const sun=new THREE.DirectionalLight(0xFFF6E8,2.1); sun.position.set(22,40,18); sun.castShadow=true;
+sun.shadow.mapSize.set(2048,2048); Object.assign(sun.shadow.camera,{left:-22,right:22,top:30,bottom:-22,near:1,far:120}); sun.shadow.bias=-0.0004; sun.shadow.radius=4;
+scene.add(sun); scene.add(new THREE.AmbientLight(0xffffff,0.08));
+const fill=new THREE.DirectionalLight(0xDDE6F5,0.35);fill.position.set(-20,12,-14);scene.add(fill);
+
+/* ---------- drafting-paper backdrop: faint plans drawn on a curved sheet ---------- */
+function paperTexture(seed,w,h,dense){
+  const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');let s=seed;const r=()=>(s=(s*16807)%2147483647)/2147483647;
+  g.fillStyle='#EEF0F3';g.fillRect(0,0,w,h);
+  g.strokeStyle='rgba(120,128,145,.22)';g.lineWidth=1;
+  for(let k=0;k<dense;k++){ // little floor plans
+    const x=r()*w,y=r()*h,W=60+r()*220,H=40+r()*140; g.strokeRect(x,y,W,H);
+    const n=2+Math.floor(r()*5); for(let i=0;i<n;i++){ if(r()<.5){const xx=x+r()*W;g.beginPath();g.moveTo(xx,y);g.lineTo(xx,y+H*(.4+r()*.6));g.stroke()} else {const yy=y+r()*H;g.beginPath();g.moveTo(x,yy);g.lineTo(x+W*(.4+r()*.6),yy);g.stroke()} }
+    if(r()<.4){g.beginPath();g.arc(x+W*.2,y+H*.3,10+r()*14,0,Math.PI/2);g.stroke()}
+    g.fillStyle='rgba(120,128,145,.25)';for(let i=0;i<3;i++)g.fillRect(x+r()*W,y-6,30+r()*40,1.5)
+  }
+  const t=new THREE.CanvasTexture(c); t.encoding=THREE.sRGBEncoding; t.anisotropy=4; return t}
+const back=new THREE.Mesh(new THREE.CylinderGeometry(190,190,260,96,1,true),
+  new THREE.MeshBasicMaterial({map:paperTexture(11,4096,1024,520),side:THREE.BackSide,toneMapped:false}));
+back.position.y=110; scene.add(back);
+const floorTex=paperTexture(29,2048,2048,260); const floor=new THREE.Mesh(new THREE.CircleGeometry(190,96),new THREE.MeshStandardMaterial({map:floorTex,roughness:1}));
+floor.rotation.x=-Math.PI/2; floor.position.y=-0.01; floor.receiveShadow=true; scene.add(floor);
+const ring=new THREE.Mesh(new THREE.RingGeometry(17.6,17.7,96),new THREE.MeshBasicMaterial({color:0xB9BFCB}));ring.rotation.x=-Math.PI/2;ring.position.y=0.005;scene.add(ring);
+
+/* ---------- materials (cloned per layer so one layer can be highlighted on its own) ---------- */
+const BASE={
+  concrete:{color:0xAEAEA8,roughness:.9}, concreteDark:{color:0x8E8F8A,roughness:.95}, stone:{color:0xC2BBAD,roughness:.95},
+  plaster:{color:0xDDD8CE,roughness:.9}, timber:{color:0xC28F5E,roughness:.65}, timberDark:{color:0x8A5D38,roughness:.6},
+  glass:{color:0xA9C3D6,roughness:.08,metalness:.1,transparent:true,opacity:.42}, lawn:{color:0x7EA35B,roughness:1},
+  hedge:{color:0x55813F,roughness:1}, hedge2:{color:0x6C9A49,roughness:1}, soil:{color:0x7A6550,roughness:1},
+  steel:{color:0xC3CAD0,roughness:.32,metalness:.65}, rack:{color:0x8E959C,roughness:.5,metalness:.5},
+  hot:{color:0xD9473C,roughness:.45,metalness:.2}, cold:{color:0x3F8FD0,roughness:.45,metalness:.2}, drain:{color:0x1FB0C4,roughness:.45,metalness:.2},
+  sofa:{color:0x6B707A,roughness:.9}, fabric:{color:0xE7E2D8,roughness:1}, white:{color:0xF6F6F3,roughness:.5}, worktop:{color:0x3B3E45,roughness:.4},
+  rug:{color:0xB9AE98,roughness:1}, car:{color:0x1E2431,roughness:.3,metalness:.6}, tyre:{color:0x1A1A1A,roughness:.9}, lamp:{color:0xFFE2A8,emissive:0xFFC266,emissiveIntensity:1.4},
+  dark:{color:0x3A3D44,roughness:.6}
+};
+const edgeMat=new THREE.LineBasicMaterial({color:0x3A404C,transparent:true,opacity:.5});
+
+/* ---------- layers ---------- */
+const LAYERS=[
+  {id:'site', n:'01', name:'Site & ground floor', ifcName:'IfcSite · ground storey', y0:0},
+  {id:'living', n:'02', name:'Living level', ifcName:'IfcBuildingStorey 1', y0:3.3},
+  {id:'slab', n:'03', name:'First-floor slab', ifcName:'IfcBuildingStorey 2', y0:5.15},
+  {id:'roof', n:'04', name:'Roof structure', ifcName:'IfcRoof frame', y0:6.15},
+  {id:'mep', n:'05', name:'Services (MEP)', ifcName:'IfcDistributionSystem', y0:9.15},
+];
+const GAP=[0,4.2,7.6,11.6,16.6]; // extra lift for each layer when fully exploded
+LAYERS.forEach(L=>{L.group=new THREE.Group();L.mats={};L.items=[];scene.add(L.group)});
+const mat=(L,k)=>L.mats[k]||(L.mats[k]=new THREE.MeshStandardMaterial(BASE[k]));
+function add(L,geo,k,x,y,z,info){const m=new THREE.Mesh(geo,mat(L,k));m.position.set(x,y,z);m.castShadow=k!=='glass';m.receiveShadow=true;
+  const e=new THREE.LineSegments(new THREE.EdgesGeometry(geo,28),edgeMat);e.userData.edge=true;m.add(e);
+  L.group.add(m);if(info)L.items.push(info);return m}
+// box positioned by its base (y = bottom)
+function box(L,w,h,d,k,x,y,z,ifc,label){const vol=w*h*d;return add(L,new THREE.BoxGeometry(w,h,d),k,x,y+h/2,z,ifc?{ifc,mat:label||k,vol:(k.startsWith('concrete')?vol:0),area:(ifc==='IfcSlab'?w*d:0)}:null)}
+function cyl(L,r,h,k,x,y,z,ifc,seg){return add(L,new THREE.CylinderGeometry(r,r,h,seg||20),k,x,y+h/2,z,ifc?{ifc,mat:k}:null)}
+function ball(L,r,k,x,y,z){return add(L,new THREE.SphereGeometry(r,16,12),k,x,y,z)}
+function pipe(L,pts,r,k,ifc){const path=new THREE.CurvePath();for(let i=1;i<pts.length;i++)path.add(new THREE.LineCurve3(new THREE.Vector3(...pts[i-1]),new THREE.Vector3(...pts[i])));
+  let len=0;for(let i=1;i<pts.length;i++)len+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1],pts[i][2]-pts[i-1][2]);
+  const m=add(L,new THREE.TubeGeometry(path,pts.length*24,r,12,false),k,0,0,0,{ifc,mat:k,len});
+  for(const p of pts.slice(1,-1)) add(L,new THREE.SphereGeometry(r*1.04,12,10),k,p[0],p[1],p[2]); return m}
+const W=12, D=9; // building footprint (m): x -6..6, z -4.5..4.5
+function wall(L,x1,z1,x2,z2,h,k,y,t){const len=Math.hypot(x2-x1,z2-z1),m=box(L,len,h,t||0.25,k||'plaster',(x1+x2)/2,y||0,(z1+z2)/2,'IfcWall','Blockwork, plastered');
+  m.rotation.y=-Math.atan2(z2-z1,x2-x1);return m}
+
+// 01 Site & ground floor
+(L=>{const P=L.group;
+  box(L,17,0.4,14,'stone',0,0,0.6,'IfcSlab','Stone plinth');
+  box(L,4.6,0.08,3.2,'lawn',5.6,0.4,5.4); box(L,3.2,0.08,6.5,'lawn',-7.2,0.4,1.2);
+  for(let i=0;i<9;i++){ball(L,0.55+0.15*Math.sin(i*2.1),i%2?'hedge':'hedge2',-7.8+i*0.1,0.85,-4.6+i*1.25)}
+  for(let i=0;i<10;i++){ball(L,0.5+0.12*Math.cos(i*1.7),i%2?'hedge2':'hedge',-6+i*1.5,0.82,-5.6)}
+  for(let i=0;i<7;i++){ball(L,0.45,i%2?'hedge':'hedge2',3.8+i*0.75,0.75,7.0)}
+  for(let i=0;i<4;i++){ball(L,0.4,'hedge',7.9,0.75,2.4+i*1.2)}
+  box(L,2.2,0.05,6.5,'concreteDark',1.6,0.4,4.1);                                       // path
+  for(const [x,z] of [[0.3,5.6],[2.9,5.6],[0.3,7.0],[2.9,7.0]]){cyl(L,0.05,0.7,'dark',x,0.4,z);ball(L,0.11,'lamp',x,1.18,z)}
+  // garage (front-left) with the car
+  box(L,5.4,0.12,6,'concreteDark',-3.4,0.4,1.6,'IfcSlab','Concrete C25/30');
+  wall(L,-6,-1.4,-0.7,-1.4,2.6,'concrete',0.4); wall(L,-6,-1.4,-6,4.6,2.6,'concrete',0.4);
+  box(L,5.8,0.32,6.4,'concrete',-3.3,3.0,1.7,'IfcSlab','Concrete C25/30');
+  for(const z of [4.4]) for(const x of [-0.8]) box(L,0.35,2.6,0.35,'concrete',x,0.4,z,'IfcColumn','Concrete C25/30');
+  const car=new THREE.Group();P.add(car);car.position.set(-3.4,0.52,1.9);
+  const cb=new THREE.Mesh(new THREE.BoxGeometry(1.8,0.55,4.2),mat(L,'car'));cb.position.y=0.45;cb.castShadow=true;car.add(cb);
+  const cc=new THREE.Mesh(new THREE.BoxGeometry(1.55,0.5,2.2),mat(L,'car'));cc.position.set(0,0.95,-0.2);cc.castShadow=true;car.add(cc);
+  const gl=new THREE.Mesh(new THREE.BoxGeometry(1.58,0.36,2.0),mat(L,'glass'));gl.position.set(0,0.98,-0.2);car.add(gl);
+  for(const [x,z] of [[-0.85,1.3],[0.85,1.3],[-0.85,-1.3],[0.85,-1.3]]){const w=new THREE.Mesh(new THREE.CylinderGeometry(0.33,0.33,0.22,18),mat(L,'tyre'));w.rotation.z=Math.PI/2;w.position.set(x,0.33,z);car.add(w)}
+  // bicycle
+  for(const z of [5.3,6.3]){const t=new THREE.Mesh(new THREE.TorusGeometry(0.32,0.03,8,24),mat(L,'dark'));t.position.set(-0.3,0.74,z);t.rotation.y=Math.PI/2;P.add(t)}
+  // ground-floor rooms (back-right)
+  box(L,6.4,0.15,6,'concreteDark',2.9,0.4,-1.6,'IfcSlab','Concrete C25/30');
+  wall(L,-0.3,-4.5,6,-4.5,2.6,'plaster',0.55); wall(L,6,-4.5,6,1.4,2.6,'plaster',0.55); wall(L,-0.3,-4.5,-0.3,1.4,2.6,'plaster',0.55);
+  wall(L,-0.3,1.4,2.2,1.4,2.6,'plaster',0.55); wall(L,4.4,1.4,6,1.4,2.6,'plaster',0.55);
+  box(L,2.0,2.2,0.06,'glass',3.3,0.55,1.4);                                               // glazed door
+  box(L,0.35,2.6,0.35,'concrete',6,0.55,4.4,'IfcColumn','Concrete C25/30'); box(L,0.35,2.6,0.35,'concrete',2.6,0.55,4.4,'IfcColumn','Concrete C25/30');
+  box(L,6.6,0.3,3.4,'concrete',2.9,3.0,2.9,'IfcSlab','Concrete C25/30');                // terrace over the porch
+  box(L,3.0,1.0,0.2,'plaster',4.4,3.3,4.5); box(L,0.2,1.0,3.4,'plaster',6.0,3.3,2.9);   // terrace parapet
+  // external stair up to the terrace
+  for(let i=0;i<10;i++) box(L,1.6,0.27,0.34,'stone',0.9,0.4+i*0.27,7.1-i*0.34,i===0?'IfcStair':null,'Precast concrete');
+  box(L,0.12,1.0,3.6,'plaster',0.05,0.4,5.4);
+})(LAYERS[0]);
+
+// 02 Living level: slab, cut walls, furniture
+(L=>{
+  box(L,W+0.4,0.3,D+0.4,'concrete',0,0,0,'IfcSlab','Concrete C25/30'); box(L,W-0.4,0.05,D-0.4,'timber',0,0.3,0);
+  const h=1.45,y=0.3;
+  wall(L,-6,-4.5,6,-4.5,h,'plaster',y); wall(L,-6,-4.5,-6,4.5,h,'plaster',y); wall(L,6,-4.5,6,0.8,h,'plaster',y);
+  wall(L,-6,4.5,-2.6,4.5,0.9,'plaster',y); box(L,8.4,0.9,0.05,'glass',1.6,y,4.5);           // glazed front
+  wall(L,1.6,-4.5,1.6,-0.6,h,'plaster',y); wall(L,1.6,-0.6,3.0,-0.6,h,'plaster',y); wall(L,3.6,-1.8,6,-1.8,h,'plaster',y); wall(L,3.6,-1.8,3.6,-0.6,h,'plaster',y);
+  // lounge
+  box(L,3.2,0.02,2.4,'rug',-3.4,0.35,1.7); box(L,2.6,0.42,0.9,'sofa',-3.6,0.35,3.3,'IfcFurniture','Upholstery'); box(L,2.6,0.45,0.22,'sofa',-3.6,0.77,3.68);
+  box(L,0.9,0.42,1.6,'sofa',-4.9,0.35,2.1); box(L,1.1,0.32,0.6,'timberDark',-3.5,0.35,1.6,'IfcFurniture','Timber');
+  // dining
+  box(L,1.9,0.06,1.0,'timber',-0.6,1.05,1.2,'IfcFurniture','Timber'); for(const [x,z] of [[-1.4,0.8],[0.2,0.8],[-1.4,1.6],[0.2,1.6]]) box(L,0.06,0.72,0.06,'timberDark',x,0.35,z);
+  for(const [x,z] of [[-1.1,0.3],[-0.1,0.3],[-1.1,2.1],[-0.1,2.1]]){box(L,0.46,0.06,0.46,'dark',x,0.78,z);box(L,0.46,0.5,0.05,'dark',x,0.84,z+(z<1?-0.2:0.2))}
+  // kitchen
+  box(L,3.0,0.9,0.65,'white',-2.6,0.35,-4.0,'IfcFurniture','Kitchen units'); box(L,3.0,0.05,0.68,'worktop',-2.6,1.25,-4.0);
+  box(L,2.2,0.9,0.9,'white',-2.6,0.35,-2.2,'IfcFurniture','Kitchen island'); box(L,2.3,0.05,0.95,'worktop',-2.6,1.25,-2.2);
+  // bedroom + bath
+  box(L,1.7,0.45,2.1,'fabric',4.6,0.35,-0.1,'IfcFurniture','Bed'); box(L,1.7,0.7,0.12,'timberDark',4.6,0.35,0.98); box(L,1.5,0.12,0.4,'white',4.6,0.8,0.7);
+  box(L,1.7,0.55,0.8,'white',4.6,0.35,-4.0,'IfcSanitaryTerminal','Acrylic bath'); box(L,0.9,0.85,0.5,'white',2.4,0.35,-4.1,'IfcSanitaryTerminal','Vanity');
+  // plants
+  for(const [x,z] of [[-5.4,4.0],[1.0,-4.0],[5.5,3.9]]){cyl(L,0.22,0.45,'dark',x,0.35,z);ball(L,0.42,'hedge2',x,1.1,z)}
+  // internal stair
+  for(let i=0;i<7;i++) box(L,1.0,0.22,0.3,'concrete',0.5,0.35+i*0.22,-3.9+i*0.3,i===0?'IfcStair':null,'Concrete C25/30');
+})(LAYERS[1]);
+
+// 03 First-floor slab with wall bases and stair opening
+(L=>{
+  box(L,W+0.4,0.28,D+0.4,'concrete',0,0,0,'IfcSlab','Concrete C25/30');
+  const y=0.28,h=0.6;
+  wall(L,-6,-4.5,6,-4.5,h,'concrete',y);wall(L,-6,4.5,6,4.5,h,'concrete',y);wall(L,-6,-4.5,-6,4.5,h,'concrete',y);wall(L,6,-4.5,6,4.5,h,'concrete',y);
+  wall(L,-1,-4.5,-1,4.5,h,'concrete',y);wall(L,-6,0,-1,0,h,'concrete',y);wall(L,-1,1.2,6,1.2,h,'concrete',y);wall(L,2.6,-4.5,2.6,1.2,h,'concrete',y);
+  wall(L,-3.6,0,-3.6,4.5,h,'concrete',y);
+  box(L,1.2,0.3,3.0,'dark',0.4,0.0,-2.6);                                                  // stair opening (void)
+  for(let i=0;i<6;i++) box(L,1.0,0.2,0.36,'concreteDark',-4.6,y+i*0.2,-3.8+i*0.36,i===0?'IfcStair':null,'Concrete C25/30');
+})(LAYERS[2]);
+
+// 04 Roof structure: slab, columns and a beam grid
+(L=>{
+  box(L,W+0.4,0.3,D+0.4,'concrete',0,0,0,'IfcSlab','Concrete C25/30');
+  const H=2.5;
+  for(const x of [-6,-2,2,6]) for(const z of [-4.5,0,4.5]) box(L,0.4,H,0.4,'concrete',x,0.3,z,'IfcColumn','Concrete C25/30');
+  for(const z of [-4.5,0,4.5]) box(L,W+0.4,0.45,0.35,'concrete',0,0.3+H,z,'IfcBeam','Concrete C25/30');
+  for(const x of [-6,-2,2,6]) box(L,0.35,0.45,D+0.4,'concrete',x,0.3+H,0,'IfcBeam','Concrete C25/30');
+  for(const z of [-2.25,2.25]) box(L,W+0.4,0.3,0.25,'concreteDark',0,0.45+H,z,'IfcBeam','Concrete C25/30');
+})(LAYERS[3]);
+
+// 05 Services: duct run, hot/cold/waste pipework on a steel rack
+(L=>{
+  const y=0.4, rk=0.05;
+  for(const [x1,z1,x2,z2] of [[-6,-3.6,6,-3.6],[-6,3.6,6,3.6],[-6,-3.6,-6,3.6],[6,-3.6,6,3.6],[0,-3.6,0,3.6]]) pipe(L,[[x1,y,z1],[x2,y,z2]],rk,'rack','IfcMember');
+  for(const [x,z] of [[-6,-3.6],[6,-3.6],[-6,3.6],[6,3.6],[0,-3.6],[0,3.6]]) box(L,0.08,1.0,0.08,'rack',x,y-1.0,z);
+  pipe(L,[[-4.6,y+0.7,0.6],[2.6,y+0.7,0.6],[2.6,y+0.7,-1.6],[4.4,y+0.7,-1.6]],0.48,'steel','IfcDuctSegment');
+  pipe(L,[[2.6,y+0.7,0.6],[2.6,y+1.9,0.6]],0.42,'steel','IfcDuctSegment'); pipe(L,[[-4.6,y+0.7,0.6],[-4.6,y+0.7,-2.2],[-2.4,y+0.7,-2.2]],0.36,'steel','IfcDuctSegment');
+  cyl(L,0.3,1.6,'drain',4.6,y,2.2,'IfcPipeSegment'); cyl(L,0.22,1.4,'drain',5.2,y,2.2,'IfcPipeSegment');
+  pipe(L,[[-6.6,y+0.15,3.9],[5.6,y+0.15,3.9],[5.6,y+0.15,-3.9],[-5.0,y+0.15,-3.9]],0.09,'hot','IfcPipeSegment');
+  pipe(L,[[-6.9,y+0.15,3.3],[6.6,y+0.15,3.3],[6.6,y+0.15,-3.3],[-4.0,y+0.15,-3.3]],0.09,'cold','IfcPipeSegment');
+  pipe(L,[[-7.4,y+0.02,4.4],[7.6,y+0.02,4.4]],0.11,'drain','IfcPipeSegment');
+  for(const x of [-3,1.2,4.2]) pipe(L,[[x,y+0.15,3.9],[x,y+0.15,1.8]],0.06,'hot','IfcPipeSegment');
+  for(const x of [-2.2,2.0]) pipe(L,[[x,y+0.15,-3.3],[x,y+0.15,-1.2]],0.06,'cold','IfcPipeSegment');
+})(LAYERS[4]);
+
+/* ---------- BIM quantities per layer ---------- */
+LAYERS.forEach(L=>{const cls={};let vol=0,area=0,len=0;for(const it of L.items){cls[it.ifc]=(cls[it.ifc]||0)+1;vol+=it.vol||0;area+=it.area||0;len+=it.len||0}L.q={cls,vol,area,len}});
+const DESC={site:'Stone plinth, garage, porch terrace, external stair and planting.',living:'Open-plan lounge, dining and kitchen with a bedroom and bathroom. Walls are shown cut at 1.45 m, as on a floor plan.',
+  slab:'Suspended slab with the wall bases set out and the stair opening left.',roof:'Concrete frame: columns, main beams and secondary beams that carry the roof.',mep:'Mechanical, electrical and plumbing: ventilation ducts, hot and cold water, and waste pipes on a steel rack.'};
+
+/* ---------- UI: layer list, tags, BIM panel ---------- */
+let sel=-1;
+const list=$('layers'), tags=$('tags');
+LAYERS.slice().reverse().forEach(L=>{
+  const i=LAYERS.indexOf(L);
+  list.insertAdjacentHTML('beforeend',`<li><button data-i="${i}" aria-pressed="false" id="layer-${L.id}"><span class="n">${L.n}</span><span>${L.name}</span><small>${L.items.length} el.</small></button></li>`);
+  tags.insertAdjacentHTML('beforeend',`<div class="tag" data-i="${i}"><i>${L.n}</i>${L.name}</div>`);
+});
+list.addEventListener('click',e=>{const b=e.target.closest('button');if(b)select(+b.dataset.i)});
+tags.addEventListener('click',e=>{const t=e.target.closest('.tag');if(t)select(+t.dataset.i)});
+function select(i){sel=sel===i?-1:i;
+  document.querySelectorAll('.layers button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.i===sel));
+  document.querySelectorAll('.tag').forEach(t=>t.classList.toggle('on',+t.dataset.i===sel));
+  LAYERS.forEach((L,j)=>{for(const m of Object.values(L.mats)){const base=BASE[Object.keys(L.mats).find(k=>L.mats[k]===m)];
+    const dim=sel>=0&&j!==sel; m.transparent=dim||!!base.transparent; m.opacity=dim?0.12:(base.opacity??1); m.depthWrite=!dim&&!base.transparent; m.needsUpdate=true}});
+  panel(); }
+function fmt(n,d=1){return n.toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d})}
+function panel(){
+  const rows=[];
+  if(sel<0){const tot=LAYERS.reduce((a,L)=>({n:a.n+L.items.length,vol:a.vol+L.q.vol,len:a.len+L.q.len}),{n:0,vol:0,len:0});
+    rows.push(['Model','Two-storey house, 12 × 9 m'],['Elements',`${tot.n}`],['Concrete',`${fmt(tot.vol)} m³`],['Pipe & duct',`${fmt(tot.len)} m`],['Pick a layer','Tap a layer or its label to see its own data']);
+  } else {const L=LAYERS[sel];
+    rows.push(['Layer',`${L.n} · ${L.name}`],['IFC',`<code>${L.ifcName}</code>`],['Contains',Object.entries(L.q.cls).map(([k,v])=>`<code>${k}</code> × ${v}`).join('<br>')]);
+    if(L.q.vol) rows.push(['Concrete',`${fmt(L.q.vol)} m³ · about ${Math.ceil(L.q.vol*7)} bags of cement`]);
+    if(L.q.area) rows.push(['Slab area',`${fmt(L.q.area)} m²`]);
+    if(L.q.len) rows.push(['Run length',`${fmt(L.q.len)} m`]);
+    rows.push(['What it is',DESC[L.id]]);}
+  $('props').innerHTML=rows.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+/* ---------- state, camera and animation ---------- */
+const S={explode:1,section:0,yaw:-0.62,pitch:0.42,zoom:1,spin:!reduce,lines:true,build:null};
+const clip=new THREE.Plane(new THREE.Vector3(-1,0,0),100);
+function applyClip(){const on=S.section>0.001;clip.constant=lerp(7.5,-7.5,S.section);
+  LAYERS.forEach(L=>Object.values(L.mats).forEach(m=>{m.clippingPlanes=on?[clip]:[];m.clipShadows=true;m.needsUpdate=true}));
+  edgeMat.clippingPlanes=on?[clip]:[];edgeMat.needsUpdate=true}
+const lerp=(a,b,t)=>a+(b-a)*t, ease=t=>t<0?0:t>1?1:1-Math.pow(1-t,3);
+function layout(now){
+  LAYERS.forEach((L,i)=>{let y=L.y0+GAP[i]*S.explode, vis=1;
+    if(S.build){const k=(now-S.build.t0)/1000-i*1.1; const p=ease(k/0.9); y+= (1-p)*14; vis=k>0?1:0;
+      if(i===LAYERS.length-1&&k>1.4){S.build=null;$('step').hidden=true}
+      else if(k>0&&k<1.1){$('step').hidden=false;$('step').textContent=`Step ${i+1} of 5 · ${L.name}`}}
+    L.group.position.y=y; L.group.visible=!!vis});
+}
+function placeCamera(){
+  const top=LAYERS[4].y0+GAP[4]*S.explode+2.5, mid=top/2-0.4, R=(40+top*1.1)*S.zoom;
+  const asp=camera.aspect; const r=R*Math.max(1,0.95/asp);
+  camera.position.set(Math.sin(S.yaw)*Math.cos(S.pitch)*r, mid+Math.sin(S.pitch)*r, Math.cos(S.yaw)*Math.cos(S.pitch)*r);
+  camera.lookAt(0,mid,0); camera.updateProjectionMatrix();
+}
+const v=new THREE.Vector3();
+const BB=LAYERS.map(L=>{const b=new THREE.Box3().setFromObject(L.group);return b});
+function placeTags(){const rect=stage.getBoundingClientRect();
+  document.querySelectorAll('.tag').forEach(t=>{const i=+t.dataset.i,L=LAYERS[i],b=BB[i];let best=null;
+    for(const x of [b.min.x,b.max.x]) for(const z of [b.min.z,b.max.z]){ v.set(x,(b.min.y+b.max.y)/2+L.group.position.y,z).project(camera);
+      const sx=(v.x*.5+.5)*rect.width, sy=(-v.y*.5+.5)*rect.height; if(!best||sx<best[0]) best=[sx,sy] }
+    t.style.left=Math.max(118,best[0]-34)+'px';t.style.top=best[1]+'px';t.style.opacity=L.group.visible?1:0})}
+function resize(){const r=stage.getBoundingClientRect();renderer.setPixelRatio(Math.min(2,devicePixelRatio||1));renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height}
+let last=performance.now();
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(S.spin&&!drag) S.yaw+=dt*0.12;
+  layout(now); placeCamera(); renderer.render(scene,camera); placeTags(); requestAnimationFrame(frame)}
+
+/* ---------- controls ---------- */
+$('explode').addEventListener('input',e=>{S.explode=e.target.value/100;$('explodeOut').textContent=e.target.value+'%'});
+$('section').addEventListener('input',e=>{S.section=e.target.value/100;$('sectionOut').textContent=+e.target.value?e.target.value+'%':'off';applyClip()});
+$('build').addEventListener('click',()=>{S.build={t0:performance.now()};if(S.explode<0.4){S.explode=1;$('explode').value=100;$('explodeOut').textContent='100%'}});
+$('spin').addEventListener('click',e=>{S.spin=!S.spin;e.target.setAttribute('aria-pressed',S.spin)});
+$('lines').addEventListener('click',e=>{S.lines=!S.lines;e.target.setAttribute('aria-pressed',S.lines);scene.traverse(o=>{if(o.userData.edge)o.visible=S.lines})});
+$('spin').setAttribute('aria-pressed',S.spin);
+let drag=null,pinch=null;
+stage.addEventListener('pointerdown',e=>{if(e.target.closest('.tag'))return;drag={x:e.clientX,y:e.clientY,yaw:S.yaw,pitch:S.pitch};stage.setPointerCapture(e.pointerId)});
+stage.addEventListener('pointermove',e=>{if(!drag)return;S.yaw=drag.yaw-(e.clientX-drag.x)*0.008;S.pitch=Math.max(0.08,Math.min(1.2,drag.pitch+(e.clientY-drag.y)*0.006))});
+const end=()=>drag=null;stage.addEventListener('pointerup',end);stage.addEventListener('pointercancel',end);
+stage.addEventListener('wheel',e=>{e.preventDefault();S.zoom=Math.max(0.55,Math.min(1.5,S.zoom*(1+e.deltaY*0.0012)))},{passive:false});
+stage.addEventListener('touchmove',e=>{if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  if(pinch)S.zoom=Math.max(0.55,Math.min(1.5,S.zoom*pinch/d));pinch=d;drag=null}},{passive:true});
+stage.addEventListener('touchend',()=>pinch=null);
+
+/* deterministic hook for the film renderer: setState({explode,yaw,pitch,zoom,section,select}) then render() */
+window.BIM={setState(o){Object.assign(S,o);if('section' in o)applyClip();if('select' in o&&o.select!==sel){sel=-2;select(o.select)}if('lines' in o)scene.traverse(x=>{if(x.userData.edge)x.visible=S.lines})},
+  render(){S.spin=false;layout(performance.now());placeCamera();renderer.render(scene,camera);placeTags()}, layers:LAYERS.map(L=>L.name)};
+
+new ResizeObserver(resize).observe(stage); resize(); panel(); requestAnimationFrame(frame);
+})();
+</script>
