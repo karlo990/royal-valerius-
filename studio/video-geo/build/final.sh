@@ -1,4 +1,4 @@
-# Final render in 4 parallel parts, then join, check, mix with the song.
+# Final render in 4 parallel parts, then join, check, mix with the two songs and the sound effects.
 # usage: bash build/final.sh [portrait]
 set -e
 cd "$(dirname "$0")/.."
@@ -15,7 +15,8 @@ done
 wait
 ffmpeg -v error -y -f concat -safe 0 -i build/parts$SUF.txt -c copy build/video_silent$SUF.mp4
 python3 tools/glitchscan.py build/video_silent$SUF.mp4
-python3 tools/mix.py --video build/video_silent$SUF.mp4 --music music/storm-ii-loop.mp3 --bed ${MUSIC_BED:-0.2} --name royal-crest-geography$SUF
+python3 tools/sfx.py && python3 tools/arrange.py
+python3 tools/mix.py --video build/video_silent$SUF.mp4 --music build/music_arr.wav --sfx build/sfx.wav --bed ${MUSIC_BED:-0.32} --name royal-crest-geography$SUF
 S=1280:720; [ "$MODE" = portrait ] && S=720:1280
 ffmpeg -v error -y -i out/royal-crest-geography$SUF.mp4 -vf scale=$S:flags=lanczos -c:v libx264 -preset slow -crf 24 -tune animation -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart out/royal-crest-geography${SUF}_whatsapp.mp4
 echo ALLDONE
