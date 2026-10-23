@@ -1,0 +1,15 @@
+node_modules
+assets/micro/
+assets/lab/
+music/
+audio/
+out/
+build/stills/
+build/*.mp4
+build/*.jpg
+build/render*.log
+build/parts*.txt
+.env
+assets/slide/
+build/mix_*.log
+assets/clipfr/
