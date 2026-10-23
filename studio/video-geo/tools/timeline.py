@@ -3,9 +3,9 @@ otherwise an estimate (so visuals can be previewed before the voices exist)."""
 import json, pathlib, subprocess, re
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 S = json.load(open(ROOT / "script.json"))
-LEAD = {"open": 3.0, "rise": 0.6, "oven": 0.6, "build": 0.6, "icing": 0.6, "types": 0.6}; TAIL = {"outro": 3.6, "careers": 0.4, "business": 1.0, "types": 0.5}
-GAP_LINE, GAP_SCENE = 0.24, 0.6
-HOLD_AFTER = {'k03': 0.5, 'k05': 0.37, 'k06': 0.99, 'k08': 0.62, 'k10': 1.12, 'k12': 0.87, 'k14': 0.99, 'k16': 1.36, 'k18': 0.99, 'k19': 0.87, 'k21': 1.12, 'k23': 1.61, 'k25': 0.74, 'k27': 0.62, 'k28': 0.62, 'k29': 0.62, 'k30': 0.74, 'k31': 0.25, 'k32': 1.12, 'k33': 0.62, 'k34': 0.62, 'k36': 0.74, 'k37': 0.62, 'k38': 0.62, 'k40': 0.62, 'k41': 1.12, 'k42': 0.5, 'k44': 0.5, 'k46': 0.5}
+LEAD = {"open": 3.0, "drone": 0.8, "rain": 0.6, "careers": 0.6}; TAIL = {"outro": 3.6, "careers": 0.6, "drone": 0.8}
+GAP_LINE, GAP_SCENE = 0.26, 0.7
+HOLD_AFTER = {'g03': 0.8, 'g06': 1.2, 'g09': 1.0, 'g11': 1.6, 'g12': 1.2, 'g13': 1.2, 'g15': 1.4, 'g16': 1.4, 'g18': 1.0, 'g19': 1.0, 'g20': 1.2, 'g22': 1.4, 'g23': 1.6, 'g25': 2.0, 'g26': 1.2, 'g27': 1.2, 'g28': 1.2, 'g29': 1.2, 'g32': 0.8, 'g33': 0.8, 'g34': 0.8, 'g35': 1.2, 'g38': 1.0, 'g39': 1.2}
 
 def cjk(c): return '㐀' <= c <= '鿿'
 def estimate(text):
