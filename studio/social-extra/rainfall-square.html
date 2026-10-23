@@ -33,7 +33,29 @@ h1 em{font-style:italic;color:var(--gold2)}
 #foot .say{flex:1;font:italic 500 18px RcSerif,serif;color:#cfdcf3}
 #foot .pill{height:38px;padding:0 16px;border-radius:19px;display:flex;align-items:center;font:800 15px RcSans;white-space:nowrap}
 #foot .y{background:var(--gold2);color:var(--navy)} #foot .w{background:#fff;color:var(--navy)}
-</style></head><body>
+
+/* Story version (open with ?story): 1080 × 1920; top 250 px and bottom 250 px stay clear of the app's buttons. */
+.story #fl{height:1920px;background:linear-gradient(#030b24,#061233 420px,#061233)}
+.story #pano{top:420px}
+#fade{display:none}
+.story #fade{display:block;position:absolute;left:0;right:0;top:400px;height:240px;background:linear-gradient(#061233 10%,rgba(6,18,51,0))}
+.story #fl::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;background:repeating-linear-gradient(97deg,transparent 0 40px,#fff 40px 41px,transparent 41px 120px)}
+.story #brand{top:250px}
+.story #eye{top:330px;font-size:15px}
+.story h1{top:356px;font-size:118px;line-height:.95}
+.story h1 em{display:block}
+.story #sub{top:592px;font-size:22px}
+.story #cols{top:1120px;height:420px}
+.story .c{padding:30px 22px 0 28px}
+.story .c h2{font-size:38px}
+.story .c h3{font-size:23px}
+.story .c p{font-size:16.5px}
+.story .c .tags{left:28px;bottom:26px;gap:8px}
+.story .c .tags span{font-size:14px;flex-direction:column;gap:2px}
+.story #foot{top:1540px;bottom:auto;height:110px;background:none;border:0;justify-content:center;flex-wrap:wrap;gap:12px;padding:0 60px}
+.story #foot .say{flex:0 0 100%;text-align:center;font-size:22px}
+.story #foot .pill{height:46px;font-size:18px;padding:0 22px}
+</style></head><body><script>if(location.search.includes("story"))document.documentElement.classList.add("story")</script>
 <div id="fl">
 <svg id="pano" viewBox="0 0 1080 700">
   <defs>
@@ -127,6 +149,7 @@ h1 em{font-style:italic;color:var(--gold2)}
   <rect width="1080" height="700" filter="url(#grain)"/>
 </svg>
 
+<div id="fade"></div>
 <div id="brand"><img src="../assets/brand/crest-640.webp" alt="">ROYAL CREST ACADEMY</div>
 <div id="eye">O LEVEL GEOGRAPHY</div>
 <h1>3 ways to <em>make it rain.</em></h1>
