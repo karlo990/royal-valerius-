@@ -1,0 +1,75 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../css/posts.css">
+<style>
+@font-face{font-family:Hand;src:url(../assets/fonts/caveat-latin.woff2) format("woff2")}
+html,body{margin:0;background:#000}
+.flyer{position:relative;overflow:hidden;width:1080px;height:1350px}
+/* "Say hello": light and playful; greetings as passport stamps */
+.ps-hello{background:linear-gradient(180deg,#e8f1fb 0%,#f7f3ea 70%)}
+.ps-hello .h{left:70px;top:100px;font:500 110px/.95 PsSerif,serif;letter-spacing:-.02em;color:var(--navy)}
+.ps-hello .h em{color:var(--plum);font-style:italic}
+.ps-hello .sub{left:74px;top:350px;width:880px;font-size:27px;line-height:1.45;color:var(--muted)}
+.ps-hello .sub b{color:var(--navy)}
+.ps-hello .page{left:70px;top:480px;width:940px;height:600px;border-radius:26px;background:#fffdf7;box-shadow:0 30px 50px rgba(10,31,92,.16);
+  background-image:repeating-linear-gradient(0deg,transparent 0 39px,rgba(10,31,92,.05) 39px 40px)}
+.ps-hello .page::before{content:"LANGUAGE PASSPORT · ROYAL CREST";position:absolute;right:30px;top:22px;font-size:14px;letter-spacing:.26em;font-weight:800;color:#b7bdd2}
+.ps-hello .st{position:absolute;display:grid;place-items:center;text-align:center;mix-blend-mode:multiply;opacity:.9}
+.ps-hello .st b{display:block;font:600 52px/1 PsSerif,serif}
+.ps-hello .st small{display:block;margin-top:8px;font-size:15px;letter-spacing:.22em;font-weight:800}
+.ps-hello .st i{display:block;margin-top:6px;font:700 25px/1 Hand,cursive;font-style:normal}
+.ps-hello .round{width:230px;height:230px;border-radius:50%;border:6px solid;box-shadow:inset 0 0 0 6px #fffdf7,inset 0 0 0 9px currentColor}
+.ps-hello .rect{padding:24px 34px;border-radius:14px;border:6px double}
+.ps-hello .note{left:70px;top:1110px;width:940px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ps-hello .note div{font-size:20px;line-height:1.4;color:var(--muted);padding-left:20px;border-left:5px solid var(--gold)}
+.ps-hello .note b{color:var(--navy)}
+.ps-hello .brand{bottom:40px}
+.flyer.sq{height:1080px}
+/* square 1080 x 1080 */
+.ps-hello.sq .kick{top:44px!important}
+.ps-hello.sq .h{top:96px;font-size:84px}
+.ps-hello.sq .sub{top:284px;width:940px;font-size:22px}
+.ps-hello.sq .page{top:384px;height:470px}
+.ps-hello.sq .page::before{top:16px;font-size:12px}
+.ps-hello.sq .st b{font-size:40px}
+.ps-hello.sq .st small{font-size:12px;margin-top:6px}
+.ps-hello.sq .st i{font-size:21px}
+.ps-hello.sq .round{width:178px;height:178px;border-width:5px}
+.ps-hello.sq .rect{padding:18px 26px;border-width:5px}
+.ps-hello.sq #s1{left:60px!important;top:52px!important}
+.ps-hello.sq #s2{left:330px!important;top:70px!important}
+.ps-hello.sq #s3{left:690px!important;top:44px!important}
+.ps-hello.sq #s3 b{font-size:34px!important}
+.ps-hello.sq #s4{left:70px!important;top:276px!important}
+.ps-hello.sq #s5{left:400px!important;top:256px!important}
+.ps-hello.sq #s6{left:680px!important;top:288px!important;padding:14px 22px}
+.ps-hello.sq #s6 b{font-size:32px!important}
+.ps-hello.sq .note{top:880px;gap:18px}
+.ps-hello.sq .note div{font-size:16px;padding-left:16px;border-left-width:4px}
+.flyer.ps.sq .brand{bottom:30px}
+.flyer.ps.sq .brand img{width:52px}
+.flyer.ps.sq .brand b{font-size:27px}
+.flyer.ps.sq .brand small{font-size:12px}
+.flyer.ps.sq .brand .ph{font-size:26px}
+.flyer.ps.sq .brand .ph i{width:40px;height:40px}
+</style></head><body>
+<div class="flyer ps ps-hello" id="f">
+  <div class="abs kick" style="left:70px;top:60px;color:var(--plum)">Languages &amp; clubs</div>
+  <div class="abs h">Say hello to<br><em>the world.</em></div>
+  <div class="abs sub">ChiShona, isiNdebele and English in class. <b>French and Mandarin</b> in our language clubs: greetings, songs, games and culture.</div>
+  <div class="abs page">
+    <div id="s1" class="st round" style="left:50px;top:70px;color:#9a3f1e;transform:rotate(-12deg)"><div><small>CHISHONA</small><b>Mhoro</b><i>hello!</i></div></div>
+    <div id="s2" class="st rect" style="left:330px;top:90px;color:var(--navy);transform:rotate(6deg)"><div><small>LE CLUB FRANÇAIS</small><b>Bonjour !</b><i>parlons français</i></div></div>
+    <div id="s3" class="st round" style="left:670px;top:60px;color:#c8102e;transform:rotate(10deg)"><div><small>MANDARIN</small><b style="font-size:44px">Nǐ hǎo</b><i>say hello</i></div></div>
+    <div id="s4" class="st rect" style="left:70px;top:350px;color:#1f6f43;transform:rotate(4deg)"><div><small>ISINDEBELE</small><b>Salibonani</b><i>greetings!</i></div></div>
+    <div id="s5" class="st round" style="left:420px;top:330px;color:var(--plum);transform:rotate(-8deg)"><div><small>ENGLISH</small><b>Hello</b><i>how are you?</i></div></div>
+    <div id="s6" class="st rect" style="left:690px;top:370px;color:#a6461c;transform:rotate(-14deg);padding:18px 26px"><div><small>ROYAL CREST</small><b style="font-size:40px">2027</b><i>approved</i></div></div>
+  </div>
+  <div class="abs note">
+    <div><b>Mā or mǎ?</b> Mandarin is tonal: mā means mother and mǎ means horse. Only the tone of your voice tells them apart.</div>
+    <div><b>Bonjour, Africa.</b> French is an official language in 29 countries, and more than half of them are in Africa.</div>
+  </div>
+  <div class="brand"><div class="b"><img src="../assets/brand/crest-640.webp" alt=""><div><b style="color:var(--navy)">Royal Crest Academy</b><small>SCIENCE · INNOVATION · SKILL</small></div></div>
+    <div class="ph" style="color:var(--navy)"><i><svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>0714 404 090</div></div>
+</div>
+<script>if(location.search.includes('sq'))document.getElementById('f').classList.add('sq')</script>
+</body></html>

@@ -1,0 +1,96 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../css/posts.css">
+<style>
+@font-face{font-family:'IBM Plex Mono';font-weight:400;src:url(../assets/fonts/IBMPlexMono-Regular.woff2) format("woff2")}
+@font-face{font-family:'IBM Plex Mono';font-weight:600;src:url(../assets/fonts/IBMPlexMono-SemiBold.woff2) format("woff2")}
+html,body{margin:0;background:#000}
+.flyer{position:relative;overflow:hidden;width:1080px;height:1350px}
+.flyer.sq{height:1080px}
+/* "Robotics & Coding": techy; a code editor that drives a robot, with its run output and a fact */
+.ps-robo{--cy:#4fd1e8;--gr:#7ee08a;--pk:#ff8fb1;background:radial-gradient(1000px 800px at 85% 10%,#0f1f52 0%,#070d24 55%,#050918 100%);color:#fff}
+.ps-robo .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(79,209,232,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(79,209,232,.07) 2px,transparent 2px);background-size:60px 60px;mask-image:radial-gradient(800px 700px at 75% 25%,#000,transparent)}
+.ps-robo .traces{position:absolute;left:0;top:0;width:1080px;height:1350px}
+.ps-robo .h{left:70px;top:110px;color:#fff;font:500 104px/.95 PsSerif,serif;letter-spacing:-.02em}
+.ps-robo .h em{color:var(--gold2);font-style:italic}
+.ps-robo .sub{left:74px;top:440px;width:560px;font-size:27px;line-height:1.45;color:rgba(255,255,255,.75)}
+.ps-robo .sub b{color:#fff}
+.ps-robo .bot{left:690px;top:150px;width:330px;height:420px;filter:drop-shadow(0 0 30px rgba(79,209,232,.35))}
+.ps-robo .bub{left:640px;top:120px;padding:12px 22px;border-radius:22px 22px 22px 4px;background:var(--gold2);color:var(--deep);font:800 26px PsSans,sans-serif;transform:rotate(-6deg);box-shadow:0 12px 24px rgba(0,0,0,.35)}
+.ps-robo .ed{left:70px;top:600px;width:940px;border-radius:22px;overflow:hidden;background:#0d1533;border:2px solid #22305e;box-shadow:0 40px 60px rgba(0,0,0,.5),0 0 0 1px rgba(79,209,232,.08)}
+.ps-robo .ed .bar{display:flex;align-items:center;gap:10px;padding:14px 22px;background:#121c40;border-bottom:2px solid #22305e;font:400 18px 'IBM Plex Mono',monospace;color:#8a96c4}
+.ps-robo .ed .bar i{width:14px;height:14px;border-radius:50%;background:#ff5f57}
+.ps-robo .ed .bar i:nth-child(2){background:#febc2e}.ps-robo .ed .bar i:nth-child(3){background:#28c840;margin-right:14px}
+.ps-robo .ed .bar .run{margin-left:auto;padding:6px 16px;border-radius:8px;background:#1c8a4c;color:#fff;font:600 16px 'IBM Plex Mono',monospace}
+.ps-robo pre{margin:0;padding:20px 30px 20px;font:400 25px/1.5 'IBM Plex Mono',monospace;color:#d6def7;counter-reset:l}
+.ps-robo pre span.l{display:block}
+.ps-robo pre span.l::before{counter-increment:l;content:counter(l);display:inline-block;width:40px;margin-right:18px;text-align:right;color:#3d4a7a}
+.ps-robo .k{color:var(--pk)}.ps-robo .f{color:var(--cy)}.ps-robo .s{color:var(--gr)}.ps-robo .n{color:var(--gold2)}.ps-robo .c{color:#6b78a8}
+.ps-robo .cur{display:inline-block;width:14px;height:28px;vertical-align:-5px;background:var(--gold2)}
+.ps-robo .out{padding:14px 30px 16px;background:#081029;border-top:2px solid #22305e;font:400 20px/1.55 'IBM Plex Mono',monospace;color:#8a96c4}
+.ps-robo .out b{font-weight:600;color:var(--gr)}
+.ps-robo .out em{font-style:normal;color:#fff}
+.ps-robo .fact{left:70px;top:1080px;width:940px;display:flex;gap:22px;align-items:center;padding:20px 26px;box-sizing:border-box;border-radius:18px;background:rgba(242,183,5,.08);border:2px solid rgba(242,183,5,.35)}
+.ps-robo .fact .ic{flex:none;width:58px;height:58px;border-radius:14px;background:var(--gold2);display:grid;place-items:center;font:800 26px 'IBM Plex Mono',monospace;color:var(--deep)}
+.ps-robo .fact p{margin:0;font-size:20px;line-height:1.42;color:rgba(255,255,255,.8)}
+.ps-robo .fact b{color:var(--gold2)}
+.ps-robo .brand{border-top:1px solid rgba(255,255,255,.12);padding-top:26px;bottom:44px}
+.ps-robo .brand small{color:var(--gold2)}
+/* square 1080 x 1080 */
+.ps-robo.sq .kick{top:44px!important}
+.ps-robo.sq .h{top:98px;font-size:80px}
+.ps-robo.sq .sub{top:356px;width:560px;font-size:22px}
+.ps-robo.sq .bot{left:760px;top:120px;width:250px;height:318px}
+.ps-robo.sq .bub{left:700px;top:86px;font-size:22px}
+.ps-robo.sq .ed{top:470px}
+.ps-robo.sq .ed .bar{padding:10px 20px;font-size:15px}
+.ps-robo.sq .ed .bar .run{font-size:14px;padding:4px 12px}
+.ps-robo.sq pre{padding:12px 26px;font-size:19px;line-height:1.5}
+.ps-robo.sq pre span.l::before{width:30px;margin-right:14px}
+.ps-robo.sq .cur{width:11px;height:21px;vertical-align:-4px}
+.ps-robo.sq .out{padding:9px 26px 10px;font-size:16px}
+.ps-robo.sq .fact{top:848px;padding:12px 20px;gap:16px}
+.ps-robo.sq .fact .ic{width:44px;height:44px;font-size:20px;border-radius:11px}
+.ps-robo.sq .fact p{font-size:16.5px}
+.flyer.ps.sq .brand{bottom:30px;padding-top:18px}
+.flyer.ps.sq .brand img{width:52px}
+.flyer.ps.sq .brand b{font-size:27px}
+.flyer.ps.sq .brand small{font-size:12px}
+.flyer.ps.sq .brand .ph{font-size:26px}
+.flyer.ps.sq .brand .ph i{width:40px;height:40px}
+</style></head><body>
+<div class="flyer ps ps-robo" id="f">
+  <div class="grid"></div>
+  <svg class="traces" viewBox="0 0 1080 1350" fill="none" stroke="rgba(79,209,232,.22)" stroke-width="3">
+    <path d="M1080 600H980l-40-40H760"/><path d="M1080 90H900l-30 30h-60"/><path d="M640 40v40l30 30"/>
+    <g fill="#f2b705" stroke="none"><circle cx="760" cy="560" r="6"/><circle cx="810" cy="120" r="6"/><circle cx="670" cy="110" r="6"/></g>
+  </svg>
+  <div class="abs kick" style="left:70px;top:62px;color:var(--cy)">Club · Robotics &amp; Coding</div>
+  <div class="abs h">Build it.<br>Code it.<br><em>Make it move.</em></div>
+  <div class="abs sub">Design, build and program real robots. Learn <b>coding, electronics and problem-solving</b> by making things that really work.</div>
+  <svg class="abs bot" viewBox="0 0 330 420" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="165" cy="404" rx="120" ry="12" fill="rgba(79,209,232,.18)"/>
+    <line x1="165" y1="44" x2="165" y2="84" stroke="#4fd1e8" stroke-width="7"/><circle cx="165" cy="34" r="14" fill="#f2b705"/>
+    <rect x="70" y="84" width="190" height="130" rx="36" fill="#121c40" stroke="#4fd1e8" stroke-width="7"/>
+    <rect x="96" y="112" width="138" height="70" rx="22" fill="#081029"/>
+    <circle cx="134" cy="146" r="16" fill="#4fd1e8"/><circle cx="196" cy="146" r="16" fill="#4fd1e8"/>
+    <circle cx="139" cy="141" r="5" fill="#fff"/><circle cx="201" cy="141" r="5" fill="#fff"/>
+    <path d="M145 196q20 12 40 0" stroke="#f2b705" stroke-width="7"/>
+    <path d="M70 140H44v-20M260 140h26v-20" stroke="#4fd1e8" stroke-width="7"/>
+    <rect x="150" y="214" width="30" height="16" fill="#4fd1e8"/>
+    <rect x="94" y="230" width="142" height="110" rx="24" fill="#121c40" stroke="#4fd1e8" stroke-width="7"/>
+    <circle cx="165" cy="270" r="14" fill="#f2b705"/><path d="M122 312h86" stroke="#22305e" stroke-width="7"/><path d="M122 312h50" stroke="#7ee08a" stroke-width="7"/>
+    <path d="M94 258L52 300l20 34M236 258l42-48 26 14" stroke="#4fd1e8" stroke-width="7"/>
+    <circle cx="72" cy="338" r="9" fill="#f2b705"/><circle cx="306" cy="226" r="9" fill="#f2b705"/>
+    <circle cx="116" cy="364" r="28" fill="#070d24" stroke="#f2b705" stroke-width="7"/><circle cx="214" cy="364" r="28" fill="#070d24" stroke="#f2b705" stroke-width="7"/>
+    <circle cx="116" cy="364" r="7" fill="#f2b705"/><circle cx="214" cy="364" r="7" fill="#f2b705"/>
+  </svg>
+  <div class="abs bub">Mhoro!</div>
+  <div class="abs ed"><div class="bar"><i></i><i></i><i></i>royal_crest_bot.py<span class="run">▶ RUN</span></div>
+<pre><span class="l"><span class="c"># Robotics club, lesson 1</span></span><span class="l"><span class="k">while</span> robot.<span class="f">is_on</span>():</span><span class="l">    <span class="k">if</span> sensor.<span class="f">distance</span>() &lt; <span class="n">20</span>:</span><span class="l">        robot.<span class="f">turn</span>(<span class="n">90</span>)   <span class="c"># wall ahead!</span></span><span class="l">    <span class="k">else</span>:</span><span class="l">        robot.<span class="f">forward</span>()</span><span class="l">robot.<span class="f">say</span>(<span class="s">"Mhoro! Salibonani!"</span>) <span class="cur"></span></span></pre>
+    <div class="out">&gt; <b>✓ build ok</b> · sensor: wall at 18 cm · turning 90°<br>&gt; robot says: <em>“Mhoro! Salibonani!”</em></div></div>
+  <div class="abs fact"><span class="ic">R</span><p><b>Did you know?</b> The word “robot” was first used in Karel Čapek’s 1920 play R.U.R. It comes from the Czech word <i>robota</i>, meaning forced labour.</p></div>
+  <div class="brand"><div class="b"><img src="../assets/brand/crest-640.webp" alt=""><div><b style="color:#fff">Royal Crest Academy</b><small>SCIENCE · INNOVATION · SKILL</small></div></div>
+    <div class="ph" style="color:#fff"><i><svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>0714 404 090</div></div>
+</div>
+<script>if(location.search.includes('sq'))document.getElementById('f').classList.add('sq')</script>
+</body></html>
