@@ -1,0 +1,59 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../css/posts.css">
+<style>
+@font-face{font-family:Hand;src:url(../assets/fonts/caveat-latin.woff2) format("woff2")}
+html,body{margin:0;background:#000}
+.flyer{position:relative;overflow:hidden;width:1080px;height:1350px}
+/* "Fees report card": the termly fee graded like an end-of-term report, red-pen comments */
+.ps-fees-report{background:linear-gradient(160deg,#f7f3ea 0%,#efe7d3 100%)}
+.ps-fees-report .h{left:70px;top:100px;font:500 104px/.95 PsSerif,serif;letter-spacing:-.02em;color:var(--navy)}
+.ps-fees-report .h em{color:var(--gold);font-style:italic}
+.ps-fees-report .sub{left:74px;top:325px;width:620px;font-size:27px;line-height:1.42;color:var(--muted)}
+.ps-fees-report .sub b{color:var(--navy)}
+.ps-fees-report .ring{left:790px;top:250px;width:230px;height:230px;transform:rotate(-8deg)}
+.ps-fees-report .ring svg{position:absolute;inset:0}
+.ps-fees-report .ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 150px/1 Hand,cursive;color:var(--red);padding-bottom:10px}
+.ps-fees-report .card{left:60px;top:470px;width:960px;height:690px;transform:rotate(-1.5deg);background:#fffefb;border-radius:10px;overflow:hidden;box-shadow:0 30px 50px rgba(10,31,92,.22)}
+.ps-fees-report .top{background:var(--navy);color:#fff;padding:22px 36px;display:flex;justify-content:space-between;align-items:center}
+.ps-fees-report .top .b{display:flex;align-items:center;gap:14px}
+.ps-fees-report .top img{width:56px}
+.ps-fees-report .top b{font:600 32px PsSerif,serif}
+.ps-fees-report .top span{font-size:15px;letter-spacing:.26em;font-weight:800;color:var(--gold2);text-align:right;line-height:1.5}
+.ps-fees-report .meta{display:flex;gap:40px;padding:16px 36px;border-bottom:2px solid #e6e1d3;font-size:15px;letter-spacing:.16em;font-weight:800;color:var(--muted)}
+.ps-fees-report .meta i{font:700 30px/1 Hand,cursive;letter-spacing:0;color:#16307a;margin-left:8px}
+.ps-fees-report table{width:100%;border-collapse:collapse}
+.ps-fees-report th{padding:14px 0 10px;font-size:14px;letter-spacing:.2em;font-weight:800;color:var(--muted);text-align:left;border-bottom:2px solid var(--navy)}
+.ps-fees-report td{padding:13px 0;border-bottom:1px solid #e6e1d3;font-size:25px;font-weight:800;color:var(--navy);vertical-align:middle}
+.ps-fees-report th:first-child,.ps-fees-report td:first-child{padding-left:36px}
+.ps-fees-report th:last-child,.ps-fees-report td:last-child{padding-right:36px}
+.ps-fees-report td.n{font:600 26px 'IBM Plex Mono',monospace}
+.ps-fees-report td.g{font:600 32px/1 PsSerif,serif;color:var(--gold);text-align:center}
+.ps-fees-report td.c{font:700 32px/1 Hand,cursive;color:var(--red)}
+.ps-fees-report tr.t td{border-bottom:0;border-top:3px double var(--navy);font-size:27px;background:#fbf6e6}
+.ps-fees-report .head{padding:14px 36px 0;display:flex;gap:20px;align-items:flex-start}
+.ps-fees-report .head small{flex:none;padding-top:10px;font-size:14px;letter-spacing:.2em;font-weight:800;color:var(--muted)}
+.ps-fees-report .head p{margin:0;font:700 31px/1.2 Hand,cursive;color:#16307a}
+</style></head><body>
+<div class="flyer ps ps-fees-report" id="f">
+  <div class="abs kick" style="left:70px;top:60px;color:var(--plum)">Fees, explained</div>
+  <div class="abs h">Value for<br>money: <em>top marks.</em></div>
+  <div class="abs sub">One termly fee for boarders, US$850. <b>Every dollar itemised</b>, nothing hidden.</div>
+  <div class="abs card">
+    <div class="top"><div class="b"><img src="../assets/brand/crest-640.webp" alt=""><b>Royal Crest Academy</b></div><span>END-OF-TERM REPORT<br>TERMLY FEES · BOARDERS</span></div>
+    <div class="meta"><span>LEARNER:<i>Your child</i></span><span>INTAKE:<i>2027</i></span><span>MEALS:<i>four a day</i></span></div>
+    <table>
+      <tr><th style="width:27%">ITEM</th><th style="width:20%">PER TERM</th><th style="width:13%;text-align:center">GRADE</th><th>COMMENT</th></tr>
+      <tr><td>Tuition</td><td class="n">$250</td><td class="g">A*</td><td class="c">Every lesson counts</td></tr>
+      <tr><td>SDC levy</td><td class="n">$150</td><td class="g">A*</td><td class="c">Builds our school</td></tr>
+      <tr><td>Boarding</td><td class="n">$300</td><td class="g">A*</td><td class="c">A home from home</td></tr>
+      <tr><td>Science</td><td class="n">$50</td><td class="g">A*</td><td class="c">Real labs, real learning</td></tr>
+      <tr><td>Practical</td><td class="n">$100</td><td class="g">A*</td><td class="c">Skills for life</td></tr>
+      <tr class="t"><td>Total</td><td class="n">$850</td><td class="g">A*</td><td class="c">Outstanding investment</td></tr>
+    </table>
+    <div class="head"><small>HEAD’S REMARK</small><p>Four homemade meals a day included. Uniforms &amp; the desk fee are paid once, on admission.</p></div>
+  </div>
+  <div class="abs ring"><svg viewBox="0 0 250 250" fill="none" stroke="#c8102e" stroke-width="7" stroke-linecap="round"><path d="M200 46C150 8 60 20 32 90c-26 66 20 130 92 134 74 4 118-50 108-118-6-38-34-62-70-74"/></svg><b>A*</b></div>
+  <div class="brand"><div class="b"><img src="../assets/brand/crest-640.webp" alt=""><div><b style="color:var(--navy)">Royal Crest Academy</b><small>SCIENCE · INNOVATION · SKILL</small></div></div>
+    <div class="ph" style="color:var(--navy)"><i><svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>0714 404 090</div></div>
+</div>
+</body></html>
