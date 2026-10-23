@@ -46,6 +46,8 @@ def speak(key, voice_id, who, text):
                 return json.load(r)
         except urllib.error.HTTPError as e:
             msg = e.read().decode("utf-8", "replace")[:400]
+            if "quota_exceeded" in msg:
+                sys.exit(f"\nOut of ElevenLabs credits. The lines made so far are saved; top up or wait for the monthly reset, then run this again and it carries on from here.\n{msg}")
             if e.code == 401:
                 sys.exit(f"\nElevenLabs rejected the API key (401). If it says missing_permissions, give the key the Text to Speech permission. Otherwise check the key.\n{msg}")
             if e.code in (402, 403):
