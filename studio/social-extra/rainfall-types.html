@@ -1,0 +1,276 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Rainfall types flyer</title>
+<style>
+/* A4 portrait flyer, 1240 × 1754 CSS px (render at 2× for 300 dpi print). */
+@font-face{font-family:RcSerif;font-weight:400 700;src:url(../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:RcSerif;font-style:italic;font-weight:400 700;src:url(../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:RcSans;font-weight:200 800;src:url(../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2")}
+:root{--navy:#0a1f5c;--gold:#c9a227;--gold-deep:#a8841a;--gold2:#f2b705;--ink:#1b2a4a;--mute:#5a6782;
+  --conv:#e8762b;--rel:#3f8f4a;--fro:#3a6fc4}
+html,body{margin:0;background:#e9eef5}
+#fl{position:relative;width:1240px;height:1754px;overflow:hidden;background:#f6f8fc;font-family:RcSans,sans-serif;color:var(--ink)}
+/* ---------- header sky */
+#sky{position:absolute;left:0;top:0;width:1240px;height:500px;background:linear-gradient(170deg,#081a46 0%,#163f86 48%,#3f7fc8 100%);overflow:hidden}
+#sky .streaks{position:absolute;inset:0;opacity:.18;background:repeating-linear-gradient(105deg,transparent 0 22px,rgba(255,255,255,.55) 22px 23px,transparent 23px 61px)}
+#storm{position:absolute;right:-60px;top:24px;width:620px;height:500px}
+#brand{position:absolute;left:64px;top:46px;display:flex;align-items:center;gap:16px}
+#brand img{height:78px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.35))}
+#brand b{display:block;font:600 30px/1 RcSerif,serif;color:#fff;letter-spacing:.01em}
+#brand span{display:block;margin-top:6px;font:800 13px RcSans;letter-spacing:.3em;color:var(--gold2)}
+#eyebrow{position:absolute;left:64px;top:176px;font:800 15px RcSans;letter-spacing:.32em;color:#9cc3f0}
+h1{position:absolute;left:60px;top:196px;margin:0;font:500 100px/.92 RcSerif,serif;color:#fff;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--gold2)}
+#lede{position:absolute;left:64px;top:384px;width:760px;font:500 21px/1.42 RcSans;color:#dbe8fa}
+#lede b{color:#fff}
+/* ---------- the one rule */
+#rule{position:absolute;left:48px;right:48px;top:500px;transform:translateY(-50%);height:132px;border-radius:26px;background:#fff;
+  box-shadow:0 24px 50px -18px rgba(10,31,92,.45);display:flex;align-items:center;padding:0 26px;gap:8px}
+#rule .lab{width:150px;font:800 13px/1.35 RcSans;letter-spacing:.22em;color:var(--gold-deep)}
+#rule .st{flex:1;display:flex;align-items:center;gap:12px}
+#rule .st svg{flex:none;width:50px;height:50px}
+#rule .st b{display:block;font:600 24px/1.05 RcSerif,serif;color:var(--navy)}
+#rule .st i{display:block;margin-top:4px;font:500 14px/1.25 RcSans;font-style:normal;color:var(--mute)}
+#rule .ar{flex:none;width:22px;color:var(--gold)}
+/* ---------- the three types */
+.row{position:absolute;left:48px;right:48px;height:300px;border-radius:26px;background:#fff;box-shadow:0 14px 34px -20px rgba(10,31,92,.35);overflow:hidden;display:flex}
+.row .dia{flex:none;width:600px;height:300px}
+.row .tx{flex:1;padding:24px 34px 0 30px;position:relative}
+.row.flip{flex-direction:row-reverse} .row.flip .tx{padding:24px 26px 0 38px}
+.hd{display:flex;align-items:center;gap:14px}
+.drop{flex:none;width:46px;height:58px;position:relative}
+.drop svg{position:absolute;inset:0}
+.drop b{position:absolute;left:0;right:0;top:22px;text-align:center;font:800 21px RcSans;color:#fff}
+.hd h2{margin:0;font:600 38px/1 RcSerif,serif;color:var(--navy);letter-spacing:-.01em}
+.hd h2 small{display:block;margin-top:5px;font:italic 500 22px RcSerif,serif;color:var(--c)}
+ul{margin:12px 0 0;padding:0;list-style:none}
+li{position:relative;padding-left:20px;margin:0 0 6px;font:500 15.5px/1.38 RcSans;color:var(--ink)}
+li::before{content:"";position:absolute;left:2px;top:8px;width:8px;height:8px;border-radius:50%;background:var(--c)}
+.chips{margin-top:10px;display:grid;grid-template-columns:auto 1fr;gap:5px 10px;align-items:baseline}
+.chips span{font:800 11px RcSans;letter-spacing:.2em;color:var(--c);padding-top:1px}
+.chips p{margin:0;font:600 14px/1.3 RcSans;color:var(--ink)}
+.chips p em{font-style:normal;color:var(--mute);font-weight:500}
+#r1{top:600px;--c:var(--conv)} #r2{top:924px;--c:var(--rel)} #r3{top:1248px;--c:var(--fro)}
+svg text{font-family:RcSans,sans-serif}
+/* ---------- exam tip + footer */
+#tip{position:absolute;left:48px;right:48px;top:1572px;height:46px;border-radius:23px;background:#fff6d6;border:1.5px dashed var(--gold);
+  display:flex;align-items:center;gap:14px;padding:0 22px;font:500 14.5px RcSans;white-space:nowrap;color:var(--ink)}
+#tip b{font:800 12px RcSans;letter-spacing:.2em;color:var(--gold-deep);white-space:nowrap}
+#foot{position:absolute;left:0;right:0;bottom:0;height:110px;background:var(--navy);border-top:6px solid var(--gold);display:flex;align-items:center;padding:0 48px;gap:20px}
+#foot img{height:66px}
+#foot .nm b{display:block;font:600 26px/1 RcSerif,serif;color:#fff}
+#foot .nm span{display:block;margin-top:6px;font:800 12px RcSans;letter-spacing:.28em;color:var(--gold2)}
+#foot .say{flex:1;font:italic 500 21px/1.25 RcSerif,serif;color:#cfdcf3;padding-left:24px;border-left:1px solid rgba(255,255,255,.2)}
+#foot .pill{height:46px;padding:0 20px;border-radius:23px;display:flex;align-items:center;font:800 17px RcSans;white-space:nowrap}
+#foot .y{background:var(--gold2);color:var(--navy)} #foot .w{background:#fff;color:var(--navy)}
+</style></head><body>
+<div id="fl">
+  <!-- ======================= header ======================= -->
+  <div id="sky"><div class="streaks"></div>
+    <svg id="storm" viewBox="0 0 620 500">
+      <defs>
+        <linearGradient id="cbT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfe7f3"/><stop offset="1" stop-color="#7d8aa3"/></linearGradient>
+        <linearGradient id="shaft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd3f2" stop-opacity=".75"/><stop offset="1" stop-color="#bcd3f2" stop-opacity="0"/></linearGradient>
+        <clipPath id="cbClip"><rect x="0" y="0" width="620" height="282"/></clipPath>
+        <filter id="soft"><feGaussianBlur stdDeviation="1.2"/></filter>
+      </defs>
+      <!-- rain curtain -->
+      <path d="M170 282 L480 282 L430 500 L160 500 Z" fill="url(#shaft)"/>
+      <g stroke="#e3eeff" stroke-width="2" stroke-linecap="round" opacity=".7">
+        <line x1="210" y1="300" x2="198" y2="352"/><line x1="245" y1="318" x2="233" y2="370"/><line x1="282" y1="298" x2="270" y2="350"/>
+        <line x1="318" y1="322" x2="306" y2="374"/><line x1="356" y1="300" x2="344" y2="352"/><line x1="392" y1="316" x2="380" y2="368"/>
+        <line x1="430" y1="300" x2="418" y2="352"/><line x1="226" y1="392" x2="214" y2="444"/><line x1="300" y1="398" x2="288" y2="450"/>
+        <line x1="372" y1="390" x2="360" y2="442"/><line x1="264" y1="430" x2="252" y2="482"/><line x1="338" y1="440" x2="326" y2="492"/>
+      </g>
+      <!-- lightning -->
+      <path d="M402 292 L378 352 L398 352 L372 420 L428 336 L406 336 L424 292 Z" fill="#ffd84a" filter="url(#soft)"/>
+      <path d="M402 292 L378 352 L398 352 L372 420 L428 336 L406 336 L424 292 Z" fill="#fff3b0"/>
+      <!-- cumulonimbus: anvil + tower, flat dark base -->
+      <g clip-path="url(#cbClip)">
+        <path d="M110 70 C200 30 430 26 560 58 C590 66 590 84 560 86 C470 92 420 96 400 112 L250 112 C230 96 170 92 120 90 C92 88 88 76 110 70 Z" fill="url(#cbT)" opacity=".95"/>
+        <g fill="url(#cbT)">
+          <circle cx="330" cy="120" r="56"/><circle cx="280" cy="150" r="52"/><circle cx="385" cy="148" r="54"/>
+          <circle cx="240" cy="205" r="56"/><circle cx="310" cy="190" r="62"/><circle cx="380" cy="200" r="60"/><circle cx="440" cy="222" r="50"/>
+          <circle cx="190" cy="250" r="48"/><circle cx="270" cy="250" r="58"/><circle cx="350" cy="250" r="60"/><circle cx="430" cy="258" r="52"/><circle cx="490" cy="266" r="38"/><circle cx="150" cy="274" r="32"/>
+        </g>
+      </g>
+    </svg>
+    <div id="brand"><img src="../assets/brand/crest-640.webp" alt=""><div><b>Royal Crest Academy</b><span>BIKITA · MASVINGO</span></div></div>
+    <div id="eyebrow">O LEVEL GEOGRAPHY · WEATHER &amp; CLIMATE</div>
+    <h1>Three ways<br><em>the sky makes rain.</em></h1>
+    <div id="lede">All rain follows one rule. <b>What pushes the air up gives each type its name.</b></div>
+  </div>
+
+  <!-- ======================= the one rule ======================= -->
+  <div id="rule">
+    <div class="lab">THE ONE RULE BEHIND ALL RAIN</div>
+    <div class="st"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="24" fill="#fdecdc"/><path d="M25 37 V15 M17 22 L25 13 L33 22" stroke="#e8762b" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Air rises</b><i>pushed up by heat, hills or a front</i></div></div>
+    <svg class="ar" viewBox="0 0 22 22"><path d="M5 4 L15 11 L5 18" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="st"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="24" fill="#e1ecfb"/><rect x="21.5" y="10" width="7" height="22" rx="3.5" fill="none" stroke="#3a6fc4" stroke-width="2.6"/><circle cx="25" cy="35" r="6" fill="#3a6fc4"/><rect x="23.6" y="20" width="2.8" height="14" fill="#3a6fc4"/></svg><div><b>It cools</b><i>about 1&nbsp;°C for every 100&nbsp;m</i></div></div>
+    <svg class="ar" viewBox="0 0 22 22"><path d="M5 4 L15 11 L5 18" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="st"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="24" fill="#eef1f6"/><g fill="#8b97ad"><circle cx="18" cy="28" r="7"/><circle cx="27" cy="22" r="9"/><circle cx="34" cy="29" r="6"/><rect x="12" y="28" width="28" height="7" rx="3.5"/></g></svg><div><b>Cloud forms</b><i>vapour condenses at dew point</i></div></div>
+    <svg class="ar" viewBox="0 0 22 22"><path d="M5 4 L15 11 L5 18" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="st"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="24" fill="#e1ecfb"/><path d="M25 10 C25 10 15 23 15 29 A10 10 0 0 0 35 29 C35 23 25 10 25 10 Z" fill="#3a6fc4"/><path d="M20 29 A5 5 0 0 0 24 34" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/></svg><div><b>Rain falls</b><i>droplets grow heavy enough</i></div></div>
+  </div>
+
+  <!-- ======================= 1. convectional ======================= -->
+  <div class="row" id="r1">
+    <svg class="dia" viewBox="0 0 600 300">
+      <defs>
+        <linearGradient id="s1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd9f6"/><stop offset="1" stop-color="#fff1d9"/></linearGradient>
+        <linearGradient id="cl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#e3e9f2"/><stop offset="1" stop-color="#96a2b8"/></linearGradient>
+        <linearGradient id="th" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e8762b"/><stop offset="1" stop-color="#3a6fc4"/></linearGradient>
+        <clipPath id="c1"><rect x="0" y="0" width="600" height="133"/></clipPath>
+        <marker id="aO" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#e8762b"/></marker>
+        <marker id="aB" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#3a6fc4"/></marker>
+        <marker id="aG" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#3f8f4a"/></marker>
+        <marker id="aW" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#b07a2a"/></marker>
+      </defs>
+      <rect width="600" height="300" fill="url(#s1)"/>
+      <!-- sun -->
+      <g transform="translate(70 62)"><circle r="26" fill="#f5b700"/><g stroke="#f5b700" stroke-width="3.5" stroke-linecap="round">
+        <line x1="0" y1="-36" x2="0" y2="-46"/><line x1="0" y1="36" x2="0" y2="46"/><line x1="-36" y1="0" x2="-46" y2="0"/><line x1="36" y1="0" x2="46" y2="0"/>
+        <line x1="25" y1="25" x2="32" y2="32"/><line x1="-25" y1="-25" x2="-32" y2="-32"/><line x1="25" y1="-25" x2="32" y2="-32"/><line x1="-25" y1="25" x2="-32" y2="32"/></g></g>
+      <g stroke="#f5b700" stroke-width="2" stroke-dasharray="3 7" opacity=".9"><line x1="98" y1="92" x2="175" y2="240"/><line x1="84" y1="98" x2="120" y2="240"/></g>
+      <!-- ground -->
+      <path d="M0 250 Q150 242 300 249 T600 247 V300 H0 Z" fill="#8fbf5c"/><rect y="282" width="600" height="18" fill="#b5562f"/>
+      <g stroke="#e8762b" stroke-width="2" fill="none" opacity=".7"><path d="M140 240 q4 -6 0 -12 q-4 -6 0 -12"/><path d="M200 240 q4 -6 0 -12 q-4 -6 0 -12"/><path d="M470 240 q4 -6 0 -12 q-4 -6 0 -12"/><path d="M520 240 q4 -6 0 -12 q-4 -6 0 -12"/></g>
+      <!-- condensation level -->
+      <line x1="20" y1="133" x2="520" y2="133" stroke="#0a1f5c" stroke-width="1.5" stroke-dasharray="7 6" opacity=".55"/>
+      <text x="22" y="125" font-size="11" font-weight="800" letter-spacing="1.6" fill="#0a1f5c" opacity=".75">CONDENSATION LEVEL</text>
+      <!-- rain -->
+      <g stroke="#3a6fc4" stroke-width="2.2" stroke-linecap="round" opacity=".75">
+        <line x1="268" y1="146" x2="262" y2="170"/><line x1="292" y1="160" x2="286" y2="184"/><line x1="316" y1="144" x2="310" y2="168"/><line x1="340" y1="164" x2="334" y2="188"/>
+        <line x1="364" y1="148" x2="358" y2="172"/><line x1="388" y1="162" x2="382" y2="186"/><line x1="280" y1="196" x2="274" y2="220"/><line x1="328" y1="204" x2="322" y2="228"/><line x1="374" y1="198" x2="368" y2="222"/><line x1="304" y1="226" x2="298" y2="246"/><line x1="352" y1="228" x2="346" y2="246"/></g>
+      <!-- thermals -->
+      <g stroke="#e8762b" stroke-width="3" fill="none" stroke-linecap="round" marker-end="url(#aO)">
+        <path d="M165 244 C150 210 185 185 172 150"/><path d="M215 246 C230 210 200 185 222 140"/><path d="M455 244 C470 205 440 180 446 150"/></g>
+      <!-- cumulonimbus -->
+      <g clip-path="url(#c1)" fill="url(#cl)">
+        <path d="M196 34 C250 14 410 12 476 28 C492 33 488 46 470 47 C420 50 380 54 362 64 L304 64 C286 54 248 50 214 48 C192 46 184 40 196 34 Z"/>
+        <circle cx="330" cy="50" r="26"/><circle cx="305" cy="74" r="30"/><circle cx="352" cy="72" r="30"/><circle cx="280" cy="104" r="32"/>
+        <circle cx="330" cy="100" r="36"/><circle cx="378" cy="104" r="32"/><circle cx="240" cy="122" r="22"/><circle cx="415" cy="120" r="24"/>
+      </g>
+      <path d="M415 140 L404 166 L414 166 L402 196 L428 158 L417 158 L426 140 Z" fill="#f5c400"/>
+      <!-- cooling bar -->
+      <rect x="560" y="44" width="10" height="200" rx="5" fill="url(#th)"/>
+      <text x="552" y="54" text-anchor="end" font-size="11" font-weight="800" fill="#3a6fc4">COLD</text>
+      <text x="552" y="242" text-anchor="end" font-size="11" font-weight="800" fill="#e8762b">HOT</text>
+      <text x="250" y="270" font-size="12" font-weight="800" fill="#fff" letter-spacing="2">HOT GROUND · THERMALS RISE</text>
+    </svg>
+    <div class="tx">
+      <div class="hd"><div class="drop"><svg viewBox="0 0 46 58"><path d="M23 2 C23 2 3 28 3 38 A20 20 0 0 0 43 38 C43 28 23 2 23 2 Z" fill="#e8762b"/></svg><b>1</b></div>
+        <h2>Convectional rain<small>The sun pushes it up.</small></h2></div>
+      <ul>
+        <li>The sun heats the ground. The air above warms, expands and rises in thermals.</li>
+        <li>It cools to dew point and condenses into cumulus clouds.</li>
+        <li>Strong uplift builds towering cumulonimbus.</li>
+      </ul>
+      <div class="chips"><span>CLOUD</span><p>Cumulonimbus</p><span>RAIN</span><p>Heavy, short afternoon storms <em>· thunder and lightning</em></p><span>WHERE</span><p>Zimbabwe, November to March <em>· most of our rain</em></p></div>
+    </div>
+  </div>
+
+  <!-- ======================= 2. relief ======================= -->
+  <div class="row flip" id="r2">
+    <svg class="dia" viewBox="0 0 600 300">
+      <defs>
+        <linearGradient id="s2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe5fb"/><stop offset="1" stop-color="#f1f7fd"/></linearGradient>
+        <linearGradient id="mt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4f9a4c"/><stop offset=".5" stop-color="#6faa52"/><stop offset=".52" stop-color="#c9a46a"/><stop offset="1" stop-color="#d9bb86"/></linearGradient>
+      </defs>
+      <rect width="600" height="300" fill="url(#s2)"/>
+      <!-- ground: wet left, dry right -->
+      <rect y="262" width="300" height="38" fill="#6fae52"/><rect x="300" y="262" width="300" height="38" fill="#d9bb86"/>
+      <!-- mountain -->
+      <path d="M110 264 L230 120 L262 92 L290 70 L318 96 L350 128 L490 264 Z" fill="url(#mt)"/>
+      <path d="M262 92 L290 70 L318 96 L304 102 L290 88 L276 104 Z" fill="#fff" opacity=".55"/>
+      <g fill="#2f7a3a"><path d="M150 252 l7 -18 l7 18 z"/><path d="M172 238 l7 -18 l7 18 z"/><path d="M194 214 l7 -18 l7 18 z"/><path d="M128 258 l7 -18 l7 18 z"/></g>
+      <!-- condensation level (windward) -->
+      <line x1="20" y1="150" x2="300" y2="150" stroke="#0a1f5c" stroke-width="1.5" stroke-dasharray="7 6" opacity=".5"/>
+      <text x="22" y="143" font-size="10" font-weight="800" letter-spacing="1.2" fill="#0a1f5c" opacity=".75">CONDENSATION LEVEL</text>
+      <!-- cloud cap -->
+      <clipPath id="capc"><rect x="0" y="0" width="600" height="150"/></clipPath>
+      <g clip-path="url(#capc)" fill="url(#cl)"><circle cx="190" cy="140" r="20"/><circle cx="216" cy="122" r="28"/><circle cx="248" cy="104" r="28"/><circle cx="276" cy="86" r="24"/><circle cx="236" cy="142" r="22"/><circle cx="268" cy="132" r="24"/><circle cx="300" cy="80" r="18"/></g>
+      <!-- rain on windward slope -->
+      <g stroke="#3a6fc4" stroke-width="2.2" stroke-linecap="round" opacity=".8">
+        <line x1="182" y1="150" x2="176" y2="172"/><line x1="200" y1="148" x2="194" y2="170"/><line x1="218" y1="152" x2="212" y2="174"/><line x1="236" y1="146" x2="230" y2="164"/>
+        <line x1="190" y1="182" x2="184" y2="204"/><line x1="208" y1="184" x2="203" y2="198"/><line x1="172" y1="188" x2="166" y2="208"/></g>
+      <!-- airflow -->
+      <path d="M18 238 H100" stroke="#3f8f4a" stroke-width="3.2" fill="none" stroke-linecap="round" marker-end="url(#aG)"/>
+      <path d="M110 232 C150 206 170 180 196 154" stroke="#3f8f4a" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-dasharray="1 0" marker-end="url(#aG)"/>
+      <path d="M300 58 C330 56 352 76 372 104 C400 144 430 186 470 222" stroke="#b07a2a" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-dasharray="9 6" marker-end="url(#aW)"/>
+      <text x="18" y="226" font-size="12" font-weight="800" fill="#2f7a3a" letter-spacing="1">MOIST WIND</text>
+      <text x="446" y="150" font-size="12" font-weight="800" fill="#8a5d1c" letter-spacing="1">SINKS, WARMS,</text>
+      <text x="446" y="166" font-size="12" font-weight="800" fill="#8a5d1c" letter-spacing="1">DRIES OUT</text>
+      <text x="40" y="286" font-size="13" font-weight="800" fill="#fff" letter-spacing="2">WINDWARD · WET</text>
+      <text x="590" y="286" text-anchor="end" font-size="13" font-weight="800" fill="#7a541a" letter-spacing="1.6">LEEWARD · RAIN SHADOW</text>
+    </svg>
+    <div class="tx">
+      <div class="hd"><div class="drop"><svg viewBox="0 0 46 58"><path d="M23 2 C23 2 3 28 3 38 A20 20 0 0 0 43 38 C43 28 23 2 23 2 Z" fill="#3f8f4a"/></svg><b>2</b></div>
+        <h2>Relief rain<small>A mountain pushes it up.</small></h2></div>
+      <ul>
+        <li>Moist wind is forced up the windward slope of high ground.</li>
+        <li>It cools, condenses and rains on the windward side.</li>
+        <li>Beyond the top the air sinks, warms and dries: the rain shadow.</li>
+      </ul>
+      <div class="chips"><span>CLOUD</span><p>Cloud caps on the hills</p><span>RAIN</span><p>Wet windward slopes <em>· dry leeward side</em></p><span>WHERE</span><p>Eastern Highlands: Nyanga, Chimanimani <em>· the Save valley lies in the rain shadow</em></p></div>
+    </div>
+  </div>
+
+  <!-- ======================= 3. frontal ======================= -->
+  <div class="row" id="r3">
+    <svg class="dia" viewBox="0 0 600 300">
+      <defs>
+        <linearGradient id="s3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d5dde9"/><stop offset="1" stop-color="#eef2f7"/></linearGradient>
+        <linearGradient id="ns" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c3ccd9"/><stop offset="1" stop-color="#7f8ba1"/></linearGradient>
+        <linearGradient id="cold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8fb4e8" stop-opacity=".35"/><stop offset="1" stop-color="#5b8fd9" stop-opacity=".7"/></linearGradient>
+      </defs>
+      <rect width="600" height="300" fill="url(#s3)"/>
+      <rect y="262" width="600" height="38" fill="#7fae5a"/>
+      <!-- cold wedge -->
+      <path d="M90 262 L600 96 L600 262 Z" fill="url(#cold)"/>
+      <path d="M90 262 L600 96" stroke="#0a1f5c" stroke-width="3"/>
+      <!-- warm-front symbols along the front -->
+      <g fill="#d6452f"><path d="M150 242.5 a9 9 0 0 1 17.1 -5.6 z"/><path d="M230 216.5 a9 9 0 0 1 17.1 -5.6 z"/><path d="M310 190.5 a9 9 0 0 1 17.1 -5.6 z"/><path d="M390 164.5 a9 9 0 0 1 17.1 -5.6 z"/><path d="M470 138.5 a9 9 0 0 1 17.1 -5.6 z"/></g>
+      <text x="470" y="215" font-size="13" font-weight="800" fill="#0a1f5c" letter-spacing="1.5">COLD AIR</text>
+      <text x="470" y="232" font-size="11" font-weight="700" fill="#0a1f5c" opacity=".75">dense, stays low</text>
+      <text x="200" y="250" font-size="12" font-weight="800" fill="#0a1f5c" letter-spacing="1.5" transform="rotate(-18 200 250)">THE FRONT</text>
+      <!-- warm air riding up -->
+      <g stroke="#e8762b" stroke-width="3.2" fill="none" stroke-linecap="round" marker-end="url(#aO)">
+        <path d="M20 226 C80 222 120 210 170 190 C240 162 300 140 360 118"/>
+        <path d="M20 186 C80 180 140 162 200 140 C260 118 320 98 380 82"/></g>
+      <text x="20" y="116" font-size="12" font-weight="800" fill="#c25e1c" letter-spacing="1">WARM, MOIST AIR</text>
+      <text x="20" y="132" font-size="11" font-weight="700" fill="#c25e1c" opacity=".85">lighter, so it rides up</text>
+      <!-- nimbostratus sheet -->
+      <path d="M190 74 C200 58 220 62 230 56 C246 44 266 54 280 46 C300 36 320 50 340 40 C362 30 384 44 404 36 C428 26 452 40 474 32 C500 24 530 36 556 30 C580 26 600 34 600 34 V96 L560 98 C470 102 360 110 270 118 C230 121 196 116 190 104 Z" fill="url(#ns)"/>
+      <text x="420" y="66" font-size="12" font-weight="800" fill="#fff" letter-spacing="1.6">NIMBOSTRATUS</text>
+      <!-- steady rain -->
+      <g stroke="#3a6fc4" stroke-width="1.8" stroke-linecap="round" opacity=".7">
+        <line x1="236" y1="124" x2="232" y2="140"/><line x1="262" y1="122" x2="258" y2="138"/><line x1="288" y1="120" x2="284" y2="136"/><line x1="314" y1="118" x2="310" y2="134"/>
+        <line x1="340" y1="116" x2="336" y2="132"/><line x1="366" y1="114" x2="362" y2="130"/><line x1="392" y1="112" x2="388" y2="128"/><line x1="418" y1="110" x2="414" y2="126"/>
+        <line x1="444" y1="108" x2="440" y2="124"/><line x1="470" y1="106" x2="466" y2="122"/><line x1="496" y1="104" x2="492" y2="120"/><line x1="522" y1="104" x2="518" y2="120"/><line x1="548" y1="102" x2="544" y2="118"/><line x1="574" y1="102" x2="570" y2="118"/>
+        <line x1="250" y1="150" x2="246" y2="166"/><line x1="276" y1="148" x2="272" y2="164"/><line x1="302" y1="146" x2="298" y2="162"/><line x1="328" y1="142" x2="324" y2="158"/><line x1="354" y1="140" x2="350" y2="156"/><line x1="380" y1="136" x2="376" y2="150"/><line x1="406" y1="132" x2="402" y2="146"/><line x1="432" y1="130" x2="428" y2="142"/><line x1="458" y1="126" x2="454" y2="138"/><line x1="484" y1="124" x2="480" y2="134"/><line x1="510" y1="122" x2="506" y2="132"/><line x1="536" y1="120" x2="532" y2="130"/><line x1="562" y1="118" x2="558" y2="128"/>
+        <line x1="260" y1="178" x2="256" y2="194"/><line x1="290" y1="176" x2="286" y2="192"/><line x1="320" y1="174" x2="316" y2="186"/><line x1="350" y1="168" x2="346" y2="178"/>
+      </g>
+    </svg>
+    <div class="tx">
+      <div class="hd"><div class="drop"><svg viewBox="0 0 46 58"><path d="M23 2 C23 2 3 28 3 38 A20 20 0 0 0 43 38 C43 28 23 2 23 2 Z" fill="#3a6fc4"/></svg><b>3</b></div>
+        <h2>Frontal rain<small>Cold air pushes it up.</small></h2></div>
+      <ul>
+        <li>Warm, moist air meets a mass of cold, dense air at a front.</li>
+        <li>The lighter warm air is forced to rise over the cold air.</li>
+        <li>It cools slowly into wide grey sheets of nimbostratus.</li>
+      </ul>
+      <div class="chips"><span>CLOUD</span><p>Nimbostratus</p><span>RAIN</span><p>Steady, light to moderate <em>· lasts for hours</em></p><span>WHERE</span><p>Most of Britain's rain <em>· in Zimbabwe, winter cold fronts bring cool, grey days</em></p></div>
+    </div>
+  </div>
+
+  <div id="tip"><b>EXAM TIP · ZIMSEC &amp; CAMBRIDGE</b><span>Draw and label it: arrows for moving air, a dashed condensation level, the cloud's name and where the rain falls.</span></div>
+
+  <div id="foot">
+    <img src="../assets/brand/crest-640.webp" alt="">
+    <div class="nm"><b>Royal Crest Academy</b><span>SCIENCE · INNOVATION · SKILL</span></div>
+    <div class="say">We read the sky every morning at our own weather station.</div>
+    <div class="pill y">Form 1 · 2027 enrolment open</div>
+    <div class="pill w">0714 404 090</div>
+  </div>
+</div>
+</body></html>
