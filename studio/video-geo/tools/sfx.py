@@ -22,7 +22,7 @@ gust = cue('g18', 'east')
 events = []  # (file, start, gain)
 # drone propellers: FPV flight and the climb, quieter once we're climbing
 d0 = SC['drone']['start'] - .2; dl = c0 + .8 - d0
-events.append((gen('hum', f"aevalsrc='0.55*sin(2*PI*196*t)+0.25*sin(2*PI*392*t)+0.12*sin(2*PI*588*t)':s=48000:d={dl:.2f}", dl, f"tremolo=f=28:d=0.25,volume='if(lt(t,{fpv_end-d0}),1,0.55)':eval=frame,afade=t=in:d=0.8,afade=t=out:st={dl-1.2}:d=1.2,lowpass=f=2500"), d0, .22))
+events.append((gen('hum', f"aevalsrc='0.55*sin(2*PI*196*t)+0.25*sin(2*PI*392*t)+0.12*sin(2*PI*588*t)':s=48000:d={dl:.2f}", dl, f"tremolo=f=28:d=0.25,volume='if(lt(t,{fpv_end-d0}),1,0.55)':eval=frame,afade=t=in:d=0.8,afade=t=out:st={dl-1.2}:d=1.2,lowpass=f=2500"), d0, .15))
 # into the cloud: a whoosh, then soft wind while we're inside
 events.append((gen('whoosh', 'anoisesrc=c=white:a=1:r=48000', 2.2, "bandpass=f=1100:w=1600,volume='sin(PI*t/2.2)^2':eval=frame"), c0 - .3, .5))
 events.append((gen('cloudwind', 'anoisesrc=c=brown:a=1:r=48000:seed=5', c1 - c0, f"lowpass=f=700,tremolo=f=0.4:d=0.5,afade=t=in:d=1,afade=t=out:st={c1-c0-1.5}:d=1.5"), c0, .35))

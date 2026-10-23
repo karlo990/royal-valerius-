@@ -39,17 +39,19 @@ music = (f"{src}aresample=48000,aformat=channel_layouts=stereo,atrim=0:{total:.2
 if labels:
     flt.append(f"{''.join(labels)}amix=inputs={len(labels)}:normalize=0,"
                "highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=2,"
-               "equalizer=f=3500:t=o:w=1.2:g=2,apad,asplit=2[vo][key]")
+               "equalizer=f=3500:t=o:w=1.2:g=2,apad,asplit=3[vo][key][key2]")
     flt.append(music + "[mu]")
     flt.append("[mu][key]sidechaincompress=threshold=0.02:ratio=10:attack=15:release=450:knee=4:makeup=1[duck]")
     flt.append(f"[vo][duck]amix=inputs=2:normalize=0:duration=longest,atrim=0:{total:.2f}[pre]")
 else:
     flt.append(music + "[pre]")
+if labels and not a.sfx: flt.append("[key2]anullsink")
 if a.sfx:
     k = ins.count('-i'); ins += ['-i', a.sfx]
     flt[-1] = flt[-1][:-len('[pre]')] + '[pre0]'
-    flt.append(f"[{k}:a]aresample=48000,aformat=channel_layouts=stereo,volume={a.sfx_gain},apad,atrim=0:{total:.2f}[fx];"
-               f"[pre0][fx]amix=inputs=2:normalize=0:duration=first[pre]")
+    flt.append(f"[{k}:a]aresample=48000,aformat=channel_layouts=stereo,volume={a.sfx_gain},apad,atrim=0:{total:.2f}[fx0];"
+               + ("[fx0][key2]sidechaincompress=threshold=0.03:ratio=5:attack=10:release=350:knee=4[fx];" if labels else "[fx0]anull[fx];")
+               + f"[pre0][fx]amix=inputs=2:normalize=0:duration=first[pre]")
 
 def run(extra_tail, out_args, lvl='error'):
     cmd = ['ffmpeg', '-y', '-hide_banner', '-nostats', '-v', lvl, *ins, '-filter_complex', ';'.join(flt + [extra_tail]), *out_args]

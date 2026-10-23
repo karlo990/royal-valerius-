@@ -245,7 +245,7 @@ const SC={
        for(let k=0;k<=12;k+=2){const y=yk(k),T=k<=1.6?31-9.8*k:31-9.8*1.6-6*(k-1.6);txt(k+' km',1208,y,{font:'600 11px "Plex Mono"',col:'#fff',bg:'rgba(8,24,44,.7)'});txt(Math.round(T)+' °C',1132,y,{font:'600 11px "Plex Mono"',col:k<1.6?'#FFB46A':'#9FD4FF',bg:'rgba(8,24,44,.7)'})}
        const dx=640,dy=yk(alt)+6;g.save();g.translate(dx,dy+Math.sin(t*3)*2);g.fillStyle='#1B2433';g.beginPath();g.roundRect(-22,-8,44,16,6);g.fill();for(const sd of [-1,1]){g.fillRect(sd*22-2,-3,sd*18,4);g.fillStyle='rgba(220,230,240,.55)';g.beginPath();g.ellipse(sd*40,-6,18*Math.abs(Math.sin(t*40+sd)),3,0,0,7);g.fill();g.fillStyle='#1B2433'}g.fillStyle='#F5D57A';g.beginPath();g.arc(0,8,4,0,7);g.fill();g.restore();
        DR={alt,T:alt<=1.6?31-9.8*alt:15.3-6*(alt-1.6),rh:Math.round(lerp(38,99,clamp(alt/1.6)))}};
-     const fpv=async()=>{await portraitClip(g,'fpv',454,30,s.start-.2,t,'DRONE CAM')};const cld=async()=>{await clipAt(g,'cloud',240,24,c0,t,0,0,W,H,1.03)};
+     const fpv=async()=>{await portraitClip(g,'fpv',454,30,s.start-.2,t,'DRONE CAM')};const cld=async()=>{await clipAt(g,'cloud',213,22.5,c0,t,0,0,W,H,1.03)};
      if(t<fpvEnd)await fpv();else if(t<c0){await fpv();await xL(t,fpvEnd,.8,xs)}else if(t<c1){await xs();await xL(t,c0,.6,cld)}else{await cld();await xL(t,c1,.8,xs)}
      if(t>=c0-.1&&t<c1+.8){const fg=1-Math.abs((t-c0-.6)/.6);if(fg>0){g.save();g.fillStyle=`rgba(255,255,255,${clamp(fg)*.6})`;g.fillRect(0,0,W,H);g.restore()}}},
    dom:s=>`<div class="k" style="left:64px;top:96px" data-in="${cue('g22','The ground')}">LESSON 05 · IN THE CLOUDS</div><div class="h" style="left:64px;top:118px;font-size:44px" data-in="${cue('g22','The ground')+.2}">Rising air.<br><em>A cloud is born.</em></div>
