@@ -360,10 +360,16 @@ const SC={
  open:{cta:0,
    async draw(g,t,s){pinkBg(g,t);rays(g,t,1180,-60,9,900,'rgba(255,255,255,.95)',4);const mg=cue('k03','science');
      const at=['Butter','Sugar','Eggs','Flour'].map(w=>cue('k01',w)-.2);
-     await xf(g,t,mg,1,async q=>{await cakeHero(q,{mode:'ing',yaw:Math.sin(t*.25)*.3,items:at.map(a=>clamp((t-a)/.7)),zoom:.95,shift:.17})},
+     const crest=async q=>{pinkBg(q,t);rays(q,t,640,-80,10,900,'rgba(255,255,255,.95)',3);const im=await img('../assets/crest.jpg'),k=eo((t-.2)/1.1),R=150*lerp(.85,1,k);
+       q.save();q.globalAlpha=k;q.fillStyle='#fff';q.shadowColor='rgba(200,67,107,.35)';q.shadowBlur=60;q.beginPath();q.arc(640,300,R,0,7);q.fill();q.restore();q.save();q.globalAlpha=k;q.beginPath();q.arc(640,300,R-6,0,7);q.clip();if(im)q.drawImage(im,640-R*.92,300-R*.92,R*1.84,R*1.84);
+       const sx=lerp(-200,1480,clamp((t-.6)/1.4)),sg=q.createLinearGradient(sx-120,0,sx+120,0);sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(.5,'rgba(255,255,255,.6)');sg.addColorStop(1,'rgba(255,255,255,0)');q.globalCompositeOperation='screen';q.fillStyle=sg;q.fillRect(0,0,W,H);q.restore()};
+     const ingr=async q=>{await cakeHero(q,{mode:'ing',yaw:Math.sin(t*.25)*.3,items:at.map(a=>clamp((t-a)/.7)),zoom:.8,shift:.19})};
+     if(t<at[0]-.2){await xf(g,t,at[0]-1.1,.9,crest,ingr);dust(g,t,90,7,'#FFFFFF',{area:[0,0,1280,720]});return}
+     await xf(g,t,mg,1,ingr,
        async q=>{await cakeHero(q,{...FULL,crest:0,stand:1,yaw:.5+t*.2,tilt:.34,zoom:.74,shift:.2,ly:.9},{refl:1065,bloom:.18})});
      dust(g,t,90,7,'#FFFFFF',{area:[560,0,720,720]})},
-   dom:()=>`<div class="k" style="left:64px;top:150px" data-in="${cue('k01')-.3}">BAKERY &amp; FOOD PRODUCTION</div>
+   dom:()=>`<div style="left:0;right:0;top:478px;text-align:center" data-in=".5" data-out="${cue('k01','Butter')-.4}"><div style="font:800 15px var(--sans);letter-spacing:.32em;color:var(--navy)">ROYAL CREST ACADEMY</div><div style="font:italic 400 22px var(--serif);color:var(--rasp);margin-top:6px">presents</div><div class="k" style="margin-top:12px">BAKERY &amp; FOOD PRODUCTION</div></div>
+     <div class="k" style="left:64px;top:150px" data-in="${cue('k01')-.3}">BAKERY &amp; FOOD PRODUCTION</div>
      ${['Butter.','Sugar.','Eggs.','Flour.'].map((w,i)=>`<div style="left:64px;top:${190+i*72}px;font:400 74px/1 var(--serif);color:${['#C99A1E','#13215a','#C8436B','#13215a'][i]}" data-in="${cue('k01',w.slice(0,-1))-.15}" data-fx="blur">${w}</div>`).join('')}
      <div style="left:66px;top:488px;font:800 15px var(--sans);letter-spacing:.24em;color:var(--navy)" data-in="${cue('k01','Four plain')}">FOUR PLAIN INGREDIENTS</div>
      <div style="left:64px;top:520px" data-in="${cue('k03','science')}"><span class="chip on">+ a little science</span><span class="chip gold" data-in="${cue('k03','skill')}">+ a lot of skill</span></div>`},
@@ -519,7 +525,7 @@ window.renderAt=async function(t){
   $('#grain').style.backgroundPosition=`${Math.floor(t*30*97)%240}px ${Math.floor(t*30*53)%240}px`;
   // captions
   let L=null;for(const l of TL.lines){if(t>=l.start-.05&&t<l.end+.9)L=l}
-  const low=$('#lower');low.style.opacity=L?1:clamp(1-(t-(TL.lines.filter(l=>l.end<t).pop()?.end??0)-.9)/.3);
+  const low=$('#lower'),prev=TL.lines.filter(l=>l.end<t).pop();low.style.opacity=L?eo((t-L.start+.3)/.35):prev?clamp(1-(t-prev.end-.9)/.3):0;
   if(L){const who=L.who,ch=L.ch.filter(c=>t>=c.st-.05).pop()||L.ch[0],key=L.id+ch.txt;
     if(key!==lastCap){$('#av').className=who;$('#av').textContent=NAMES[who][0];$('#cap').innerHTML=esc(ch.txt);lastCap=key}
     $('#who').innerHTML=NAMES[who][1]+(t<L.end?'<i>'+[0,1,2,3].map(i=>`<u style="height:${3+7*Math.abs(Math.sin(t*11+i*1.9))}px"></u>`).join('')+'</i>':'');
