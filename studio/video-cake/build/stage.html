@@ -364,7 +364,7 @@ const SC={
        q.save();q.globalAlpha=k;q.fillStyle='#fff';q.shadowColor='rgba(200,67,107,.35)';q.shadowBlur=60;q.beginPath();q.arc(640,300,R,0,7);q.fill();q.restore();q.save();q.globalAlpha=k;q.beginPath();q.arc(640,300,R-6,0,7);q.clip();if(im)q.drawImage(im,640-R*.92,300-R*.92,R*1.84,R*1.84);
        const sx=lerp(-200,1480,clamp((t-.6)/1.4)),sg=q.createLinearGradient(sx-120,0,sx+120,0);sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(.5,'rgba(255,255,255,.6)');sg.addColorStop(1,'rgba(255,255,255,0)');q.globalCompositeOperation='screen';q.fillStyle=sg;q.fillRect(0,0,W,H);q.restore()};
      const ingr=async q=>{await cakeHero(q,{mode:'ing',yaw:Math.sin(t*.25)*.3,items:at.map(a=>clamp((t-a)/.7)),zoom:.8,shift:.19})};
-     if(t<at[0]-.2){await xf(g,t,at[0]-1.1,.9,crest,ingr);dust(g,t,90,7,'#FFFFFF',{area:[0,0,1280,720]});return}
+     if(t<at[0]-.2){await xf(g,t,at[0]-1.1,.9,crest,async q=>{pinkBg(q,t);rays(q,t,1180,-60,9,900,'rgba(255,255,255,.95)',4);await ingr(q)});dust(g,t,90,7,'#FFFFFF',{area:[560,0,720,720]});return}
      await xf(g,t,mg,1,ingr,
        async q=>{await cakeHero(q,{...FULL,crest:0,stand:1,yaw:.5+t*.2,tilt:.34,zoom:.74,shift:.2,ly:.9},{refl:1065,bloom:.18})});
      dust(g,t,90,7,'#FFFFFF',{area:[560,0,720,720]})},
