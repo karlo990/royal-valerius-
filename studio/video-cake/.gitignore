@@ -12,3 +12,4 @@ build/parts*.txt
 .env
 assets/slide/
 build/mix_*.log
+assets/clipfr/

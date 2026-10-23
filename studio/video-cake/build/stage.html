@@ -90,6 +90,9 @@ function cue(id,sub,nth=0){const l=LINES[id];if(!l)return 1e9;if(sub==null)retur
 const lend=id=>LINES[id]?LINES[id].end:1e9;
 const W=1280,H=720,CW=1920,CH=1080,S=720;
 const IMG={};const img=src=>IMG[src]||(IMG[src]=new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src}));
+const CLIPC=new Map();function clipImg(src){let p=CLIPC.get(src);if(p){CLIPC.delete(src);CLIPC.set(src,p);return p}p=new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src});CLIPC.set(src,p);if(CLIPC.size>40)CLIPC.delete(CLIPC.keys().next().value);return p}
+const cf=(dir,n)=>`../assets/clipfr/${dir}/${String(n).padStart(4,'0')}.jpg`;
+async function clipAt(g,dir,N,fps,t0,t,x,y,w,h,zoom=1){const f=clamp(Math.floor((t-t0)*fps)+1,1,N);cover(g,await clipImg(cf(dir,f)),x,y,w,h,zoom)}
 const yawTo=(a,b,k)=>{const T=Math.PI*2;b+=T*Math.round((a-b)/T);return lerp(a,b,clamp(k))};
 const CAKE=(()=>{ if(!window.THREE) return null;
   const cv=document.createElement('canvas');cv.width=CW;cv.height=CH;
@@ -379,7 +382,8 @@ const SC={
      <div class="glass rows" style="left:64px;top:236px;width:400px;padding:6px 18px" data-in="${cue('k06','butter')-.4}">${[['Butter','225 g','butter'],['Sugar','225 g','sugar'],['Self-raising flour','225 g','self-raising'],['Eggs','4 large','Four eggs'],['Milk','a splash','milk']].map(([n,d,w])=>`<div data-hl="${cue('k06',w)}"><i></i><div><b>${n}</b><small>${d}</small></div></div>`).join('')}</div>
      <div style="left:64px;top:528px" data-in="${cue('k08','chemistry')}"><span class="chip on">Baking is chemistry: exact amounts, same cake every time</span></div>`},
  cream:{cta:1,
-   async draw(g,t,s){creamWide(g,t,{pale:cue('k09','pale'),bub:cue('k10','sugar crystal'),fold:cue('k12','fold')});const n=Math.floor(clamp((t-cue('k10','air bubbles'))/5)*2.4e6);
+   async draw(g,t,s){const sw=cue('k10','sugar crystal')-.4;const vid=async q=>{await clipAt(q,'cream',240,24,s.start-.2,t,0,0,W,H,lerp(1.02,1.7,eio((t-sw+.3)/1.4)));const sg=q.createLinearGradient(0,0,0,130);sg.addColorStop(0,'rgba(255,248,250,.85)');sg.addColorStop(1,'rgba(255,248,250,0)');q.fillStyle=sg;q.fillRect(0,0,W,130)};
+     const mic=async q=>{creamWide(q,t,{pale:cue('k09','pale'),bub:cue('k10','sugar crystal'),fold:cue('k12','fold')})};if(t<sw)await vid(g);else await xf(g,t,sw,1.2,vid,mic);const n=Math.floor(clamp((t-cue('k10','air bubbles'))/5)*2.4e6);
      if(n>0){g.save();g.fillStyle='rgba(255,255,255,.7)';g.beginPath();g.roundRect(900,560,330,40,20);g.fill();g.restore();txt(g,'AIR BUBBLES: '+n.toLocaleString('en-GB'),1065,581,{col:'#5A3626',font:'600 16px "Plex Mono"'})}},
    dom:s=>`<div class="glass" style="left:64px;top:118px;width:400px;padding:18px 20px" data-in="${s.start+.4}"><div class="k">LESSON 02 · CREAMING</div><div class="h" style="font-size:44px;margin:8px 0 10px">The fluffy part <em>is air.</em></div>
      <div class="rows">${[['Beat','Butter and sugar until pale and fluffy','k09','pale'],['Trap','Sugar crystals cut pockets of air','k10','air bubbles'],['Add','Eggs, one at a time','k12','eggs'],['Fold','Flour in gently, keep the air','k12','fold']].map(([n,d,l,w])=>`<div data-hl="${cue(l,w)}"><i></i><div><b>${n}</b><small>${d}</small></div></div>`).join('')}</div></div>`},
@@ -390,14 +394,16 @@ const SC={
      <div style="left:0;right:0;top:568px;text-align:center;font:400 40px var(--serif);color:var(--navy)" data-in="${cue('k14','carbon dioxide')}" data-fx="blur">NaHCO<sub style="font-size:.55em">3</sub> + acid <span style="color:var(--gold);font-family:var(--sans)">→</span> <b style="color:var(--rasp);font-weight:500">CO<sub style="font-size:.55em">2</sub>↑</b> + water</div>
      <div style="left:0;right:0;top:230px;text-align:center;font:italic 400 76px var(--serif);color:var(--rasp);text-shadow:0 10px 30px rgba(255,255,255,.8)" data-in="${cue('k16','rises')+.6}" data-fx="blur">The whole cake rises.</div>`},
  oven:{cta:1,dark:1,
-   async draw(g,t,s){const st=ovenWide(g,t,OVC());dust(g,t,50,3,'#FFD9A0',{maxR:6,alpha:.4});SC.oven._st=st},
-   dom:s=>`<div class="k" style="left:64px;top:118px">LESSON 04 · THE OVEN</div><div id="ovT" style="left:64px;top:138px;font:400 118px/.9 var(--serif);color:#fff;letter-spacing:-.03em;text-shadow:0 10px 40px rgba(0,0,0,.5)">20°</div>
-     <div id="ovL" style="left:66px;top:262px;font:800 13px var(--sans);letter-spacing:.2em;color:#fff">RISING</div><div id="ovD" style="left:66px;top:286px;width:250px;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.75)"></div>
+   async draw(g,t,s){const sw=cue('k17','Inside');let st=null;const vid=async q=>{await clipAt(q,'oven',240,24,sw-10,t,0,0,W,H,lerp(1.02,1.12,(t-s.start)/(sw-s.start+1)))};
+     const th=async q=>{st=ovenWide(q,t,OVC());dust(q,t,50,3,'#FFD9A0',{maxR:6,alpha:.4})};if(t<sw)await vid(g);else await xf(g,t,sw,.8,vid,th);
+     const fl=1-Math.abs(t-sw-.4)/.4;if(fl>0){g.save();g.globalCompositeOperation='screen';g.globalAlpha=fl*.55;g.fillStyle='#FFB46A';g.fillRect(0,0,W,H);g.restore()}SC.oven._st=st},
+   dom:s=>`<div class="k" style="left:64px;top:118px" data-in="${cue('k17','Inside')}">LESSON 04 · THE OVEN</div><div id="ovT" data-in="${cue('k17','Inside')+.2}" style="left:64px;top:138px;font:400 118px/.9 var(--serif);color:#fff;letter-spacing:-.03em;text-shadow:0 10px 40px rgba(0,0,0,.5)">20°</div>
+     <div id="ovL" data-in="${cue('k17','Inside')+.4}" style="left:66px;top:262px;font:800 13px var(--sans);letter-spacing:.2em;color:#fff">RISING</div><div id="ovD" data-in="${cue('k17','Inside')+.5}" style="left:66px;top:286px;width:250px;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.75)"></div>
      <div id="ovTm" style="left:64px;top:360px;display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:12px;background:rgba(20,10,30,.6);border:1px solid rgba(255,255,255,.15);font:600 22px var(--mono);color:#FFB46A" data-in="${cue('k21')}">⏱ 25:00</div>
-     <div style="left:64px;right:64px;top:584px;height:30px">${[['20°',20],['RISE · 40–60°',50],['SET · 70°',70],['WATER STEAMS · 100°',100],['BROWN · 140°+',140],['OVEN · 180°',180]].map(([l,v])=>`<div style="position:absolute;left:${(v-20)/160*100}%;transform:translateX(-50%);top:0;font:600 10.5px var(--mono);color:rgba(255,255,255,.65);white-space:nowrap">${l}</div>`).join('')}
+     <div style="left:64px;right:64px;top:584px;height:30px" data-in="${cue('k17','Inside')+.6}">${[['20°',20],['RISE · 40–60°',50],['SET · 70°',70],['WATER STEAMS · 100°',100],['BROWN · 140°+',140],['OVEN · 180°',180]].map(([l,v])=>`<div style="position:absolute;left:${(v-20)/160*100}%;transform:translateX(-50%);top:0;font:600 10.5px var(--mono);color:rgba(255,255,255,.65);white-space:nowrap">${l}</div>`).join('')}
        <div style="position:absolute;left:0;right:0;top:20px;height:4px;border-radius:2px;background:linear-gradient(90deg,#320A5E,#BC3754,#ED6925,#FBB61A,#FCFFA4)"></div>
        <div id="ovP" style="position:absolute;left:0;top:13px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.25),0 0 24px #fff;transform:translateX(-50%)"></div></div>`,
-   update(t){const st=SC.oven._st;if(!st)return;const cu=OVC();$('#ovT').innerHTML=Math.round(st.Tc)+'<span style="font-size:.45em;vertical-align:.9em;color:var(--gold-hi)">°C</span>';$('#ovP').style.left=((st.Tc-20)/160*100)+'%';
+   update(t){const st=SC.oven._st;if(!st){$('#ovP').style.left='0%';return}const cu=OVC();$('#ovT').innerHTML=Math.round(st.Tc)+'<span style="font-size:.45em;vertical-align:.9em;color:var(--gold-hi)">°C</span>';$('#ovP').style.left=((st.Tc-20)/160*100)+'%';
      const [l,d]=t>=cu.skewer+2.2?['DONE ✓','The skewer comes out clean.']:t>=cu.browns?['GOLDEN CRUST','Sugars and proteins react on the outside.']:t>=cu.set?['EGG PROTEINS SET','The bubbles are locked in. Now the cake can’t sink.']:['RISING','The gas expands and the batter climbs.'];$('#ovL').textContent=l;$('#ovD').textContent=d;
      const tm=clamp((t-cue('k21'))/(lend('k21')-cue('k21')+1.5));const sec=Math.round(25*60*(1-tm));$('#ovTm').textContent='⏱ '+String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}},
  build:{cta:1,
@@ -406,8 +412,10 @@ const SC={
      const d=[cue('k22','Two sponges'),cue('k23','jam'),cue('k23','buttercream'),cue('k23','second sponge'),cue('k23','crumb coat'),cue('k23','final coat')].map(a=>clamp((t-a+.1)/.8));
      const ex=eio((t-cue('k24','layers')+.3)/1.4)*(1-eio((t-cue('k25','every layer'))/1.4));
      const sh=g.createRadialGradient(640,640,10,640,640,300);sh.addColorStop(0,'rgba(160,60,90,.25)');sh.addColorStop(1,'rgba(160,60,90,0)');g.fillStyle=sh;g.fillRect(300,560,680,160);
-     const o=await cakeHero(g,{drop:d,explode:ex,rose:0,crest:0,stand:0,yaw:yawTo(t*.3,.55,clamp(ex*3)),tilt:lerp(.36,.22,ex),zoom:lerp(.92,1.02,ex),shift:0,ly:lerp(1.1,4.8,ex)},{bloom:.1});
+     const o=await cakeHero(g,{drop:d,explode:ex,rose:0,crest:0,stand:0,yaw:yawTo(t*.3,.55,clamp(ex*3)),tilt:lerp(.36,.22,ex),zoom:lerp(.92,1.02,ex),shift:.08*(1-clamp(ex*2)),ly:lerp(1.1,4.8,ex)},{bloom:.1});
      ANC=o?{r:o.ancW,l:o.ancL,ex}:null;
+     const ck=clamp((t-s.start-.3)/.6)*clamp((cue('k24','layers')-.3-t)/.6);if(ck>0){const x=64,y=104+(1-eo(ck))*20,w=250,h=444;g.save();g.globalAlpha=ck;g.shadowColor='rgba(120,40,70,.45)';g.shadowBlur=40;g.shadowOffsetY=18;g.fillStyle='#fff';g.beginPath();g.roundRect(x-6,y-6,w+12,h+12,26);g.fill();g.restore();
+       g.save();g.globalAlpha=ck;g.beginPath();g.roundRect(x,y,w,h,20);g.clip();await clipAt(g,'layer',445,30,s.start+.3,t,x,y,w,h);g.restore();g.save();g.globalAlpha=ck;g.fillStyle='rgba(255,255,255,.88)';g.beginPath();g.roundRect(x+12,y+h-44,150,30,15);g.fill();g.restore();txt(g,'● IN THE BAKERY',x+87,y+h-29,{col:'#C8436B',font:'600 11px "Plex Mono"',a:ck})}
      if(ANC&&ex>.55){g.save();g.globalAlpha=clamp((ex-.55)*4);g.strokeStyle='rgba(200,67,107,.85)';g.lineWidth=1.4;const side=[1,-1,1,-1,1,-1];side.forEach((sd,i)=>{const q=sd>0?ANC.r[i]:ANC.l[i],cx=sd>0?1000:280;g.beginPath();g.moveTo(q[0],q[1]);g.lineTo(cx-(sd>0?16:-16),q[1]);g.stroke();g.fillStyle='#C8436B';g.beginPath();g.arc(q[0],q[1],4,0,7);g.fill()});g.restore()}
      dust(g,t,40,13,'#FFFFFF',{maxR:7,alpha:.55})},
    dom:s=>`<div class="k" style="left:1000px;top:120px">LESSON 05 · BUILDING</div><div class="h" style="left:1000px;top:142px;font-size:44px">Every layer<br><em>has a job.</em></div>
@@ -451,7 +459,7 @@ const SC={
      document.querySelectorAll('.five').forEach(c=>{if(!c.dataset.done&&CAKE){if(!FIVE){const o=CAKE.render({...FULL,yaw:.6,tilt:.35,zoom:1,shift:0});FIVE=document.createElement('canvas');FIVE.width=FIVE.height=300;const sq=CH*1.05;FIVE.getContext('2d').drawImage(o.cv,(CW-sq)/2,(CH-sq)/2+40,sq,sq,0,0,300,300)}
        c.getContext('2d').drawImage(FIVE,0,0,108,108);c.dataset.done=1}const k=back((t-c.dataset.at)/.45);c.style.opacity=clamp(k*3);c.style.transform=`scale(${Math.max(.01,k)})`})}},
  careers:{cta:1,
-   async draw(g,t,s){pinkBg(g,t,8,400);const im=await img('../assets/cake-making.jpg');g.save();g.beginPath();g.roundRect(560,96,680,500,26);g.clip();cover(g,im,560,96,680,500,lerp(1.05,1.16,(t-s.start)/(s.end-s.start)));
+   async draw(g,t,s){pinkBg(g,t,8,400);const im=await img('../assets/bakery-photo.jpg');g.save();g.beginPath();g.roundRect(560,96,680,500,26);g.clip();cover(g,im,560,96,680,500,lerp(1.05,1.16,(t-s.start)/(s.end-s.start)));
      const fd=g.createLinearGradient(560,0,760,0);fd.addColorStop(0,'rgba(249,220,229,.85)');fd.addColorStop(1,'rgba(249,220,229,0)');g.fillStyle=fd;g.fillRect(560,96,200,500);g.restore();dust(g,t,40,8,'#FFFFFF',{maxR:6})},
    dom:s=>`<div class="k" style="left:64px;top:120px" data-in="${s.start+.3}">WHERE IT LEADS</div><div class="h" style="left:64px;top:142px" data-in="${cue('k44','skill for life')}">A skill <em>for life.</em></div>
      <div style="left:64px;top:230px;width:520px">${[['Baker','Baker'],['Pastry chef','Pastry'],['Cake designer','Cake designer'],['Hotel & catering chef','Hotel'],['Food technologist','Food technologist'],['Bakery owner','own bakery']].map(([n,w])=>`<span class="job" data-in="${cue('k44',w)-.1}" data-on0="${cue('k44',w)}" data-on1="${cue('k44',w)+1.1}">${n}</span>`).join('')}</div>
@@ -462,7 +470,7 @@ const SC={
      <div style="left:64px;top:252px;width:500px" data-in="${cue('k46','Bakery')}"><span class="chip on">Bakery &amp; Food Production</span><span class="chip" data-in="${cue('k46','ZIMSEC')}">ZIMSEC</span><span class="chip" data-in="${cue('k46','Cambridge')}">Cambridge</span><span class="chip gold" data-in="${cue('k46','HEXCO')}">HEXCO</span></div>
      <div style="left:64px;top:340px;width:430px;font:400 30px/1.15 var(--serif);color:var(--navy)" data-in="${cue('k47','certificate')}">A certificate, <em style="color:var(--rasp)">and a skill your child can earn from.</em></div>`},
  parents:{cta:1,
-   async draw(g,t,s){const im=await img('../assets/cake-making.jpg');cover(g,im,0,0,W,H,lerp(1,1.08,(t-s.start)/(s.end-s.start)),.75,.5);const ov=g.createLinearGradient(0,0,W,0);ov.addColorStop(0,'rgba(252,232,238,.97)');ov.addColorStop(.45,'rgba(249,220,229,.85)');ov.addColorStop(.75,'rgba(249,220,229,.1)');ov.addColorStop(1,'rgba(249,220,229,0)');g.fillStyle=ov;g.fillRect(0,0,W,H);dust(g,t,40,5,'#FFFFFF',{maxR:7})},
+   async draw(g,t,s){const im=await img('../assets/bakery-photo.jpg');cover(g,im,0,0,W,H,lerp(1,1.08,(t-s.start)/(s.end-s.start)),.75,.5);const ov=g.createLinearGradient(0,0,W,0);ov.addColorStop(0,'rgba(252,232,238,.97)');ov.addColorStop(.45,'rgba(249,220,229,.85)');ov.addColorStop(.75,'rgba(249,220,229,.1)');ov.addColorStop(1,'rgba(249,220,229,0)');g.fillStyle=ov;g.fillRect(0,0,W,H);dust(g,t,40,5,'#FFFFFF',{maxR:7})},
    dom:s=>`<div class="k" style="left:64px;top:150px" data-in="${s.start+.3}">GRADE 7 PARENTS</div><div class="h" style="left:64px;top:174px;font-size:64px" data-in="${s.start+.5}" data-fx="blur">Grade 7 <span style="color:var(--gold);font-family:var(--sans);font-size:44px">→</span><br><em>Form 1, 2027.</em></div>
      <div style="left:66px;top:330px;font:italic 400 30px var(--serif);color:var(--navy)" data-in="${cue('k49')}">Come and taste it for yourself.</div>
      <div style="left:64px;top:390px;height:30px;padding:0 14px;border-radius:6px;background:var(--rasp);color:#fff;font:800 12.5px var(--sans);letter-spacing:.14em;display:flex;align-items:center" data-in="${cue('k48','limited')}">2027 INTAKE · LIMITED PLACES</div>`},
@@ -520,5 +528,5 @@ window.renderAt=async function(t){
   st.style.opacity=clamp(sk);st.style.transform=`rotate(-5deg) scale(${lerp(.4,1,clamp(sk,0,1.2))})`;if(stxt)st.lastChild.textContent=stxt;
 };
 window.ready=(async()=>{await Promise.all(['600 14px "Plex Mono"','400 14px "Plex Mono"','500 14px "Plus Jakarta Sans"','800 14px "Plus Jakarta Sans"','400 40px Newsreader','italic 400 40px Newsreader'].map(x=>document.fonts.load(x)));await document.fonts.ready;
-  await img('../assets/crest.jpg');await img('../assets/cake-making.jpg');return true})();
+  await img('../assets/crest.jpg');await img('../assets/bakery-photo.jpg');return true})();
 </script></body></html>

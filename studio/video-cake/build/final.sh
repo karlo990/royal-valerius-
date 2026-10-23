@@ -15,7 +15,7 @@ done
 wait
 ffmpeg -v error -y -f concat -safe 0 -i build/parts$SUF.txt -c copy build/video_silent$SUF.mp4
 python3 tools/glitchscan.py build/video_silent$SUF.mp4
-python3 tools/mix.py --video build/video_silent$SUF.mp4 --music music/release-minana-yamakaita.mp3 --loop-from 24 --bed ${MUSIC_BED:-0.2} --name royal-crest-bakery$SUF
+python3 tools/mix.py --video build/video_silent$SUF.mp4 --music music/storm-ii-loop.mp3 --bed ${MUSIC_BED:-0.2} --name royal-crest-bakery$SUF
 S=1280:720; [ "$MODE" = portrait ] && S=720:1280
 ffmpeg -v error -y -i out/royal-crest-bakery$SUF.mp4 -vf scale=$S:flags=lanczos -c:v libx264 -preset slow -crf 24 -tune animation -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart out/royal-crest-bakery${SUF}_whatsapp.mp4
 echo ALLDONE
