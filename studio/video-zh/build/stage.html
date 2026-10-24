@@ -1,0 +1,374 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Count and write stage</title>
+<!-- Mandarin Connect "Count and write". Deterministic stage: window.renderAt(t) draws the frame at time t.
+     Two looks from the Flyer Studio posts: red lacquer tiles (counting) and rice-paper cards (characters). -->
+<style>
+@font-face{font-family:RcSerif;font-weight:400 700;src:url(../../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:RcSerif;font-style:italic;font-weight:400 700;src:url(../../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:RcSans;font-weight:200 800;src:url(../../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:RcSans;font-weight:200 800;src:url(../../../assets/fonts/plus-jakarta-sans-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02FF,U+1E00-1E9F}
+@font-face{font-family:ZhBrush;src:url(fonts/zh-brush.woff2) format("woff2")}
+@font-face{font-family:ZhSerif;font-weight:700;src:url(fonts/zh-serif.woff2) format("woff2")}
+:root{--navy:#0a1f5c;--gold:#c9a227;--gold2:#f2b705;--red:#c8102e;--ink:#14204a;--muted:#5b6485}
+html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#000}
+#st{position:relative;width:1280px;height:720px;overflow:hidden;font-family:RcSans,sans-serif;color:#fff}
+.bg{position:absolute;inset:0}
+#red{background:radial-gradient(900px 700px at 30% 20%,#c4141f 0%,#9a0f18 50%,#5c0910 100%)}
+#red::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(242,183,5,.2) 1.3px,transparent 1.6px);background-size:26px 26px;
+  -webkit-mask:linear-gradient(180deg,#000,transparent 50%,transparent 80%,#000)}
+#paper{background:radial-gradient(600px 420px at 85% 8%,rgba(200,16,46,.07),transparent 70%),radial-gradient(800px 600px at 10% 100%,rgba(201,162,39,.1),transparent 70%),
+  repeating-linear-gradient(96deg,rgba(120,90,40,.035) 0 2px,transparent 2px 9px),repeating-linear-gradient(4deg,rgba(120,90,40,.03) 0 1px,transparent 1px 13px),#f5eedf}
+#grain{position:absolute;inset:-20px;opacity:.06;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+#vig{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 160px rgba(0,0,0,.35)}
+#lan{position:absolute;right:20px;top:0;width:300px;height:315px;filter:drop-shadow(0 14px 22px rgba(0,0,0,.35))}
+.sc{position:absolute;inset:0;display:none}
+.abs{position:absolute}
+.zb{font-family:ZhBrush,serif} .zs{font-family:ZhSerif,serif;font-weight:700}
+.kick{font:800 12.5px RcSans;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.kick::before{content:"";width:30px;height:2px;background:currentColor}
+.h{font:500 58px/.95 RcSerif,serif;letter-spacing:-.02em}
+.h em{font-style:italic}
+#brand{position:absolute;left:36px;top:26px;display:flex;align-items:center;gap:10px;z-index:5}
+#brand img{height:38px} #brand b{display:block;font:500 17px/1 RcSerif,serif} #brand span{display:block;margin-top:4px;font:800 9px RcSans;letter-spacing:.28em;color:var(--gold2)}
+/* tiles */
+.tile{position:absolute;width:132px;height:168px;border-radius:16px;background:linear-gradient(180deg,#fffaf0,#f3e8cf);color:var(--red);
+  box-shadow:0 8px 0 #d8c69c,0 10px 0 #b89f68,0 22px 30px -10px rgba(0,0,0,.45);display:flex;flex-direction:column;align-items:center;justify-content:center;transform-origin:50% 60%}
+.tile small{position:absolute;left:12px;top:9px;font:800 16px RcSans;color:var(--gold)}
+.tile b{font:700 78px/1.05 ZhSerif,serif}
+.tile span{margin-top:2px;font:600 27px/1 RcSerif,serif;color:var(--navy)}
+.tile.gold{background:linear-gradient(180deg,#ffe58a,#f2b705)} .tile.gold small{color:#8a5a00}
+.tile .ring{position:absolute;inset:-7px;border-radius:21px;box-shadow:0 0 0 4px #ffe58a,0 0 30px 6px rgba(255,220,120,.7);opacity:0}
+.tile .en{position:absolute;left:0;right:0;bottom:-46px;text-align:center;font:800 19px RcSans;color:#ffe58a;opacity:0}
+.op{position:absolute;font:500 60px/1 RcSerif,serif;color:#ffe58a;transform:translate(-50%,-50%)}
+/* paper cards */
+.card{position:absolute;width:268px;height:330px;border-radius:22px;background:rgba(255,255,255,.86);box-shadow:0 18px 40px -24px rgba(80,50,10,.45),inset 0 0 0 1.5px #e6d9bd;color:var(--ink)}
+.card .tn{position:absolute;left:22px;top:20px;font:700 13px RcSans;color:var(--muted)} .card .tn b{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:3px}
+.card svg{position:absolute;left:50%;top:52px;width:86px;height:86px;margin-left:-43px}
+.card .ch{position:absolute;left:0;right:0;top:142px;text-align:center;font:100px/1 ZhBrush,serif;color:#1f1b16}
+.card .py{position:absolute;left:0;right:0;bottom:48px;text-align:center;font:600 34px/1 RcSerif,serif;color:var(--red)}
+.card .en{position:absolute;left:0;right:0;bottom:18px;text-align:center;font:800 17px RcSans;color:var(--navy)}
+.seal{position:absolute;width:64px;padding:10px 0 7px;text-align:center;background:var(--red);color:#fbefe0;font:36px/1.02 ZhBrush,serif;border-radius:8px;
+  box-shadow:inset 0 0 0 3px var(--red),inset 0 0 0 5px rgba(251,239,224,.75);transform:rotate(-7deg)}
+/* captions */
+#cap{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);max-width:1000px;display:flex;align-items:center;gap:14px;padding:12px 24px 12px 12px;border-radius:40px;
+  background:rgba(10,18,48,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 14px 30px -12px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.18);z-index:9}
+#cap i{flex:none;font-style:normal;font:800 11px RcSans;letter-spacing:.18em;padding:8px 12px;border-radius:20px;background:var(--red);color:#fff}
+#cap i.sam{background:var(--gold2);color:var(--navy)}
+#cap span{font:600 21px/1.3 RcSans;color:#fff}
+</style></head><body>
+<div id="st">
+  <div class="bg" id="red"></div><div class="bg" id="paper"></div>
+  <svg id="lan" viewBox="0 0 400 420"></svg>
+  <div id="brand"><img src="../../assets/brand/crest-640.webp" alt=""><div><b>Royal Crest Academy</b><span>MANDARIN CONNECT</span></div></div>
+
+  <!-- open -->
+  <div class="sc" id="s-open">
+    <img class="abs" id="o-crest" src="../../assets/brand/crest-640.webp" alt="" style="left:520px;top:150px;width:240px">
+    <div class="abs zb" id="o-hi" style="left:0;right:0;top:150px;text-align:center;font-size:210px;color:#fff;text-shadow:0 12px 40px rgba(0,0,0,.35)">你好</div>
+    <div class="abs" id="o-hipy" style="left:0;right:0;top:400px;text-align:center;font:italic 500 44px RcSerif,serif;color:#ffe58a">Nǐ hǎo! Hello!</div>
+    <div class="abs" id="o-c1" style="left:330px;top:200px;width:280px;height:250px;border-radius:26px;background:linear-gradient(180deg,#fffaf0,#f3e8cf);box-shadow:0 10px 0 #d8c69c,0 26px 40px -12px rgba(0,0,0,.5);text-align:center">
+      <div class="zs" style="margin-top:44px;font-size:72px;color:var(--red);line-height:1;white-space:nowrap">一二三</div><div style="margin-top:26px;font:600 40px RcSerif,serif;color:var(--navy)">Count</div></div>
+    <div class="abs" id="o-c2" style="left:670px;top:200px;width:280px;height:250px;border-radius:26px;background:#f5eedf;box-shadow:inset 0 0 0 2px #e6d9bd,0 26px 40px -12px rgba(0,0,0,.5);text-align:center">
+      <div class="zb" style="margin-top:22px;font-size:120px;color:#1f1b16;line-height:1">人</div><div style="margin-top:14px;font:600 40px RcSerif,serif;color:var(--red)">Write</div></div>
+  </div>
+  <!-- title -->
+  <div class="sc" id="s-title">
+    <div class="abs kick" style="left:0;right:0;justify-content:center;top:170px;color:var(--gold2)">Mandarin Connect · lesson one</div>
+    <div class="abs h" id="t-h" style="left:0;right:0;top:206px;text-align:center;font-size:110px">Count &amp; write<br><em style="color:var(--gold2)">in Mandarin.</em></div>
+    <div class="abs" id="t-row" style="left:0;right:0;top:470px;display:flex;justify-content:center;gap:16px"></div>
+  </div>
+  <!-- counting (count, lucky, build, quiz share the tiles layer) -->
+  <div class="sc" id="s-count">
+    <div class="abs kick" id="k-count" style="left:56px;top:104px;color:var(--gold2)">Numbers · 数字</div>
+    <div class="abs h" id="h-count" style="left:52px;top:132px">Count to ten<br>in <em style="color:var(--gold2)">Mandarin.</em></div>
+    <div class="abs" id="sub-count" style="left:56px;top:262px;width:330px;font:500 19px/1.45 RcSans;color:rgba(255,255,255,.85)">Say them with Teacher Wen: <b style="color:#ffe58a">yī, èr, sān…</b></div>
+    <div id="tiles"></div>
+    <div class="abs" id="lines-note" style="left:56px;top:330px;width:340px;font:italic 500 26px/1.3 RcSerif,serif;color:#ffe58a">One line, two lines, three lines.</div>
+  </div>
+  <div class="sc" id="s-lucky">
+    <div class="abs kick" style="left:56px;top:104px;color:var(--gold2)">Lucky number</div>
+    <div class="abs h" style="left:52px;top:132px">Why is <em style="color:var(--gold2)">eight</em><br>gold?</div>
+    <div class="abs" id="l-eq" style="left:690px;top:390px;transform:translate(-50%,-50%);font:500 64px RcSerif,serif;color:#ffe58a">≈</div>
+    <div class="tile" id="l-fa" style="left:800px;top:250px;width:190px;height:240px"><small>fā</small><b style="font-size:116px">发</b><span>to prosper</span></div>
+    <div class="abs" id="l-say" style="left:620px;top:560px;width:420px;text-align:center;font:700 19px RcSans;color:#fff">bā <span style="color:#ffe58a">sounds like</span> fā</div>
+    <svg class="abs" id="l-spark" viewBox="0 0 1280 720" style="left:0;top:0;width:1280px;height:720px"></svg>
+  </div>
+  <div class="sc" id="s-build">
+    <div class="abs kick" style="left:56px;top:104px;color:var(--gold2)">A secret</div>
+    <div class="abs h" style="left:52px;top:132px;font-size:52px">Numbers are<br><em style="color:var(--gold2)">building blocks.</em></div>
+    <div id="rows"></div>
+  </div>
+  <div class="sc" id="s-quiz">
+    <div class="abs kick" style="left:0;right:0;justify-content:center;top:96px;color:var(--gold2)">Quick quiz</div>
+    <div class="abs h" style="left:0;right:0;top:124px;text-align:center;font-size:54px">Three plus five, <em style="color:var(--gold2)">in Chinese?</em></div>
+    <div id="qz"></div>
+    <svg class="abs" id="q-ring" viewBox="0 0 100 100" style="left:1082px;top:96px;width:90px;height:90px"></svg>
+    <svg class="abs" id="q-conf" viewBox="0 0 1280 720" style="left:0;top:0;width:1280px;height:720px"></svg>
+  </div>
+  <!-- characters (paper) -->
+  <div class="sc" id="s-pictures">
+    <div class="abs kick" style="left:56px;top:96px;color:var(--red)">Characters · 汉字</div>
+    <div class="abs h" style="left:52px;top:122px;color:var(--navy);font-size:52px">Characters that are <em style="color:var(--red)">pictures.</em></div>
+    <div class="seal" style="left:1150px;top:36px">汉<br>字</div>
+    <div class="abs" id="bone" style="left:340px;top:226px;width:600px;height:300px"></div>
+    <div id="cards"></div>
+  </div>
+  <div class="sc" id="s-forest">
+    <div class="abs kick" style="left:56px;top:96px;color:var(--red)">Build a forest</div>
+    <div class="abs h" style="left:52px;top:122px;color:var(--navy);font-size:52px">One tree, two trees, <em style="color:var(--red)">three trees.</em></div>
+    <div id="trees"></div>
+  </div>
+  <div class="sc" id="s-write">
+    <div class="abs kick" style="left:56px;top:96px;color:var(--red)">Writing</div>
+    <div class="abs h" style="left:52px;top:122px;color:var(--navy);font-size:52px">Write your <em style="color:var(--red)">first character.</em></div>
+    <div class="abs" id="w-grid" style="left:120px;top:206px;width:360px;height:360px;background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 4px #c8102e,0 20px 40px -26px rgba(80,50,10,.5)">
+      <svg viewBox="0 0 100 100" style="position:absolute;inset:0;width:100%;height:100%"><g stroke="#c8102e" stroke-width=".35" stroke-dasharray="1.6 1.6" opacity=".7"><line x1="50" y1="0" x2="50" y2="100"/><line x1="0" y1="50" x2="100" y2="50"/><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></g>
+        <g id="w-strokes" fill="none" stroke="#1f1b16" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></g></svg>
+      <div class="zb" id="w-ghost" style="position:absolute;inset:0;display:grid;place-items:center;font-size:290px;line-height:1;color:#1f1b16">中</div></div>
+    <div class="abs" style="left:560px;top:214px"><div style="font:600 70px/1 RcSerif,serif;color:var(--red)">zhōng</div><div style="margin-top:8px;font:800 24px RcSans;color:var(--navy)">middle, centre</div>
+      <div style="margin-top:28px;font:800 12px RcSans;letter-spacing:.22em;color:var(--red)">STROKE ORDER · 4 STROKES</div><div id="w-steps" style="margin-top:12px;display:flex;gap:12px"></div></div>
+    <div class="abs" id="w-cn" style="left:560px;top:496px;padding:18px 26px;border-radius:18px;background:#fff;box-shadow:0 18px 36px -22px rgba(80,50,10,.5),inset 0 0 0 1.5px #e6d9bd;color:var(--ink)">
+      <span class="zs" style="font-size:44px;color:var(--red);vertical-align:middle">中国</span> <span style="font:600 30px RcSerif,serif;margin-left:10px;vertical-align:middle">Zhōngguó</span>
+      <div style="margin-top:4px;font:700 17px RcSans;color:var(--muted)">China: “the Middle Kingdom”</div></div>
+  </div>
+  <!-- outro -->
+  <div class="sc" id="s-outro">
+    <div class="abs zb" id="u-jy" style="left:0;right:0;top:120px;text-align:center;font-size:190px;color:#fff;text-shadow:0 12px 40px rgba(0,0,0,.35)">加油</div>
+    <div class="abs" id="u-jypy" style="left:0;right:0;top:340px;text-align:center;font:italic 500 38px RcSerif,serif;color:#ffe58a">Jiāyóu: you can do it!</div>
+    <div class="abs" id="u-card" style="left:0;right:0;top:200px;display:flex;flex-direction:column;align-items:center">
+      <img src="../../assets/brand/crest-640.webp" alt="" style="height:150px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.4))">
+      <div style="margin-top:16px;font:500 54px/1 RcSerif,serif">Mandarin <em style="color:var(--gold2)">Connect</em></div>
+      <div style="margin-top:10px;font:800 14px RcSans;letter-spacing:.3em;color:#ffe58a">ROYAL CREST ACADEMY · BIKITA</div>
+      <div style="margin-top:22px;height:50px;padding:0 24px;border-radius:25px;background:var(--gold2);color:var(--navy);display:flex;align-items:center;font:800 23px RcSans">+263 714 404 090</div></div>
+    <div class="abs zb" id="u-bye" style="left:860px;top:150px;font-size:110px;color:#fff;writing-mode:vertical-rl;text-shadow:0 10px 30px rgba(0,0,0,.35)">再见</div>
+  </div>
+  <div id="cap"><i>WEN</i><span></span></div>
+  <div id="grain"></div><div id="vig"></div>
+</div>
+<script src="timeline.js"></script>
+<script>
+const $ = (q) => document.querySelector(q);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const k = (t, a, d) => clamp((t - a) / d);
+const eo = (x) => 1 - Math.pow(1 - x, 3), eio = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const back = (x) => { const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const L = Object.fromEntries(TL.lines.map((l) => [l.id, l])), S = Object.fromEntries(TL.scenes.map((s) => [s.id, s]));
+function cue(id, sub, nth = 0) {           // time a substring of a line's spoken text starts
+  const l = L[id]; if (sub == null) return l.start;
+  let i = -1; for (let n = 0; n <= nth; n++) { i = l.chars.indexOf(sub, i + 1); if (i < 0) break; }
+  return l.start + (i >= 0 ? l.times[i] : 0);
+}
+const sceneW = (id, fi = .5, fo = .5) => { const s = S[id]; return s ? Math.min(k(T, s.start, fi), 1 - k(T, s.end - fo, fo)) : 0; };
+let T = 0;
+
+// ---------- lanterns
+function lantern(x, len, s) {
+  return `<g class="ln" data-x="${x}" data-len="${len}" transform="translate(${x} 0) scale(${s})"><line x1="0" y1="0" x2="0" y2="${len}" stroke="#f2b705" stroke-width="2"/>
+    <g transform="translate(0 ${len})"><rect x="-26" y="0" width="52" height="12" rx="3" fill="#f2b705"/><ellipse cx="0" cy="62" rx="62" ry="52" fill="#e0262f"/>
+    <ellipse cx="0" cy="62" rx="38" ry="52" fill="none" stroke="#a50f19" stroke-width="3"/><ellipse cx="0" cy="62" rx="14" ry="52" fill="none" stroke="#a50f19" stroke-width="3"/>
+    <ellipse cx="-20" cy="44" rx="14" ry="22" fill="#ff7a6e" opacity=".45"/><rect x="-26" y="110" width="52" height="12" rx="3" fill="#f2b705"/>
+    <path d="M-10 122 L-14 176 M0 122 V182 M10 122 L14 176" stroke="#f2b705" stroke-width="3" stroke-linecap="round"/></g></g>`;
+}
+$('#lan').innerHTML = lantern(120, 30, 1) + lantern(300, 96, .8);
+const lans = [...document.querySelectorAll('#lan .ln')];
+
+// ---------- tiles 1-10
+const NUM = [['一', 'yī', 'one'], ['二', 'èr', 'two'], ['三', 'sān', 'three'], ['四', 'sì', 'four'], ['五', 'wǔ', 'five'], ['六', 'liù', 'six'], ['七', 'qī', 'seven'], ['八', 'bā', 'eight'], ['九', 'jiǔ', 'nine'], ['十', 'shí', 'ten']];
+const TX = (i) => 470 + (i % 5) * 150, TY = (i) => 128 + Math.floor(i / 5) * 214;
+$('#tiles').innerHTML = NUM.map(([c, p, e], i) => `<div class="tile${i === 7 ? ' gold' : ''}" id="tl${i}" style="left:${TX(i)}px;top:${TY(i)}px"><small>${i + 1}</small><b>${c}</b><span>${p}</span><div class="ring"></div><div class="en">${e}</div></div>`).join('');
+const tiles = NUM.map((_, i) => $('#tl' + i));
+$('#t-row').innerHTML = ['一', '二', '三', '人', '山', '日'].map((c, i) => `<div class="${i < 3 ? 'zs' : 'zb'}" style="width:86px;height:100px;border-radius:14px;display:grid;place-items:center;font-size:${i < 3 ? 52 : 64}px;line-height:1;${i < 3 ? 'background:linear-gradient(180deg,#fffaf0,#f3e8cf);color:#c8102e;box-shadow:0 6px 0 #d8c69c' : 'background:#f5eedf;color:#1f1b16;box-shadow:inset 0 0 0 2px #e6d9bd'}">${c}</div>`).join('');
+const trow = [...$('#t-row').children];
+
+// ---------- building-block rows
+const mini = (c, w = 86) => `<div class="tile" style="position:relative;width:${w}px;height:104px;border-radius:12px;box-shadow:0 6px 0 #d8c69c,0 8px 0 #b89f68"><b style="font-size:${c.length > 1 ? 44 : 56}px">${c}</b></div>`;
+const ROWS = [
+  { y: 230, parts: [['t', '十'], ['o', '+'], ['t', '一'], ['o', '='], ['t', '十一', 150], ['n', '11']] },
+  { y: 370, parts: [['t', '二'], ['o', '×'], ['t', '十'], ['o', '='], ['t', '二十', 150], ['n', '20']] },
+  { y: 510, parts: [['t', '九'], ['t', '十'], ['t', '九'], ['o', '='], ['t', '九十九', 190], ['n', '99']] },
+];
+$('#rows').innerHTML = ROWS.map((r, j) => `<div class="abs" id="row${j}" style="left:440px;top:${r.y - 52}px;display:flex;align-items:center;gap:16px">${r.parts.map(([kd, v, w], i) =>
+  `<div class="rp" data-i="${i}">${kd === 't' ? mini(v, w) : kd === 'o' ? `<div style="width:40px;text-align:center;font:500 54px RcSerif,serif;color:#ffe58a">${v}</div>` : `<div style="margin-left:6px;font:600 64px RcSerif,serif;color:#ffe58a">${v}</div>`}</div>`).join('')}</div>`).join('');
+const rowParts = ROWS.map((_, j) => [...document.querySelectorAll(`#row${j} .rp`)]);
+
+// ---------- quiz
+$('#qz').innerHTML = [['三', 'sān'], ['+'], ['五', 'wǔ'], ['='], ['?', '']].map((p, i) => p.length === 1
+  ? `<div class="op" style="left:${[0, 446, 0, 806][i]}px;top:360px">${p[0]}</div>`
+  : `<div class="tile${i === 4 ? ' gold' : ''}" id="qz${i}" style="left:${[266, 0, 626, 0, 986][i] - 66}px;top:276px"><b>${p[0]}</b><span>${p[1]}</span></div>`).join('');
+
+// ---------- picture cards
+const PICS = [['c21', 'a person walking', '人', 'rén', 'person', 'M52 17m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0 M50 28 L44 58 L28 90 M44 58 L66 90 M48 38 L70 52'],
+  ['c22', 'three peaks', '山', 'shān', 'mountain', 'M8 86 L30 42 L42 62 L54 20 L68 58 L78 44 L94 86 Z'],
+  ['c23', 'the sun', '日', 'rì', 'sun, day', 'M50 18 a32 32 0 1 0 0.01 0 M50 46 a4 4 0 1 0 0.01 0'],
+  ['c24', 'a tree with roots', '木', 'mù', 'tree, wood', 'M50 10 V92 M50 36 L26 16 M50 36 L74 16 M50 68 L26 90 M50 68 L74 90']];
+$('#cards').innerHTML = PICS.map(([id, how, ch, py, en, d], i) => `<div class="card" id="cd${i}" style="left:${67 + i * 290}px;top:226px"><div class="tn"><b>Looks like</b>${how}</div>
+  <svg viewBox="0 0 100 100"><path d="${d}" pathLength="1" fill="none" stroke="#c8102e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 1"/></svg>
+  <div class="ch">${ch}</div><div class="py">${py}</div><div class="en">${en}</div></div>`).join('');
+const cards = PICS.map((_, i) => $('#cd' + i));
+// oracle bone with carved marks (drawn, not a real inscription)
+$('#bone').innerHTML = `<svg viewBox="0 0 600 300" style="width:100%;height:100%"><defs><linearGradient id="bn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ead9b4"/><stop offset="1" stop-color="#c9ad7a"/></linearGradient></defs>
+  <path d="M60 80 C20 60 20 20 70 30 C110 38 120 60 160 62 L440 62 C480 60 490 38 530 30 C580 20 580 60 540 80 C580 100 580 200 540 220 C580 240 580 280 530 270 C490 262 480 240 440 238 L160 238 C120 240 110 262 70 270 C20 280 20 240 60 220 C20 200 20 100 60 80 Z" fill="url(#bn)" stroke="#a88b58" stroke-width="3"/>
+  <g fill="none" stroke="#6b5030" stroke-width="4" stroke-linecap="round" pathLength="1" id="carve">
+    <path pathLength="1" d="M150 110 L150 190 M130 130 L170 130"/><path pathLength="1" d="M200 100 L230 190 M230 100 L200 190"/><path pathLength="1" d="M270 110 a26 26 0 1 0 0.1 0 M270 136 v1"/>
+    <path pathLength="1" d="M340 190 L360 120 L380 190 M350 160 L372 160"/><path pathLength="1" d="M420 100 V190 M400 120 L440 150 M440 120 L400 150"/></g>
+  <text x="300" y="290" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="13" letter-spacing="3" fill="#7a5a2a" dy="0">OVER 3,000 YEARS AGO · BONES &amp; SHELLS</text></svg>`;
+const carves = [...document.querySelectorAll('#carve path')];
+
+// ---------- forest
+const TREE = 'M50 10 V92 M50 36 L26 16 M50 36 L74 16 M50 68 L26 90 M50 68 L74 90';
+const FOR = [['木', 'mù', 'a tree', 1], ['林', 'lín', 'the woods', 2], ['森', 'sēn', 'a forest', 3]];
+$('#trees').innerHTML = FOR.map(([c, p, e, n], i) => `<div class="card" id="fr${i}" style="left:${150 + i * 340}px;top:220px;width:300px;height:340px">
+  <svg viewBox="0 0 ${n * 60 + 40} 100" style="left:50%;top:26px;width:${n * 66 + 44}px;height:100px;margin-left:-${(n * 66 + 44) / 2}px">${Array.from({ length: n }, (_, j) => `<path transform="translate(${j * 60 - 10} 0) scale(.9)" d="${TREE}" fill="none" stroke="#2f7a3a" stroke-width="6.5" stroke-linecap="round"/>`).join('')}</svg>
+  <div class="ch" style="top:136px">${c}</div><div class="py">${p}</div><div class="en">${e}</div></div>`).join('') +
+  `<div class="op" id="fp1" style="left:470px;top:390px;color:var(--red)">+</div><div class="op" id="fp2" style="left:810px;top:390px;color:var(--red)">+</div>`;
+const fcards = FOR.map((_, i) => $('#fr' + i));
+
+// ---------- 中 strokes: 1 left vertical, 2 top-and-right turn, 3 bottom horizontal, 4 long middle vertical
+const ZH = ['M28 34 V66', 'M28 34 H72 V66', 'M28 66 H72', 'M50 10 V92'];
+$('#w-strokes').innerHTML = ZH.map((d) => `<path pathLength="1" stroke-dasharray="1 1" d="${d}"/>`).join('');
+const wstrokes = [...document.querySelectorAll('#w-strokes path')];
+$('#w-steps').innerHTML = ZH.map((_, i) => `<div style="text-align:center"><svg viewBox="0 0 100 100" style="width:76px;height:76px;background:#fff;border-radius:6px;box-shadow:inset 0 0 0 2px #e3b2b2">
+  ${ZH.slice(0, i + 1).map((d, j) => `<path d="${d}" fill="none" stroke="${j === i ? '#c8102e' : '#22201c'}" stroke-width="7" stroke-linecap="round"/>`).join('')}</svg><div style="margin-top:4px;font:800 14px RcSans;color:#5b6485">${i + 1}</div></div>`).join('');
+const wsteps = [...$('#w-steps').children];
+
+// ---------- particles (seeded, same every render)
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const SPK = Array.from({ length: 40 }, () => ({ a: rnd() * Math.PI * 2, r: 120 + rnd() * 260, s: 2 + rnd() * 4, d: rnd() * .6 }));
+const CONF = Array.from({ length: 70 }, () => ({ x: 986 + (rnd() - .5) * 40, vx: (rnd() - .5) * 700, vy: -300 - rnd() * 500, c: ['#f2b705', '#ffffff', '#ff6b6b', '#ffe58a'][Math.floor(rnd() * 4)], r: rnd() * 6, w: 6 + rnd() * 8 }));
+
+function show(id, w) { const e = $('#s-' + id); e.style.display = w > 0.001 ? 'block' : 'none'; e.style.opacity = w; return w > 0.001; }
+function pop(el, a, d = .45) { const x = k(T, a, d); el.style.opacity = clamp(x * 3); el.style.transform = `translateY(${(1 - eo(x)) * 30}px) scale(${.6 + .4 * back(x)})`; return x; }
+
+window.renderAt = function (t) {
+  T = t;
+  // backgrounds: red for counting, paper for characters
+  const paperOn = Math.max(sceneW('pictures', .8, .01), sceneW('forest', .01, .01), sceneW('write', .01, .8));
+  $('#paper').style.opacity = paperOn; $('#lan').style.opacity = 1 - paperOn;
+  lans.forEach((g, i) => g.setAttribute('transform', `translate(${g.dataset.x} 0) rotate(${Math.sin(t * 1.1 + i * 1.7) * 3.5}) scale(${i ? .8 : 1})`));
+  $('#brand').style.color = paperOn > .5 ? '#0a1f5c' : '#fff';
+  $('#brand').style.opacity = 1 - sceneW('open', .01, .6) * (1 - k(t, cue('c02', 'Today'), .6)) - sceneW('outro', .6, .01);
+
+  // open: crest, 你好, then count/write cards
+  if (show('open', sceneW('open', .01, .6))) {
+    const hi = cue('c01'), cards = cue('c02', 'count');
+    const cr = k(t, .2, 1.4), crOut = k(t, hi - .3, .5);
+    $('#o-crest').style.opacity = eo(cr) * (1 - crOut); $('#o-crest').style.transform = `scale(${.8 + .2 * eo(cr) + .3 * crOut})`;
+    const h = k(t, hi - .1, .5), hOut = k(t, cards - .6, .5);
+    $('#o-hi').style.opacity = h * (1 - hOut); $('#o-hi').style.transform = `scale(${.85 + .15 * back(h)})`;
+    $('#o-hipy').style.opacity = k(t, hi + .4, .5) * (1 - hOut);
+    pop($('#o-c1'), cards); pop($('#o-c2'), cue('c02', 'write'));
+  }
+  if (show('title', sceneW('title'))) {
+    const s = S.title.start; $('#t-h').style.opacity = k(t, s + .2, .6); $('#t-h').style.transform = `translateY(${(1 - eo(k(t, s + .2, .8))) * 24}px)`;
+    trow.forEach((e, i) => pop(e, s + .8 + i * .14, .4));
+  }
+  // count → lucky → build → quiz
+  const wc = sceneW('count');
+  if (show('count', wc)) {
+    const firstFive = '一二三四五', lastFive = '六七八九十';
+    tiles.forEach((el, i) => {
+      const at = i < 5 ? cue('c05', firstFive[i]) : cue('c07', lastFive[i - 5]);
+      pop(el, at - .08, .4);
+      const ring = el.querySelector('.ring'), en = el.querySelector('.en');
+      const lit = Math.max(k(t, at - .05, .12) * (1 - k(t, at + .5, .3)), 0);
+      const word = cue('c06', NUM[i][2][0].toUpperCase() + NUM[i][2].slice(1)), wl = i < 5 ? k(t, word - .05, .12) * (1 - k(t, word + .55, .3)) : 0;
+      const three = i < 3 ? k(t, cue('c08', 'one') - .1, .3) * (1 - k(t, S.count.end - .4, .3)) : 0;
+      ring.style.opacity = Math.max(lit, wl, three);
+      en.style.opacity = wl;
+      const dim = i >= 3 ? k(t, cue('c08', 'one') - .1, .3) : 0;
+      el.style.filter = `brightness(${1 - .45 * dim})`;
+    });
+    $('#lines-note').style.opacity = k(t, cue('c09', 'One line'), .4);
+    $('#sub-count').style.opacity = 1 - k(t, cue('c09', 'One line') - .4, .3);
+  }
+  const wl = sceneW('lucky');
+  if (show('lucky', wl)) {
+    const s = S.lucky.start, fa = cue('c11', '发');
+    const el = tiles[7];          // re-use tile 8 by cloning its look in this scene
+    let big = document.getElementById('l-eight');
+    if (!big) { big = tiles[7].cloneNode(true); big.id = 'l-eight'; big.querySelector('.en').remove(); $('#s-lucky').appendChild(big); }
+    const m = eio(k(t, s, 1.2)), x0 = TX(7), y0 = TY(7), x1 = 420, y1 = 250;
+    big.style.opacity = 1; big.style.left = (x0 + (x1 - x0) * m) + 'px'; big.style.top = (y0 + (y1 - y0) * m) + 'px';
+    big.style.transform = `scale(${1 + .45 * m})`; big.querySelector('.ring').style.opacity = .6 + .4 * Math.sin(t * 3);
+    pop($('#l-fa'), fa - .1); $('#l-eq').style.opacity = k(t, fa - .3, .3); $('#l-say').style.opacity = k(t, fa + .3, .4);
+    const sp = k(t, fa, 2.2);
+    $('#l-spark').innerHTML = sp > 0 && sp < 1 ? SPK.map((p) => { const q = clamp((sp - p.d) / (1 - p.d)); if (q <= 0) return ''; const r = p.r * eo(q);
+      return `<circle cx="${895 + Math.cos(p.a) * r}" cy="${370 + Math.sin(p.a) * r * .7}" r="${p.s * (1 - q)}" fill="#ffe58a" opacity="${1 - q}"/>`; }).join('') : '';
+  }
+  if (show('build', sceneW('build'))) {
+    const at = [[cue('c13', '十一') - .9, cue('c13', 'one'), cue('c13', '十一') - .4, cue('c13', '十一'), cue('c13', '十一') + .05, cue('c13', 'Eleven')],
+      [cue('c14', 'Two'), cue('c14', 'tens') - .2, cue('c14', 'tens'), cue('c14', '二十'), cue('c14', '二十') + .05, cue('c14', 'Twenty')],
+      [cue('c15', 'nine'), cue('c15', 'ten'), cue('c15', 'nine', 1), cue('c16', '九十九') - .2, cue('c16', '九十九'), cue('c16', '九十九') + 1.2]];
+    rowParts.forEach((ps, j) => ps.forEach((p, i) => pop(p, at[j][i] - .05, .35)));
+  }
+  const wq = sceneW('quiz');
+  if (show('quiz', wq)) {
+    const s = S.quiz.start, ans = cue('c18');
+    [0, 2, 4].forEach((i, n) => pop($('#qz' + i), s + .3 + n * .25));
+    document.querySelectorAll('#s-quiz .op').forEach((o, n) => { o.style.opacity = k(t, s + .4 + n * .25, .3); });
+    const q4 = $('#qz4'), flip = k(t, ans - .15, .35);
+    q4.querySelector('b').textContent = flip > .5 ? '八' : '?'; q4.querySelector('span').textContent = flip > .5 ? 'bā' : '';
+    q4.style.transform = `rotateY(${flip < .5 ? flip * 180 : (1 - flip) * 180}deg) scale(${1 + .15 * Math.sin(Math.PI * flip)})`;
+    if (flip < .01) q4.style.transform += ` scale(${1 + .04 * Math.sin(t * 6)})`;
+    const cd = k(t, L.c17.end, ans - L.c17.end);       // thinking-time ring
+    $('#q-ring').innerHTML = cd > 0 && cd < 1 ? `<circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="#f2b705" stroke-width="8" stroke-linecap="round" pathLength="1" stroke-dasharray="${1 - cd} 1" transform="rotate(-90 50 50)"/><text x="50" y="62" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="32" fill="#fff">${Math.ceil((1 - cd) * (ans - L.c17.end))}</text>` : '';
+    const c = t - ans;
+    $('#q-conf').innerHTML = c > 0 && c < 2.6 ? CONF.map((p) => { const x = p.x + p.vx * c, y = 300 + p.vy * c + 520 * c * c; return `<rect x="${x}" y="${y}" width="${p.w}" height="${p.w * .5}" fill="${p.c}" transform="rotate(${p.r * 60 + c * 300} ${x} ${y})" opacity="${1 - c / 2.6}"/>`; }).join('') : '';
+  }
+  // characters
+  if (show('pictures', sceneW('pictures', .8, .5))) {
+    const b0 = cue('c20', 'bones'), b1 = cue('c21');
+    const bw = k(t, cue('c20') - .2, .5) * (1 - k(t, b1 - .5, .4));
+    $('#bone').style.opacity = bw; $('#bone').style.transform = `scale(${.92 + .08 * eo(k(t, cue('c20') - .2, .8))})`;
+    carves.forEach((p, i) => p.style.strokeDashoffset = 1 - eo(k(t, b0 + i * .35, .5)));
+    PICS.forEach(([id], i) => {
+      const a = cue(id), el = cards[i];
+      const x = pop(el, a - .5, .5);
+      el.querySelector('path').style.strokeDashoffset = 1 - eo(k(t, a - .2, 1));
+      const ch = k(t, a + .6, .5);
+      el.querySelector('.ch').style.opacity = ch; el.querySelector('.ch').style.transform = `scale(${.7 + .3 * back(ch)})`;
+      el.querySelector('.py').style.opacity = k(t, a + .9, .4); el.querySelector('.en').style.opacity = k(t, a + 1.1, .4);
+    });
+  }
+  if (show('forest', sceneW('forest', .01, .01))) {
+    const at = [S.forest.start + .3, cue('c26', '林'), cue('c26', '森')];
+    fcards.forEach((el, i) => pop(el, at[i] - .2, .5));
+    $('#fp1').style.opacity = k(t, at[1] - .3, .3); $('#fp2').style.opacity = k(t, at[2] - .3, .3);
+    const glow = k(t, cue('c27'), .4) * (1 - k(t, S.forest.end - .6, .4));
+    fcards[2].style.boxShadow = `0 18px 40px -24px rgba(80,50,10,.45), inset 0 0 0 1.5px #e6d9bd, 0 0 0 ${4 * glow}px #2f7a3a`;
+  }
+  if (show('write', sceneW('write', .01, .8))) {
+    const at = [cue('c29', 'Down'), cue('c29', 'Across'), cue('c29', 'bottom'), cue('c29', 'long')];
+    const done = k(t, L.c29.end + .2, .6);
+    $('#w-ghost').style.opacity = .1 * (1 - k(t, at[0] - .3, .3)) + done * .95;
+    wstrokes.forEach((p, i) => { p.style.strokeDashoffset = 1 - eio(k(t, at[i] - .1, i === 1 ? .9 : .6)); p.style.opacity = 1 - done; p.setAttribute('stroke', t < at[i] + .9 && t > at[i] - .1 ? '#c8102e' : '#1f1b16'); });
+    wsteps.forEach((s, i) => { s.style.opacity = .35 + .65 * k(t, at[i] - .1, .2); s.style.transform = `scale(${1 + .12 * (k(t, at[i] - .1, .15) * (1 - k(t, at[i] + .8, .3)))})`; });
+    pop($('#w-cn'), cue('c30', '中国') - .2);
+  }
+  if (show('outro', sceneW('outro', .6, .01))) {
+    const s = S.outro.start, jy = cue('c31', '加油'), card = cue('c32'), bye = cue('c33');
+    const a = k(t, L.c31.start + .1, .6), out = k(t, card - .5, .5), pulse = Math.sin(Math.PI * k(t, jy - .1, .6));
+    $('#u-jy').style.opacity = a * (1 - out); $('#u-jy').style.transform = `scale(${.8 + .2 * back(a) + .12 * pulse})`;
+    $('#u-jypy').style.opacity = k(t, jy + .4, .4) * (1 - out);
+    pop($('#u-card'), card - .2, .6); $('#u-card').style.opacity *= 1;
+    $('#u-bye').style.opacity = k(t, bye - .1, .4); $('#u-bye').style.transform = `translateY(${(1 - eo(k(t, bye - .1, .6))) * 30}px)`;
+    $('#st').style.filter = `brightness(${1 - k(t, TL.total - 1.2, 1.2)})`;
+  } else $('#st').style.filter = `brightness(${eo(k(t, 0, .8))})`;
+
+  // caption
+  const line = TL.lines.find((l) => t >= l.start - .15 && t <= l.end + .5);
+  const cap = $('#cap');
+  if (line) {
+    cap.style.opacity = Math.min(k(t, line.start - .15, .2), 1 - k(t, line.end + .3, .2));
+    cap.querySelector('i').textContent = line.who === 'WEN' ? 'TEACHER WEN' : 'SAM';
+    cap.querySelector('i').className = line.who === 'WEN' ? '' : 'sam';
+    cap.querySelector('span').textContent = line.cap;
+  } else cap.style.opacity = 0;
+};
+window.ready = (async () => {
+  await Promise.all(['58px RcSerif', 'italic 58px RcSerif', '20px RcSans', '800 20px RcSans', '60px ZhBrush', '700 60px ZhSerif'].map((f) => document.fonts.load(f, f.includes('Zh') ? '一人中' : 'Aā')));
+  await Promise.all([...document.images].map((i) => i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })));
+  await document.fonts.ready; renderAt(0);
+})();
+</script>
+</body></html>
