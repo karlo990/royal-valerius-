@@ -120,7 +120,7 @@
     }
   }
   const isFixed = (item) => item.type === 'series' || item.type === 'social';   // own design, no template choice
-  const formatsFor = (item) => (item.type === 'series' ? F.SERIES[item.data.id].formats : item.type === 'social' ? ['portrait'] : Object.keys(F.FORMATS));
+  const formatsFor = (item) => (item.type === 'series' ? F.SERIES[item.data.id].formats : item.type === 'social' ? (window.Posts.POSTS[item.data.id].formats || ['portrait']) : Object.keys(F.FORMATS));
   const flyerKey = (item, kind, template, format) => `${item.key}|${kind}|${isFixed(item) ? '-' : template}|${format}`;
   const actById = (id) => activities.find((a) => a.id === id);
 
@@ -178,7 +178,7 @@
 
     const tl = $('#template-list');
     $('#template-note').hidden = !isSeries;
-    $('#template-note').textContent = item.type === 'social' ? 'Social media posts have their own fixed design, made for the 4:5 feed.' : 'Series posters have their own fixed design from the school’s brief.';
+    $('#template-note').textContent = item.type === 'social' ? 'Social media posts have their own fixed design, made for the 4:5 feed (the Mandarin posts also come square).' : 'Series posters have their own fixed design from the school’s brief.';
     tl.replaceChildren(...Object.entries(F.TEMPLATES).map(([id, t]) => {
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'opt-card'; b.setAttribute('role', 'radio'); b.dataset.id = id;

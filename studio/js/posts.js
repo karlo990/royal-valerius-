@@ -1,6 +1,6 @@
 /* Royal Crest Flyer Studio: the 21 social-media post designs (16 school posts + 5 Mandarin Connect).
  *
- * Fixed designs in portrait 4:5 (1080 x 1350), like the series posters: the
+ * Fixed designs in portrait 4:5 (1080 x 1350; the Mandarin posts also square), like the series posters: the
  * template choice does not apply, text stays editable, and the phone number
  * follows the School details setting (the Mandarin posts show it in full, with +263).
  * Styles live in css/posts.css.
@@ -26,11 +26,11 @@
     'treasure-map': { label: "Treasure map", caption: ["X marks the future 🗺️", "", "Science labs → library → trade workshop → sports hall → Royal Crest Academy."] },
     'chalkboard': { label: "Chalkboard equation", caption: ["Today’s lesson: Science + Skill + Character = Royal Crest ✏️", "", "ZIMSEC • Cambridge • HEXCO • robotics • boarding with four meals a day."] },
     'playlist': { label: "Playlist", caption: ["A week at Royal Crest, on repeat 🎧", "", "Morning devotion • Chemistry practical • Bonjour, Nǐ hǎo • Sparks fly in the workshop • Code the robot • Rugby • Sadza & stew"] },
-    'zh-tones': { label: "Mandarin: four tones", caption: ["Say “ma” four ways 🗣️", "", "mā 妈 mother • má 麻 hemp • mǎ 马 horse • mà 骂 scold", "In Mandarin the tone of your voice changes the word. Learn it with us at Mandarin Connect."] },
-    'zh-count': { label: "Mandarin: count to ten", caption: ["Count to ten in Mandarin 🏮", "", "yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí", "Fun fact: 八 (bā) is a lucky number in China because it sounds like the word for wealth."] },
-    'zh-great-wall': { label: "Mandarin: the Great Wall", caption: ["长城 Chángchéng: the Great Wall 🏯", "", "More than 21,000 km of history. At Mandarin Connect our learners explore the language and the culture behind it."] },
-    'zh-quiz': { label: "Mandarin: quiz (xièxie)", caption: ["Mandarin quiz time ✍️", "", "What does 谢谢 (xièxie) mean?", "A. Hello  B. Thank you  C. Sorry  D. Goodbye", "Comment your answer 👇 (the answer is hidden upside down on the post!)"] },
-    'zh-character': { label: "Mandarin: first character", caption: ["Write your first Chinese character: 中 ✍️", "", "中 zhōng means “middle”. 中国 Zhōngguó, China, is “the Middle Kingdom”.", "Four strokes, top to bottom, with the long middle stroke last."] },
+    'zh-pictures': { label: "Mandarin: picture characters", formats: ['portrait', 'square'], caption: ["Chinese characters that are pictures 🖌️", "", "人 rén person • 山 shān mountain • 日 rì sun • 木 mù tree", "The oldest characters were carved on bones and shells more than 3,000 years ago. Learn to read them with us at Mandarin Connect."] },
+    'zh-count': { formats: ['portrait', 'square'], label: "Mandarin: count to ten", caption: ["Count to ten in Mandarin 🏮", "", "yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí", "Fun fact: 八 (bā) is a lucky number in China because it sounds like the word for wealth."] },
+    'zh-great-wall': { formats: ['portrait', 'square'], label: "Mandarin: the Great Wall", caption: ["长城 Chángchéng: the Great Wall 🏯", "", "More than 21,000 km of history. At Mandarin Connect our learners explore the language and the culture behind it."] },
+    'zh-quiz': { formats: ['portrait', 'square'], label: "Mandarin: quiz (xièxie)", caption: ["Mandarin quiz time ✍️", "", "What does 谢谢 (xièxie) mean?", "A. Hello  B. Thank you  C. Sorry  D. Goodbye", "Comment your answer 👇 (the answer is hidden upside down on the post!)"] },
+    'zh-character': { formats: ['portrait', 'square'], label: "Mandarin: first character", caption: ["Write your first Chinese character: 中 ✍️", "", "中 zhōng means “middle”. 中国 Zhōngguó, China, is “the Middle Kingdom”.", "Four strokes, top to bottom, with the long middle stroke last."] },
   };
   const ORDER = Object.keys(POSTS);
 
@@ -91,12 +91,13 @@
   const PHONE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>`;
   const zhBrand = (crest, phone, tone) => `<div class="brand ${tone}"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>MANDARIN CONNECT</small></div></div><div class="ph"><i>${PHONE_ICON}</i>${phone}</div></div>`;
 
-  function toneCards() {                // mā má mǎ mà, each with its pitch contour (top = high)
-    const T = [['1st tone', 'high and flat', '妈', 'mā', 'mother', 'M10 18 H90'], ['2nd tone', 'rising', '麻', 'má', 'hemp', 'M10 62 L90 16'],
-      ['3rd tone', 'dips, then rises', '马', 'mǎ', 'horse', 'M10 40 Q42 98 90 18'], ['4th tone', 'sharp fall', '骂', 'mà', 'scold', 'M10 16 L90 84']];
-    const staff = [10, 30, 50, 70, 90].map((y) => `<line x1="4" y1="${y}" x2="96" y2="${y}"/>`).join('');
-    return T.map(([n, how, ch, py, en, d]) => `<div class="tc"><div class="tn"><b>${n}</b>${how}</div>
-      <svg class="cv" viewBox="0 0 100 100"><g stroke="#d9cbb0" stroke-width="1.5">${staff}</g><path d="${d}" fill="none" stroke="#c8102e" stroke-width="8" stroke-linecap="round"/></svg>
+  function pictureCards() {             // each character beside a sketch of the picture it grew from
+    const T = [['a person walking', '人', 'rén', 'person', '<circle cx="52" cy="17" r="9"/><path d="M50 28 L44 58 L28 90 M44 58 L66 90 M48 38 L70 52"/>'],
+      ['three peaks', '山', 'shān', 'mountain', '<path d="M8 86 L30 42 L42 62 L54 20 L68 58 L78 44 L94 86 Z"/>'],
+      ['the sun', '日', 'rì', 'sun, day', '<circle cx="50" cy="50" r="32"/><circle cx="50" cy="50" r="5" fill="#c8102e"/>'],
+      ['a tree with roots', '木', 'mù', 'tree, wood', '<path d="M50 10 V92 M50 36 L26 16 M50 36 L74 16 M50 68 L26 90 M50 68 L74 90"/>']];
+    return T.map(([how, ch, py, en, svg]) => `<div class="tc"><div class="tn"><b>Looks like</b>${how}</div>
+      <svg class="cv" viewBox="0 0 100 100"><g fill="none" stroke="#c8102e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">${svg}</g></svg>
       <div class="ch zb">${ch}</div><div class="py">${py}</div><div class="en">${en}</div></div>`).join('');
   }
 
@@ -329,13 +330,13 @@
   </div>
   <div class="brand light" style="bottom:40px"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>SCIENCE · INNOVATION · SKILL</small></div></div><div class="ph"><i><svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>${phone}</div></div>`,
 
-    'zh-tones': (crest, phone, P, full) => `<div class="paper"></div>
-  <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · the four tones</div>
-  <div class="abs h">Say <em>ma</em><br>four ways.</div>
-  <div class="abs seal zb">声<br>调</div>
-  <div class="abs sub">In Mandarin the tone of your voice changes the word.</div>
-  <div class="abs cards">${toneCards()}</div>
-  <div class="abs note">Say <b>mǎ</b> instead of <b>mā</b> and you just called your mum a horse.</div>
+    'zh-pictures': (crest, phone, P, full) => `<div class="paper"></div>
+  <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · characters</div>
+  <div class="abs h">Characters that<br>are <em>pictures.</em></div>
+  <div class="abs seal zb">汉<br>字</div>
+  <div class="abs sub">Many Chinese characters began as drawings of what they mean.</div>
+  <div class="abs cards">${pictureCards()}</div>
+  <div class="abs note">The oldest were carved on <b>bones and shells</b> more than 3,000 years ago.</div>
   ${zhBrand(crest, full, 'dark')}`,
     'zh-count': (crest, phone, P, full) => `<div class="dots"></div>
   <svg class="abs lan" viewBox="0 0 400 420">${lantern(120, 40, 1)}${lantern(300, 110, .8)}</svg>
@@ -375,9 +376,10 @@
   function build(m, format) {
     const id = m.post;
     const root = document.createElement('div');
-    root.className = `flyer ps ps-${id} f-${format} is-tall`;
+    const square = format === 'square';
+    root.className = `flyer ps ps-${id} f-${format} ${square ? 'is-wide' : 'is-tall'}`;
     root.style.width = '1080px';
-    root.style.height = '1350px';
+    root.style.height = square ? '1080px' : '1350px';
     root.dataset.file = `post-${id}-${format}`;
     root.innerHTML = HTML[id](m.brand.crest, localPhone(m.brand.phone), m.brand.photos || {}, m.brand.phone);
     return root;

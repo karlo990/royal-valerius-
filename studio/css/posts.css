@@ -309,22 +309,22 @@
 .flyer.ps .seal { width: 92px; padding: 14px 0 10px; text-align: center; background: #c8102e; color: #fbefe0; font-size: 50px; line-height: 1.02; border-radius: 10px;
   transform: rotate(-7deg); box-shadow: inset 0 0 0 4px #c8102e, inset 0 0 0 7px rgba(251,239,224,.75); filter: drop-shadow(0 6px 10px rgba(120,10,20,.25)); }
 
-/* zh-tones */
-.flyer.ps-zh-tones { background: #f5eedf; }
-.flyer.ps-zh-tones .h { left: 66px; top: 112px; font: 500 116px/.94 PsSerif, serif; color: var(--navy); letter-spacing: -.02em; }
-.flyer.ps-zh-tones .h em { color: var(--red); font-style: italic; }
-.flyer.ps-zh-tones .seal { right: 80px; top: 120px; }
-.flyer.ps-zh-tones .sub { left: 72px; top: 366px; font-size: 29px; font-weight: 600; color: var(--muted); }
-.flyer.ps-zh-tones .cards { left: 70px; right: 70px; top: 432px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
-.flyer.ps-zh-tones .tc { position: relative; height: 300px; border-radius: 26px; background: rgba(255,255,255,.82); box-shadow: 0 18px 40px -24px rgba(80,50,10,.45), inset 0 0 0 1.5px #e6d9bd; }
-.flyer.ps-zh-tones .tn { position: absolute; left: 30px; top: 26px; font-size: 18px; font-weight: 700; color: var(--muted); }
-.flyer.ps-zh-tones .tn b { display: block; font-size: 15px; letter-spacing: .22em; text-transform: uppercase; color: var(--red); margin-bottom: 4px; }
-.flyer.ps-zh-tones .cv { position: absolute; right: 26px; top: 22px; width: 118px; height: 84px; }
-.flyer.ps-zh-tones .ch { position: absolute; left: 22px; bottom: 6px; font-size: 176px; line-height: 1; color: #1f1b16; }
-.flyer.ps-zh-tones .py { position: absolute; left: 228px; top: 136px; font: 600 72px/1 PsSerif, serif; color: var(--red); }
-.flyer.ps-zh-tones .en { position: absolute; left: 232px; top: 222px; font-size: 30px; font-weight: 800; color: var(--navy); }
-.flyer.ps-zh-tones .note { left: 70px; right: 70px; top: 1102px; text-align: center; font: italic 500 34px/1.25 PsSerif, serif; color: var(--ink); }
-.flyer.ps-zh-tones .note b { color: var(--red); font-weight: 700; }
+/* zh-pictures */
+.flyer.ps-zh-pictures { background: #f5eedf; }
+.flyer.ps-zh-pictures .h { left: 66px; top: 112px; font: 500 104px/.94 PsSerif, serif; color: var(--navy); letter-spacing: -.02em; }
+.flyer.ps-zh-pictures .h em { color: var(--red); font-style: italic; }
+.flyer.ps-zh-pictures .seal { right: 80px; top: 120px; }
+.flyer.ps-zh-pictures .sub { left: 72px; top: 366px; font-size: 29px; font-weight: 600; color: var(--muted); }
+.flyer.ps-zh-pictures .cards { left: 70px; right: 70px; top: 432px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.flyer.ps-zh-pictures .tc { position: relative; height: 300px; border-radius: 26px; background: rgba(255,255,255,.82); box-shadow: 0 18px 40px -24px rgba(80,50,10,.45), inset 0 0 0 1.5px #e6d9bd; }
+.flyer.ps-zh-pictures .tn { position: absolute; left: 30px; top: 26px; font-size: 18px; font-weight: 700; color: var(--muted); }
+.flyer.ps-zh-pictures .tn b { display: block; font-size: 15px; letter-spacing: .22em; text-transform: uppercase; color: var(--red); margin-bottom: 4px; }
+.flyer.ps-zh-pictures .cv { position: absolute; right: 24px; top: 20px; width: 96px; height: 96px; }
+.flyer.ps-zh-pictures .ch { position: absolute; left: 22px; bottom: 6px; font-size: 176px; line-height: 1; color: #1f1b16; }
+.flyer.ps-zh-pictures .py { position: absolute; left: 228px; top: 136px; font: 600 72px/1 PsSerif, serif; color: var(--red); }
+.flyer.ps-zh-pictures .en { position: absolute; left: 232px; top: 222px; font-size: 30px; font-weight: 800; color: var(--navy); }
+.flyer.ps-zh-pictures .note { left: 60px; right: 60px; top: 1106px; text-align: center; font: italic 500 31px/1.25 PsSerif, serif; color: var(--ink); }
+.flyer.ps-zh-pictures .note b { color: var(--red); font-weight: 700; }
 
 /* zh-count */
 .flyer.ps-zh-count { background: radial-gradient(900px 800px at 30% 20%, #c4141f 0%, #9a0f18 50%, #5c0910 100%); color: #fff; }
@@ -391,3 +391,58 @@
 .flyer.ps-zh-character .pol { left: 640px; top: 880px; width: 360px; padding: 14px 14px 0; background: #fff; transform: rotate(3deg); box-shadow: 0 24px 40px -20px rgba(0,0,0,.45); }
 .flyer.ps-zh-character .pol img { width: 100%; height: 210px; object-fit: cover; display: block; }
 .flyer.ps-zh-character .pol span { display: block; padding: 12px 0 16px; text-align: center; font: 700 26px Caveat, cursive; color: var(--ink); }
+
+/* Mandarin posts, square 1080 × 1080 (.f-square): same designs, rearranged for the shorter frame */
+.flyer.ps.f-square .brand { bottom: 36px; }
+.flyer.ps-zh-pictures.f-square .kick, .flyer.ps-zh-count.f-square .kick, .flyer.ps-zh-character.f-square .kick { top: 56px !important; }
+.flyer.ps-zh-pictures.f-square .h { top: 92px; font-size: 88px; }
+.flyer.ps-zh-pictures.f-square .seal { top: 92px; font-size: 44px; width: 82px; }
+.flyer.ps-zh-pictures.f-square .sub { display: none; }
+.flyer.ps-zh-pictures.f-square .cards { top: 290px; gap: 20px; }
+.flyer.ps-zh-pictures.f-square .tc { height: 272px; }
+.flyer.ps-zh-pictures.f-square .ch { font-size: 160px; }
+.flyer.ps-zh-pictures.f-square .py { top: 120px; font-size: 64px; }
+.flyer.ps-zh-pictures.f-square .en { top: 196px; font-size: 27px; }
+.flyer.ps-zh-pictures.f-square .note { top: 882px; font-size: 28px; }
+
+.flyer.ps-zh-count.f-square .lan { width: 320px; height: 336px; right: 20px; }
+.flyer.ps-zh-count.f-square .h { top: 92px; font-size: 88px; }
+.flyer.ps-zh-count.f-square .sub { display: none; }
+.flyer.ps-zh-count.f-square .tiles { top: 300px; gap: 30px 22px; }
+.flyer.ps-zh-count.f-square .tile { height: 214px; }
+.flyer.ps-zh-count.f-square .tile b { font-size: 92px; }
+.flyer.ps-zh-count.f-square .tile span { font-size: 32px; }
+.flyer.ps-zh-count.f-square .note { top: 800px; font-size: 25px; }
+
+.flyer.ps-zh-great-wall.f-square .bg { top: -640px; }
+.flyer.ps-zh-great-wall.f-square .shade { background: linear-gradient(180deg, rgba(5,15,51,.92) 0%, rgba(5,15,51,.65) 30%, rgba(5,15,51,0) 52%, rgba(5,15,51,0) 74%, rgba(5,15,51,.85) 93%); }
+.flyer.ps-zh-great-wall.f-square .kick { top: 56px !important; }
+.flyer.ps-zh-great-wall.f-square .h { top: 94px; font-size: 96px; }
+.flyer.ps-zh-great-wall.f-square .sub { top: 300px; font-size: 25px; right: 360px; }
+.flyer.ps-zh-great-wall.f-square .vert { top: 60px; font-size: 170px; }
+.flyer.ps-zh-great-wall.f-square .vpy { top: 80px; right: 256px; }
+
+.flyer.ps-zh-quiz.f-square .ph1 { top: 56px; height: 350px; }
+.flyer.ps-zh-quiz.f-square .kick { top: 446px !important; }
+.flyer.ps-zh-quiz.f-square .q { top: 482px; font-size: 64px; }
+.flyer.ps-zh-quiz.f-square .q .zs { font-size: 60px; }
+.flyer.ps-zh-quiz.f-square .opts { top: 600px; gap: 18px; }
+.flyer.ps-zh-quiz.f-square .opts div { height: 82px; font-size: 31px; }
+.flyer.ps-zh-quiz.f-square .opts i { width: 54px; height: 54px; font-size: 27px; }
+.flyer.ps-zh-quiz.f-square .cta { top: 806px; font-size: 27px; }
+.flyer.ps-zh-quiz.f-square .ans { top: 866px; font-size: 20px; }
+.flyer.ps-zh-quiz.f-square .glow { bottom: -350px; }
+
+.flyer.ps-zh-character.f-square .h { top: 92px; font-size: 86px; }
+.flyer.ps-zh-character.f-square .grid { top: 290px; width: 440px; height: 440px; }
+.flyer.ps-zh-character.f-square .grid b { font-size: 350px; }
+.flyer.ps-zh-character.f-square .info { left: 560px; top: 290px; }
+.flyer.ps-zh-character.f-square .info .py { font-size: 72px; }
+.flyer.ps-zh-character.f-square .info .en { font-size: 28px; }
+.flyer.ps-zh-character.f-square .info .cn { font-size: 21px; margin-top: 12px; }
+.flyer.ps-zh-character.f-square .info .lab { margin-top: 20px; }
+.flyer.ps-zh-character.f-square .steps { gap: 8px; }
+.flyer.ps-zh-character.f-square .tip { top: 760px; width: 440px; font-size: 26px; }
+.flyer.ps-zh-character.f-square .pol { left: 600px; top: 655px; width: 300px; padding: 12px 12px 0; }
+.flyer.ps-zh-character.f-square .pol img { height: 160px; }
+.flyer.ps-zh-character.f-square .pol span { font-size: 22px; padding: 8px 0 10px; }

@@ -26,7 +26,7 @@ Twenty-one ready-made designs for the Facebook and Instagram feed (portrait 4:5,
 pass, Fees receipt, Periodic table, Newspaper front page, Skill tree (game),
 Boarders’ menu, Lock-screen alerts, Parents’ quiz, Weather forecast, Polaroid
 board, Movie poster, Recipe card, Chess: next move, Treasure map, Chalkboard
-equation and Playlist, plus five for Mandarin Connect: the four tones, count
+equation and Playlist, plus five for Mandarin Connect: picture characters, count
 to ten, the Great Wall, a 谢谢 quiz (answer printed upside down) and writing 中.
 The Mandarin posts show the phone number in full (+263) and use small subsets
 of two OFL fonts (Ma Shan Zheng, Noto Serif SC) for the Chinese characters. Like the series posters they have their own fixed
