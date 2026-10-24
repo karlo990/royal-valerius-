@@ -29,7 +29,7 @@ html,body{margin:0;background:#e9eef5}
 .card b::before{content:"✓";width:24px;height:24px;border-radius:50%;background:#2f8a4a;color:#fff;display:grid;place-items:center;font-size:14px;flex:none}
 .card span{display:block;margin-top:6px;font:500 16px/1.4 RcSans;color:var(--muted)}
 #boys{top:636px;grid-template-columns:1fr 1fr} #boys img{height:230px;object-position:40% 25%}
-#girls{top:1038px;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px} #girls img{height:240px}
+#girls{top:1038px;grid-template-columns:repeat(5,1fr);gap:16px} #girls img{height:220px} #girls .t{padding:14px 14px 16px} #girls b{font-size:15.5px;gap:8px} #girls b::before{width:20px;height:20px;font-size:12px} #girls span{font-size:14px}
 #rules{position:absolute;left:64px;right:64px;top:1464px;padding:24px 30px;border-radius:20px;background:#fff8e1;box-shadow:inset 0 0 0 1.5px #ead9a4;display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start}
 #rules h3{margin:0;font:500 34px/1.05 RcSerif,serif;color:var(--navy)} #rules h3 em{font-style:italic;color:var(--gold)}
 #rules ul{margin:0;padding:0;list-style:none;columns:2;column-gap:30px}
@@ -55,6 +55,7 @@ html,body{margin:0;background:#e9eef5}
     <div class="card"><img src="img/cornrows-girl.jpg" alt="" style="object-position:50% 25%"><div class="t"><b>Straight-back cornrows</b><span>Neat cornrows running straight back from the forehead.</span></div></div>
     <div class="card"><img src="img/cornrows-swept.jpg" alt="" style="object-position:50% 35%"><div class="t"><b>Swept-back cornrows</b><span>Fine, even cornrows curving back behind the ear.</span></div></div>
     <div class="card"><img src="img/braided-bun.jpg" alt="" style="object-position:40% 45%"><div class="t"><b>Braided bun</b><span>Braids tied up in a low bun with a plain navy scrunchie.</span></div></div>
+    <div class="card"><img src="img/freehand-bridge.jpg" alt="" style="object-position:50% 40%"><div class="t"><b>Free-hand bridge style</b><span>Neat free-hand cornrows curving round the head.</span></div></div>
   </div>
 
   <div id="rules"><h3>The <em>rules</em></h3><ul>
