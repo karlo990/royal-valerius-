@@ -3,9 +3,9 @@ otherwise an estimate (so visuals can be previewed before the voices exist)."""
 import json, pathlib, subprocess, re
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 S = json.load(open(ROOT / "script.json"))
-LEAD = {"open": 3.2}; TAIL = {"outro": 4.0}
-GAP_LINE, GAP_SCENE = 0.26, 0.7
-HOLD_AFTER = {'c02': .6, 'c05': 1.4, 'c07': 1.4, 'c09': 1.0, 'c11': 1.6, 'c13': 1.0, 'c14': 1.0, 'c16': 1.6, 'c17': 2.2, 'c18': 1.4, 'c20': .6, 'c21': 1.6, 'c22': 1.6, 'c23': 1.6, 'c24': 1.8, 'c25': .6, 'c26': 2.0, 'c28': 1.0, 'c29': 1.8, 'c30': 1.4, 'c31': 1.4}
+LEAD = {"open": 3.2}; TAIL = {"outro": 5.0}
+GAP_LINE, GAP_SCENE = 0.4, 1.0
+HOLD_AFTER = {'c02': .8, 'c05': 4.6, 'c07': 4.6, 'c09': 1.6, 'c11': 2.4, 'c13': 1.8, 'c14': 1.8, 'c16': 2.6, 'c17': 4.4, 'c18': 2.0, 'c20': 1.0, 'c21': 2.4, 'c22': 2.4, 'c23': 2.4, 'c24': 2.8, 'c25': .8, 'c26': 2.8, 'c27': .8, 'c28': 1.6, 'c29': 3.0, 'c30': 2.2, 'c31': 2.0, 'c32': .8}
 
 def cjk(c): return '㐀' <= c <= '鿿'
 def estimate(text):
