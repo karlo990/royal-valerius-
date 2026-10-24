@@ -1,0 +1,7 @@
+mashanzheng-zh.woff2   Ma Shan Zheng, by Ma ShanZheng (Google Fonts)
+notoserifsc-700-zh.woff2  Noto Serif SC Bold, by Google (Google Fonts)
+
+Both are licensed under the SIL Open Font License 1.1 (https://openfontlicense.org).
+They are subsets holding only the Chinese characters used by the Flyer Studio's
+Mandarin Connect posts (studio/css/posts.css); other characters fall back to the
+device's own font.

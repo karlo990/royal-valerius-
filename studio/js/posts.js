@@ -1,8 +1,9 @@
-/* Royal Crest Flyer Studio: the 16 social-media post designs.
+/* Royal Crest Flyer Studio: the 21 social-media post designs (16 school posts + 5 Mandarin Connect).
  *
  * Fixed designs in portrait 4:5 (1080 x 1350), like the series posters: the
  * template choice does not apply, text stays editable, and the phone number
- * follows the School details setting. Styles live in css/posts.css.
+ * follows the School details setting (the Mandarin posts show it in full, with +263).
+ * Styles live in css/posts.css.
  * Generated from the approved designs; edit the markup here directly.
  */
 (function () {
@@ -25,6 +26,11 @@
     'treasure-map': { label: "Treasure map", caption: ["X marks the future 🗺️", "", "Science labs → library → trade workshop → sports hall → Royal Crest Academy."] },
     'chalkboard': { label: "Chalkboard equation", caption: ["Today’s lesson: Science + Skill + Character = Royal Crest ✏️", "", "ZIMSEC • Cambridge • HEXCO • robotics • boarding with four meals a day."] },
     'playlist': { label: "Playlist", caption: ["A week at Royal Crest, on repeat 🎧", "", "Morning devotion • Chemistry practical • Bonjour, Nǐ hǎo • Sparks fly in the workshop • Code the robot • Rugby • Sadza & stew"] },
+    'zh-tones': { label: "Mandarin: four tones", caption: ["Say “ma” four ways 🗣️", "", "mā 妈 mother • má 麻 hemp • mǎ 马 horse • mà 骂 scold", "In Mandarin the tone of your voice changes the word. Learn it with us at Mandarin Connect."] },
+    'zh-count': { label: "Mandarin: count to ten", caption: ["Count to ten in Mandarin 🏮", "", "yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí", "Fun fact: 八 (bā) is a lucky number in China because it sounds like the word for wealth."] },
+    'zh-great-wall': { label: "Mandarin: the Great Wall", caption: ["长城 Chángchéng: the Great Wall 🏯", "", "More than 21,000 km of history. At Mandarin Connect our learners explore the language and the culture behind it."] },
+    'zh-quiz': { label: "Mandarin: quiz (xièxie)", caption: ["Mandarin quiz time ✍️", "", "What does 谢谢 (xièxie) mean?", "A. Hello  B. Thank you  C. Sorry  D. Goodbye", "Comment your answer 👇 (the answer is hidden upside down on the post!)"] },
+    'zh-character': { label: "Mandarin: first character", caption: ["Write your first Chinese character: 中 ✍️", "", "中 zhōng means “middle”. 中国 Zhōngguó, China, is “the Middle Kingdom”.", "Four strokes, top to bottom, with the long middle stroke last."] },
   };
   const ORDER = Object.keys(POSTS);
 
@@ -78,6 +84,40 @@
       h += `<i class="${light ? 'sq-l' : 'sq-d'}"${id === 'f4' ? ' style="box-shadow:inset 0 0 0 6px #f2b705"' : ''}>${p ? `<span class="pc" style="color:${col}">${p}</span>` : ''}</i>`;
     }
     return h;
+  }
+
+
+  // ------------------------------------------------------------------ Mandarin Connect parts
+  const PHONE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>`;
+  const zhBrand = (crest, phone, tone) => `<div class="brand ${tone}"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>MANDARIN CONNECT</small></div></div><div class="ph"><i>${PHONE_ICON}</i>${phone}</div></div>`;
+
+  function toneCards() {                // mā má mǎ mà, each with its pitch contour (top = high)
+    const T = [['1st tone', 'high and flat', '妈', 'mā', 'mother', 'M10 18 H90'], ['2nd tone', 'rising', '麻', 'má', 'hemp', 'M10 62 L90 16'],
+      ['3rd tone', 'dips, then rises', '马', 'mǎ', 'horse', 'M10 40 Q42 98 90 18'], ['4th tone', 'sharp fall', '骂', 'mà', 'scold', 'M10 16 L90 84']];
+    const staff = [10, 30, 50, 70, 90].map((y) => `<line x1="4" y1="${y}" x2="96" y2="${y}"/>`).join('');
+    return T.map(([n, how, ch, py, en, d]) => `<div class="tc"><div class="tn"><b>${n}</b>${how}</div>
+      <svg class="cv" viewBox="0 0 100 100"><g stroke="#d9cbb0" stroke-width="1.5">${staff}</g><path d="${d}" fill="none" stroke="#c8102e" stroke-width="8" stroke-linecap="round"/></svg>
+      <div class="ch zb">${ch}</div><div class="py">${py}</div><div class="en">${en}</div></div>`).join('');
+  }
+
+  function countTiles() {
+    return [['一', 'yī'], ['二', 'èr'], ['三', 'sān'], ['四', 'sì'], ['五', 'wǔ'], ['六', 'liù'], ['七', 'qī'], ['八', 'bā'], ['九', 'jiǔ'], ['十', 'shí']]
+      .map(([c, p], i) => `<div class="tile${i === 7 ? ' lucky' : ''}"><small>${i + 1}</small><b class="zs">${c}</b><span>${p}</span></div>`).join('');
+  }
+
+  function lantern(x, len, s) {
+    return `<g transform="translate(${x} 0) scale(${s})"><line x1="0" y1="0" x2="0" y2="${len}" stroke="#f2b705" stroke-width="2"/>
+      <g transform="translate(0 ${len})"><rect x="-26" y="0" width="52" height="12" rx="3" fill="#f2b705"/>
+      <ellipse cx="0" cy="62" rx="62" ry="52" fill="#e0262f"/><ellipse cx="0" cy="62" rx="38" ry="52" fill="none" stroke="#a50f19" stroke-width="3"/><ellipse cx="0" cy="62" rx="14" ry="52" fill="none" stroke="#a50f19" stroke-width="3"/>
+      <ellipse cx="-20" cy="44" rx="14" ry="22" fill="#ff7a6e" opacity=".45"/>
+      <rect x="-26" y="110" width="52" height="12" rx="3" fill="#f2b705"/><path d="M-10 122 L-14 176 M0 122 V182 M10 122 L14 176" stroke="#f2b705" stroke-width="3" stroke-linecap="round"/></g></g>`;
+  }
+
+  // 中: 1 left vertical, 2 top-and-right turn, 3 bottom horizontal, 4 long middle vertical
+  const ZHONG = ['M28 34 V66', 'M28 34 H72 V66', 'M28 66 H72', 'M50 10 V92'];
+  function strokeSteps() {
+    return ZHONG.map((_, i) => `<div class="stp"><svg viewBox="0 0 100 100"><g stroke="#e9b4b4" stroke-width="1.2" stroke-dasharray="4 4"><line x1="50" y1="0" x2="50" y2="100"/><line x1="0" y1="50" x2="100" y2="50"/></g>
+      ${ZHONG.slice(0, i + 1).map((d, j) => `<path d="${d}" fill="none" stroke="${j === i ? '#c8102e' : '#22201c'}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>`).join('')}</svg><b>${i + 1}</b></div>`).join('');
   }
 
   // ------------------------------------------------------------------ designs
@@ -288,6 +328,48 @@
     <div class="tr"><span class="n">8</span><div><b>Sadza &amp; Stew</b><span>Supper with friends</span></div><em>18:00</em></div>
   </div>
   <div class="brand light" style="bottom:40px"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>SCIENCE · INNOVATION · SKILL</small></div></div><div class="ph"><i><svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>${phone}</div></div>`,
+
+    'zh-tones': (crest, phone, P, full) => `<div class="paper"></div>
+  <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · the four tones</div>
+  <div class="abs h">Say <em>ma</em><br>four ways.</div>
+  <div class="abs seal zb">声<br>调</div>
+  <div class="abs sub">In Mandarin the tone of your voice changes the word.</div>
+  <div class="abs cards">${toneCards()}</div>
+  <div class="abs note">Say <b>mǎ</b> instead of <b>mā</b> and you just called your mum a horse.</div>
+  ${zhBrand(crest, full, 'dark')}`,
+    'zh-count': (crest, phone, P, full) => `<div class="dots"></div>
+  <svg class="abs lan" viewBox="0 0 400 420">${lantern(120, 40, 1)}${lantern(300, 110, .8)}</svg>
+  <div class="abs kick" style="left:70px;top:70px;color:var(--gold2)">Mandarin Connect · numbers</div>
+  <div class="abs h">Count to ten<br>in <em>Mandarin.</em></div>
+  <div class="abs sub">Say it with us: yī, èr, sān…</div>
+  <div class="abs tiles">${countTiles()}</div>
+  <div class="abs note"><b>Fun fact:</b> 八 <i>bā</i>, eight, is a lucky number in China because it sounds like the word for wealth.</div>
+  ${zhBrand(crest, full, 'light')}`,
+    'zh-great-wall': (crest, phone, P, full) => `<img class="bg" src="${P['great-wall'] || ''}" alt="">
+  <div class="shade"></div>
+  <div class="abs vert zb">长城</div><div class="abs vpy">Chángchéng</div>
+  <div class="abs kick" style="left:70px;top:70px;color:var(--gold2)">Mandarin Connect · culture</div>
+  <div class="abs h">21,000 km<br>of <em>history.</em></div>
+  <div class="abs sub">The Great Wall, <span class="zs">长城</span> Chángchéng, stretches more than 21,000 km. Learn the language behind it.</div>
+  ${zhBrand(crest, full, 'light')}`,
+    'zh-quiz': (crest, phone, P, full) => `<div class="glow"></div>
+  <div class="abs ph1"><img src="${P['mandarin-students'] || ''}" alt=""><span>QUIZ TIME</span></div>
+  <div class="abs kick" style="left:70px;top:556px;color:var(--gold2)">Mandarin Connect · quiz</div>
+  <div class="abs q">What does <span class="zs">谢谢</span> <em>xièxie</em> mean?</div>
+  <div class="abs opts"><div><i>A</i>Hello</div><div><i>B</i>Thank you</div><div><i>C</i>Sorry</div><div><i>D</i>Goodbye</div></div>
+  <div class="abs cta">Comment A, B, C or D below.</div>
+  <div class="abs ans">Answer: B, thank you. Reply <span class="zs">不客气</span> bú kèqi: you’re welcome!</div>
+  ${zhBrand(crest, full, 'light')}`,
+    'zh-character': (crest, phone, P, full) => `<div class="paper"></div>
+  <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · writing</div>
+  <div class="abs h">Write your<br><em>first character.</em></div>
+  <div class="abs grid"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g stroke="#c8102e" stroke-width=".35" stroke-dasharray="1.6 1.6" opacity=".7"><line x1="50" y1="0" x2="50" y2="100"/><line x1="0" y1="50" x2="100" y2="50"/><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></g></svg><b class="zb">中</b></div>
+  <div class="abs info"><div class="py">zhōng</div><div class="en">middle, centre</div>
+    <div class="cn"><span class="zs">中国</span> Zhōngguó, China: “the Middle Kingdom”</div>
+    <div class="lab">Stroke order · 4 strokes</div><div class="steps">${strokeSteps()}</div></div>
+  <div class="abs tip">Top to bottom, left to right. The long middle stroke comes last.</div>
+  <div class="abs pol"><img src="${P['mandarin-textbook'] || ''}" alt=""><span>Our Mandarin textbook</span></div>
+  ${zhBrand(crest, full, 'dark')}`,
   };
 
   function build(m, format) {
@@ -297,7 +379,7 @@
     root.style.width = '1080px';
     root.style.height = '1350px';
     root.dataset.file = `post-${id}-${format}`;
-    root.innerHTML = HTML[id](m.brand.crest, localPhone(m.brand.phone), m.brand.photos || {});
+    root.innerHTML = HTML[id](m.brand.crest, localPhone(m.brand.phone), m.brand.photos || {}, m.brand.phone);
     return root;
   }
 
