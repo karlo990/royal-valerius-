@@ -242,7 +242,7 @@ function pop(el, a, d = .45) { const x = k(T, a, d); el.style.opacity = clamp(x 
 window.renderAt = function (t) {
   T = t;
   // backgrounds: red for counting, paper for characters
-  const paperOn = Math.max(sceneW('pictures', .8, .01), sceneW('forest', .01, .01), sceneW('write', .01, .8));
+  const paperOn = Math.min(k(t, S.pictures.start, .8), 1 - k(t, S.write.end - .8, .8));   // one stretch: no flash between the paper scenes
   $('#paper').style.opacity = paperOn; $('#lan').style.opacity = 1 - paperOn;
   lans.forEach((g, i) => g.setAttribute('transform', `translate(${g.dataset.x} 0) rotate(${Math.sin(t * 1.1 + i * 1.7) * 3.5}) scale(${i ? .8 : 1})`));
   $('#brand').style.color = paperOn > .5 ? '#0a1f5c' : '#fff';
@@ -330,14 +330,14 @@ window.renderAt = function (t) {
       el.querySelector('.py').style.opacity = k(t, a + .9, .4); el.querySelector('.en').style.opacity = k(t, a + 1.1, .4);
     });
   }
-  if (show('forest', sceneW('forest', .01, .01))) {
+  if (show('forest', sceneW('forest', .4, .4))) {
     const at = [S.forest.start + .3, cue('c26', '林'), cue('c26', '森')];
     fcards.forEach((el, i) => pop(el, at[i] - .2, .5));
     $('#fp1').style.opacity = k(t, at[1] - .3, .3); $('#fp2').style.opacity = k(t, at[2] - .3, .3);
     const glow = k(t, cue('c27'), .4) * (1 - k(t, S.forest.end - .6, .4));
     fcards[2].style.boxShadow = `0 18px 40px -24px rgba(80,50,10,.45), inset 0 0 0 1.5px #e6d9bd, 0 0 0 ${4 * glow}px #2f7a3a`;
   }
-  if (show('write', sceneW('write', .01, .8))) {
+  if (show('write', sceneW('write', .4, .8))) {
     const at = [cue('c29', 'Down'), cue('c29', 'Across'), cue('c29', 'bottom'), cue('c29', 'long')];
     const done = k(t, L.c29.end + .2, .6);
     $('#w-ghost').style.opacity = .1 * (1 - k(t, at[0] - .3, .3)) + done * .95;
