@@ -1,0 +1,76 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Morning Devotion 24 Oct</title>
+<style>
+/* Morning devotion, portrait 1080 × 1350; open with ?square for 1080 × 1080. */
+@font-face{font-family:RcSerif;font-weight:400 700;src:url(../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:RcSerif;font-style:italic;font-weight:400 700;src:url(../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:RcSans;font-weight:200 800;src:url(../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2")}
+:root{--navy:#0a1f5c;--gold:#c9a227;--gold2:#f2b705}
+html,body{margin:0;background:#081847}
+#fl{position:relative;width:1080px;height:1350px;overflow:hidden;font-family:RcSans,sans-serif;color:#fff;
+  background:linear-gradient(180deg,#071640 0%,#132f78 30%,#3d4f9c 50%,#a8678a 64%,#f0a35e 76%,#ffd27a 84%)}
+#rays{position:absolute;left:50%;top:1010px;width:2200px;height:2200px;transform:translate(-50%,-50%);
+  background:repeating-conic-gradient(from 0deg,rgba(255,236,170,.16) 0deg 4deg,transparent 4deg 12deg);
+  -webkit-mask:radial-gradient(closest-side,#000 20%,transparent 75%);mask:radial-gradient(closest-side,#000 20%,transparent 75%)}
+#sun{position:absolute;left:50%;top:1010px;width:300px;height:300px;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,#fff8dc 0%,#ffe08a 45%,#ffc24a 70%,rgba(255,194,74,0) 72%);box-shadow:0 0 160px 80px rgba(255,200,90,.55)}
+#hills{position:absolute;left:0;bottom:0;width:1080px;height:420px}
+#stars{position:absolute;inset:0 0 50% 0;background-image:radial-gradient(rgba(255,255,255,.7) 1px,transparent 1.4px);background-size:57px 61px;opacity:.35;
+  -webkit-mask:linear-gradient(#000,transparent);mask:linear-gradient(#000,transparent)}
+.brand{position:absolute;left:0;right:0;top:52px;display:flex;justify-content:center;align-items:center;gap:14px}
+.brand img{height:62px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+.brand b{display:block;font:600 30px/1 RcSerif,serif;letter-spacing:.01em}
+.brand span{display:block;margin-top:6px;font:800 12px RcSans;letter-spacing:.3em;color:var(--gold2)}
+#kick{position:absolute;left:0;right:0;top:160px;text-align:center;font:800 17px RcSans;letter-spacing:.34em;color:var(--gold2)}
+#kick i{font-style:normal;color:#c9d6f5}
+h1{position:absolute;left:60px;right:60px;top:196px;margin:0;text-align:center;font:500 80px/1 RcSerif,serif;letter-spacing:-.015em;text-shadow:0 6px 30px rgba(0,0,0,.3)}
+h1 em{font-style:italic;color:var(--gold2)}
+#verse{position:absolute;left:90px;right:90px;top:410px;padding:56px 64px 44px;border-radius:34px;text-align:center;
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06));box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3),0 40px 80px -40px rgba(0,0,0,.5);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+#verse .q{position:absolute;left:50%;top:-44px;transform:translateX(-50%);width:88px;height:88px;border-radius:50%;background:var(--gold2);color:var(--navy);
+  display:grid;place-items:center;font:700 82px/1 RcSerif,serif;padding-top:28px;box-sizing:border-box;box-shadow:0 14px 30px rgba(0,0,0,.3)}
+#verse p{margin:0;font:italic 500 39px/1.36 RcSerif,serif;color:#fff}
+#verse p b{font-weight:600;color:#ffe9a8}
+#verse .ref{margin-top:24px;font:800 17px RcSans;letter-spacing:.32em;color:var(--gold2)}
+#call{position:absolute;left:80px;right:80px;top:770px;text-align:center;font:italic 500 38px/1.25 RcSerif,serif;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.4)}
+#call b{font-style:normal;font-weight:600;color:var(--gold2)}
+#foot{position:absolute;left:60px;right:60px;bottom:46px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+#foot .tag{font:700 16px/1.4 RcSans;letter-spacing:.06em;color:#d7e1f7}
+#foot .tag b{display:block;font:800 13px RcSans;letter-spacing:.28em;color:var(--gold2)}
+#foot .ph{flex:none;height:54px;padding:0 24px;border-radius:27px;background:var(--gold2);color:var(--navy);display:flex;align-items:center;gap:10px;font:800 22px RcSans}
+#foot .ph svg{width:22px;height:22px}
+/* square */
+.sq #fl{height:1080px;background:linear-gradient(180deg,#071640 0%,#173583 34%,#4a5299 52%,#b36b84 66%,#f2a75e 78%,#ffd27a 88%)}
+.sq #rays,.sq #sun{top:820px} .sq #sun{width:240px;height:240px}
+.sq .brand{top:36px} .sq .brand img{height:52px}
+.sq #kick{top:122px}
+.sq h1{top:152px;font-size:66px}
+.sq #verse{top:330px;left:110px;right:110px;padding:46px 54px 34px}
+.sq #verse p{font-size:32px}
+.sq #verse .q{width:76px;height:76px;top:-38px;font-size:70px;padding-top:24px}
+.sq #call{top:618px;font-size:31px;left:120px;right:120px}
+.sq #foot{bottom:30px}
+</style></head><body>
+<script>if(location.search.includes('square'))document.documentElement.classList.add('sq')</script>
+<div id="fl">
+  <div id="stars"></div><div id="rays"></div><div id="sun"></div>
+  <svg id="hills" viewBox="0 0 1080 420" preserveAspectRatio="none">
+    <defs><linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2a5e"/><stop offset="1" stop-color="#0b1745"/></linearGradient>
+      <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16225a"/><stop offset="1" stop-color="#071236"/></linearGradient></defs>
+    <path d="M0 170 C80 150 120 110 190 118 C240 124 260 90 310 96 C360 102 380 150 460 160 L1080 190 V420 H0 Z" fill="url(#h1)" opacity=".85"/>
+    <path d="M620 182 C700 120 760 104 820 112 C870 118 900 80 950 86 C1010 94 1040 130 1080 140 V420 H0 V230 C200 214 420 230 620 182 Z" fill="url(#h1)"/>
+    <path d="M0 260 C180 230 340 250 520 238 C700 226 880 250 1080 232 V420 H0 Z" fill="url(#h2)"/>
+    <g fill="#071236"><path d="M150 252 c-2 -26 4 -40 0 -58 c10 16 6 32 4 58 z"/><ellipse cx="152" cy="190" rx="34" ry="12"/><path d="M880 246 c-2 -22 4 -34 0 -50 c10 14 6 28 4 50 z"/><ellipse cx="882" cy="194" rx="30" ry="10"/></g>
+  </svg>
+  <div class="brand"><img src="../assets/brand/crest-640.webp" alt=""><div><b>Royal Crest Academy</b><span>SCIENCE · INNOVATION · SKILL</span></div></div>
+  <div id="kick">MORNING DEVOTION <i>·</i> 24 OCTOBER 2026</div>
+  <h1>Trusting God with<br>our children’s <em>future.</em></h1>
+  <div id="verse"><div class="q">“</div>
+    <p>For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, <b>plans to give you hope and a future.</b></p>
+    <div class="ref">JEREMIAH 29:11</div></div>
+  <div id="call">Dear parent, <b>your decision today</b><br>can shape your child’s tomorrow.</div>
+  <div id="foot"><div class="tag"><b>ROYAL CREST ACADEMY</b>Knowledge · Character · Excellence</div>
+    <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="#0a1f5c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>+263 714 404 090</div></div>
+</div>
+</body></html>
