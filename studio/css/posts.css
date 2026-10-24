@@ -446,3 +446,31 @@
 .flyer.ps-zh-character.f-square .pol { left: 600px; top: 655px; width: 300px; padding: 12px 12px 0; }
 .flyer.ps-zh-character.f-square .pol img { height: 160px; }
 .flyer.ps-zh-character.f-square .pol span { font-size: 22px; padding: 8px 0 10px; }
+
+/* verse-of-the-day: built from the Prospectus template's own parts (css/flyer.css .t-prospectus) */
+.flyer.ps-verse-of-the-day .vd { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 60px 72px 0; font-family: var(--sans); color: var(--ink); }
+.flyer.ps-verse-of-the-day .fl-kind { color: var(--navy); }
+.flyer.ps-verse-of-the-day .vd-main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 48px; padding-top: 44px; }
+.flyer.ps-verse-of-the-day .vd-text { display: flex; flex-direction: column; }
+.flyer.ps-verse-of-the-day .fl-kicker { --accent: var(--gold-dark); }
+.flyer.ps-verse-of-the-day .fl-title { font-size: 80px; line-height: 1.02; }
+.flyer.ps-verse-of-the-day .fl-title em { font-style: italic; color: var(--gold-dark); }
+.flyer.ps-verse-of-the-day .vd-verse { margin-top: 30px; padding-left: 26px; border-left: 3px solid var(--gold); font: italic 400 38px/1.3 var(--serif); color: #1c2d72; }
+.flyer.ps-verse-of-the-day .vd-ref { margin-top: 20px; padding-left: 29px; font: 600 16px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); }
+.flyer.ps-verse-of-the-day .vd-arch { margin-bottom: 44px; }
+.flyer.ps-verse-of-the-day .vd-arch svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.flyer.ps-verse-of-the-day .fl-foot { margin-top: 0; }
+.flyer.ps-verse-of-the-day .fl-cta { font-size: 30px; max-width: 640px; }
+.flyer.ps-verse-of-the-day .fl-contact { white-space: nowrap; }
+.flyer.ps-verse-of-the-day.f-square .vd { padding-top: 48px; }
+.flyer.ps-verse-of-the-day.f-square .vd-main { padding-top: 30px; gap: 40px; }
+.flyer.ps-verse-of-the-day.f-square .fl-title { font-size: 62px; margin-top: 14px; }
+.flyer.ps-verse-of-the-day.f-square .vd-verse { margin-top: 20px; font-size: 30px; }
+.flyer.ps-verse-of-the-day.f-square .vd-ref { margin-top: 14px; }
+.flyer.ps-verse-of-the-day.f-square .vd-arch { margin-bottom: 30px; }
+.flyer.ps-verse-of-the-day.f-square .fl-foot { padding-block: 24px; }
+.flyer.ps-verse-of-the-day.f-square .fl-cta { font-size: 26px; }
+
+.flyer.ps-verse-of-the-day .vd-prayer { margin-top: auto; margin-bottom: 48px; padding-top: 22px; border-top: 1px solid var(--stone); font: 400 23px/1.5 var(--sans); color: var(--muted); }
+.flyer.ps-verse-of-the-day .vd-prayer b { display: block; margin-bottom: 6px; font: 600 14px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--navy); }
+.flyer.ps-verse-of-the-day.f-square .vd-prayer { display: none; }
