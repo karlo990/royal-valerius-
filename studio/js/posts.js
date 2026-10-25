@@ -1,8 +1,9 @@
-/* Royal Crest Flyer Studio: the 16 social-media post designs.
+/* Royal Crest Flyer Studio: the 21 social-media post designs (16 school posts + 5 Mandarin Connect).
  *
- * Fixed designs in portrait 4:5 (1080 x 1350), like the series posters: the
+ * Fixed designs in portrait 4:5 (1080 x 1350; the Mandarin posts also square), like the series posters: the
  * template choice does not apply, text stays editable, and the phone number
- * follows the School details setting. Styles live in css/posts.css.
+ * follows the School details setting (the Mandarin posts show it in full, with +263).
+ * Styles live in css/posts.css.
  * Generated from the approved designs; edit the markup here directly.
  */
 (function () {
@@ -25,6 +26,13 @@
     'treasure-map': { label: "Treasure map", caption: ["X marks the future 🗺️", "", "Science labs → library → trade workshop → sports hall → Royal Crest Academy."] },
     'chalkboard': { label: "Chalkboard equation", caption: ["Today’s lesson: Science + Skill + Character = Royal Crest ✏️", "", "ZIMSEC • Cambridge • HEXCO • robotics • boarding with four meals a day."] },
     'playlist': { label: "Playlist", caption: ["A week at Royal Crest, on repeat 🎧", "", "Morning devotion • Chemistry practical • Bonjour, Nǐ hǎo • Sparks fly in the workshop • Code the robot • Rugby • Sadza & stew"] },
+    'verse-of-the-day': { label: "Verse of the day", formats: ['portrait', 'square'], caption: ["🌅 Verse of the day: Jeremiah 29:11", "", "“For I know the plans I have for you,” declares the Lord, “plans to prosper you and not to harm you, plans to give you hope and a future.”", "", "Heavenly Father, guide every Royal Crest family. Bless our children with wisdom, good character and a passion for learning. In Jesus’ name, Amen. 🙏", "", "Together, with God’s guidance, we are building a strong foundation for our children’s future."], plain: true },
+    'verse-pink': { label: "Verse of the day (pink)", formats: ['portrait', 'square'], caption: ["🌅 Morning devotion: Trusting God for the vision", "", "📖 “Commit thy works unto the LORD, and thy thoughts shall be established.” Proverbs 16:3", "", "Heavenly Father, we commit Royal Crest Academy into Your hands. Guide every decision, provide every resource and unite us in purpose. In Jesus’ name, Amen. 🙏", "", "Our students shall rise, flourish and fulfil their God-given purpose.", "", "Have a blessed Sunday, Royal Crest family!"], plain: true },
+    'zh-pictures': { label: "Mandarin: picture characters", formats: ['portrait', 'square'], caption: ["Chinese characters that are pictures 🖌️", "", "人 rén person • 山 shān mountain • 日 rì sun • 木 mù tree", "The oldest characters were carved on bones and shells more than 3,000 years ago. Learn to read them with us at Mandarin Connect."] },
+    'zh-count': { formats: ['portrait', 'square'], label: "Mandarin: count to ten", caption: ["Count to ten in Mandarin 🏮", "", "yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí", "Fun fact: 八 (bā) is a lucky number in China because it sounds like the word for wealth."] },
+    'zh-great-wall': { formats: ['portrait', 'square'], label: "Mandarin: the Great Wall", caption: ["长城 Chángchéng: the Great Wall 🏯", "", "More than 21,000 km of history. At Mandarin Connect our learners explore the language and the culture behind it."] },
+    'zh-quiz': { formats: ['portrait', 'square'], label: "Mandarin: quiz (xièxie)", caption: ["Mandarin quiz time ✍️", "", "What does 谢谢 (xièxie) mean?", "A. Hello  B. Thank you  C. Sorry  D. Goodbye", "Comment your answer 👇 (the answer is hidden upside down on the post!)"] },
+    'zh-character': { formats: ['portrait', 'square'], label: "Mandarin: first character", caption: ["Write your first Chinese character: 中 ✍️", "", "中 zhōng means “middle”. 中国 Zhōngguó, China, is “the Middle Kingdom”.", "Four strokes, top to bottom, with the long middle stroke last."] },
   };
   const ORDER = Object.keys(POSTS);
 
@@ -78,6 +86,58 @@
       h += `<i class="${light ? 'sq-l' : 'sq-d'}"${id === 'f4' ? ' style="box-shadow:inset 0 0 0 6px #f2b705"' : ''}>${p ? `<span class="pc" style="color:${col}">${p}</span>` : ''}</i>`;
     }
     return h;
+  }
+
+
+  // ------------------------------------------------------------------ verse of the day (Prospectus look)
+  const SKY = { navy: ['#0c1638', '#2a3f8f', '#b06c86', '#f0a35e', '#ffd27a', '#1d2a66', '#0c1638'],
+    pink: ['#4a0f2e', '#a3305f', '#e57fa6', '#ffb3c9', '#ffe1b8', '#8a2a5a', '#4a0f2e'] };
+  function sunrise(theme = 'navy') {
+    const c = SKY[theme], id = 'vd' + theme;
+    return `<svg viewBox="0 0 300 500" preserveAspectRatio="xMidYMid slice"><defs>
+      <linearGradient id="${id}Sky" x1="0" y1="0" x2="0" y2="1">${[0, .38, .62, .8, 1].map((o, i) => `<stop offset="${o}" stop-color="${c[i]}"/>`).join('')}</linearGradient>
+      <radialGradient id="${id}Sun"><stop offset="0" stop-color="#fff8dc"/><stop offset=".55" stop-color="#ffd970"/><stop offset="1" stop-color="#ffc24a" stop-opacity="0"/></radialGradient></defs>
+      <rect width="300" height="500" fill="url(#${id}Sky)"/>
+      <g stroke="#ffe7a8" stroke-width="7" opacity=".16">${Array.from({ length: 13 }, (_, i) => { const a = Math.PI * (i + .5) / 13; return `<line x1="150" y1="390" x2="${150 - Math.cos(a) * 420}" y2="${390 - Math.sin(a) * 420}"/>`; }).join('')}</g>
+      <circle cx="150" cy="390" r="120" fill="url(#${id}Sun)"/><circle cx="150" cy="390" r="52" fill="#fff3c4"/>
+      <g fill="#fff" opacity=".55"><circle cx="40" cy="40" r="1.4"/><circle cx="230" cy="70" r="1.2"/><circle cx="120" cy="24" r="1"/><circle cx="270" cy="150" r="1.1"/><circle cx="70" cy="130" r="1"/></g>
+      <path d="M0 400 C40 380 70 360 110 372 C150 384 170 352 210 356 C250 360 270 384 300 380 V500 H0 Z" fill="${c[5]}"/>
+      <path d="M0 440 C80 420 160 432 220 424 C260 418 280 428 300 426 V500 H0 Z" fill="${c[6]}"/>
+      <g fill="${c[6]}"><path d="M62 424 c-1 -16 3 -24 0 -34 c6 9 4 19 3 34 z"/><ellipse cx="63" cy="388" rx="22" ry="7"/></g></svg>`;
+  }
+
+  // ------------------------------------------------------------------ Mandarin Connect parts
+  const PHONE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>`;
+  const zhBrand = (crest, phone, tone) => `<div class="brand ${tone}"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>MANDARIN CONNECT</small></div></div><div class="ph"><i>${PHONE_ICON}</i>${phone}</div></div>`;
+
+  function pictureCards() {             // each character beside a sketch of the picture it grew from
+    const T = [['a person walking', '人', 'rén', 'person', '<circle cx="52" cy="17" r="9"/><path d="M50 28 L44 58 L28 90 M44 58 L66 90 M48 38 L70 52"/>'],
+      ['three peaks', '山', 'shān', 'mountain', '<path d="M8 86 L30 42 L42 62 L54 20 L68 58 L78 44 L94 86 Z"/>'],
+      ['the sun', '日', 'rì', 'sun, day', '<circle cx="50" cy="50" r="32"/><circle cx="50" cy="50" r="5" fill="#c8102e"/>'],
+      ['a tree with roots', '木', 'mù', 'tree, wood', '<path d="M50 10 V92 M50 36 L26 16 M50 36 L74 16 M50 68 L26 90 M50 68 L74 90"/>']];
+    return T.map(([how, ch, py, en, svg]) => `<div class="tc"><div class="tn"><b>Looks like</b>${how}</div>
+      <svg class="cv" viewBox="0 0 100 100"><g fill="none" stroke="#c8102e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">${svg}</g></svg>
+      <div class="ch zb">${ch}</div><div class="py">${py}</div><div class="en">${en}</div></div>`).join('');
+  }
+
+  function countTiles() {
+    return [['一', 'yī'], ['二', 'èr'], ['三', 'sān'], ['四', 'sì'], ['五', 'wǔ'], ['六', 'liù'], ['七', 'qī'], ['八', 'bā'], ['九', 'jiǔ'], ['十', 'shí']]
+      .map(([c, p], i) => `<div class="tile${i === 7 ? ' lucky' : ''}"><small>${i + 1}</small><b class="zs">${c}</b><span>${p}</span></div>`).join('');
+  }
+
+  function lantern(x, len, s) {
+    return `<g transform="translate(${x} 0) scale(${s})"><line x1="0" y1="0" x2="0" y2="${len}" stroke="#f2b705" stroke-width="2"/>
+      <g transform="translate(0 ${len})"><rect x="-26" y="0" width="52" height="12" rx="3" fill="#f2b705"/>
+      <ellipse cx="0" cy="62" rx="62" ry="52" fill="#e0262f"/><ellipse cx="0" cy="62" rx="38" ry="52" fill="none" stroke="#a50f19" stroke-width="3"/><ellipse cx="0" cy="62" rx="14" ry="52" fill="none" stroke="#a50f19" stroke-width="3"/>
+      <ellipse cx="-20" cy="44" rx="14" ry="22" fill="#ff7a6e" opacity=".45"/>
+      <rect x="-26" y="110" width="52" height="12" rx="3" fill="#f2b705"/><path d="M-10 122 L-14 176 M0 122 V182 M10 122 L14 176" stroke="#f2b705" stroke-width="3" stroke-linecap="round"/></g></g>`;
+  }
+
+  // 中: 1 left vertical, 2 top-and-right turn, 3 bottom horizontal, 4 long middle vertical
+  const ZHONG = ['M28 34 V66', 'M28 34 H72 V66', 'M28 66 H72', 'M50 10 V92'];
+  function strokeSteps() {
+    return ZHONG.map((_, i) => `<div class="stp"><svg viewBox="0 0 100 100"><g stroke="#e9b4b4" stroke-width="1.2" stroke-dasharray="4 4"><line x1="50" y1="0" x2="50" y2="100"/><line x1="0" y1="50" x2="100" y2="50"/></g>
+      ${ZHONG.slice(0, i + 1).map((d, j) => `<path d="${d}" fill="none" stroke="${j === i ? '#c8102e' : '#22201c'}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>`).join('')}</svg><b>${i + 1}</b></div>`).join('');
   }
 
   // ------------------------------------------------------------------ designs
@@ -288,21 +348,86 @@
     <div class="tr"><span class="n">8</span><div><b>Sadza &amp; Stew</b><span>Supper with friends</span></div><em>18:00</em></div>
   </div>
   <div class="brand light" style="bottom:40px"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>SCIENCE · INNOVATION · SKILL</small></div></div><div class="ph"><i><svg viewBox="0 0 24 24" fill="none" stroke="#071640" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>${phone}</div></div>`,
+
+    'verse-of-the-day': (crest) => `<div class="t-prospectus vd">
+  <div class="fl-head"><div class="fl-brand"><img class="fl-crest" src="${crest}" alt=""><div class="fl-brandtext"><span class="fl-school">Royal Crest Academy</span><span class="fl-motto">Science · Innovation · Skill</span></div></div><span class="fl-kind">Verse of the day</span></div>
+  <div class="vd-main"><div class="vd-text">
+    <div class="fl-kicker">Morning devotion · 24 October 2026</div>
+    <div class="fl-title">Trusting God with our children’s <em>future.</em></div>
+    <div class="vd-verse">“For I know the plans I have for you,” declares the Lord, “plans to prosper you and not to harm you, plans to give you hope and a future.”</div>
+    <div class="vd-ref">Jeremiah 29:11</div>
+    <div class="vd-prayer"><b>Prayer</b>Heavenly Father, bless our children with wisdom, good character and a passion for learning. In Jesus’ name, Amen.</div></div>
+    <div class="fl-photo vd-arch">${sunrise()}</div></div>
+  <div class="fl-foot"><div class="fl-cta">Together, with God’s guidance, we build a strong foundation for our children’s future.</div><div class="fl-contact">Have a blessed day<div class="c-web">Royal Crest family</div></div></div></div>`,
+    'verse-pink': (crest) => `<div class="t-prospectus vd">
+  <div class="fl-head"><div class="fl-brand"><img class="fl-crest" src="${crest}" alt=""><div class="fl-brandtext"><span class="fl-school">Royal Crest Academy</span><span class="fl-motto">Science · Innovation · Skill</span></div></div><span class="fl-kind">Verse of the day</span></div>
+  <div class="vd-main"><div class="vd-text">
+    <div class="fl-kicker">Morning devotion · Sunday 25 October 2026</div>
+    <div class="fl-title">Trusting God for the <em>vision.</em></div>
+    <div class="vd-verse">“Commit thy works unto the LORD, and thy thoughts shall be established.”</div>
+    <div class="vd-ref">Proverbs 16:3</div>
+    <div class="vd-note">Every great vision begins with faith before it becomes reality. <b>What God has planted, He is able to establish.</b></div>
+    <div class="vd-prayer"><b>Prayer</b>Heavenly Father, we commit Royal Crest Academy into Your hands. May this vision become a blessing to our children, families and generations to come. In Jesus’ name, Amen.</div></div>
+    <div class="fl-photo vd-arch">${sunrise('pink')}</div></div>
+  <div class="fl-foot"><div class="fl-cta">Our students shall rise, flourish and fulfil their God-given purpose.</div><div class="fl-contact">Have a blessed Sunday<div class="c-web">Royal Crest family</div></div></div></div>`,
+    'zh-pictures': (crest, phone, P, full) => `<div class="paper"></div>
+  <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · characters</div>
+  <div class="abs h">Characters that<br>are <em>pictures.</em></div>
+  <div class="abs seal zb">汉<br>字</div>
+  <div class="abs sub">Many Chinese characters began as drawings of what they mean.</div>
+  <div class="abs cards">${pictureCards()}</div>
+  <div class="abs note">The oldest were carved on <b>bones and shells</b> more than 3,000 years ago.</div>
+  ${zhBrand(crest, full, 'dark')}`,
+    'zh-count': (crest, phone, P, full) => `<div class="dots"></div>
+  <svg class="abs lan" viewBox="0 0 400 420">${lantern(120, 40, 1)}${lantern(300, 110, .8)}</svg>
+  <div class="abs kick" style="left:70px;top:70px;color:var(--gold2)">Mandarin Connect · numbers</div>
+  <div class="abs h">Count to ten<br>in <em>Mandarin.</em></div>
+  <div class="abs sub">Say it with us: yī, èr, sān…</div>
+  <div class="abs tiles">${countTiles()}</div>
+  <div class="abs note"><b>Fun fact:</b> 八 <i>bā</i>, eight, is a lucky number in China because it sounds like the word for wealth.</div>
+  ${zhBrand(crest, full, 'light')}`,
+    'zh-great-wall': (crest, phone, P, full) => `<img class="bg" src="${P['great-wall'] || ''}" alt="">
+  <div class="shade"></div>
+  <div class="abs vert zb">长城</div><div class="abs vpy">Chángchéng</div>
+  <div class="abs kick" style="left:70px;top:70px;color:var(--gold2)">Mandarin Connect · culture</div>
+  <div class="abs h">21,000 km<br>of <em>history.</em></div>
+  <div class="abs sub">The Great Wall, <span class="zs">长城</span> Chángchéng, stretches more than 21,000 km. Learn the language behind it.</div>
+  ${zhBrand(crest, full, 'light')}`,
+    'zh-quiz': (crest, phone, P, full) => `<div class="glow"></div>
+  <div class="abs ph1"><img src="${P['mandarin-students'] || ''}" alt=""><span>QUIZ TIME</span></div>
+  <div class="abs kick" style="left:70px;top:556px;color:var(--gold2)">Mandarin Connect · quiz</div>
+  <div class="abs q">What does <span class="zs">谢谢</span> <em>xièxie</em> mean?</div>
+  <div class="abs opts"><div><i>A</i>Hello</div><div><i>B</i>Thank you</div><div><i>C</i>Sorry</div><div><i>D</i>Goodbye</div></div>
+  <div class="abs cta">Comment A, B, C or D below.</div>
+  <div class="abs ans">Answer: B, thank you. Reply <span class="zs">不客气</span> bú kèqi: you’re welcome!</div>
+  ${zhBrand(crest, full, 'light')}`,
+    'zh-character': (crest, phone, P, full) => `<div class="paper"></div>
+  <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · writing</div>
+  <div class="abs h">Write your<br><em>first character.</em></div>
+  <div class="abs grid"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g stroke="#c8102e" stroke-width=".35" stroke-dasharray="1.6 1.6" opacity=".7"><line x1="50" y1="0" x2="50" y2="100"/><line x1="0" y1="50" x2="100" y2="50"/><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></g></svg><b class="zb">中</b></div>
+  <div class="abs info"><div class="py">zhōng</div><div class="en">middle, centre</div>
+    <div class="cn"><span class="zs">中国</span> Zhōngguó, China: “the Middle Kingdom”</div>
+    <div class="lab">Stroke order · 4 strokes</div><div class="steps">${strokeSteps()}</div></div>
+  <div class="abs tip">Top to bottom, left to right. The long middle stroke comes last.</div>
+  <div class="abs pol"><img src="${P['mandarin-textbook'] || ''}" alt=""><span>Our Mandarin textbook</span></div>
+  ${zhBrand(crest, full, 'dark')}`,
   };
 
   function build(m, format) {
     const id = m.post;
     const root = document.createElement('div');
-    root.className = `flyer ps ps-${id} f-${format} is-tall`;
+    const square = format === 'square';
+    root.className = `flyer ps ps-${id} f-${format} ${square ? 'is-wide' : 'is-tall'}`;
     root.style.width = '1080px';
-    root.style.height = '1350px';
+    root.style.height = square ? '1080px' : '1350px';
     root.dataset.file = `post-${id}-${format}`;
-    root.innerHTML = HTML[id](m.brand.crest, localPhone(m.brand.phone), m.brand.photos || {});
+    root.innerHTML = HTML[id](m.brand.crest, localPhone(m.brand.phone), m.brand.photos || {}, m.brand.phone);
     return root;
   }
 
   function caption(m) {
     const b = m.brand;
+    if (POSTS[m.post].plain) return [...POSTS[m.post].caption, '', `💙💛 ${b.school}`, '#RoyalCrestAcademy #VerseOfTheDay'].join('\n');   // devotions carry no sales lines
     return [...POSTS[m.post].caption, '', `${b.school} · ${b.opening}`, `📞 Call or WhatsApp ${b.phone} · ${b.website}`, '', (b.hashtags || []).join(' ')].join('\n');
   }
 

@@ -1,0 +1,176 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Make it rain square</title>
+<style>
+/* Square post, 1080 × 1080 (render at 2×). One panorama, three ways rain is made. */
+@font-face{font-family:RcSerif;font-weight:400 700;src:url(../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:RcSerif;font-style:italic;font-weight:400 700;src:url(../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:RcSans;font-weight:200 800;src:url(../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2")}
+:root{--navy:#0a1f5c;--gold:#c9a227;--gold2:#f2b705;--conv:#ff8a3d;--rel:#7fd36b;--fro:#7fb2ff}
+html,body{margin:0;background:#0a1430}
+#fl{position:relative;width:1080px;height:1080px;overflow:hidden;background:#071538;font-family:RcSans,sans-serif;color:#fff}
+#pano{position:absolute;left:0;top:0;width:1080px;height:700px}
+svg text{font-family:RcSans,sans-serif}
+#brand{position:absolute;left:0;right:0;top:26px;display:flex;justify-content:center;align-items:center;gap:10px;font:800 13px RcSans;letter-spacing:.3em;color:#dfe8fb}
+#brand img{height:36px}
+#eye{position:absolute;left:0;right:0;top:78px;text-align:center;font:800 13px RcSans;letter-spacing:.34em;color:var(--gold2)}
+h1{position:absolute;left:0;right:0;top:108px;margin:0;text-align:center;font:500 86px/1 RcSerif,serif;letter-spacing:-.02em;text-shadow:0 6px 30px rgba(0,0,0,.35)}
+h1 em{font-style:italic;color:var(--gold2)}
+#sub{position:absolute;left:0;right:0;top:206px;text-align:center;font:500 19px RcSans;color:#c4d5f2}
+#sub b{color:#fff}
+/* three columns */
+#cols{position:absolute;left:0;right:0;top:700px;height:312px;display:grid;grid-template-columns:repeat(3,1fr);background:#0a1f5c}
+.c{position:relative;padding:26px 26px 0 30px;border-top:5px solid var(--k)}
+.c+.c{border-left:1px solid rgba(255,255,255,.12)}
+.c .n{font:800 12px RcSans;letter-spacing:.3em;color:var(--k)}
+.c h2{margin:8px 0 0;font:600 34px/1 RcSerif,serif;letter-spacing:-.01em}
+.c h3{margin:6px 0 0;font:italic 500 21px/1.15 RcSerif,serif;color:var(--k)}
+.c p{margin:12px 0 0;font:500 14.5px/1.45 RcSans;color:#cdd9f0}
+.c .tags{position:absolute;left:30px;right:22px;bottom:20px;display:flex;flex-direction:column;gap:6px}
+.c .tags span{font:700 12.5px RcSans;color:#fff;display:flex;gap:8px;align-items:baseline}
+.c .tags span i{font-style:normal;font-weight:800;font-size:10.5px;letter-spacing:.2em;color:var(--k);width:52px;flex:none}
+#c1{--k:var(--conv)} #c2{--k:var(--rel)} #c3{--k:var(--fro)}
+#foot{position:absolute;left:0;right:0;bottom:0;height:68px;background:#061233;border-top:3px solid var(--gold);display:flex;align-items:center;gap:14px;padding:0 26px}
+#foot .say{flex:1;font:italic 500 18px RcSerif,serif;color:#cfdcf3}
+#foot .pill{height:38px;padding:0 16px;border-radius:19px;display:flex;align-items:center;font:800 15px RcSans;white-space:nowrap}
+#foot .y{background:var(--gold2);color:var(--navy)} #foot .w{background:#fff;color:var(--navy)}
+
+/* Story version (open with ?story): 1080 × 1920; top 250 px and bottom 250 px stay clear of the app's buttons. */
+.story #fl{height:1920px;background:linear-gradient(#030b24,#061233 420px,#061233)}
+.story #pano{top:420px}
+#fade{display:none}
+.story #fade{display:block;position:absolute;left:0;right:0;top:400px;height:240px;background:linear-gradient(#061233 10%,rgba(6,18,51,0))}
+.story #fl::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;background:repeating-linear-gradient(97deg,transparent 0 40px,#fff 40px 41px,transparent 41px 120px)}
+.story #brand{top:250px}
+.story #eye{top:330px;font-size:15px}
+.story h1{top:356px;font-size:118px;line-height:.95}
+.story h1 em{display:block}
+.story #sub{top:592px;font-size:22px}
+.story #cols{top:1120px;height:420px}
+.story .c{padding:30px 22px 0 28px}
+.story .c h2{font-size:38px}
+.story .c h3{font-size:23px}
+.story .c p{font-size:16.5px}
+.story .c .tags{left:28px;bottom:26px;gap:8px}
+.story .c .tags span{font-size:14px;flex-direction:column;gap:2px}
+.story #foot{top:1540px;bottom:auto;height:110px;background:none;border:0;justify-content:center;flex-wrap:wrap;gap:12px;padding:0 60px}
+.story #foot .say{flex:0 0 100%;text-align:center;font-size:22px}
+.story #foot .pill{height:46px;font-size:18px;padding:0 22px}
+</style></head><body><script>if(location.search.includes("story"))document.documentElement.classList.add("story")</script>
+<div id="fl">
+<svg id="pano" viewBox="0 0 1080 700">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#061233"/><stop offset=".38" stop-color="#123a85"/><stop offset=".78" stop-color="#3f86d1"/><stop offset="1" stop-color="#8fc3ee"/></linearGradient>
+    <radialGradient id="sunGlow" cx="80" cy="330" r="300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffb347" stop-opacity=".55"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+    <radialGradient id="coldGlow" cx="1080" cy="560" r="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd0ff" stop-opacity=".35"/><stop offset="1" stop-color="#9fd0ff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="cb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#dfe6f2"/><stop offset="1" stop-color="#7b88a3"/></linearGradient>
+    <linearGradient id="ns" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9c3d3"/><stop offset="1" stop-color="#5d6a84"/></linearGradient>
+    <linearGradient id="shaft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe2ff" stop-opacity=".55"/><stop offset="1" stop-color="#cfe2ff" stop-opacity=".05"/></linearGradient>
+    <linearGradient id="wind" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2f7a3a"/><stop offset="1" stop-color="#4f9a4c"/></linearGradient>
+    <linearGradient id="mtn" x1="392" y1="0" x2="742" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2f7a3a"/><stop offset=".48" stop-color="#4f9a4c"/><stop offset=".56" stop-color="#b98f55"/><stop offset="1" stop-color="#d6b47c"/></linearGradient>
+    <linearGradient id="lee" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b98f55"/><stop offset="1" stop-color="#d6b47c"/></linearGradient>
+    <linearGradient id="wedge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fb2ff" stop-opacity=".25"/><stop offset="1" stop-color="#7fb2ff" stop-opacity=".6"/></linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b8612f"/><stop offset=".3" stop-color="#8a6a2a"/><stop offset=".36" stop-color="#3f7f3a"/><stop offset=".52" stop-color="#3f7f3a"/><stop offset=".56" stop-color="#b48a4f"/><stop offset=".66" stop-color="#b48a4f"/><stop offset=".72" stop-color="#4a7f56"/><stop offset="1" stop-color="#4a7f56"/></linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="2"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .06 0"/></filter>
+    <marker id="mO" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#ff8a3d"/></marker>
+    <marker id="mG" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#7fd36b"/></marker>
+    <marker id="mT" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#f0c27a"/></marker>
+    <clipPath id="cbc"><rect width="1080" height="452"/></clipPath>
+    <clipPath id="capc"><rect width="1080" height="418"/></clipPath>
+  </defs>
+  <rect width="1080" height="700" fill="url(#sky)"/>
+  <rect width="1080" height="700" fill="url(#sunGlow)"/><rect width="1080" height="700" fill="url(#coldGlow)"/>
+  <!-- stars at the top -->
+  <g fill="#fff" opacity=".5"><circle cx="120" cy="60" r="1.2"/><circle cx="210" cy="140" r="1"/><circle cx="330" cy="40" r="1.1"/><circle cx="760" cy="56" r="1.2"/><circle cx="880" cy="130" r="1"/><circle cx="980" cy="44" r="1.3"/><circle cx="1030" cy="170" r="1"/><circle cx="60" cy="190" r="1"/><circle cx="620" cy="30" r="1"/></g>
+
+  <!-- ===== 1. convectional ===== -->
+  <circle cx="70" cy="300" r="30" fill="#ffc94a" filter="url(#glow)"/>
+  <g stroke="#ffc94a" stroke-width="2" stroke-dasharray="2 8" opacity=".7"><line x1="84" y1="334" x2="120" y2="610"/><line x1="70" y1="336" x2="60" y2="610"/></g>
+  <path d="M135 600 L330 600 L310 620 L120 620 Z" fill="#000" opacity="0"/>
+  <path d="M138 452 L322 452 L300 620 L130 620 Z" fill="url(#shaft)"/>
+  <g stroke="#e6f0ff" stroke-width="2" stroke-linecap="round" opacity=".75">
+    <line x1="160" y1="470" x2="154" y2="498"/><line x1="190" y1="486" x2="184" y2="514"/><line x1="222" y1="468" x2="216" y2="496"/><line x1="252" y1="490" x2="246" y2="518"/><line x1="284" y1="470" x2="278" y2="498"/>
+    <line x1="170" y1="540" x2="164" y2="568"/><line x1="206" y1="552" x2="200" y2="580"/><line x1="240" y1="536" x2="234" y2="564"/><line x1="272" y1="556" x2="266" y2="584"/><line x1="188" y1="592" x2="184" y2="610"/><line x1="256" y1="594" x2="252" y2="612"/></g>
+  <path d="M262 456 L244 506 L260 506 L238 566 L284 492 L266 492 L282 456 Z" fill="#fff3a6" filter="url(#glow)"/>
+  <g clip-path="url(#cbc)" fill="url(#cb)">
+    <path d="M60 290 C120 262 300 258 372 280 C392 286 388 300 368 302 C320 306 286 310 270 322 L192 322 C176 310 130 306 86 304 C56 302 48 296 60 290 Z"/>
+    <circle cx="228" cy="320" r="34"/><circle cx="200" cy="350" r="38"/><circle cx="258" cy="348" r="38"/>
+    <circle cx="170" cy="396" r="38"/><circle cx="226" cy="388" r="46"/><circle cx="284" cy="398" r="40"/>
+    <circle cx="138" cy="430" r="30"/><circle cx="194" cy="432" r="40"/><circle cx="256" cy="434" r="42"/><circle cx="314" cy="438" r="30"/></g>
+  <g stroke="#ff8a3d" stroke-width="3.4" fill="none" stroke-linecap="round" filter="url(#glow)" marker-end="url(#mO)">
+    <path d="M110 612 C96 560 128 520 112 470"/><path d="M350 612 C364 560 334 520 342 468"/></g>
+  <g stroke="#ff8a3d" stroke-width="1.6" fill="none" opacity=".7"><path d="M40 610 q4 -7 0 -14 q-4 -7 0 -14"/><path d="M372 610 q4 -7 0 -14 q-4 -7 0 -14"/></g>
+  <text x="218" y="250" text-anchor="middle" font-size="11" font-weight="800" letter-spacing="2.4" fill="#fff" opacity=".85">CUMULONIMBUS</text>
+  <text x="384" y="462" text-anchor="middle" font-size="10.5" font-weight="800" letter-spacing="1.6" fill="#ffb07a">THERMALS</text>
+
+  <!-- ===== 2. relief ===== -->
+  <path d="M392 622 L520 400 L548 352 L572 330 L598 360 L626 410 L742 622 Z" fill="url(#mtn)"/>
+  <path d="M548 352 L572 330 L598 360 L584 366 L572 352 L560 368 Z" fill="#fff" opacity=".6"/>
+  <g fill="#245e2e"><path d="M430 600 l7 -18 l7 18 z"/><path d="M452 572 l7 -18 l7 18 z"/><path d="M474 540 l7 -18 l7 18 z"/><path d="M412 612 l6 -15 l6 15 z"/></g>
+  <line x1="398" y1="418" x2="572" y2="418" stroke="#fff" stroke-width="1.4" stroke-dasharray="6 6" opacity=".55"/>
+  <g clip-path="url(#capc)" fill="url(#cb)"><circle cx="486" cy="410" r="20"/><circle cx="512" cy="392" r="28"/><circle cx="542" cy="372" r="28"/><circle cx="568" cy="352" r="22"/><circle cx="530" cy="412" r="22"/><circle cx="560" cy="398" r="22"/></g>
+  <g stroke="#e6f0ff" stroke-width="2" stroke-linecap="round" opacity=".8"><line x1="490" y1="430" x2="484" y2="452"/><line x1="508" y1="426" x2="502" y2="448"/><line x1="526" y1="430" x2="520" y2="452"/><line x1="544" y1="426" x2="538" y2="444"/><line x1="498" y1="466" x2="493" y2="482"/><line x1="516" y1="462" x2="512" y2="474"/></g>
+  <path d="M376 598 C420 580 450 540 488 474" stroke="#7fd36b" stroke-width="3.4" fill="none" stroke-linecap="round" filter="url(#glow)" marker-end="url(#mG)"/>
+  <path d="M590 318 C628 322 656 380 680 440 C694 476 706 520 720 560" stroke="#f0c27a" stroke-width="3" fill="none" stroke-dasharray="8 7" stroke-linecap="round" marker-end="url(#mT)"/>
+  <text x="404" y="560" font-size="10.5" font-weight="800" letter-spacing="1.6" fill="#c7f5bb">WINDWARD · WET</text>
+  <text x="690" y="420" font-size="10.5" font-weight="800" letter-spacing="1.6" fill="#ffe0a8">RAIN</text>
+  <text x="690" y="434" font-size="10.5" font-weight="800" letter-spacing="1.6" fill="#ffe0a8">SHADOW</text>
+
+  <!-- ===== 3. frontal ===== -->
+  <path d="M736 622 L1080 420 L1080 622 Z" fill="url(#wedge)"/>
+  <path d="M736 622 L1080 420" stroke="#dfeaff" stroke-width="3"/>
+  <g fill="#ff6b4a"><path d="M790 590.3 a8 8 0 0 1 14 -8.2 z"/><path d="M860 549.2 a8 8 0 0 1 14 -8.2 z"/><path d="M930 508.1 a8 8 0 0 1 14 -8.2 z"/><path d="M1000 467 a8 8 0 0 1 14 -8.2 z"/></g>
+  <path d="M800 352 C812 336 836 342 852 334 C876 322 900 336 924 326 C950 316 976 330 1000 320 C1026 312 1056 322 1080 316 V388 C1020 394 940 400 880 404 C840 406 806 400 800 388 Z" fill="url(#ns)"/>
+  <text x="944" y="364" text-anchor="middle" font-size="11" font-weight="800" letter-spacing="2.4" fill="#fff" opacity=".9">NIMBOSTRATUS</text>
+  <g stroke="#e6f0ff" stroke-width="1.6" stroke-linecap="round" opacity=".6">
+    <line x1="830" y1="412" x2="826" y2="428"/><line x1="856" y1="410" x2="852" y2="426"/><line x1="882" y1="410" x2="878" y2="426"/><line x1="908" y1="408" x2="904" y2="424"/><line x1="934" y1="406" x2="930" y2="422"/><line x1="960" y1="404" x2="956" y2="420"/><line x1="986" y1="402" x2="982" y2="418"/><line x1="1012" y1="400" x2="1008" y2="416"/><line x1="1038" y1="398" x2="1034" y2="414"/><line x1="1064" y1="396" x2="1060" y2="412"/>
+    <line x1="842" y1="446" x2="838" y2="462"/><line x1="868" y1="444" x2="864" y2="460"/><line x1="894" y1="442" x2="890" y2="458"/><line x1="920" y1="440" x2="916" y2="456"/><line x1="946" y1="438" x2="942" y2="454"/><line x1="972" y1="436" x2="968" y2="452"/><line x1="998" y1="434" x2="994" y2="448"/><line x1="1024" y1="432" x2="1020" y2="444"/><line x1="1050" y1="430" x2="1046" y2="440"/>
+    <line x1="850" y1="482" x2="846" y2="498"/><line x1="876" y1="480" x2="872" y2="496"/><line x1="902" y1="478" x2="898" y2="494"/><line x1="928" y1="476" x2="924" y2="488"/><line x1="954" y1="474" x2="950" y2="484"/>
+    <line x1="840" y1="520" x2="836" y2="536"/><line x1="866" y1="518" x2="862" y2="532"/><line x1="892" y1="516" x2="888" y2="526"/></g>
+  <g stroke="#ff8a3d" stroke-width="3.2" fill="none" stroke-linecap="round" filter="url(#glow)" marker-end="url(#mO)">
+    <path d="M752 520 C800 500 830 470 880 440 C920 416 950 400 990 384"/><path d="M760 470 C800 452 830 424 870 404 C900 390 920 380 950 370"/></g>
+  <text x="772" y="562" font-size="10.5" font-weight="800" letter-spacing="1.6" fill="#ffb07a">WARM AIR RISES</text>
+  <text x="1068" y="586" text-anchor="end" font-size="11" font-weight="800" letter-spacing="2" fill="#fff">COLD AIR</text>
+  <text x="1068" y="602" text-anchor="end" font-size="10" font-weight="700" fill="#dfeaff" opacity=".85">dense, stays low</text>
+
+  <!-- ===== ground band with the three names ===== -->
+  <path d="M0 618 Q270 612 540 622 T1080 618 V700 H0 Z" fill="url(#ground)"/>
+  <rect y="638" width="1080" height="62" fill="#071538" opacity=".72"/>
+  <g font-weight="800" font-size="15" letter-spacing="3" fill="#fff">
+    <circle cx="44" cy="666" r="17" fill="#f2b705"/><text x="44" y="672" text-anchor="middle" fill="#0a1f5c" font-size="17" letter-spacing="0">1</text><text x="72" y="672">CONVECTIONAL</text>
+    <circle cx="404" cy="666" r="17" fill="#f2b705"/><text x="404" y="672" text-anchor="middle" fill="#0a1f5c" font-size="17" letter-spacing="0">2</text><text x="432" y="672">RELIEF</text>
+    <circle cx="764" cy="666" r="17" fill="#f2b705"/><text x="764" y="672" text-anchor="middle" fill="#0a1f5c" font-size="17" letter-spacing="0">3</text><text x="792" y="672">FRONTAL</text>
+  </g>
+  <!-- rain streaks + grain over everything -->
+  <g stroke="#fff" stroke-width="1" opacity=".07"><line x1="20" y1="0" x2="-60" y2="700"/><line x1="140" y1="0" x2="60" y2="700"/><line x1="260" y1="0" x2="180" y2="700"/><line x1="380" y1="0" x2="300" y2="700"/><line x1="500" y1="0" x2="420" y2="700"/><line x1="620" y1="0" x2="540" y2="700"/><line x1="740" y1="0" x2="660" y2="700"/><line x1="860" y1="0" x2="780" y2="700"/><line x1="980" y1="0" x2="900" y2="700"/><line x1="1100" y1="0" x2="1020" y2="700"/></g>
+  <rect width="1080" height="700" filter="url(#grain)"/>
+</svg>
+
+<div id="fade"></div>
+<div id="brand"><img src="../assets/brand/crest-640.webp" alt="">ROYAL CREST ACADEMY</div>
+<div id="eye">O LEVEL GEOGRAPHY</div>
+<h1>3 ways to <em>make it rain.</em></h1>
+<div id="sub">Rain needs rising air. <b>What pushes it up names the rain.</b></div>
+
+<div id="cols">
+  <div class="c" id="c1"><div class="n">01</div><h2>Convectional</h2><h3>The sun pushes it up.</h3>
+    <p>Hot ground warms the air. It rises, cools to dew point and builds towering storm clouds.</p>
+    <div class="tags"><span><i>CLOUD</i>Cumulonimbus</span><span><i>RAIN</i>Heavy afternoon storms</span><span><i>HERE</i>Zimbabwe, Nov to Mar</span></div></div>
+  <div class="c" id="c2"><div class="n">02</div><h2>Relief</h2><h3>A mountain pushes it up.</h3>
+    <p>Moist wind climbs the windward slope and rains. It sinks down the far side warm and dry.</p>
+    <div class="tags"><span><i>CLOUD</i>Caps on the hills</span><span><i>RAIN</i>Wet slope, dry rain shadow</span><span><i>HERE</i>Nyanga, Chimanimani</span></div></div>
+  <div class="c" id="c3"><div class="n">03</div><h2>Frontal</h2><h3>Cold air pushes it up.</h3>
+    <p>Warm, light air rides up over cold, dense air at a front and spreads into grey sheets.</p>
+    <div class="tags"><span><i>CLOUD</i>Nimbostratus</span><span><i>RAIN</i>Steady, for hours</span><span><i>HERE</i>Winter cold fronts</span></div></div>
+</div>
+
+<div id="foot">
+  <div class="say">We read the sky every morning at our own weather station.</div>
+  <div class="pill y">Form 1 · 2027</div>
+  <div class="pill w">0714 404 090</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,331 @@
+{
+ "title": "Geography at Royal Crest: Reading the sky",
+ "voices": {
+  "TEN": {
+   "name": "Teacher Tendai",
+   "voice_id": "KpK2JUuSi307pzhaXdaL"
+  },
+  "SAM": {
+   "name": "Sam (commentator)",
+   "voice_id": "FSjbVsYdGQ5KJ6l0Ul2r"
+  }
+ },
+ "_note": "say = text sent to ElevenLabs (numbers spelled out where they must be read a certain way); cap = on-screen caption. TEN uses 'Stacy – Warm South African' from the account's voice list; swap voice_id for any voice in your account.",
+ "lines": [
+  {
+   "id": "g01",
+   "scene": "open",
+   "who": "TEN",
+   "say": "Every morning at nine, a student at Royal Crest walks out to a small white box on the grass.",
+   "cap": "Every morning at nine, a student at Royal Crest walks out to a small white box on the grass."
+  },
+  {
+   "id": "g02",
+   "scene": "open",
+   "who": "SAM",
+   "say": "A box? What's inside it?",
+   "cap": "A box? What’s inside it?"
+  },
+  {
+   "id": "g03",
+   "scene": "open",
+   "who": "TEN",
+   "say": "The weather. Today we read it, then we fly up into the clouds to see where our rain comes from.",
+   "cap": "The weather. Today we read it, then we fly up into the clouds to see where our rain comes from."
+  },
+  {
+   "id": "g04",
+   "scene": "title",
+   "who": "SAM",
+   "say": "Welcome to the weather station at Royal Crest Academy, in Bikita. O Level Geography, for ZIMSEC and Cambridge.",
+   "cap": "Welcome to the weather station at Royal Crest Academy, in Bikita. O Level Geography, for ZIMSEC and Cambridge."
+  },
+  {
+   "id": "g05",
+   "scene": "station",
+   "who": "TEN",
+   "say": "Lesson one. Siting the station. Open, flat ground, on short grass, well away from buildings and trees.",
+   "cap": "Lesson one: siting the station. Open, flat ground, on short grass, well away from buildings and trees."
+  },
+  {
+   "id": "g06",
+   "scene": "station",
+   "who": "TEN",
+   "say": "The rule is distance: at least twice the height of anything nearby. A ten metre tree means twenty metres away.",
+   "cap": "The rule is distance: at least twice the height of anything nearby. A 10 m tree means 20 m away."
+  },
+  {
+   "id": "g07",
+   "scene": "station",
+   "who": "SAM",
+   "say": "So the trees can't shade it or block the wind.",
+   "cap": "So the trees can’t shade it or block the wind."
+  },
+  {
+   "id": "g08",
+   "scene": "screen",
+   "who": "TEN",
+   "say": "Lesson two. The Stevenson screen. White, to reflect the sun. Louvred sides, so air flows through but sunlight can't get in.",
+   "cap": "Lesson two: the Stevenson screen. White, to reflect the sun. Louvred sides, so air flows through but sunlight can’t get in."
+  },
+  {
+   "id": "g09",
+   "scene": "screen",
+   "who": "TEN",
+   "say": "It stands on legs, so the thermometers sit between one and a quarter and two metres above the grass.",
+   "cap": "It stands on legs, so the thermometers sit 1.25 to 2 m above the grass."
+  },
+  {
+   "id": "g10",
+   "scene": "screen",
+   "who": "SAM",
+   "say": "Wait. Which way does the door face?",
+   "cap": "Wait. Which way does the door face?"
+  },
+  {
+   "id": "g11",
+   "scene": "screen",
+   "who": "TEN",
+   "say": "Here in Zimbabwe, south. For most of the year our sun is in the northern sky, so a south-facing door keeps sunlight off the thermometers when we open it. In Britain, the books say north.",
+   "cap": "Here in Zimbabwe, south. For most of the year our sun is in the northern sky, so a south-facing door keeps sunlight off the thermometers when we open it. In Britain, the books say north."
+  },
+  {
+   "id": "g12",
+   "scene": "inside",
+   "who": "TEN",
+   "say": "Inside, Six's thermometer. Two small markers are pushed up and down, and stay at the highest and lowest temperatures since yesterday. A magnet resets them.",
+   "cap": "Inside: Six’s thermometer. Two small markers stay at the highest and lowest temperatures since yesterday. A magnet resets them."
+  },
+  {
+   "id": "g13",
+   "scene": "inside",
+   "who": "TEN",
+   "say": "Beside it, the wet and dry bulb thermometers. Water evaporating from the wet bulb cools it. The bigger the difference, the drier the air.",
+   "cap": "Beside it, the wet and dry bulb thermometers. Water evaporating from the wet bulb cools it. The bigger the difference, the drier the air."
+  },
+  {
+   "id": "g14",
+   "scene": "readings",
+   "who": "TEN",
+   "say": "Lesson three. The calculations you'll see in the exam. Today's maximum, thirty-one degrees. Minimum, fifteen.",
+   "cap": "Lesson three: the exam calculations. Today’s maximum: 31 °C. Minimum: 15 °C."
+  },
+  {
+   "id": "g15",
+   "scene": "readings",
+   "who": "TEN",
+   "say": "The daily range is the difference: sixteen degrees. The daily mean is the average: twenty-three degrees.",
+   "cap": "Daily range = 31 − 15 = 16 °C. Daily mean = (31 + 15) ÷ 2 = 23 °C."
+  },
+  {
+   "id": "g16",
+   "scene": "readings",
+   "who": "TEN",
+   "say": "Dry bulb, twenty-four. Wet bulb, nineteen. A difference of five. The table gives the relative humidity: about sixty percent.",
+   "cap": "Dry bulb 24 °C, wet bulb 19 °C, difference 5. From the table: relative humidity about 60%."
+  },
+  {
+   "id": "g17",
+   "scene": "readings",
+   "who": "SAM",
+   "say": "Sixty percent. So the air is holding more than half the water it could.",
+   "cap": "60%. So the air is holding more than half the water it could."
+  },
+  {
+   "id": "g18",
+   "scene": "wind",
+   "who": "TEN",
+   "say": "Lesson four. Wind and rain. The wind vane points to where the wind comes from. A wind from the east is an easterly.",
+   "cap": "Lesson four: wind and rain. The wind vane points to where the wind comes from. A wind from the east is an easterly."
+  },
+  {
+   "id": "g19",
+   "scene": "wind",
+   "who": "TEN",
+   "say": "The anemometer's cups spin faster as the wind gets stronger. The standard height for both is ten metres, so a school mast is a compromise.",
+   "cap": "The anemometer’s cups spin faster as the wind gets stronger. The standard height for both is 10 m, so a school mast is a compromise."
+  },
+  {
+   "id": "g20",
+   "scene": "wind",
+   "who": "TEN",
+   "say": "The rain gauge stands thirty centimetres above the ground, so rain can't splash in. We plot a month of wind on a wind rose.",
+   "cap": "The rain gauge stands 30 cm above the ground, so rain can’t splash in. We plot a month of wind on a wind rose."
+  },
+  {
+   "id": "g21",
+   "scene": "drone",
+   "who": "SAM",
+   "say": "Okay. Now the fun part. Let's fly.",
+   "cap": "Okay. Now the fun part. Let’s fly."
+  },
+  {
+   "id": "g22",
+   "scene": "drone",
+   "who": "TEN",
+   "say": "Lesson five. A hot summer afternoon in Bikita. The ground heats the air above it. Warm air is lighter, so it rises, in currents called thermals.",
+   "cap": "Lesson five: a hot summer afternoon in Bikita. The ground heats the air above it. Warm air is lighter, so it rises, in currents called thermals."
+  },
+  {
+   "id": "g23",
+   "scene": "drone",
+   "who": "TEN",
+   "say": "As it rises, it cools, about ten degrees for every kilometre. At the dew point, water vapour condenses into tiny droplets. A cloud is born.",
+   "cap": "As it rises, it cools, about 10 °C for every kilometre. At the dew point, water vapour condenses into tiny droplets. A cloud is born."
+  },
+  {
+   "id": "g24",
+   "scene": "drone",
+   "who": "SAM",
+   "say": "Wait. We're inside the cloud now!",
+   "cap": "Wait. We’re inside the cloud now!"
+  },
+  {
+   "id": "g25",
+   "scene": "drone",
+   "who": "TEN",
+   "say": "Cumulus grows into cumulonimbus, a thunderstorm cloud that can tower higher than Mount Everest. Droplets and ice crystals grow until they're heavy enough to fall as rain.",
+   "cap": "Cumulus grows into cumulonimbus, a thunderstorm cloud that can tower higher than Mount Everest. Droplets and ice crystals grow until they’re heavy enough to fall as rain."
+  },
+  {
+   "id": "g26",
+   "scene": "rain",
+   "who": "TEN",
+   "say": "That's convectional rain, and it brings about nine tenths of Zimbabwe's rain, from November to March.",
+   "cap": "That’s convectional rain, and it brings about 90% of Zimbabwe’s rain, from November to March."
+  },
+  {
+   "id": "g27",
+   "scene": "rain",
+   "who": "TEN",
+   "say": "Relief rain falls when moist winds rise over mountains, like our Eastern Highlands. Frontal rain falls where warm and cold air meet.",
+   "cap": "Relief rain falls when moist winds rise over mountains, like our Eastern Highlands. Frontal rain falls where warm and cold air meet."
+  },
+  {
+   "id": "g28",
+   "scene": "rain",
+   "who": "TEN",
+   "say": "And nimbostratus: a thick, dark grey layer that hides the sun and brings steady rain for hours.",
+   "cap": "And nimbostratus: a thick, dark grey layer that hides the sun and brings steady rain for hours."
+  },
+  {
+   "id": "g29",
+   "scene": "clouds",
+   "who": "TEN",
+   "say": "Lesson six. Reading the sky. We name the cloud, and count the cover in oktas, eighths of the sky. Zero is clear. Eight is overcast.",
+   "cap": "Lesson six: reading the sky. We name the cloud and count the cover in oktas, eighths of the sky. 0 is clear. 8 is overcast."
+  },
+  {
+   "id": "g30",
+   "scene": "clouds",
+   "who": "SAM",
+   "say": "So today, five oktas of cumulus.",
+   "cap": "So today: 5 oktas of cumulus."
+  },
+  {
+   "id": "g31",
+   "scene": "data",
+   "who": "SAM",
+   "say": "But why record all this every day?",
+   "cap": "But why record all this every day?"
+  },
+  {
+   "id": "g32",
+   "scene": "data",
+   "who": "TEN",
+   "say": "Because data saves lives. In America, school rain gauges in the CoCoRaHS network have helped forecasters issue flood warnings.",
+   "cap": "Because data saves lives. In America, school rain gauges in the CoCoRaHS network have helped forecasters issue flood warnings."
+  },
+  {
+   "id": "g33",
+   "scene": "data",
+   "who": "TEN",
+   "say": "NASA's GLOBE programme checks students' cloud reports against satellites. In Britain, schools use their station to compare microclimates.",
+   "cap": "NASA’s GLOBE programme checks students’ cloud reports against satellites. In Britain, schools use their station to compare microclimates."
+  },
+  {
+   "id": "g34",
+   "scene": "data",
+   "who": "TEN",
+   "say": "And here, farmers ask one question every season: when will the rains come? Our records help answer it.",
+   "cap": "And here, farmers ask one question every season: when will the rains come? Our records help answer it."
+  },
+  {
+   "id": "g35",
+   "scene": "edu5",
+   "who": "TEN",
+   "say": "This is Education Five Point Zero. Teaching, research, community service, innovation and industrialisation, rooted in our heritage. Our climate is part of that heritage.",
+   "cap": "This is Education 5.0. Teaching, research, community service, innovation and industrialisation, rooted in our heritage. Our climate is part of that heritage."
+  },
+  {
+   "id": "g36",
+   "scene": "edu5",
+   "who": "SAM",
+   "say": "So a white box on the grass is a research lab.",
+   "cap": "So a white box on the grass is a research lab."
+  },
+  {
+   "id": "g37",
+   "scene": "careers",
+   "who": "SAM",
+   "say": "And where does it lead, for a child from Bikita?",
+   "cap": "And where does it lead, for a child from Bikita?"
+  },
+  {
+   "id": "g38",
+   "scene": "careers",
+   "who": "TEN",
+   "say": "Meteorology and Climate Science at the University of Zimbabwe. Geography, and GIS and earth observation, at universities across the country, including Great Zimbabwe University in Masvingo.",
+   "cap": "Meteorology and Climate Science at the University of Zimbabwe. Geography, and GIS and earth observation, at universities across the country, including Great Zimbabwe University in Masvingo."
+  },
+  {
+   "id": "g39",
+   "scene": "careers",
+   "who": "TEN",
+   "say": "Then careers as a forecaster at the Meteorological Services Department, a hydrologist, an agricultural extension officer, an environmental officer, a GIS analyst, or in disaster management.",
+   "cap": "Then careers as a forecaster at the Meteorological Services Department, a hydrologist, an agricultural extension officer, an environmental officer, a GIS analyst, or in disaster management."
+  },
+  {
+   "id": "g40",
+   "scene": "school",
+   "who": "SAM",
+   "say": "At Royal Crest, it starts in Form One. Geography with a working weather station, alongside the sciences, for ZIMSEC and Cambridge.",
+   "cap": "At Royal Crest, it starts in Form 1. Geography with a working weather station, alongside the sciences, for ZIMSEC and Cambridge."
+  },
+  {
+   "id": "g41",
+   "scene": "school",
+   "who": "TEN",
+   "say": "Science. Innovation. Skill.",
+   "cap": "Science. Innovation. Skill."
+  },
+  {
+   "id": "g42",
+   "scene": "parents",
+   "who": "SAM",
+   "say": "Parents: Form One places for January twenty twenty-seven are limited.",
+   "cap": "Parents: Form 1 places for January 2027 are limited."
+  },
+  {
+   "id": "g43",
+   "scene": "parents",
+   "who": "TEN",
+   "say": "Come and read the sky with us.",
+   "cap": "Come and read the sky with us."
+  },
+  {
+   "id": "g44",
+   "scene": "outro",
+   "who": "SAM",
+   "say": "Royal Crest Academy, Bikita. Call or WhatsApp zero seven one four, four zero four, zero nine zero.",
+   "cap": "Royal Crest Academy, Bikita. Call or WhatsApp 0714 404 090."
+  },
+  {
+   "id": "g45",
+   "scene": "outro",
+   "who": "TEN",
+   "say": "Look up. The sky is a lesson.",
+   "cap": "Look up. The sky is a lesson."
+  }
+ ]
+}

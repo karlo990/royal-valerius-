@@ -65,7 +65,10 @@
     "reading": "../assets/img/library-reading-840.webp",
     "posters": "../assets/img/library-posters-860.webp",
     "aisle": "../assets/img/library-aisle-1600.webp",
-    "crest-detail": "../assets/img/library-detail-460.webp"
+    "crest-detail": "../assets/img/library-detail-460.webp",
+    "great-wall": "assets/photos/mandarin-great-wall.webp",
+    "mandarin-students": "assets/photos/mandarin-students.webp",
+    "mandarin-textbook": "assets/photos/mandarin-textbook.webp"
   },
   "address": "1226 Chinobva, Nyika, Masvingo",
   "phones": [

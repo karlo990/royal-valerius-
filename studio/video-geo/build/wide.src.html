@@ -1,0 +1,280 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Geography — wide stage</title>
+<style>
+@font-face{font-family:"Newsreader";font-style:normal;font-weight:200 800;src:url(../../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:"Newsreader";font-style:italic;font-weight:200 800;src:url(../../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:"Plus Jakarta Sans";font-weight:400 800;src:url(../../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2")}
+@font-face{font-family:"Plex Mono";font-weight:400;src:url(../../assets/fonts/IBMPlexMono-Regular.woff2) format("woff2")}
+@font-face{font-family:"Plex Mono";font-weight:600;src:url(../../assets/fonts/IBMPlexMono-SemiBold.woff2) format("woff2")}
+:root{--sky:#1E7BC4;--sky-deep:#0E4F86;--sky-hi:#9FD4FF;--gold:#E2B93B;--gold-hi:#F5D57A;--navy:#13215a;--ink:#10223a;--mute:#4f6378;
+  --serif:"Newsreader",serif;--sans:"Plus Jakarta Sans",sans-serif;--mono:"Plex Mono",monospace}
+*{box-sizing:border-box}html,body{margin:0;background:#000}
+#f{position:relative;width:1280px;height:720px;overflow:hidden;font-family:var(--sans)}
+#bgc{position:absolute;inset:0;width:1280px;height:720px}
+.lay{position:absolute;inset:0;pointer-events:none}
+#leak{mix-blend-mode:screen;z-index:3}
+#vig{z-index:3;background:radial-gradient(120% 95% at 50% 45%,transparent 60%,rgba(5,20,40,.3) 100%)}
+#grain{z-index:8;opacity:.08;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.lock{position:absolute;left:44px;top:30px;display:flex;align-items:center;gap:12px;color:#fff;z-index:6;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+.lock img{width:40px}.lock b{display:block;font-size:14px;letter-spacing:.14em;font-weight:800}.lock small{display:block;font-size:10.5px;letter-spacing:.16em;font-weight:700;color:var(--gold-hi)}
+.light .lock{color:var(--navy);text-shadow:none}.light .lock small{color:var(--sky)}
+#rail{position:absolute;left:350px;right:200px;top:38px;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;z-index:6}
+#rail div{font:600 9px var(--mono);letter-spacing:.06em;color:rgba(255,255,255,.65);padding-top:9px;position:relative;white-space:nowrap}
+#rail div i{position:absolute;left:0;right:0;top:0;height:3px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden}#rail div i u{position:absolute;left:0;top:0;bottom:0;background:var(--gold)}
+#rail div.on{color:#fff}.light #rail div{color:rgba(16,34,58,.5)}.light #rail div i{background:rgba(16,34,58,.12)}.light #rail div i u{background:var(--sky)}.light #rail div.on{color:var(--ink)}
+.pill{position:absolute;right:44px;top:28px;height:34px;padding:0 16px 0 6px;border-radius:17px;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(10px);color:#fff;font-size:12.5px;font-weight:800;letter-spacing:.16em;z-index:6}
+.pill i{width:24px;height:24px;border-radius:50%;background:var(--gold);display:grid;place-items:center}.pill svg{width:15px;height:15px}
+.light .pill{background:rgba(255,255,255,.75);border-color:rgba(16,34,58,.12);color:var(--navy)}
+#lower{position:absolute;left:44px;bottom:30px;width:720px;min-height:62px;padding:11px 18px 11px 12px;border-radius:18px;display:flex;gap:13px;align-items:center;z-index:6;background:rgba(8,24,44,.55);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px) saturate(1.2)}
+.light #lower{background:rgba(255,255,255,.76);border-color:rgba(16,34,58,.1)}
+#av{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff;font-weight:800;background:var(--sky)}#av.SAM{background:var(--navy);border:2px solid var(--gold)}
+#who{display:flex;gap:8px;align-items:center;font:800 9.5px var(--sans);letter-spacing:.18em;color:var(--gold-hi)}.light #who{color:var(--sky)}
+#who i{display:flex;gap:2px;align-items:flex-end;height:10px}#who u{width:2px;background:currentColor;border-radius:1px}
+#cap{margin:2px 0 0;font-size:15px;line-height:1.35;color:#fff}.light #cap{color:var(--ink)}
+#cta{position:absolute;right:44px;bottom:36px;display:flex;align-items:center;gap:10px;z-index:6;color:#fff;font-size:11px;font-weight:800;letter-spacing:.16em;text-shadow:0 1px 8px rgba(0,0,0,.3)}.light #cta{color:var(--ink);text-shadow:none}
+#cta b{height:40px;padding:0 16px;border-radius:20px;background:var(--gold);color:var(--navy);display:flex;align-items:center;font-size:16px;letter-spacing:.02em;text-shadow:none}
+#sticker{position:absolute;left:58px;bottom:104px;z-index:7;background:var(--gold);color:var(--navy);border-radius:14px;padding:8px 14px 9px;font:800 15px var(--sans);letter-spacing:.04em;box-shadow:0 12px 24px -10px rgba(138,106,28,.8);transform-origin:20% 100%;white-space:nowrap;opacity:0}
+#sticker small{display:block;font:800 22px/1 var(--sans);letter-spacing:.06em;margin-bottom:2px}
+#sticker::after{content:"";position:absolute;left:26px;bottom:-9px;border:10px solid transparent;border-top-color:var(--gold);border-bottom:0}
+.sc{position:absolute;inset:0;z-index:4}.sc>*,.grp>*{position:absolute}.grp{position:absolute;inset:0}
+.k{font:600 11px var(--mono);letter-spacing:.14em;color:var(--gold-hi)}.light .k{color:var(--sky)}
+.h{font:400 50px/0.98 var(--serif);letter-spacing:-.015em;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.25)}.h em{font-style:italic;color:var(--gold-hi)}.light .h{color:var(--navy);text-shadow:none}.light .h em{color:var(--sky)}
+.glass{background:rgba(255,255,255,.74);border:1px solid rgba(16,34,58,.08);backdrop-filter:blur(14px);border-radius:16px;box-shadow:0 22px 40px -28px rgba(10,40,80,.6)}
+.dglass{background:rgba(8,24,44,.55);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);border-radius:16px;color:#fff}
+.calc>div{display:grid;grid-template-columns:1fr auto;gap:14px;padding:8px 0;border-top:1px solid rgba(16,34,58,.08);font-size:13.5px;color:var(--ink)}.calc>div:first-child{border-top:0}.calc b{font:600 14px var(--mono);color:var(--sky-deep)}
+.chip{display:inline-flex;align-items:center;height:30px;padding:0 13px;border-radius:15px;border:1.5px solid var(--navy);font-size:12.5px;font-weight:700;color:var(--navy);background:rgba(255,255,255,.6);margin:0 6px 6px 0}.chip.on{background:var(--sky);border-color:var(--sky);color:#fff}.chip.gold{background:var(--gold);border-color:var(--gold)}
+.card{padding:14px 18px;width:250px}.card .t{font:600 10.5px var(--mono);letter-spacing:.1em;color:var(--sky)}.card b{display:block;font:400 22px/1.1 var(--serif);color:var(--navy);margin:4px 0}.card small{font-size:12.5px;line-height:1.4;color:var(--mute)}
+.on-card{border:2px solid var(--sky)!important;box-shadow:0 26px 50px -26px rgba(30,123,196,.8)!important}
+.pillar{width:200px;padding:14px 16px;text-align:center}.pillar b{display:block;font:400 22px var(--serif);color:var(--navy)}.pillar small{font-size:12px;color:var(--mute)}
+.pillb{display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 20px;border-radius:22px;font-size:16px;font-weight:700}.pillb.y{background:var(--gold);color:var(--navy)}.pillb.n{background:var(--navy);color:#fff}
+</style></head><body>
+<div id="f"><canvas id="bgc" width="1920" height="1080"></canvas><div class="lay" id="leak"></div><div class="lay" id="vig"></div>
+<div id="scenes"></div>
+<div class="lock"><img src="../../assets/brand/crest-640.webp"><div><b>ROYAL CREST ACADEMY</b><small>BIKITA · MASVINGO</small></div></div>
+<div id="rail"></div>
+<div class="pill"><i><svg viewBox="0 0 24 24" fill="none" stroke="#13215a" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg></i>GEOGRAPHY</div>
+<div id="lower"><div id="av">T</div><div><div id="who"></div><div id="cap"></div></div></div>
+<div id="cta">FORM 1 · 2027<b>0714 404 090</b></div>
+<div id="sticker"><small>WAIT!</small><span></span></div>
+<div class="lay" id="grain"></div></div>
+<script src="timeline.js"></script>
+<script src="../node_modules/three/build/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),eo=x=>1-Math.pow(1-clamp(x),3),eio=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2},lerp=(a,b,x)=>a+(b-a)*x;
+const back=x=>{x=clamp(x);const c=1.6;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+function rng(seed){let s=seed;return()=>(s=(s*16807)%2147483647)/2147483647}
+const LINES=Object.fromEntries(TL.lines.map(l=>[l.id,l])),SCN=Object.fromEntries(TL.scenes.map(s=>[s.id,s]));
+function cue(id,sub,nth=0){const l=LINES[id];if(!l)return 1e9;if(sub==null)return l.start;let i=-1;for(let k=0;k<=nth;k++){i=l.chars.indexOf(sub,i+1);if(i<0)return l.start}return l.start+(l.times[i]??0)}
+const lend=id=>LINES[id]?LINES[id].end:1e9;
+const W=1280,H=720,CW=1920,CH=1080;let g=null;
+const IMG={};const img=src=>IMG[src]||(IMG[src]=new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src}));
+const CLIPC=new Map();function clipImg(src){let p=CLIPC.get(src);if(p){CLIPC.delete(src);CLIPC.set(src,p);return p}p=new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src});CLIPC.set(src,p);if(CLIPC.size>40)CLIPC.delete(CLIPC.keys().next().value);return p}
+const cf=(dir,n)=>`../assets/clipfr/${dir}/${String(n).padStart(4,'0')}.jpg`;
+function cover(q,im,x,y,w,h,zoom=1,ox=.5,oy=.5){if(!im)return;const s=Math.max(w/im.width,h/im.height)*zoom,dw=im.width*s,dh=im.height*s;q.drawImage(im,x+(w-dw)*ox,y+(h-dh)*oy,dw,dh)}
+async function clipAt(q,dir,N,fps,t0,t,x,y,w,h,zoom=1){const f=clamp(Math.floor((t-t0)*fps)+1,1,N);cover(q,await clipImg(cf(dir,f)),x,y,w,h,zoom)}
+// portrait clip in a card over a blurred, enlarged copy of itself
+async function portraitClip(q,dir,N,fps,t0,t,label,xr=null){const f=clamp(Math.floor((t-t0)*fps)+1,1,N),im=await clipImg(cf(dir,f));if(!im)return;q.save();q.filter='blur(26px) saturate(1.2)';cover(q,im,-40,-40,W+80,H+80,1);q.filter='none';q.fillStyle='rgba(5,20,40,.25)';q.fillRect(0,0,W,H);q.restore();
+  const h=560,w=h*im.width/im.height,x=xr??(W-w)/2,y=86;q.save();q.shadowColor='rgba(0,0,0,.45)';q.shadowBlur=40;q.shadowOffsetY=16;q.fillStyle='#fff';q.beginPath();q.roundRect(x-5,y-5,w+10,h+10,26);q.fill();q.restore();
+  q.save();q.beginPath();q.roundRect(x,y,w,h,22);q.clip();q.drawImage(im,x,y,w,h);q.restore();q.save();q.fillStyle='rgba(8,24,44,.75)';q.beginPath();q.roundRect(x+14,y+14,128,28,14);q.fill();q.restore();txt('● '+label,x+78,y+28,{col:'#F5D57A',font:'600 11px "Plex Mono"'})}
+function txt(s,x,y,o={}){g.save();g.font=o.font||'600 13px "Plex Mono"';g.fillStyle=o.col||'#fff';g.textAlign=o.align||'center';g.textBaseline='middle';g.globalAlpha*=o.a??1;if(o.bg){const w=g.measureText(s).width+18,x0=o.align==='left'?x-9:o.align==='right'?x-w+9:x-w/2;g.fillStyle=o.bg;g.beginPath();g.roundRect(x0,y-13,w,26,13);g.fill();g.fillStyle=o.col||'#fff'}g.fillText(s,x,y);g.restore()}
+function dimLine(a,b,label,k=1,o={}){if(k<=0)return;const col=o.col||'#F5D57A';const e=[lerp(a[0],b[0],eo(k)),lerp(a[1],b[1],eo(k))];g.save();g.globalAlpha=clamp(k*3);g.strokeStyle=col;g.fillStyle=col;g.lineWidth=1.8;g.setLineDash(o.dash||[]);g.beginPath();g.moveTo(a[0],a[1]);g.lineTo(e[0],e[1]);g.stroke();g.setLineDash([]);
+  const an=Math.atan2(b[1]-a[1],b[0]-a[0]);for(const [p,s] of [[a,1],[e,-1]]){g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(p[0]+s*10*Math.cos(an-.4),p[1]+s*10*Math.sin(an-.4));g.lineTo(p[0]+s*10*Math.cos(an+.4),p[1]+s*10*Math.sin(an+.4));g.closePath();g.fill()}g.restore();
+  if(k>.8)txt(label,(a[0]+b[0])/2+(o.dx||0),(a[1]+b[1])/2+(o.dy||0),{bg:'rgba(8,24,44,.85)',col,font:'600 12.5px "Plex Mono"',a:clamp((k-.8)*5)})}
+const SPRITE={};function sprite(col){if(SPRITE[col])return SPRITE[col];const c=document.createElement('canvas');c.width=c.height=64;const q=c.getContext('2d'),gr=q.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,col);gr.addColorStop(.45,col);gr.addColorStop(1,'rgba(255,255,255,0)');q.fillStyle=gr;q.fillRect(0,0,64,64);return SPRITE[col]=c}
+function dust(t,n,seed,col,{minR=.6,maxR=8,area=[0,0,W,H],alpha=.6,vx=6,vy=-4}={}){const r=rng(seed),sp=sprite(col);g.save();for(let i=0;i<n;i++){const z=Math.pow(r(),2.2),x0=r(),y0=r(),ph=r()*6,rad=lerp(minR,maxR,z),m=lerp(.4,1.4,z);
+  const x=area[0]+(((x0*area[2]+t*vx*m+Math.sin(t*.4+ph)*8)%area[2])+area[2])%area[2],y=area[1]+(((y0*area[3]+t*vy*m)%area[3])+area[3])%area[3];g.globalAlpha=alpha*lerp(.4,.95,1-z*.5);if(z>.5){const s=rad*2.6;g.drawImage(sp,x-s/2,y-s/2,s,s)}else{g.fillStyle=col;g.beginPath();g.arc(x,y,rad,0,7);g.fill()}}g.restore()}
+const camL=(a,b,k)=>a.map((v,i)=>lerp(v,b[i],eio(k)));
+/*ST*/
+
+/* ---------- 2D pieces ---------- */
+function windRose(cx,cy,R,k){const v=[3,2,6,9,4,2,1,1];g.save();g.globalAlpha=clamp(k*2);g.fillStyle='rgba(255,255,255,.8)';g.beginPath();g.arc(cx,cy,R+26,0,7);g.fill();g.strokeStyle='rgba(16,34,58,.15)';for(const f of [.33,.66,1]){g.beginPath();g.arc(cx,cy,R*f,0,7);g.stroke()}
+  v.forEach((n,i)=>{const a=-Math.PI/2+i*Math.PI/4,len=R*n/9*eo(k*1.4-i*.08);g.fillStyle='rgba(30,123,196,.85)';g.beginPath();g.moveTo(cx,cy);g.arc(cx,cy,len,a-.3,a+.3);g.closePath();g.fill()});
+  ['N','NE','E','SE','S','SW','W','NW'].forEach((d,i)=>{const a=-Math.PI/2+i*Math.PI/4;txt(d,cx+Math.cos(a)*(R+14),cy+Math.sin(a)*(R+14),{col:'#0E4F86',font:'700 10px "Plex Mono"'})});g.restore();txt('WIND ROSE · ONE MONTH',cx,cy+R+44,{col:'#0E4F86',font:'700 11px "Plex Mono"',bg:'rgba(255,255,255,.85)',a:clamp(k*2)})}
+function oktaDial(cx,cy,R,n,k){g.save();g.globalAlpha=clamp(k*2);g.fillStyle='rgba(255,255,255,.85)';g.beginPath();g.arc(cx,cy,R+10,0,7);g.fill();for(let i=0;i<8;i++){const a0=-Math.PI/2+i*Math.PI/4,on=i<n;g.fillStyle=on?'#1E7BC4':'rgba(30,123,196,.12)';g.beginPath();g.moveTo(cx,cy);g.arc(cx,cy,R,a0+.02,a0+Math.PI/4-.02);g.closePath();g.fill()}
+  g.restore();txt(Math.round(n)+' / 8 OKTAS',cx,cy+R+30,{col:'#0E4F86',font:'700 13px "Plex Mono"',bg:'rgba(255,255,255,.9)',a:clamp(k*2)})}
+function rainBars(x0,y0,w,h,k,pa=1){if(pa<=0)return;const M=[['Oct',30],['Nov',85],['Dec',140],['Jan',150],['Feb',125],['Mar',80],['Apr',25],['May',8],['Jun',3],['Jul',2],['Aug',2],['Sep',10]],bw=w/12;g.save();g.globalAlpha=pa;g.fillStyle='rgba(255,255,255,.82)';g.beginPath();g.roundRect(x0-20,y0-h-50,w+40,h+90,16);g.fill();
+  M.forEach(([m,v],i)=>{const kk=eo(k*2-i*.08),bh=v/160*h*kk;g.fillStyle=(i>=1&&i<=5)?'#1E7BC4':'rgba(30,123,196,.35)';g.fillRect(x0+i*bw+4,y0-bh,bw-8,bh);txt(m,x0+i*bw+bw/2,y0+14,{col:'#4f6378',font:'500 10px "Plex Mono"'})});
+  txt('EXAMPLE SCHOOL RAINFALL RECORD (mm)',x0+w/2,y0-h-28,{col:'#0E4F86',font:'700 11px "Plex Mono"'});txt('RAINY SEASON · NOV–MAR',x0+w*.25,y0-h+2,{col:'#fff',bg:'#1E7BC4',font:'700 10px "Plex Mono"',a:clamp(k*2-1)});g.restore()}
+
+/* ---------- scenes ---------- */
+const LESSON={station:1,screen:2,inside:2,readings:3,wind:4,drone:5,rain:5,clouds:5,careers:6};
+const LNAMES=['SITING','STEVENSON SCREEN','READINGS','WIND & RAIN','IN THE CLOUDS','CAREERS'];
+const STC={cam:[11,5.5,15],look:[4,3.6,-4],fov:46};
+let DR=null;
+const SC={
+ open:{light:0,cta:0,
+   async draw(t,s){const at=cue('g01')-.4;const crest=async()=>{sky('#5FA7E0','#E6F2FA');cumulus(900,250,320,110,3);const im=await img('../assets/crest.jpg'),k=eo((t-.2)/1.1),R=150*lerp(.85,1,k);
+       g.save();g.globalAlpha=k;g.fillStyle='#fff';g.shadowColor='rgba(10,40,80,.35)';g.shadowBlur=60;g.beginPath();g.arc(640,300,R,0,7);g.fill();g.restore();g.save();g.globalAlpha=k;g.beginPath();g.arc(640,300,R-6,0,7);g.clip();if(im)g.drawImage(im,640-R*.92,300-R*.92,R*1.84,R*1.84);g.restore()};
+     const walk=async()=>{await clipAt(g,'walk',240,24,at,t,0,0,W,H,lerp(1.02,1.1,(t-at)/12))};
+     const stn=async()=>{sky('#5FA7E0','#E6F2FA');cumulus(820,190,300,110,3);cumulus(1100,150,220,80,8);const k=(t-cue('g03','The weather'))/6;const o=ST.render({t,door:0,cam:camL([4,2.2,6],STC.cam,k),look:camL([0,1.4,0],STC.look,k),fov:lerp(40,46,k)});g.drawImage(o.cv,0,0,W,H)};
+     const sw=cue('g03','The weather')-.3;if(t<at+.8){await crest();if(t>at){await xL(t,at,.8,walk)}}else if(t<sw)await walk();else{await walk();await xL(t,sw,1,stn)}},
+   dom:()=>`<div style="left:0;right:0;top:478px;text-align:center" data-in=".5" data-out="${cue('g01')-.6}"><div style="font:800 15px var(--sans);letter-spacing:.32em;color:var(--navy)">ROYAL CREST ACADEMY</div><div style="font:italic 400 22px var(--serif);color:var(--sky);margin-top:6px">presents</div><div class="k" style="margin-top:12px;color:var(--sky)">GEOGRAPHY · READING THE SKY</div></div>
+     <div class="h" style="left:64px;top:140px;color:var(--navy);text-shadow:none" data-in="${cue('g03','The weather')}" data-fx="blur">A small white box.<br><em style="color:var(--sky)">The whole sky.</em></div>`},
+ title:{light:0,cta:1,
+   async draw(t,s){sky('#3E8FD4','#DCEEFA');cumulus(300,170,260,90,5);cumulus(1000,140,360,120,9);cumulus(700,230,200,60,13,{n:60});const k=(t-s.start)/(s.end-s.start);
+     const o=ST.render({t,door:0,cam:camL([16,9,20],[24,26,30],k),look:[0,1,-2],fov:44});g.drawImage(o.cv,0,0,W,H);const sc=g.createLinearGradient(0,0,700,0);sc.addColorStop(0,'rgba(8,24,44,.55)');sc.addColorStop(1,'rgba(8,24,44,0)');g.fillStyle=sc;g.fillRect(0,0,700,H);dust(t,40,4,'#FFFFFF',{maxR:5})},
+   dom:s=>`<div class="k" style="left:64px;top:150px" data-in="${s.start+.3}">O LEVEL GEOGRAPHY · ZIMSEC &amp; CAMBRIDGE</div>
+     <div class="h" style="left:64px;top:176px;font-size:96px;line-height:.9" data-in="${s.start+.5}" data-fx="blur">Reading<br><em>the sky.</em></div>
+     <div style="left:66px;top:376px;width:420px;font-size:16px;line-height:1.5;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.4)" data-in="${s.start+.9}">The weather station at Royal Crest Academy, Bikita.</div>`},
+ station:{light:1,cta:1,
+   async draw(t,s){sky('#5FA7E0','#E6F2FA');cumulus(820,190,300,110,3);cumulus(1100,150,220,80,8);cumulus(560,240,180,60,11,{n:70});const o=ST.render({t,door:0,...STC,shift:.1});g.drawImage(o.cv,0,0,W,H);const P=o.P;
+     const a=k=>clamp((t-k)/1);dimLine(P(-3.9,0,-1.5),P(-3.9,10,-1.5),'10 m',a(cue('g05','Open')),{dx:-30});dimLine(P(.62,0,.32),P(.62,1.3,.32),'1.25–2 m',a(cue('g05','short grass')),{dx:56});
+     dimLine(P(2.75,0,1.35),P(2.75,.3,1.35),'30 cm',a(cue('g05','short grass')+.5),{dx:44});dimLine(P(.4,.05,-.4),P(13.8,.05,-11.6),'≥ 2 × 10 m = 20 m',a(cue('g06','ten metre')),{dy:-14,dash:[6,5]});
+     const lb=(s2,p,k,dx=0,dy=0)=>{if(k>0)txt(s2,p[0]+dx,p[1]+dy,{bg:'rgba(255,255,255,.9)',col:'#0E4F86',font:'700 12px "Plex Mono"',a:k})};
+     lb('STEVENSON SCREEN',P(0,2.25,0),a(cue('g05','Open')+.3));lb('RAIN GAUGE',P(2.6,.8,1.2),a(cue('g05','short grass')+.6),60,10);const pv=P(-3.2,10.2,-1.5);lb('WIND VANE + ANEMOMETER',pv,a(cue('g05','Open')+.6),110,-14);lb('MSASA TREE · 10 m',P(14,9.5,-12),a(cue('g06','ten metre')-.3))},
+   dom:s=>`<div class="k" style="left:64px;top:96px">LESSON 01 · SITING THE STATION</div><div class="h" style="left:64px;top:118px">Open ground.<br><em>Short grass.</em></div>
+     <div class="glass" style="left:64px;top:240px;width:300px;padding:12px 16px;font-size:13.5px;line-height:1.5;color:var(--ink)" data-in="${cue('g06','twice')}"><b style="color:var(--sky-deep)">The distance rule</b><br>At least <b>twice the height</b> of anything nearby.</div>`},
+ screen:{light:1,cta:1,
+   async draw(t,s){sky('#6FB0E4','#EAF4FB');cumulus(980,170,260,90,6);const k=(t-s.start)/5,o=ST.render({t,door:0,cam:camL([5,2.6,6],[2.4,1.8,3.4],k),look:camL([0,1.4,0],[0,1.4,0],k),fov:38,shift:.14});g.drawImage(o.cv,0,0,W,H);const P=o.P;
+     const lab=(s2,p,dx,dy,k2)=>{if(k2<=0)return;const q=P(...p);g.save();g.globalAlpha=k2;g.strokeStyle='#0E4F86';g.lineWidth=1.4;g.beginPath();g.moveTo(q[0],q[1]);g.lineTo(q[0]+dx,q[1]+dy);g.stroke();g.fillStyle='#0E4F86';g.beginPath();g.arc(q[0],q[1],3.5,0,7);g.fill();g.restore();txt(s2,q[0]+dx,q[1]+dy,{bg:'rgba(255,255,255,.92)',col:'#0E4F86',font:'700 12px "Plex Mono"',a:k2})};
+     const a=c=>clamp((t-c)/.6);lab('WHITE: REFLECTS SUN',[0,1.95,0],120,-60,a(cue('g08','White')));lab('LOUVRES: AIR IN, SUN OUT',[.43,1.4,0],150,30,a(cue('g08','Louvred')));lab('THERMOMETERS 1.25–2 m UP',[-.38,.5,.25],-170,40,a(cue('g09','one and a quarter')));
+     // compass and sun path: door faces south
+     const ck=a(cue('g11','south'));if(ck>0){const cc=[1110,470];g.save();g.globalAlpha=ck;g.fillStyle='rgba(8,24,44,.82)';g.beginPath();g.arc(cc[0],cc[1],70,0,7);g.fill();g.strokeStyle='#F5D57A';g.lineWidth=3;g.beginPath();g.moveTo(cc[0],cc[1]+44);g.lineTo(cc[0],cc[1]-44);g.stroke();
+       g.strokeStyle='rgba(255,180,90,.9)';g.setLineDash([5,5]);g.lineWidth=2;g.beginPath();g.arc(cc[0],cc[1],52,Math.PI*1.15,Math.PI*1.85);g.stroke();g.setLineDash([]);const sa=Math.PI*(1.15+.7*((t*.15)%1));g.fillStyle='#FFB46A';g.beginPath();g.arc(cc[0]+52*Math.cos(sa),cc[1]+52*Math.sin(sa),7,0,7);g.fill();g.restore();
+       txt('N',cc[0],cc[1]-56,{font:'700 12px "Plex Mono"',col:'#F5D57A',a:ck});txt('S · DOOR',cc[0],cc[1]+58,{font:'700 12px "Plex Mono"',a:ck});txt('SUN IN THE NORTHERN SKY',cc[0],cc[1]-92,{font:'700 11px "Plex Mono"',bg:'rgba(8,24,44,.85)',col:'#FFB46A',a:ck})}},
+   dom:s=>`<div class="k" style="left:64px;top:96px">LESSON 02 · THE STEVENSON SCREEN</div><div class="h" style="left:64px;top:118px">White, louvred,<br><em>on legs.</em></div>
+     <div class="glass" style="left:64px;top:250px;width:310px;padding:12px 16px;font-size:13.5px;line-height:1.5;color:var(--ink)" data-in="${cue('g11','south')}"><b style="color:var(--sky-deep)">In Zimbabwe, the door faces SOUTH.</b><br>British textbooks say north. We are in the Southern Hemisphere.</div>`},
+ inside:{light:1,cta:1,
+   async draw(t,s){sky('#7FB9E6','#EAF4FB');const k=(t-s.start)/2,o=ST.render({t,door:eio((t-s.start-.2)/1.4),cam:camL([1.2,1.8,2.6],[.25,1.62,1.55],k),look:[.05,1.32,0],fov:36,shift:.17});g.drawImage(o.cv,0,0,W,H);const P=o.P;
+     const lab=(s2,p,dx,dy,k2)=>{if(k2<=0)return;const q=P(...p);g.save();g.globalAlpha=k2;g.strokeStyle='#0E4F86';g.lineWidth=1.4;g.beginPath();g.moveTo(q[0],q[1]);g.lineTo(q[0]+dx,q[1]+dy);g.stroke();g.fillStyle='#0E4F86';g.beginPath();g.arc(q[0],q[1],3.5,0,7);g.fill();g.restore();txt(s2,q[0]+dx,q[1]+dy,{bg:'rgba(255,255,255,.92)',col:'#0E4F86',font:'700 12px "Plex Mono"',a:k2})};
+     const a=c=>clamp((t-c)/.6);lab("SIX'S MAX–MIN",[-.18,1.48,.02],-90,-60,a(cue('g12',"Six's")));lab('MARKERS: HIGHEST + LOWEST',[-.26,1.42,.02],-150,40,a(cue('g12','markers')));lab('DRY BULB',[.12,1.3,.02],-10,-150,a(cue('g13','wet and dry')));lab('WET BULB + WICK',[.24,1.1,.02],120,-40,a(cue('g13','wet and dry')+.4))},
+   dom:s=>`<div class="k" style="left:64px;top:96px">LESSON 02 · INSIDE THE SCREEN</div><div class="h" style="left:64px;top:118px">Two thermometers,<br><em>three readings.</em></div>
+     <div class="glass" style="left:64px;top:250px;width:330px;padding:12px 16px;font-size:13.5px;line-height:1.5;color:var(--ink)" data-in="${cue('g13','evaporating')}"><b style="color:var(--sky-deep)">Wet bulb</b> is cooled by evaporation.<br>Bigger difference = <b>drier air</b>.</div>`},
+ readings:{light:1,cta:1,
+   async draw(t,s){sky('#7FB9E6','#EAF4FB');const o=ST.render({t,door:1,cam:[.25,1.62,1.55],look:[.05,1.32,0],fov:36,shift:.17});g.drawImage(o.cv,0,0,W,H)},
+   dom:s=>`<div class="k" style="left:64px;top:96px">LESSON 03 · READINGS</div><div class="h" style="left:64px;top:118px">Read it.<br><em>Work it out.</em></div>
+     <div class="glass calc" style="left:64px;top:250px;width:380px;padding:10px 18px">
+      <div data-hl="${cue('g14','maximum')}"><span>Maximum / minimum</span><b>31 °C / 15 °C</b></div><div data-hl="${cue('g15','range')}"><span>Daily range: 31 − 15</span><b>16 °C</b></div><div data-hl="${cue('g15','mean')}"><span>Daily mean: (31 + 15) ÷ 2</span><b>23 °C</b></div>
+      <div data-hl="${cue('g16','difference')}"><span>Dry − wet bulb: 24 − 19</span><b>5 °C</b></div><div data-hl="${cue('g16','relative humidity')}"><span>Relative humidity (table)</span><b style="color:#1E7BC4">≈ 60%</b></div></div>
+     <div style="left:64px;top:536px" data-in="${cue('g17','Sixty')}"><span class="chip on">Exam skill: ZIMSEC 4022 · Cambridge 2217</span></div>`},
+ wind:{light:1,cta:1,
+   async draw(t,s){sky('#4E9BDA','#E3F1FA');cumulus(900,200,260,90,14,{n:90});const up=eio((t-s.start)/3),down=eio((t-cue('g20','rain gauge')+.6)/1.5);
+     const cam=down>0?camL([3,4,8],[4.6,.9,3.2],down):camL([4,2.4,9],[3,4,8],up),look=down>0?camL([-3.2,9.6,-1.5],[2.6,.25,1.2],down):camL([-1,3,-1],[-3.2,9.6,-1.5],up);
+     const vt=cue('g18','east');const o=ST.render({t,door:0,cam,look,fov:lerp(40,30,up)*(1-down)+40*down,vane:t<vt?Math.sin(t*.8)*.6:lerp(Math.sin(vt*.8)*.6,Math.PI/2,eio((t-vt)/1.2))});g.drawImage(o.cv,0,0,W,H);const P=o.P;
+     if(down>.9)dimLine(P(2.75,0,1.35),P(2.75,.3,1.35),'30 cm',clamp((t-cue('g20','thirty'))/.8),{dx:46});
+     const wr=clamp((t-cue('g20','wind rose'))/1.2);if(wr>0)windRose(1060,330,90,wr);
+     const ea=clamp((t-vt)/.6)*clamp((cue('g19')-t)/.5+1);if(ea>0){txt('WIND FROM THE EAST → "EASTERLY"',820,520,{bg:'rgba(8,24,44,.85)',col:'#F5D57A',font:'700 13px "Plex Mono"',a:ea})}},
+   dom:s=>`<div class="k" style="left:64px;top:96px">LESSON 04 · WIND &amp; RAIN</div><div class="h" style="left:64px;top:118px">Named for where<br><em>it comes from.</em></div>
+     <div class="glass" style="left:64px;top:250px;width:320px;padding:12px 16px;font-size:13.5px;line-height:1.5;color:var(--ink)" data-in="${cue('g19','ten metres')}"><b style="color:var(--sky-deep)">Standard height: 10 m</b><br>A school mast is a compromise. Note it in your write-up.</div>`},
+ drone:{light:0,cta:1,
+   async draw(t,s){const fpvEnd=cue('g22','The ground')-.2,c0=cue('g24')-.6,c1=c0+9.4;
+     const xs=async()=>{const KM=44,Y0=630,yk=k=>Y0-k*KM;const climb=clamp((t-cue('g22','rises'))/(cue('g23','dew point')-cue('g22','rises')+.5)),alt=t<c1?lerp(0,1.6,eio(climb)):1.6+eio((t-c1)/4)*.6;
+       const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#0B3A6E');gr.addColorStop(.45,'#3E8BD0');gr.addColorStop(1,'#BFDDF2');g.fillStyle=gr;g.fillRect(0,0,W,H);
+       const gg=g.createLinearGradient(0,Y0,0,H);gg.addColorStop(0,'#7C8F45');gg.addColorStop(1,'#4E5E2A');g.fillStyle=gg;g.fillRect(0,Y0,W,H-Y0);for(let i=0;i<9;i++){g.fillStyle='rgba(150,140,120,.9)';g.beginPath();g.ellipse(60+i*150,Y0+10,40+i%3*20,18+i%2*10,0,Math.PI,0);g.fill()}
+       for(let c=0;c<3;c++){const x0=760+c*90;for(let i=0;i<12;i++){const ph=((t*.6+i/12+c*.3)%1),y=Y0-10-ph*70*KM/44,w=Math.sin(ph*7+c)*8;g.save();g.globalAlpha=Math.sin(ph*Math.PI);g.strokeStyle=`rgba(${Math.round(lerp(255,190,ph))},${Math.round(lerp(140,170,ph))},${Math.round(lerp(60,150,ph))},.8)`;g.lineWidth=2.5;g.beginPath();g.moveTo(x0+w-12,y+8);g.quadraticCurveTo(x0+w,y-6,x0+w+12,y+8);g.stroke();g.restore()}}
+       const grow=eio((t-cue('g25','Cumulus'))/3.5),top=lerp(2.6,12,grow);if(grow<.05){cumulus(880,yk(1.6),220,KM*(1+.5*clamp((t-cue('g23','cloud'))/2)),21,{n:140})}else cumulonimbus(880,yk(1.6),yk(top),21);
+       cumulus(470,yk(1.6),180,70,31,{n:90});cumulus(1180,yk(1.7),140,60,33,{n:70});
+       const rn=clamp((t-cue('g25','fall as rain'))/1);if(rn>0){g.save();g.globalAlpha=rn;rainShaft(780,1000,yk(1.6),Y0,Math.floor(t*12),.55);g.restore()}
+       g.save();g.setLineDash([8,6]);g.strokeStyle='#F5D57A';g.lineWidth=2;g.globalAlpha=clamp((t-cue('g23','dew point'))/.6);g.beginPath();g.moveTo(200,yk(1.6));g.lineTo(1100,yk(1.6));g.stroke();g.restore();txt('DEW POINT · CLOUD BASE ≈ 1.6 km',330,yk(1.6)-16,{bg:'rgba(8,24,44,.8)',col:'#F5D57A',font:'600 12px "Plex Mono"',a:clamp((t-cue('g23','dew point'))/.6)});
+       for(let k=0;k<=12;k+=2){const y=yk(k),T=k<=1.6?31-9.8*k:31-9.8*1.6-6*(k-1.6);txt(k+' km',1208,y,{font:'600 11px "Plex Mono"',col:'#fff',bg:'rgba(8,24,44,.7)'});txt(Math.round(T)+' °C',1132,y,{font:'600 11px "Plex Mono"',col:k<1.6?'#FFB46A':'#9FD4FF',bg:'rgba(8,24,44,.7)'})}
+       const dx=640,dy=yk(alt)+6;g.save();g.translate(dx,dy+Math.sin(t*3)*2);g.fillStyle='#1B2433';g.beginPath();g.roundRect(-22,-8,44,16,6);g.fill();for(const sd of [-1,1]){g.fillRect(sd*22-2,-3,sd*18,4);g.fillStyle='rgba(220,230,240,.55)';g.beginPath();g.ellipse(sd*40,-6,18*Math.abs(Math.sin(t*40+sd)),3,0,0,7);g.fill();g.fillStyle='#1B2433'}g.fillStyle='#F5D57A';g.beginPath();g.arc(0,8,4,0,7);g.fill();g.restore();
+       DR={alt,T:alt<=1.6?31-9.8*alt:15.3-6*(alt-1.6),rh:Math.round(lerp(38,99,clamp(alt/1.6)))}};
+     const fpv=async()=>{await portraitClip(g,'fpv',454,30,s.start-.2,t,'DRONE CAM')};const cld=async()=>{await clipAt(g,'cloud',213,22.5,c0,t,0,0,W,H,1.03)};
+     if(t<fpvEnd)await fpv();else if(t<c0){await fpv();await xL(t,fpvEnd,.8,xs)}else if(t<c1){await xs();await xL(t,c0,.6,cld)}else{await cld();await xL(t,c1,.8,xs)}
+     if(t>=c0-.1&&t<c1+.8){const fg=1-Math.abs((t-c0-.6)/.6);if(fg>0){g.save();g.fillStyle=`rgba(255,255,255,${clamp(fg)*.6})`;g.fillRect(0,0,W,H);g.restore()}}},
+   dom:s=>`<div class="k" style="left:64px;top:96px" data-in="${cue('g22','The ground')}">LESSON 05 · IN THE CLOUDS</div><div class="h" style="left:64px;top:118px;font-size:44px" data-in="${cue('g22','The ground')+.2}">Rising air.<br><em>A cloud is born.</em></div>
+     <div class="dglass" id="hud" style="left:64px;top:250px;width:230px;padding:12px 16px;font:600 12px var(--mono);line-height:1.9" data-in="${cue('g22','rises')}"></div>
+     <div style="left:900px;top:150px;font:600 11px var(--mono);color:#fff;letter-spacing:.1em" data-in="${cue('g25','cumulonimbus')+.5}">ANVIL · ~12 km</div>`,
+   update(t){if(!DR)return;$('#hud').innerHTML=`<div style="color:var(--gold-hi);letter-spacing:.14em;font-size:10.5px">● DRONE · LIVE</div>ALT&nbsp;&nbsp;&nbsp;${Math.round(DR.alt*1000).toLocaleString('en-GB')} m<br>TEMP&nbsp;&nbsp;${DR.T.toFixed(1)} °C<br>RH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${DR.rh} %<br>LIFT&nbsp;&nbsp;+${(2+Math.sin(t)*1.2).toFixed(1)} m/s ↑`}},
+ rain:{light:1,cta:1,
+   async draw(t,s){const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#EAF4FB');gr.addColorStop(1,'#D3E7F5');g.fillStyle=gr;g.fillRect(0,0,W,H);
+     const P3=[[64,cue('g26','convectional')],[452,cue('g27','Relief')],[840,cue('g27','Frontal')]];
+     P3.forEach(([x,at],i)=>{const k=eo((t-at+.3)/.8);if(k<=0)return;g.save();g.globalAlpha=k;g.translate(0,(1-k)*20);g.save();g.fillStyle='rgba(255,255,255,.78)';g.shadowColor='rgba(10,40,80,.25)';g.shadowBlur=30;g.beginPath();g.roundRect(x,150,376,330,18);g.fill();g.restore();
+       g.save();g.beginPath();g.roundRect(x,150,376,260,18);g.clip();const sk=g.createLinearGradient(0,150,0,410);sk.addColorStop(0,'#4A97D6');sk.addColorStop(1,'#BFDDF2');g.fillStyle=sk;g.fillRect(x,150,376,260);g.fillStyle='#7C8F45';
+       if(i===1){g.beginPath();g.moveTo(x,410);g.lineTo(x+120,410);g.lineTo(x+240,260);g.lineTo(x+376,410);g.closePath();g.fill();cumulus(x+200,265,170,90,31,{n:90});g.strokeStyle='rgba(30,123,196,.9)';g.lineWidth=3;const pr=clamp((t-at)/2);g.beginPath();g.moveTo(x+20,370);g.quadraticCurveTo(x+150,360,x+20+210*pr,370-100*pr);g.stroke()}else g.fillRect(x,380,376,30);
+       if(i===0){cumulus(x+190,290,190,150,40,{n:120});for(let q=0;q<3;q++){const ph=((t*.7+q*.33)%1);g.strokeStyle=`rgba(255,140,60,${Math.sin(ph*Math.PI)})`;g.lineWidth=3;g.beginPath();g.moveTo(x+140+q*40,375-ph*60);g.lineTo(x+140+q*40,345-ph*60);g.stroke()}}
+       if(i===2){g.fillStyle='rgba(30,123,196,.25)';g.beginPath();g.moveTo(x+376,410);g.lineTo(x+120,410);g.lineTo(x+376,250);g.fill();cumulus(x+250,260,230,60,50,{n:90});g.strokeStyle='rgba(255,140,60,.85)';g.lineWidth=3;g.beginPath();g.moveTo(x+40,390);g.lineTo(x+250,290);g.stroke()}
+       for(let q=0;q<40;q++){const rx=x+(i===1?120:i===2?170:130)+((q*37)%110),ry=300+(((q*53)+t*160)%100);g.strokeStyle='rgba(30,100,170,.5)';g.lineWidth=1.2;g.beginPath();g.moveTo(rx,ry);g.lineTo(rx-3,ry+12);g.stroke()}
+       g.restore();txt(['CONVECTIONAL','RELIEF','FRONTAL'][i],x+24,438,{align:'left',col:'#0E4F86',font:'700 14px "Plex Mono"'});txt(['≈ 90% OF OUR RAIN','EASTERN HIGHLANDS','WARM MEETS COLD'][i],x+282,438,{col:'#fff',bg:i===0?'#1E7BC4':'rgba(16,34,58,.7)',font:'700 10px "Plex Mono"'});
+       g.font='500 13.5px "Plus Jakarta Sans"';g.fillStyle='#10223a';g.fillText(['Hot ground → thermals → cumulonimbus','Moist wind forced up over mountains','Warm air rides up over cold air'][i],x+24,466);g.restore()});
+     const nk=eo((t-cue('g28','nimbostratus'))/.8);if(nk>0){g.save();g.globalAlpha=nk;const ns=g.createLinearGradient(0,500,0,560);ns.addColorStop(0,'#6E7C8E');ns.addColorStop(1,'#4A5668');g.fillStyle=ns;g.beginPath();g.roundRect(64,500,1152,56,14);g.fill();
+       for(let q=0;q<120;q++){const rx=70+q*9.6,ry=512+((q*7+t*60)%30);g.strokeStyle='rgba(255,255,255,.3)';g.beginPath();g.moveTo(rx,ry);g.lineTo(rx-3,ry+12);g.stroke()}g.restore();txt('NIMBOSTRATUS · thick grey layer · hides the sun · steady rain for hours',640,528,{font:'600 13px "Plex Mono"',a:nk})}},
+   dom:s=>`<div style="left:64px;top:96px;display:flex;align-items:baseline;gap:20px"><div class="k">LESSON 05 · HOW RAIN FORMS</div><div class="h" style="font-size:38px">Three ways <em>to make rain.</em></div></div>`},
+ clouds:{light:1,cta:1,
+   async draw(t,s){sky('#3E8FD4','#E3F1FA');const r=rng(9);for(let i=0;i<5;i++)cumulus(140+i*230+Math.sin(t*.1+i)*10,260+r()*120,180+r()*90,70+r()*40,60+i,{n:100});
+     const n=t<cue('g30','five')?clamp((t-cue('g29','oktas'))/1.6)*8:lerp(8,5,eio((t-cue('g30','five'))/.8));const k=clamp((t-cue('g29','oktas')+.3)/.6);if(k>0)oktaDial(1080,300,80,n,k)},
+   dom:s=>`<div class="k" style="left:64px;top:96px">LESSON 05 · READING THE SKY</div><div class="h" style="left:64px;top:118px">Name it.<br><em>Count it in oktas.</em></div>
+     <div class="glass" style="left:64px;top:250px;width:300px;padding:12px 16px;font-size:13.5px;line-height:1.6;color:var(--ink)" data-in="${cue('g29','Zero')}"><b>0</b> clear · <b>4</b> half · <b>8</b> overcast<br><span style="color:var(--mute)">1 okta = one eighth of the sky</span></div>`},
+ data:{light:0,cta:1,
+   async draw(t,s){const gs=cue('g33','NASA')-.4,ge=cue('g34')-.3;
+     const base=async()=>{const gr=g.createRadialGradient(800,360,40,800,360,900);gr.addColorStop(0,'#1A3A66');gr.addColorStop(1,'#071428');g.fillStyle=gr;g.fillRect(0,0,W,H);dust(t,80,8,'#9FD4FF',{maxR:2,alpha:.5,vx:2,vy:-1});rainBars(620,520,560,300,clamp((t-cue('g34','farmers'))/1.6),clamp((t-cue('g32'))/.8))};
+     const sp=async()=>{await portraitClip(g,'space',240,24,gs,t,'SATELLITE VIEW',820)};
+     if(t<gs)await base();else if(t<ge){await base();await xL(t,gs,.7,sp)}else{await sp();await xL(t,ge,.7,base)}},
+   dom:s=>`<div class="k" style="left:64px;top:96px">WHY RECORD IT?</div><div class="h" style="left:64px;top:118px">Data <em>saves lives.</em></div>
+     ${[['USA · CoCoRaHS','School rain gauges have helped forecasters issue flood warnings.','g32','CoCoRaHS'],['NASA · GLOBE','Students’ cloud reports are checked against satellites.','g33','NASA'],['UK SCHOOLS','Stations used to compare microclimates in fieldwork.','g33','Britain'],['ZIMBABWE','Farmers ask: when will the rains come?','g34','farmers']].map(([t2,d,l,w],i)=>`<div class="glass card" style="left:64px;top:${240+i*92}px;width:440px;padding:10px 16px" data-in="${cue(l,w)-.2}"><div class="t">${t2}</div><small>${d}</small></div>`).join('')}`},
+ edu5:{light:1,cta:1,
+   async draw(t,s){const gr=g.createRadialGradient(640,380,40,640,380,800);gr.addColorStop(0,'#F7FBFE');gr.addColorStop(1,'#D6E9F6');g.fillStyle=gr;g.fillRect(0,0,W,H);dust(t,40,5,'#9FD4FF',{maxR:6});
+     const k=eo((t-cue('g35','Teaching')+.3)/1);g.save();g.globalAlpha=k;g.strokeStyle='rgba(30,123,196,.25)';g.lineWidth=2;for(let i=0;i<5;i++){const a=-Math.PI/2+i*Math.PI*2/5;g.beginPath();g.moveTo(780,370);g.lineTo(780+Math.cos(a)*230,370+Math.sin(a)*190);g.stroke()}g.restore()},
+   dom:s=>`<div class="k" style="left:64px;top:96px">EDUCATION 5.0</div><div class="h" style="left:64px;top:118px">A white box<br><em>is a research lab.</em></div>
+     <div class="glass" style="left:680px;top:330px;width:200px;height:80px;display:grid;place-items:center;text-align:center;border:2px solid var(--gold)" data-in="${cue('g35','heritage')}"><div><b style="font:400 20px var(--serif);color:var(--navy)">Heritage</b><br><small style="font-size:11.5px;color:var(--mute)">Our climate</small></div></div>
+     ${[['Teaching','Lessons at the station'],['Research','Daily records, real data'],['Community service','Rain news for farmers'],['Innovation','Build sensors, apps'],['Industrialisation','Skills for agriculture']].map(([n,d],i)=>{const a=-Math.PI/2+i*Math.PI*2/5;return `<div class="glass pillar" style="left:${680+Math.cos(a)*230}px;top:${330+Math.sin(a)*190}px" data-in="${cue('g35',i?n.split(' ')[0].toLowerCase():n)}"><b>${n}</b><small>${d}</small></div>`}).join('')}`},
+ careers:{light:0,cta:1,
+   async draw(t,s){const gr=g.createRadialGradient(640,360,40,640,360,800);gr.addColorStop(0,'#13294A');gr.addColorStop(1,'#060E1C');g.fillStyle=gr;g.fillRect(0,0,W,H);dust(t,90,5,'#9FD4FF',{maxR:2,alpha:.4,vx:2,vy:-1});
+     const C=[730,345],B=[['Weather & climate','#9FD4FF',-62,'UZ · BSc Meteorology & Climate Science','MSD forecaster · aviation weather','g38','Meteorology','g39','forecaster'],['Maps & satellites','#7FE0C4',-12,'UZ / CUT / MSU · GIS & Earth Observation','ZINGSA · GIS analyst','g38','GIS','g39','GIS analyst'],
+       ['Water','#6FB6FF',38,'UZ / MSU · Land & Water Resources','ZINWA · hydrologist','g38','universities','g39','hydrologist'],['Farming','#B6E06F',72,'Agricultural sciences','AGRITEX · extension officer','g38','universities','g39','agricultural'],['Disasters','#FF9A6F',142,'BUSE · Disaster Management','Civil Protection','g38','universities','g39','disaster'],['Geography & environment','#F5D57A',192,'MSU / GZU / ZOU · Geography','EMA · environmental officer','g38','Geography','g39','environmental']];
+     const node=(x,y,rad,col,label,o={})=>{if((o.a??1)<=0)return;g.save();g.globalAlpha=o.a??1;g.shadowColor=col;g.shadowBlur=o.glow||18;g.fillStyle=col;g.beginPath();g.arc(x,y,rad,0,7);g.fill();g.restore();if(label)txt(label,x+(o.dx||0),y+(o.dy??rad+14),{font:o.font||'600 12px "Plex Mono"',col:o.tcol||'#fff',align:o.align||'center',a:o.a})};
+     const link=(a,b,col,k,w=1.4)=>{if(k<=0)return;g.save();g.strokeStyle=col;g.globalAlpha=.6;g.lineWidth=w;g.beginPath();g.moveTo(a[0],a[1]);g.lineTo(lerp(a[0],b[0],eo(k)),lerp(a[1],b[1],eo(k)));g.stroke();g.restore()};
+     const c0=eo((t-s.start-.3)/.8);node(C[0],C[1],34*c0,'#E2B93B','',{glow:40,a:c0});if(c0>.5){txt('O LEVEL',C[0],C[1]-8,{font:'700 11px "Plex Mono"',col:'#13215a'});txt('GEOGRAPHY',C[0],C[1]+8,{font:'700 11px "Plex Mono"',col:'#13215a'})}
+     B.forEach(([name,col,ang,prog,job,l1,w1,l2,w2],bi)=>{const a=ang*Math.PI/180,p=[C[0]+Math.cos(a)*170,C[1]+Math.sin(a)*120],q=[C[0]+Math.cos(a)*290,C[1]+Math.sin(a)*165],j=[C[0]+Math.cos(a)*400,C[1]+Math.sin(a)*215];
+       const k1=clamp((t-cue('g37')-bi*.25)/.8),k2=clamp((t-cue(l1,w1)-bi*.15)/.8),k3=clamp((t-cue(l2,w2))/.8);const steep=Math.abs(Math.sin(a))>.6,al=steep?'left':Math.cos(a)<-.3?'right':Math.cos(a)>.3?'left':'center';
+       link(C,p,col,k1,2);link(p,q,col,k2);link(q,j,col,k3);node(p[0],p[1],11,col,name,{font:'700 12.5px "Plus Jakarta Sans"',dy:steep?0:(Math.sin(a)<0?-20:22),dx:steep?-16:0,align:steep?'right':'center',a:clamp(k1*2-1)});
+       node(q[0],q[1],5,col,prog,{font:'500 10.5px "Plex Mono"',tcol:'rgba(255,255,255,.8)',dy:steep?0:-17,dx:steep?12:al==='left'?-6:al==='right'?6:0,align:al,a:clamp(k2*2-1)});
+       node(j[0],j[1],7,col,job,{font:'700 11px "Plex Mono"',tcol:col,dy:steep?0:21,dx:steep?14:al==='left'?-8:al==='right'?8:0,align:al,a:clamp(k3*2-1)})})},
+   dom:s=>`<div class="k" style="left:64px;top:110px">CAREERS · MIND MAP PROSPECTUS</div><div class="h" style="left:64px;top:132px;font-size:40px">Where the sky<br><em>can take you.</em></div>
+     <div style="left:64px;top:560px;font-size:10.5px;color:rgba(255,255,255,.55);width:300px" data-in="${s.start+1}">Programme names from university listings. Confirm with each university before applying.</div>`},
+ school:{light:1,cta:1,
+   async draw(t,s){sky('#3E8FD4','#DCEEFA');cumulus(900,170,300,100,7);cumulus(400,140,220,70,9);const a=t*.08;const o=ST.render({t,door:0,cam:[Math.sin(a)*16,6,Math.cos(a)*16],look:[0,2.4,0],fov:42,shift:.12});g.drawImage(o.cv,0,0,W,H);dust(t,40,2,'#FFFFFF',{maxR:5})},
+   dom:s=>`<div class="k" style="left:64px;top:150px" data-in="${s.start+.3}">AT ROYAL CREST</div><div class="h" style="left:64px;top:172px" data-in="${cue('g40','Form One')}">It starts<br><em>in Form 1.</em></div>
+     <div style="left:64px;top:300px;width:460px" data-in="${cue('g40','Geography')}"><span class="chip on">Geography + a working weather station</span><span class="chip">ZIMSEC</span><span class="chip">Cambridge</span></div>`},
+ parents:{light:0,cta:1,
+   async draw(t,s){await clipAt(g,'walk',240,24,s.start-2,t,0,0,W,H,1.08);const ov=g.createLinearGradient(0,0,W,0);ov.addColorStop(0,'rgba(8,24,44,.8)');ov.addColorStop(.5,'rgba(8,24,44,.35)');ov.addColorStop(1,'rgba(8,24,44,0)');g.fillStyle=ov;g.fillRect(0,0,W,H)},
+   dom:s=>`<div class="k" style="left:64px;top:150px" data-in="${s.start+.3}">GRADE 7 PARENTS</div><div class="h" style="left:64px;top:174px;font-size:60px" data-in="${s.start+.5}" data-fx="blur">Grade 7 <span style="color:var(--gold);font-family:var(--sans);font-size:40px">→</span><br><em>Form 1, 2027.</em></div>
+     <div style="left:66px;top:330px;font:italic 400 30px var(--serif);color:#fff" data-in="${cue('g43')}">Come and read the sky with us.</div>
+     <div style="left:64px;top:390px;height:30px;padding:0 14px;border-radius:6px;background:var(--gold);color:var(--navy);font:800 12.5px var(--sans);letter-spacing:.14em;display:flex;align-items:center" data-in="${cue('g42','limited')}">2027 INTAKE · LIMITED PLACES</div>`},
+ outro:{light:1,cta:0,
+   async draw(t,s){sky('#5FA7E0','#EAF4FB');cumulus(900,200,360,120,3);const im=await img('../assets/crest.jpg'),k=eo((t-s.start)/1.2),R=230*lerp(.9,1,k);g.save();g.globalAlpha=k;g.fillStyle='#fff';g.shadowColor='rgba(10,40,80,.3)';g.shadowBlur=60;g.beginPath();g.arc(920,350,R,0,7);g.fill();g.restore();
+     g.save();g.globalAlpha=k;g.beginPath();g.arc(920,350,R-8,0,7);g.clip();if(im)g.drawImage(im,920-R*.92,350-R*.92,R*1.84,R*1.84);g.restore()},
+   dom:s=>`<div class="h" style="left:64px;top:150px;font-size:58px" data-in="${s.start+.3}">Royal Crest Academy</div><div style="left:66px;top:222px;font:800 14.5px var(--sans);letter-spacing:.28em;color:var(--sky)" data-in="${s.start+.5}">SCIENCE · INNOVATION · SKILL</div>
+     <div style="left:64px;top:262px" data-in="${s.start+.7}"><span class="pillb y">Geography · Form 1 · 2027</span></div><div style="left:64px;top:318px" data-in="${s.start+.9}"><span class="pillb n">0714 404 090</span></div>
+     <div style="left:66px;top:378px;font-size:13.5px;color:var(--mute)" data-in="${s.start+1.1}">www.royalcrest.co.zw · Bikita, Masvingo</div>
+     <div style="left:64px;top:418px;font:italic 400 34px/1.1 var(--serif);color:var(--navy)" data-in="${cue('g45')-.2}" data-fx="blur">Look up.<br><span style="color:var(--sky)">The sky is a lesson.</span></div>`},
+};
+
+/* ---------- crossfade helper on the shared layer ---------- */
+const POOL={};function layer(id){let L=POOL[id];if(!L){const c=document.createElement('canvas');c.width=CW;c.height=CH;const q=c.getContext('2d');q.scale(1.5,1.5);L=POOL[id]={c,g:q}}L.g.save();L.g.setTransform(1,0,0,1,0,0);L.g.clearRect(0,0,CW,CH);L.g.restore();return L}
+async function xL(t,at,dur,B){const k=eio((t-at)/dur);if(k<=0)return;const prev=g,L=layer('_x'+dur+at.toFixed(2).slice(-3));g=L.g;await B();g=prev;g.save();g.setTransform(1,0,0,1,0,0);g.globalAlpha=k;g.drawImage(L.c,0,0);g.restore()}
+
+/* ---------- build DOM ---------- */
+const ORDER=TL.scenes.map(s=>s.id);
+$('#rail').innerHTML=LNAMES.map((l,i)=>`<div><i><u></u></i>0${i+1} ${l}</div>`).join('');
+ORDER.forEach(id=>{const d=document.createElement('div');d.className='sc';d.id='s_'+id;d.innerHTML=SC[id].dom(SCN[id]);d.style.opacity=0;$('#scenes').appendChild(d);d.querySelectorAll('[data-in]').forEach(e=>{e.style.opacity=0})});
+TL.lines.forEach(l=>{const parts=l.cap.match(/[^.!?]+[.!?”’]*\s*/g)||[l.cap];const out=[];let cur='';for(const p of parts){if((cur+p).length>92&&cur){out.push(cur.trim());cur=p}else cur+=p}if(cur.trim())out.push(cur.trim());
+  const tot=out.reduce((a,b)=>a+b.length,0);let acc=0;l.ch=out.map(txt=>{const st=l.start+(l.end-l.start)*acc/tot;acc+=txt.length;return{txt,st}})});
+const esc=s=>s.replace(/[&<]/g,c=>({'&':'&amp;','<':'&lt;'}[c]));
+const NAMES={TEN:['T','TEACHER TENDAI · GEOGRAPHY'],SAM:['S','SAM · COMMENTARY']};let lastCap='';
+
+/* ---------- main render ---------- */
+window.renderAt=async function(t){
+  const Wt={};for(const s of TL.scenes)Wt[s.id]=clamp((t-s.start+.35)/.7)*clamp((s.end-t+.35)/.7);
+  const vis=ORDER.filter(id=>Wt[id]>0),main=vis.reduce((a,b)=>Wt[b]>=(Wt[a]??-1)?b:a,vis[0]);
+  const G=$('#bgc').getContext('2d');G.setTransform(1,0,0,1,0,0);G.clearRect(0,0,CW,CH);let acc=0;
+  for(const id of [...vis].sort((a,b)=>SCN[a].start-SCN[b].start)){const L=layer(id);g=L.g;await SC[id].draw(t,SCN[id]);acc+=Wt[id];G.globalAlpha=acc>0?Wt[id]/acc:1;G.drawImage(L.c,0,0);G.globalAlpha=1}
+  $('#f').classList.toggle('light',!!SC[main].light);
+  for(const id of ORDER){const el=$('#s_'+id),w=Wt[id];el.style.opacity=w;el.style.visibility=w>0?'visible':'hidden';if(w<=0)continue;
+    el.querySelectorAll('[data-in]').forEach(e=>{const k=eo((t-e.dataset.in)/.7),o=e.dataset.out?clamp((e.dataset.out-t)/.5):1;e.style.opacity=k*o;e.style.translate=`0 ${(1-k)*18}px`;if(e.dataset.fx==='blur')e.style.filter=`blur(${(1-k)*10}px)`});
+    el.querySelectorAll('[data-hl]').forEach(e=>{e.style.opacity=lerp(.3,1,eo((t-e.dataset.hl)/.5))});SC[id].update&&SC[id].update(t)}
+  const ls=LESSON[main]||0;$('#rail').querySelectorAll('div').forEach((d,i)=>{const n=i+1,ids=Object.keys(LESSON).filter(k=>LESSON[k]===n),a=SCN[ids[0]].start,b=SCN[ids[ids.length-1]].end;const p=t<a?0:t>b?1:(t-a)/(b-a);d.querySelector('u').style.width=(p*100)+'%';d.classList.toggle('on',n===ls)});
+  $('#rail').style.opacity=clamp(Object.keys(LESSON).reduce((q,k)=>q+(Wt[k]||0),0));
+  let cta=0,ws=0;for(const id of vis){cta+=Wt[id]*SC[id].cta;ws+=Wt[id]}$('#cta').style.opacity=ws?cta/ws:0;
+  $('#leak').style.background=`radial-gradient(520px 520px at ${1150+Math.sin(t*.25)*60}px ${40+Math.cos(t*.2)*30}px,rgba(255,240,210,.4),transparent 70%)`;
+  $('#grain').style.backgroundPosition=`${Math.floor(t*30*97)%240}px ${Math.floor(t*30*53)%240}px`;
+  let L=null;for(const l of TL.lines){if(t>=l.start-.05&&t<l.end+.9)L=l}
+  const low=$('#lower'),prev=TL.lines.filter(l=>l.end<t).pop();low.style.opacity=L?eo((t-L.start+.3)/.35):prev?clamp(1-(t-prev.end-.9)/.3):0;
+  if(L){const who=L.who,ch=L.ch.filter(c=>t>=c.st-.05).pop()||L.ch[0],key=L.id+ch.txt;if(key!==lastCap){$('#av').className=who;$('#av').textContent=NAMES[who][0];$('#cap').innerHTML=esc(ch.txt);lastCap=key}
+    $('#who').innerHTML=NAMES[who][1]+(t<L.end?'<i>'+[0,1,2,3].map(i=>`<u style="height:${3+7*Math.abs(Math.sin(t*11+i*1.9))}px"></u>`).join('')+'</i>':'');const k=eo((t-ch.st)/.35);$('#cap').style.opacity=k;$('#cap').style.translate=`0 ${(1-k)*6}px`}
+  const st=$('#sticker');let sk=0,stxt='';for(const l of TL.lines){if(!/^Wait/.test(l.cap))continue;const d=t-l.start;if(d>-.1&&d<2.2){sk=back(d/.35)*clamp((2.2-d)/.3);stxt=l.cap.includes('door')?'WHICH WAY DOES IT FACE?':'WE’RE INSIDE THE CLOUD!'}}
+  st.style.opacity=clamp(sk);st.style.transform=`rotate(-5deg) scale(${lerp(.4,1,clamp(sk,0,1.2))})`;if(stxt)st.lastChild.textContent=stxt;
+};
+window.ready=(async()=>{await Promise.all(['600 14px "Plex Mono"','500 14px "Plex Mono"','700 14px "Plex Mono"','500 14px "Plus Jakarta Sans"','700 14px "Plus Jakarta Sans"','400 40px Newsreader','italic 400 40px Newsreader'].map(x=>document.fonts.load(x)));await document.fonts.ready;await img('../assets/crest.jpg');return true})();
+</script></body></html>

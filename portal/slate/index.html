@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Crest Slate</title>
+<meta name="description" content="Royal Crest Academy's maths canvas: write, snap a question, and get step-by-step help.">
+<link rel="icon" href="/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<link rel="stylesheet" href="slate.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="../#/overview" title="Back to the portal"><img src="/studio/assets/brand/crest-640.webp" alt=""><span><b>Crest <em>Slate</em></b><small>MATHS CANVAS</small></span></a>
+  <div class="top-mid">
+    <label class="sel"><span>Syllabus</span><select id="level">
+      <option value="cambridge-igcse">Cambridge IGCSE (0580)</option>
+      <option value="cambridge-olevel">Cambridge O Level (4024)</option>
+      <option value="zimsec-olevel">ZIMSEC O Level (4004)</option></select></label>
+    <button class="ghost" id="bank-open" type="button">Question bank</button>
+  </div>
+  <span class="pill" id="ai-pill" title="">Checking…</span>
+</header>
+
+<main class="wrap">
+  <nav class="rail" aria-label="Tools">
+    <button class="tool on" data-tool="pen" title="Pen (P)"><svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 6l3 3"/></svg></button>
+    <button class="tool" data-tool="hl" title="Highlighter (H)"><svg viewBox="0 0 24 24"><path d="M9 15l-4 4h6l1-1M9 15l7-11 4 3-7 11z"/></svg></button>
+    <button class="tool" data-tool="eraser" title="Eraser (E)"><svg viewBox="0 0 24 24"><path d="M7 20h11M5 15l9-10 6 6-8 9H8z"/></svg></button>
+    <button class="tool" data-tool="line" title="Ruler: straight line (L)"><svg viewBox="0 0 24 24"><path d="M4 20L20 4"/><circle cx="4" cy="20" r="1.6"/><circle cx="20" cy="4" r="1.6"/></svg></button>
+    <button class="tool" data-tool="move" title="Move the photo (M)"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg></button>
+    <button class="tool read" data-tool="read" title="Read: drag a box around a question (R)"><svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3"/><path d="M8 10h8M8 14h5"/></svg></button>
+    <span class="sep"></span>
+    <label class="tool" title="Add a photo of a question"><input type="file" id="file" accept="image/*" capture="environment" hidden><svg viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg></label>
+    <button class="tool" id="plot-btn" title="Plot a graph, e.g. y = 2x + 1"><svg viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M6 17c3-9 6-9 8-4s3 2 5-6"/></svg></button>
+    <span class="sep"></span>
+    <button class="tool" id="undo" title="Undo (Ctrl+Z)"><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 010 10h-3"/></svg></button>
+    <button class="tool" id="redo" title="Redo (Ctrl+Y)"><svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5"/><path d="M20 9H9a5 5 0 000 10h3"/></svg></button>
+    <button class="tool" id="clear" title="Clear the page"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg></button>
+    <button class="tool" id="save" title="Save as a picture"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button>
+    <span class="sep"></span>
+    <div class="inks" id="inks"></div>
+    <input type="range" id="size" min="1" max="12" value="3" title="Pen size" aria-label="Pen size">
+  </nav>
+
+  <section class="board">
+    <div class="templates" id="templates" role="radiogroup" aria-label="Page template"></div>
+    <div class="frame" id="frame"><canvas id="cv"></canvas><div class="hintbox" id="hintbox"></div></div>
+  </section>
+
+  <aside class="panel">
+    <div class="card">
+      <div class="lab"><span>Question</span><select id="topic" aria-label="Topic"><option value="">Topic: let Slate decide</option></select></div>
+      <textarea id="q" rows="4" placeholder="Type a question, add a photo, or use Read to grab one from the page. e.g. Solve 3x + 2 = 17"></textarea>
+      <div class="keys" id="keys"></div>
+      <div class="preview" id="qprev"></div>
+      <div class="go">
+        <button class="primary" id="solve" type="button">Solve step by step</button>
+        <button class="soft" id="hint" type="button">Hint</button>
+        <button class="soft" id="check" type="button">Check my working</button>
+      </div>
+      <div class="working" id="working-box" hidden>
+        <div class="lab"><span>Your working</span><button class="link" id="read-working" type="button">Read it from the page</button></div>
+        <textarea id="working" rows="4" placeholder="Write your lines, e.g.&#10;3x = 15&#10;x = 5"></textarea>
+        <button class="primary" id="check-go" type="button">Mark my working</button>
+      </div>
+    </div>
+    <div class="card out" id="out" hidden></div>
+    <p class="note">Think first, then check. Crest Slate’s AI (<span id="model-name">phi4-mini</span>) runs on the school’s own server and can make mistakes, so Slate double-checks equation answers itself.</p>
+  </aside>
+</main>
+
+<div class="drawer" id="bank" hidden>
+  <div class="drawer-in">
+    <div class="drawer-hd"><b>Cambridge question bank</b><button class="ghost" id="bank-close" type="button">Close</button></div>
+    <p class="sub">Practice questions in the style of Cambridge IGCSE (0580) and O Level (4024), across all nine topic areas. Tap one to put it on the slate.</p>
+    <div id="bank-list"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="../js/config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.2/math.min.js" defer></script>
+<script src="slate.js" defer></script>
+</body>
+</html>

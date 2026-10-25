@@ -14,19 +14,25 @@ ready-made WhatsApp caption for each.
 | 25 clubs, sports and indoor games × 4 types (spotlight, fun fact, quiz, quiz answer) | 100 |
 | "Molecule of the week" (PubChem + RDKit) | 17 |
 | Series posters (portrait, A4, story; five of them also square) | 6 |
-| Social media posts (portrait only) | 16 |
+| Social media posts (portrait; Mandarin and verse posts also square) | 23 |
 
-That is up to 267 flyers per template and size, and about 7,400 combinations in
+That is up to 290 flyers per template and size, and about 7,400 combinations in
 all. Every combination is checked to fit.
 
 ### Social media posts
 
-Sixteen ready-made designs for the Facebook and Instagram feed (portrait 4:5,
+Twenty-three ready-made designs for the Facebook and Instagram feed (portrait 4:5,
 1080 × 1350), under **Social media posts** at the top of the list: Boarding
 pass, Fees receipt, Periodic table, Newspaper front page, Skill tree (game),
 Boarders’ menu, Lock-screen alerts, Parents’ quiz, Weather forecast, Polaroid
 board, Movie poster, Recipe card, Chess: next move, Treasure map, Chalkboard
-equation and Playlist. Like the series posters they have their own fixed
+equation and Playlist, plus five for Mandarin Connect: picture characters, count
+to ten, the Great Wall, a 谢谢 quiz (answer printed upside down) and writing 中.
+The Mandarin posts show the phone number in full (+263) and use small subsets
+of two OFL fonts (Ma Shan Zheng, Noto Serif SC) for the Chinese characters.
+**Verse of the day** uses the Prospectus template's look with no phone or
+enrolment lines; change the date, theme, verse and prayer with *Edit text*.
+**Verse of the day (pink)** is the same post in blush and berry. Like the series posters they have their own fixed
 design, so the template choice does not apply. *Edit text* works on every line,
 the phone number follows *School details*, and each comes with a caption. The
 markup is in `js/posts.js` and the styles in `css/posts.css`. Facts on them
@@ -44,6 +50,13 @@ posting if the prospectus changes.
 
 Their wording is fixed and spelled exactly as in the brief. They have their own
 design, so the template choice does not apply to them.
+
+## Caption Desk
+
+`/studio/captions/`: sign in with a Control Room (staff) account, say what the post is about and which kind it is
+(school post, film, lesson or quiz, event, devotion, reply to a comment), and the hub's own model writes a Facebook,
+WhatsApp or Instagram caption in the house style, plus a WhatsApp Status line and hashtags. Devotions never get the
+phone number or enrolment lines. Needs `CAPTIONS_LLM=ollama` (or `KUDZI_LLM=ollama`) on the hub.
 
 ## Open the studio
 

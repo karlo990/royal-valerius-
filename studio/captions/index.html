@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Caption Desk</title>
+<link rel="icon" href="/favicon.png">
+<style>
+/* Caption Desk: house-style captions from the hub's own model (POST /api/v1/captions). Staff sign-in. */
+@font-face { font-family: RcSerif; font-weight: 400 700; src: url(/assets/fonts/newsreader-latin.woff2) format("woff2"); }
+@font-face { font-family: RcSerif; font-style: italic; font-weight: 400 700; src: url(/assets/fonts/newsreader-italic-latin.woff2) format("woff2"); }
+@font-face { font-family: RcSans; font-weight: 200 800; src: url(/assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2"); }
+:root { --navy: #0a1f5c; --deep: #071640; --gold: #c9a227; --gold2: #f2b705; --paper: #f6f1e6; --card: #fffdf8; --line: #e4dccb; --ink: #1a2340; --muted: #5d6680; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; background: radial-gradient(900px 600px at 0% 0%, #fff8e6, transparent 60%), var(--paper); font-family: RcSans, system-ui, sans-serif; color: var(--ink); }
+button, input, select, textarea { font: inherit; color: inherit; }
+header { display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: linear-gradient(100deg, var(--deep), var(--navy)); color: #fff; box-shadow: 0 2px 0 var(--gold); }
+header img { height: 40px; }
+header b { display: block; font: 500 22px/1 RcSerif, serif; } header b em { color: var(--gold2); }
+header small { display: block; margin-top: 3px; font-size: 10px; font-weight: 800; letter-spacing: .28em; color: #c9d4f0; }
+header .who { margin-left: auto; font-size: 13px; color: #c9d4f0; } header .who button { margin-left: 8px; background: none; border: 1px solid rgba(255,255,255,.35); color: #fff; border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+main { max-width: 1100px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.card { background: var(--card); border-radius: 18px; padding: 18px; box-shadow: 0 10px 30px -20px rgba(10,31,92,.5), inset 0 0 0 1px var(--line); }
+h2 { margin: 0 0 12px; font: 500 26px RcSerif, serif; color: var(--navy); } h2 em { color: #a8841a; }
+label { display: block; margin: 12px 0 6px; font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: #a8841a; }
+input, select, textarea { width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #fff; font-size: 15px; }
+textarea { resize: vertical; line-height: 1.45; }
+.row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { border: 1px solid var(--line); background: #fff; border-radius: 20px; padding: 7px 12px; font-size: 13px; font-weight: 700; color: var(--navy); cursor: pointer; }
+.chips button.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+.primary { margin-top: 16px; width: 100%; border: 0; border-radius: 12px; padding: 13px; background: var(--navy); color: #fff; font-weight: 800; cursor: pointer; }
+.primary:disabled { opacity: .6; cursor: wait; }
+.out { white-space: pre-wrap; font-size: 15px; line-height: 1.55; min-height: 220px; }
+.status { margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: #f3efe4; font-size: 14px; }
+.tags { margin-top: 10px; color: #1f4fb0; font-weight: 700; font-size: 14px; }
+.copy { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.copy button { border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 9px 12px; font-weight: 800; color: var(--navy); cursor: pointer; }
+.note { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.err { color: #8e1b26; font-weight: 700; font-size: 14px; margin-top: 10px; }
+.login { max-width: 420px; margin: 60px auto; }
+@media (max-width: 800px) { main { grid-template-columns: 1fr; padding: 12px; } .row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header><img src="/studio/assets/brand/crest-640.webp" alt=""><div><b>Caption <em>Desk</em></b><small>ROYAL CREST ACADEMY</small></div><div class="who" id="who"></div></header>
+
+<section class="card login" id="login" hidden>
+  <h2>Sign in</h2>
+  <p class="note">Use your Control Room (staff) username and password.</p>
+  <label for="u">Username</label><input id="u" autocomplete="username">
+  <label for="p">Password</label><input id="p" type="password" autocomplete="current-password">
+  <button class="primary" id="go">Sign in</button>
+  <div class="err" id="lerr"></div>
+</section>
+
+<main id="desk" hidden>
+  <section class="card">
+    <h2>What’s the <em>post?</em></h2>
+    <label>Kind</label>
+    <div class="chips" id="kind"><button data-v="post" class="on">School post</button><button data-v="film">Film</button><button data-v="lesson">Lesson / quiz</button><button data-v="event">Event</button><button data-v="devotion">Devotion</button><button data-v="reply">Reply to a comment</button></div>
+    <label for="about">About</label>
+    <textarea id="about" rows="4" placeholder="e.g. Our 3-minute Mandarin film: counting to ten and writing first characters"></textarea>
+    <label for="facts">Facts to include exactly (optional)</label>
+    <textarea id="facts" rows="4" placeholder="e.g. 一 to 十 · 人 山 日 木 · quiz: what is 三 + 五?"></textarea>
+    <div class="row">
+      <div><label for="platform">Platform</label><select id="platform"><option value="facebook">Facebook</option><option value="whatsapp">WhatsApp</option><option value="instagram">Instagram</option></select></div>
+      <div><label for="length">Length</label><select id="length"><option value="short">Short</option><option value="long">Long</option></select></div>
+      <div><label>&nbsp;</label><button class="primary" id="write" style="margin-top:0">Write caption</button></div>
+    </div>
+    <div class="err" id="werr"></div>
+    <p class="note">The school’s own AI writes it in our house style: a strong first line, a few emojis, no “Wait”, the phone number on school posts and never on devotions. Always read it before posting: it only knows the facts you give it.</p>
+  </section>
+  <section class="card">
+    <h2>Your <em>caption</em></h2>
+    <div class="out" id="out">Your caption appears here.</div>
+    <div class="tags" id="tags"></div>
+    <div class="status" id="status" hidden></div>
+    <div class="copy"><button id="c1">Copy caption</button><button id="c2">Copy WhatsApp Status line</button></div>
+  </section>
+</main>
+
+<script src="/portal/js/config.js"></script>
+<script>
+(() => {
+  const C = window.RC_CONFIG || {}, HUB = (C.API_BASE || C.HUB || '').replace(/\/$/, ''), K = 'rc_caption_desk';
+  const $ = (s) => document.querySelector(s);
+  let ses = null; try { ses = JSON.parse(sessionStorage.getItem(K) || 'null'); } catch (e) { /* private */ }
+  const show = () => { $('#login').hidden = !!ses; $('#desk').hidden = !ses; $('#who').innerHTML = ses ? `${ses.name} <button id="out-btn">Sign out</button>` : '';
+    if (ses) $('#out-btn').onclick = () => { ses = null; try { sessionStorage.removeItem(K); } catch (e) {} show(); }; };
+  $('#go').onclick = async () => {
+    $('#lerr').textContent = '';
+    try {
+      const r = await fetch(`${HUB}/api/v1/admin/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: $('#u').value.trim(), password: $('#p').value }) });
+      const j = await r.json(); if (!r.ok) throw new Error(j.detail || 'Sign-in failed');
+      ses = { token: j.token, name: (j.user && j.user.name) || $('#u').value }; try { sessionStorage.setItem(K, JSON.stringify(ses)); } catch (e) {} show();
+    } catch (e) { $('#lerr').textContent = e.message === 'Failed to fetch' ? 'Couldn’t reach the hub.' : e.message; }
+  };
+  $('#p').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('#go').click(); });
+  let kind = 'post';
+  $('#kind').onclick = (e) => { const b = e.target.closest('button'); if (!b) return; kind = b.dataset.v; document.querySelectorAll('#kind button').forEach((x) => x.classList.toggle('on', x === b)); };
+  let last = { caption: '', status: '' };
+  $('#write').onclick = async () => {
+    const about = $('#about').value.trim(); if (about.length < 3) { $('#werr').textContent = 'Say what the post is about first.'; return; }
+    $('#werr').textContent = ''; const btn = $('#write'); btn.disabled = true; btn.textContent = 'Writing… (up to a minute)';
+    try {
+      const r = await fetch(`${HUB}/api/v1/captions`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${ses.token}` },
+        body: JSON.stringify({ about, facts: $('#facts').value.trim(), kind, platform: $('#platform').value, length: $('#length').value }) });
+      const j = await r.json().catch(() => ({}));
+      if (r.status === 401) { ses = null; show(); throw new Error('Please sign in again.'); }
+      if (!r.ok) throw new Error(j.detail || `Error ${r.status}`);
+      last = { caption: `${j.caption}\n\n${j.hashtags.join(' ')}`, status: j.status };
+      $('#out').textContent = j.caption; $('#tags').textContent = j.hashtags.join(' ');
+      $('#status').hidden = !j.status; $('#status').textContent = `WhatsApp Status: ${j.status}`;
+    } catch (e) { $('#werr').textContent = e.message; }
+    finally { btn.disabled = false; btn.textContent = 'Write caption'; }
+  };
+  const copy = async (t, b) => { if (!t) return; try { await navigator.clipboard.writeText(t); const o = b.textContent; b.textContent = 'Copied ✓'; setTimeout(() => { b.textContent = o; }, 1500); } catch (e) { prompt('Copy this:', t); } };
+  $('#c1').onclick = (e) => copy(last.caption, e.target); $('#c2').onclick = (e) => copy(last.status, e.target);
+  show();
+})();
+</script>
+</body>
+</html>

@@ -55,6 +55,9 @@ All of them need `Authorization: Bearer <token>` except `health` and `auth/login
 | POST | `/api/v1/crestbot/chat` `{student_id, message, history[], client}` → `{reply, actions[], suggestions[]}` | **Kudzi** |
 | GET | `/api/v1/crestbot/suggestions?student_id=` | Kudzi's quick-question chips |
 | POST | `/api/v1/crestbot/feedback` `{student_id, message, reply, helpful}` | thumbs up / down for training |
+| GET | `/api/v1/maths/status` → `{ai, model, topics[], levels, per_hour}` | **Crest Slate** (maths canvas): is the AI on? |
+| POST | `/api/v1/maths/solve` `{question, mode: solve\|hint\|check, working?, step?, topic?, level?}` | **Crest Slate**: steps, hints or marking from the Space's phi4-mini (learners, parents and staff; 40 an hour each) |
+| POST | `/api/v1/captions` `{about, facts?, kind: post\|film\|lesson\|event\|devotion\|reply, platform, length}` → `{caption, status, hashtags[]}` | **Caption Desk** (`/studio/captions/`): house-style captions from the Space's phi4-mini (staff sign-in; 60 an hour each) |
 | POST | `/api/v1/devices` `{platform, push_token, student_ids[]}` | **app**: register for push notifications |
 | GET | `/api/v1/sync?since=` → `{cursor, changes[]}` | **app**: delta feed for its offline cache |
 

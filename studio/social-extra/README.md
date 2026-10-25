@@ -21,3 +21,9 @@ The Open Day date isn't set anywhere yet; add it to the caption when it is fixed
 | `say-hello.html` / `post-say-hello-portrait.png` | "Say hello to the world": greetings in five languages as passport stamps, with the Mandarin and French facts |
 | `backdrop/step-and-repeat.html` / `backdrop/royal-crest-backdrop-3x2.4m.{pdf,png}` | Step-and-repeat media backdrop, 3 m × 2.4 m (PDF has vector text; PNG is 9000×7200) |
 | `backdrop/facebook-cover.html` / `backdrop/royal-crest-facebook-cover.png` | Facebook Page cover, 1640×924; key content inside the desktop safe band (open with `?guides` to see it) |
+| `rainfall-types.html` / `royal-crest-rainfall-types.{pdf,png}` + `_whatsapp.jpg` | "Three ways the sky makes rain": A4 flyer on convectional, relief and frontal rain (PNG is 300 dpi; render with `node ../video-geo/tools/flyer_shot.mjs rainfall-types.html royal-crest-rainfall-types`) |
+| `rainfall-square.html` / `royal-crest-make-it-rain.png` (2160²) + `_1080.jpg` | "3 ways to make it rain": square post, one panorama of convectional, relief and frontal rain (`node ../video-geo/tools/flyer_shot.mjs rainfall-square.html royal-crest-make-it-rain nopdf`) |
+| `rainfall-square.html?story` / `royal-crest-make-it-rain_story.png` + `_story_1080.jpg` | Story version (1080×1920) of "3 ways to make it rain"; top and bottom 250 px kept clear for the app buttons |
+| `verse-of-the-day-2026-10-24-{portrait,square}.jpg` | Verse of the day, 24 Oct 2026 (Jeremiah 29:11), exported from the studio post "Verse of the day" (edit the date and verse there for new days) |
+| `hairstyles/hairstyle-guide.html` / `hairstyles/Royal-Crest-Academy-Hairstyle-Guide-2027.{pdf,jpg}` | Approved hairstyles, A4 uniform guide: boys (fade, buzz cut), girls (straight-back cornrows, swept-back cornrows, braided bun) and the rules |
+| `verse-of-the-day-2026-10-25-pink-{portrait,square}.jpg` | Verse of the day (pink), Sunday 25 Oct 2026: "Trusting God for the vision", Proverbs 16:3 |

@@ -16,6 +16,7 @@
     star: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7"/>',
     phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+    slate: '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 13l2-4 2 4M8 11.5h2M14 9h4M16 7v4M14 14h4"/>',
   };
   const icon = (k) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`;
   const ROUTES = [
@@ -156,7 +157,8 @@
     route();
   }
   function shell() {
-    const nav = ROUTES.map(([k, l]) => `<a href="#/${k}" data-r="${k}">${icon(k)}<span>${l}</span></a>`).join('');
+    const nav = ROUTES.map(([k, l]) => `<a href="#/${k}" data-r="${k}">${icon(k)}<span>${l}</span></a>`).join('')
+      + `<a href="slate/${location.search}" title="Maths canvas: snap a question, get step-by-step help">${icon('slate')}<span>Crest Slate</span></a>`;   // the maths canvas (portal/slate/)
     $('#app').innerHTML = `
       <aside class="side">
         <a class="logo" href="${C.SITE}"><img src="/assets/img/crest-128.webp" alt=""><span><b>Crest Quest</b><small>Royal Crest Academy</small></span></a>
