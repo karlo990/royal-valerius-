@@ -322,10 +322,10 @@
   },
   {
    "id": "b12",
-   "scene": "portal",
+   "scene": "anydevice",
    "who": "SAM",
-   "say": "Crest Slate lives inside Crest Quest, our learner portal, right next to your marks, your timetable and your homework.",
-   "cap": "Crest Slate lives inside Crest Quest, our learner portal, right next to your marks, your timetable and your homework."
+   "say": "Open it on any tablet, laptop or phone. There's no app to install: just your browser.",
+   "cap": "Open it on any tablet, laptop or phone. There’s no app to install: just your browser."
   },
   {
    "id": "b13",
