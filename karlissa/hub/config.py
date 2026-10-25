@@ -83,3 +83,10 @@ MATHS_LLM_URL = _env("MATHS_LLM_URL", KUDZI_LLM_URL)
 MATHS_MODEL = _env("MATHS_MODEL", KUDZI_MODEL)
 MATHS_LLM_TIMEOUT = float(_env("MATHS_LLM_TIMEOUT", "110") or 110)
 MATHS_PER_HOUR = int(_env("MATHS_PER_HOUR", "40") or 40)
+
+# Caption Desk (/studio/captions/): Facebook/WhatsApp/Instagram captions from the same local model, staff only
+CAPTIONS_LLM = _env("CAPTIONS_LLM", KUDZI_LLM).lower()
+CAPTIONS_LLM_URL = _env("CAPTIONS_LLM_URL", KUDZI_LLM_URL)
+CAPTIONS_MODEL = _env("CAPTIONS_MODEL", KUDZI_MODEL)
+CAPTIONS_LLM_TIMEOUT = float(_env("CAPTIONS_LLM_TIMEOUT", "110") or 110)
+CAPTIONS_PER_HOUR = int(_env("CAPTIONS_PER_HOUR", "60") or 60)

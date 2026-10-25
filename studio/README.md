@@ -51,6 +51,13 @@ posting if the prospectus changes.
 Their wording is fixed and spelled exactly as in the brief. They have their own
 design, so the template choice does not apply to them.
 
+## Caption Desk
+
+`/studio/captions/`: sign in with a Control Room (staff) account, say what the post is about and which kind it is
+(school post, film, lesson or quiz, event, devotion, reply to a comment), and the hub's own model writes a Facebook,
+WhatsApp or Instagram caption in the house style, plus a WhatsApp Status line and hashtags. Devotions never get the
+phone number or enrolment lines. Needs `CAPTIONS_LLM=ollama` (or `KUDZI_LLM=ollama`) on the hub.
+
 ## Open the studio
 
 - **Online:** once the website is deployed, go to `www.royalcrest.co.zw/studio/`

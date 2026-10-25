@@ -1,8 +1,8 @@
 """Crest Slate maths endpoint. Run from the karlissa folder:  python -m pytest -q tests"""
 import json
 
-from hub import config, maths
-from tests.test_hub import client, portal, staff
+from tests.test_hub import client, portal, staff  # first: it sets up the test hub
+from hub import config, maths  # noqa: E402
 
 
 def test_needs_sign_in():

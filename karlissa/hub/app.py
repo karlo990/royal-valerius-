@@ -497,9 +497,11 @@ def register_status(body: RegStatusIn, request: Request):
 # ───────────────────────────── dashboard ─────────────────────────────
 from .admin import router as admin_router  # noqa: E402
 from .maths import router as maths_router  # noqa: E402
+from .captions import router as captions_router  # noqa: E402
 
 app.include_router(admin_router)
 app.include_router(maths_router)
+app.include_router(captions_router)
 app.mount("/admin/static", StaticFiles(directory=str(config.HERE / "static")), name="static")
 
 
