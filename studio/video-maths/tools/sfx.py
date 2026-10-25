@@ -48,10 +48,9 @@ add(BREEZE, SC['story']['start'], .25)
 for i, at in enumerate([1.2, 3.4, 6.8, 11.5, 16, 21]):
     if SC['story']['start'] + at < SC['story']['end']: add(BIRD, SC['story']['start'] + at, .5 - .05 * (i % 3))
 fall = cue('n02', 'falls') + .3
-add(THUD, fall, .9); add(RUSTLE, fall + .02, .4)
-# ---- transition: chalk doodles, whooshes
+add(THUD, fall, .9)
+# ---- transition: doodles, whooshes (no scratchy chalk, pencil, rustle or keys: the school asked for them out)
 d0 = cue('n05', 'think') - .2
-for i in range(8): add(CHALK, d0 + i * .55, .45 if i < 7 else .6)
 add(WHOOSH, SC['title']['start'] - .4, .6)
 # ---- lesson
 for i in range(5): add(POP, SC['title']['start'] + .4 + i * .12, .35)
@@ -65,7 +64,6 @@ add(CREAK, cue('m15', 'Open'), .6)
 for i in range(5): add(POP, cue('m17', 'Two baskets') + i * .15, .3)
 add(SOFTNO, cue('m19', 'No'), .8)
 add(CREAK, cue('m21', 'six'), .4); add(DING, cue('m22', 'twenty'), .5)
-for a in (cue('m25', 'three'), cue('m26', 'three'), cue('m27', 'x equals'), cue('m28', 'Check')): add(PENCIL, a - .1, .6)
 add(CREAK, cue('m27', 'five'), .4)
 ans = cue('m30'); t = L['m29']['end']
 while t < ans - .3: add(TICK, t, .6); t += .5
@@ -77,7 +75,6 @@ for sc in ('reveal', 'snap', 'checked', 'graph', 'marking', 'features', 'anydevi
 add(SHUTTER, cue('b04', 'photo'), 1.0)
 for w in ('step by step', 'hint', 'mark'): add(TAP, cue('b05', w) - .1, .8)
 add(CHIME, cue('b06', 'back into') - .1, .8)
-add(KEYS, cue('b07', 'Type') - .1, .55)
 add(SOFTNO, cue('b08', 'wrong'), .5)
 for i in range(9): add(POP, cue('b10', 'nine') + i * .22, .25)
 add(CHIME, cue('b11', 'own') - .2, .4)
