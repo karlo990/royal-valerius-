@@ -158,7 +158,7 @@
   }
   function shell() {
     const nav = ROUTES.map(([k, l]) => `<a href="#/${k}" data-r="${k}">${icon(k)}<span>${l}</span></a>`).join('')
-      + `<a href="slate/${location.search}" title="Maths canvas: snap a question, get step-by-step help">${icon('slate')}<span>Crest Slate</span></a>`;   // the maths canvas (portal/slate/)
+      + `<a href="/portal/slate/${location.search}" title="Maths canvas: snap a question, get step-by-step help">${icon('slate')}<span>Crest Slate</span></a>`;   // the maths canvas (portal/slate/)
     $('#app').innerHTML = `
       <aside class="side">
         <a class="logo" href="${C.SITE}"><img src="/assets/img/crest-128.webp" alt=""><span><b>Crest Quest</b><small>Royal Crest Academy</small></span></a>

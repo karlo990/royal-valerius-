@@ -354,7 +354,7 @@
     if (offline || !aiOn) {
       const r = mode === 'solve' ? localSolve(q) : null;
       if (r) { showSolve(q, r); return; }
-      out.hidden = false; out.innerHTML = `<h3>Slate needs the AI for this one</h3><p class="sub">${!token() && SL.SOLVER === 'hub' ? 'Sign in to the <a href="../">portal</a> first, then open Crest Slate from there.' : 'The school’s maths AI is switched off right now.'} The offline helper only solves equations (like 3x + 2 = 17 or x² − 5x + 6 = 0) and arithmetic.</p>`;
+      out.hidden = false; out.innerHTML = `<h3>Slate needs the AI for this one</h3><p class="sub">${!token() && SL.SOLVER === 'hub' ? 'Sign in to the <a href="/portal/">portal</a> first, then open Crest Slate from there.' : 'The school’s maths AI is switched off right now.'} The offline helper only solves equations (like 3x + 2 = 17 or x² − 5x + 6 = 0) and arithmetic.</p>`;
       return;
     }
     busy(mode === 'hint' ? 'Thinking of a hint…' : mode === 'check' ? 'Marking your working…' : 'Working it out… (the school’s AI can take up to a minute)');
