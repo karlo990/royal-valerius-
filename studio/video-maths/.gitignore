@@ -13,3 +13,5 @@ voice-kit/audio/
 voice-kit/voices.zip
 build/music.wav
 assets/clipfr/
+build/sfx/
+build/sfx.wav
