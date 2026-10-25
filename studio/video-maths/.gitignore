@@ -1,0 +1,14 @@
+node_modules
+audio/
+out/
+build/stills/
+build/*.mp4
+build/*.jpg
+build/render*.log
+build/parts*.txt
+.env
+music/
+build/music_arr.wav
+voice-kit/audio/
+voice-kit/voices.zip
+build/music.wav
