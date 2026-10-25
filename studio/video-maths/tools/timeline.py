@@ -7,6 +7,8 @@ LEAD = {"story": 2.4, "reveal": 1.0}; TAIL = {"outro": 5.0, "pickup": 1.0}
 GAP_LINE, GAP_SCENE = 0.4, 1.0
 HOLD_AFTER = {'n01': .8, 'n02': 1.8, 'n04': .8, 'n05': 1.6, 'm06': 1.0, 'm08': 1.4, 'm09': 1.0, 'm10': 1.0, 'm11': 1.2, 'm12': .8, 'm13': 1.8, 'm14': 1.4, 'm15': 1.2, 'm17': 1.6, 'm19': 1.6, 'm21': 1.0, 'm22': 1.6, 'm24': 1.4, 'm25': 1.2, 'm26': 1.4, 'm27': 1.4, 'm28': 1.2, 'm29': 4.0, 'm30': 1.6, 'm31': 1.2, 'b02': 1.2, 'b03': 1.2, 'b04': 1.6, 'b05': 1.4, 'b06': 2.0, 'b07': 2.0, 'b08': 1.4, 'b09': 1.2, 'b10': 1.6, 'b11': 1.4, 'b12': 1.6, 'b13': 1.2}
 
+HOLD_AFTER = {k: (3.0 if k == 'm29' else round(v * .62, 2)) for k, v in HOLD_AFTER.items()}   # tightened to ~5:00 once the real voices were in
+
 def cjk(c): return '㐀' <= c <= '鿿'
 def estimate(text):
     t, times = 0.0, []
