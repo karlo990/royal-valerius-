@@ -19,6 +19,7 @@ ap.add_argument('--name')
 ap.add_argument('--loop-from', type=float, default=None, help='if the film is longer than the song, continue the song from this second with a crossfade')
 ap.add_argument('--sfx', default=None, help='effects track (build/sfx.wav) laid on top, not ducked')
 ap.add_argument('--sfx-gain', type=float, default=1.0)
+ap.add_argument('--duck', type=float, default=10, help='how hard the music dips under the voices (compressor ratio)')
 ap.add_argument('--video', default=str(ROOT/'build/video_silent.mp4'))
 a = ap.parse_args()
 name = a.name or ('royal-crest-biology' if TL['real_audio'] else 'royal-crest-biology_PREVIEW_no-voice')
@@ -41,7 +42,7 @@ if labels:
                "highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=2,"
                "equalizer=f=3500:t=o:w=1.2:g=2,apad,asplit=" + ("3[vo][key][key2]" if a.sfx else "2[vo][key]"))
     flt.append(music + "[mu]")
-    flt.append("[mu][key]sidechaincompress=threshold=0.02:ratio=10:attack=15:release=450:knee=4:makeup=1[duck]")
+    flt.append(f"[mu][key]sidechaincompress=threshold=0.02:ratio={a.duck:g}:attack=15:release=450:knee=4:makeup=1[duck]")
     flt.append(f"[vo][duck]amix=inputs=2:normalize=0:duration=longest,atrim=0:{total:.2f}[pre]")
 else:
     flt.append(music + "[pre]")
