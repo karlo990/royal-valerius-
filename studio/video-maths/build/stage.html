@@ -1,0 +1,304 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Newton's apples stage</title>
+<!-- Royal Crest Maths: "Newton's apples, what is x?". Deterministic stage: window.renderAt(t) draws the frame at time t.
+     Look: Newton's notebook (parchment, ink) with Royal Crest navy and gold and red apples. -->
+<style>
+@font-face{font-family:RcSerif;font-weight:400 700;src:url(../../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:RcSerif;font-style:italic;font-weight:400 700;src:url(../../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:RcSans;font-weight:200 800;src:url(../../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2")}
+@font-face{font-family:Hand;font-weight:500 700;src:url(../../assets/fonts/caveat-latin.woff2) format("woff2")}
+:root{--navy:#0a1f5c;--gold:#c9a227;--gold2:#f2b705;--red:#c8202e;--ink:#2a2015;--muted:#6b5d48;--leaf:#3f8a3a}
+html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#000}
+#st{position:relative;width:1280px;height:720px;overflow:hidden;font-family:RcSans,sans-serif;color:var(--ink)}
+#paper{position:absolute;inset:0;background:radial-gradient(700px 520px at 20% 10%,rgba(255,255,255,.45),transparent 70%),radial-gradient(900px 700px at 100% 100%,rgba(140,90,30,.16),transparent 70%),
+  repeating-linear-gradient(0deg,rgba(80,60,30,.05) 0 1px,transparent 1px 34px),#f2e6cc}
+#notes{position:absolute;inset:0;font:500 30px Hand,cursive;color:rgba(70,50,20,.08);pointer-events:none}
+#notes span{position:absolute;white-space:nowrap}
+#grain{position:absolute;inset:-20px;opacity:.07;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+#vig{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 180px rgba(90,55,15,.35)}
+#brand{position:absolute;left:36px;top:26px;display:flex;align-items:center;gap:10px;z-index:5;color:var(--navy)}
+#brand img{height:38px} #brand b{display:block;font:500 17px/1 RcSerif,serif} #brand span{display:block;margin-top:4px;font:800 9px RcSans;letter-spacing:.28em;color:#a8841a}
+#svg{position:absolute;inset:0;width:1280px;height:720px}
+.sc{position:absolute;inset:0;display:none}
+.abs{position:absolute}
+.kick{font:800 12.5px RcSans;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:10px;color:#a8841a}
+.kick::before{content:"";width:30px;height:2px;background:currentColor}
+.h{font:500 54px/.98 RcSerif,serif;letter-spacing:-.02em;color:var(--navy)}
+.h em{font-style:italic;color:var(--red)}
+.eq{font:600 54px/1 RcSerif,serif;color:var(--navy);white-space:nowrap}
+.eq i{font-style:italic;color:var(--red)}
+.hand{font:700 46px/1.15 Hand,cursive;color:#1f3a8a}
+.card{position:absolute;padding:16px 22px;border-radius:16px;background:rgba(255,253,246,.92);box-shadow:0 16px 34px -20px rgba(70,45,10,.55),inset 0 0 0 1.5px #e3d3ad}
+.stamp{position:absolute;padding:6px 18px;border:5px solid var(--red);color:var(--red);font:800 44px/1 RcSans;letter-spacing:.12em;border-radius:10px;transform:rotate(-12deg);background:rgba(255,250,240,.6)}
+#cap{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);max-width:1040px;display:flex;align-items:center;gap:14px;padding:12px 24px 12px 12px;border-radius:40px;
+  background:rgba(10,20,52,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 14px 30px -12px rgba(0,0,0,.45);z-index:9}
+#cap i{flex:none;font-style:normal;font:800 11px RcSans;letter-spacing:.18em;padding:8px 12px;border-radius:20px;background:var(--red);color:#fff}
+#cap i.sam{background:var(--gold2);color:var(--navy)}
+#cap span{font:600 21px/1.3 RcSans;color:#fff}
+</style></head><body>
+<div id="st">
+  <div id="paper"></div>
+  <div id="notes"></div>
+  <svg id="svg" viewBox="0 0 1280 720">
+    <defs>
+      <radialGradient id="ap" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#ff6b5e"/><stop offset=".55" stop-color="#d42a2a"/><stop offset="1" stop-color="#8e1218"/></radialGradient>
+      <symbol id="apple" viewBox="-30 -36 60 66" overflow="visible">
+        <path d="M0 -18 C-12 -30 -30 -24 -28 -2 C-26 18 -12 30 0 26 C12 30 26 18 28 -2 C30 -24 12 -30 0 -18 Z" fill="url(#ap)"/>
+        <ellipse cx="-12" cy="-10" rx="6" ry="10" fill="#fff" opacity=".35" transform="rotate(25 -12 -10)"/>
+        <path d="M0 -18 C0 -26 2 -30 5 -34" stroke="#5a3a1a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M4 -28 C14 -38 26 -32 24 -26 C16 -22 8 -24 4 -28 Z" fill="#4c9a3f"/></symbol>
+      <linearGradient id="wk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8913f"/><stop offset="1" stop-color="#8a5a22"/></linearGradient>
+      <symbol id="basketBody" viewBox="-50 -40 100 80" overflow="visible">
+        <path d="M-46 -14 L46 -14 L36 34 L-36 34 Z" fill="url(#wk)" stroke="#6b4216" stroke-width="3"/>
+        <g stroke="#6b4216" stroke-width="2.2" opacity=".75"><path d="M-44 -2 H44 M-41 10 H41 M-39 22 H39"/><path d="M-30 -14 L-24 34 M-12 -14 L-9 34 M6 -14 L5 34 M22 -14 L18 34 M38 -14 L31 34"/></g></symbol>
+      <symbol id="lid" viewBox="-50 -12 100 24" overflow="visible"><rect x="-50" y="-9" width="100" height="16" rx="7" fill="#b07a32" stroke="#6b4216" stroke-width="3"/><path d="M-10 -9 C-10 -24 10 -24 10 -9" stroke="#6b4216" stroke-width="4" fill="none"/></symbol>
+    </defs>
+    <g id="g-scene"></g>
+  </svg>
+  <div id="brand"><img src="../../assets/brand/crest-640.webp" alt=""><div><b>Royal Crest Academy</b><span>MATHEMATICS</span></div></div>
+
+  <div class="sc" id="s-open">
+    <div class="abs kick" id="o-k" style="left:56px;top:104px">1666 · Woolsthorpe, England</div>
+    <div class="card" id="o-name" style="left:56px;top:140px"><div style="font:600 30px RcSerif,serif;color:var(--navy)">Isaac Newton</div><div style="font:700 15px RcSans;color:var(--muted);margin-top:4px">1643 – 1727 · mathematician &amp; scientist</div></div>
+    <div class="stamp" id="o-myth" style="left:300px;top:260px">MYTH!</div>
+    <div class="card" id="o-grav" style="left:880px;top:420px;text-align:center"><div style="font:800 13px RcSans;letter-spacing:.24em;color:#a8841a">WHY STRAIGHT DOWN?</div><div style="font:italic 600 40px RcSerif,serif;color:var(--navy)">Gravity</div></div>
+  </div>
+  <div class="sc" id="s-title">
+    <div class="abs kick" style="left:0;right:0;justify-content:center;top:150px">Royal Crest Maths · algebra</div>
+    <div class="abs h" id="t-h" style="left:0;right:0;top:186px;text-align:center;font-size:96px">Newton’s apples.</div>
+    <div class="abs" id="t-x" style="left:0;right:0;top:300px;text-align:center;font:italic 600 150px RcSerif,serif;color:var(--red)">What is x?</div>
+  </div>
+  <div class="sc" id="s-mystery">
+    <div class="abs kick" style="left:56px;top:104px">The mystery basket</div>
+    <div class="abs h" style="left:52px;top:130px">How many apples<br>are <em>inside?</em></div>
+    <div class="card" id="m-def" style="left:820px;top:200px;width:330px"><div style="font:800 13px RcSans;letter-spacing:.22em;color:#a8841a">VARIABLE</div>
+      <div style="margin-top:8px;font:500 24px/1.35 RcSerif,serif;color:var(--ink)">A letter that stands for a number we <b style="color:var(--red)">don’t know yet</b>.</div></div>
+  </div>
+  <div class="sc" id="s-balance">
+    <div class="abs kick" style="left:56px;top:104px">Keep it balanced</div>
+    <div class="abs h" style="left:52px;top:130px;font-size:46px">Solve it on<br>a <em>scale.</em></div>
+    <div class="abs eq" id="b-eq1" style="left:0;right:0;top:538px;text-align:center">3 + <i>x</i> = 7</div>
+    <div class="abs eq" id="b-eq2" style="left:0;right:0;top:538px;text-align:center">3 + <i>x</i> <span style="color:var(--red)">− 3</span> = 7 <span style="color:var(--red)">− 3</span></div>
+    <div class="abs eq" id="b-eq3" style="left:0;right:0;top:538px;text-align:center;font-size:70px"><i>x</i> = 4</div>
+  </div>
+  <div class="sc" id="s-terms">
+    <div class="abs kick" style="left:56px;top:104px">Like terms</div>
+    <div class="abs h" style="left:52px;top:130px;font-size:46px">Baskets with baskets,<br><em>apples with apples.</em></div>
+    <div class="abs eq" id="t-eq1" style="left:0;right:0;top:400px;text-align:center">2<i>x</i> + 3<i>x</i> = 5<i>x</i></div>
+    <div class="abs eq" id="t-eq2" style="left:0;right:0;top:400px;text-align:center">2<i>x</i> + 3 <span id="t-ne" style="color:var(--red)">≠ 5<i>x</i></span></div>
+  </div>
+  <div class="sc" id="s-subst">
+    <div class="abs kick" style="left:56px;top:104px">Substitution</div>
+    <div class="abs h" style="left:52px;top:130px;font-size:46px">Put a number<br>in for <em>x.</em></div>
+    <div class="abs eq" id="s-eq1" style="left:0;right:0;top:470px;text-align:center">4 baskets = 4<i>x</i> apples</div>
+    <div class="abs eq" id="s-eq2" style="left:0;right:0;top:470px;text-align:center">4 × 6 = <span style="color:var(--red);font-size:70px">24</span></div>
+  </div>
+  <div class="sc" id="s-word">
+    <div class="abs kick" style="left:56px;top:104px">Exam question</div>
+    <div class="card" id="w-q" style="left:56px;top:140px;width:520px"><div style="font:800 13px RcSans;letter-spacing:.22em;color:#a8841a">QUESTION</div>
+      <div style="margin-top:8px;font:500 24px/1.4 RcSerif,serif">Newton picks <b>17</b> apples. He fills <b>3</b> baskets, and <b>2</b> apples are left over. How many apples are in each basket?</div></div>
+    <div class="abs" id="w-work" style="left:690px;top:120px;width:520px;height:420px;border-radius:14px;background:repeating-linear-gradient(180deg,transparent 0 57px,rgba(31,58,138,.25) 57px 58px),#fffdf6;box-shadow:0 18px 36px -22px rgba(70,45,10,.55),inset 4px 0 0 #e8a0a0">
+      <div class="hand abs" id="w-l1" style="left:40px;top:20px">3x + 2 = 17</div>
+      <div class="hand abs" id="w-l2" style="left:40px;top:96px">3x = 15</div>
+      <div class="hand abs" id="w-l3" style="left:40px;top:172px;color:var(--red)">x = 5</div>
+      <div class="hand abs" id="w-l4" style="left:40px;top:258px;font-size:34px;color:#2f7a3a">check: 3 × 5 + 2 = 17 ✓</div></div>
+  </div>
+  <div class="sc" id="s-quiz">
+    <div class="abs kick" style="left:0;right:0;justify-content:center;top:104px">Your turn</div>
+    <div class="abs eq" id="q-eq" style="left:0;right:0;top:150px;text-align:center;font-size:96px">2<i>x</i> = 10</div>
+    <div class="abs" id="q-ask" style="left:0;right:0;top:270px;text-align:center;font:italic 500 40px RcSerif,serif;color:var(--muted)">What is x?</div>
+    <div class="abs eq" id="q-ans" style="left:0;right:0;top:262px;text-align:center;font-size:80px;color:var(--red)"><i>x</i> = 5</div>
+    <svg class="abs" id="q-ring" viewBox="0 0 100 100" style="left:1080px;top:96px;width:90px;height:90px"></svg>
+  </div>
+  <div class="sc" id="s-outro">
+    <div class="abs" id="u-q" style="left:120px;right:120px;top:150px;text-align:center;font:italic 500 62px/1.15 RcSerif,serif;color:var(--navy)"><i style="color:var(--red)">x</i> is just a number,<br>waiting to be found.</div>
+    <div class="abs" id="u-card" style="left:0;right:0;top:380px;display:flex;flex-direction:column;align-items:center">
+      <img src="../../assets/brand/crest-640.webp" alt="" style="height:120px;filter:drop-shadow(0 10px 20px rgba(70,45,10,.4))">
+      <div style="margin-top:12px;font:500 40px/1 RcSerif,serif;color:var(--navy)">Maths at <em style="color:var(--red)">Royal Crest</em></div>
+      <div style="margin-top:12px;height:44px;padding:0 22px;border-radius:22px;background:var(--navy);color:#fff;display:flex;align-items:center;font:800 20px RcSans">+263 714 404 090</div></div>
+  </div>
+  <div id="cap"><i>TEACHER</i><span></span></div>
+  <div id="grain"></div><div id="vig"></div>
+</div>
+<script src="timeline.js"></script>
+<script>
+const $ = (q) => document.querySelector(q);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const k = (t, a, d) => clamp((t - a) / d);
+const eo = (x) => 1 - Math.pow(1 - x, 3), eio = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const back = (x) => { const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const L = Object.fromEntries(TL.lines.map((l) => [l.id, l])), S = Object.fromEntries(TL.scenes.map((s) => [s.id, s]));
+function cue(id, sub, nth = 0) { const l = L[id]; if (sub == null) return l.start; let i = -1; for (let n = 0; n <= nth; n++) { i = l.chars.indexOf(sub, i + 1); if (i < 0) break; } return l.start + (i >= 0 ? l.times[i] : 0); }
+let T = 0;
+const sceneW = (id, fi = .5, fo = .5) => { const s = S[id]; return s ? Math.min(k(T, s.start, fi), 1 - k(T, s.end - fo, fo)) : 0; };
+function show(id, w) { const e = $('#s-' + id); e.style.display = w > 0.001 ? 'block' : 'none'; e.style.opacity = w; return w > 0.001; }
+function fade(el, a, d = .4) { const x = k(T, a, d); el.style.opacity = x; el.style.transform = `translateY(${(1 - eo(x)) * 16}px)`; return x; }
+function pop(el, a, d = .45) { const x = k(T, a, d); el.style.opacity = clamp(x * 3); el.style.transform = `translateY(${(1 - eo(x)) * 24}px) scale(${.7 + .3 * back(x)})`; return x; }
+// faint "Newton's notes" in the paper
+$('#notes').innerHTML = [['F = ma', 120, 620], ['x² + y² = r²', 980, 120], ['dy/dx', 1060, 640], ['3x + 2 = 17', 560, 90], ['a ∝ 1/r²', 300, 470], ['∫ y dx', 760, 560]].map(([s, x, y]) => `<span style="left:${x}px;top:${y}px;transform:rotate(${(x % 7) - 3}deg)">${s}</span>`).join('');
+
+// ---------- svg helpers
+const NS = 'http://www.w3.org/2000/svg', G = $('#g-scene');
+const apple = (x, y, s = 1, o = 1, rot = 0) => `<use href="#apple" x="${x - 30 * s}" y="${y - 36 * s}" width="${60 * s}" height="${66 * s}" opacity="${o}" transform="rotate(${rot} ${x} ${y})"/>`;
+function basket(x, y, s = 1, lid = 0, label = 'x', inside = 0, o = 1) {   // lid: 0 closed → 1 open; inside: apples shown when open
+  let a = '';
+  if (inside && lid > .2) { const pos = [[-24, -18], [0, -22], [24, -18], [-12, -30], [12, -30], [0, -38]]; for (let i = 0; i < inside; i++) a += apple(x + pos[i % 6][0] * s, y + pos[i % 6][1] * s, .55 * s, clamp((lid - .2) * 2)); }
+  const lx = x + lid * 46 * s, ly = y - 14 * s - lid * 34 * s;
+  return `<g opacity="${o}">${a}<use href="#basketBody" x="${x - 50 * s}" y="${y - 40 * s}" width="${100 * s}" height="${80 * s}"/>
+    <use href="#lid" x="${lx - 50 * s}" y="${ly - 12 * s}" width="${100 * s}" height="${24 * s}" transform="rotate(${lid * 38} ${lx} ${ly})"/>
+    ${label ? `<g opacity="${clamp(1 - lid * 2)}"><circle cx="${x}" cy="${y + 12 * s}" r="${17 * s}" fill="#fffaf0" stroke="#6b4216" stroke-width="2"/><text x="${x}" y="${y + 20 * s}" text-anchor="middle" font-family="RcSerif" font-style="italic" font-weight="700" font-size="${26 * s}" fill="#c8202e">${label}</text></g>` : ''}</g>`;
+}
+const appleRow = (cx, y, n, s = .7, gap = 40, o = 1) => Array.from({ length: n }, (_, i) => apple(cx + (i - (n - 1) / 2) * gap * s / .7, y, s, typeof o === 'function' ? o(i) : o)).join('');
+
+// ---------- open: garden, tree, Newton, the falling apple
+function tree() {
+  return `<path d="M640 560 C636 470 630 400 646 330 C652 300 676 280 690 262 M646 360 C610 330 590 300 560 290" stroke="#5a3a1a" stroke-width="26" fill="none" stroke-linecap="round"/>
+    <g fill="#3f8a3a"><circle cx="640" cy="230" r="120"/><circle cx="540" cy="250" r="90"/><circle cx="745" cy="250" r="95"/><circle cx="690" cy="160" r="90"/><circle cx="590" cy="170" r="80"/></g>
+    <g fill="#57a64a" opacity=".7"><circle cx="610" cy="200" r="70"/><circle cx="720" cy="200" r="60"/></g>
+    ${[[560, 230], [610, 290], [700, 300], [760, 230], [650, 170], [540, 300], [690, 220]].map(([x, y]) => apple(x, y, .45)).join('')}`;
+}
+function newton() {   // seated reader in a 17th-century coat, cravat and long curled wig, facing the tree
+  return `<g>
+    <rect x="440" y="504" width="96" height="12" rx="4" fill="#7a5226"/><rect x="448" y="514" width="10" height="44" fill="#5a3a1a"/><rect x="518" y="514" width="10" height="44" fill="#5a3a1a"/>
+    <path d="M462 486 H552 C562 486 566 494 562 502 L548 504 L556 550 L534 552 L530 506 H470 C454 506 448 494 462 486 Z" fill="#14285e"/>
+    <ellipse cx="548" cy="556" rx="20" ry="7" fill="#1a1410"/>
+    <path d="M452 492 C444 456 448 420 468 404 L506 404 C524 418 528 456 524 494 Z" fill="#0a1f5c"/>
+    <path d="M478 404 L496 404 L490 428 L484 428 Z" fill="#fffaf0"/>
+    <path d="M506 418 C520 430 532 440 546 446 L542 458 C524 452 510 444 498 432 Z" fill="#0a1f5c"/>
+    <path d="M534 432 L572 422 L578 444 L540 454 Z" fill="#fffaf0" stroke="#5a3a1a" stroke-width="2.5"/><line x1="556" y1="427" x2="559" y2="449" stroke="#5a3a1a" stroke-width="1.5"/>
+    <circle cx="546" cy="452" r="7" fill="#e8c4a0"/>
+    <ellipse cx="490" cy="378" rx="22" ry="25" fill="#e8c4a0"/>
+    <circle cx="503" cy="374" r="2.2" fill="#2a2015"/><path d="M510 384 L514 388 L509 389" fill="none" stroke="#b08060" stroke-width="2"/>
+    <path d="M470 362 C468 344 488 338 500 346 C512 340 520 352 514 360 C504 352 490 354 484 364 C482 380 486 392 478 404 C470 420 476 440 468 452 C456 442 452 424 458 410 C448 398 452 380 460 372 C462 366 466 364 470 362 Z" fill="#6b5844"/>
+    <g fill="none" stroke="#4d3e2f" stroke-width="2" opacity=".7"><path d="M462 382 c4 4 4 8 0 12"/><path d="M460 404 c4 4 4 8 0 12"/><path d="M466 426 c4 4 4 8 0 12"/></g></g>`;
+}
+
+// ---------- balance scale
+function scale(theta, left, right) {   // theta > 0: left side down
+  const px = 640, py = 230, Lb = 270, c = Math.cos(theta), s = Math.sin(theta);
+  const lx = px - Lb * c, ly = py + Lb * s, rx = px + Lb * c, ry = py - Lb * s, hang = 150;
+  const pan = (x, y) => `<line x1="${x}" y1="${y}" x2="${x - 90}" y2="${y + hang}" stroke="#8a6a2a" stroke-width="2"/><line x1="${x}" y1="${y}" x2="${x + 90}" y2="${y + hang}" stroke="#8a6a2a" stroke-width="2"/>
+    <path d="M${x - 110} ${y + hang} H${x + 110} C${x + 100} ${y + hang + 30} ${x - 100} ${y + hang + 30} ${x - 110} ${y + hang} Z" fill="#c9a227" stroke="#8a6a1c" stroke-width="3"/>`;
+  return `<rect x="${px - 10}" y="${py}" width="20" height="300" rx="6" fill="#6b4a1e"/><path d="M${px - 90} 540 H${px + 90} L${px + 70} 520 H${px - 70} Z" fill="#6b4a1e"/>
+    <line x1="${lx}" y1="${ly}" x2="${rx}" y2="${ry}" stroke="#6b4a1e" stroke-width="14" stroke-linecap="round"/><circle cx="${px}" cy="${py}" r="14" fill="#c9a227" stroke="#6b4a1e" stroke-width="4"/>
+    ${pan(lx, ly)}${pan(rx, ry)}${left(lx, ly + hang)}${right(rx, ry + hang)}`;
+}
+
+window.renderAt = function (t) {
+  T = t;
+  let svg = '';
+  // OPEN
+  if (show('open', sceneW('open', .01, .6))) {
+    const w = sceneW('open', .01, .6), fall = cue('m01', 'apple'), myth = cue('m03', 'myth'), down = cue('m03', 'straight'), grav = cue('m04', 'gravity');
+    let ay = 300, ax = 700, rot = 0;
+    const dt = t - fall;
+    if (dt > 0) { const g = 1500, land = Math.sqrt(2 * 250 / g); if (dt < land) ay = 300 + .5 * g * dt * dt; else { const b = dt - land, h = 36 * Math.exp(-b * 3) * Math.abs(Math.sin(b * 9)); ay = 550 - h; ax = 700 + Math.min(b, 1) * 26; rot = Math.min(b, 1) * 70; } }
+    const mythPath = k(t, cue('m02', 'head') - .2, .8) * (1 - k(t, myth + .4, .4));
+    svg += `<g opacity="${w}"><path d="M0 560 H1280 V720 H0 Z" fill="#9fbf6a" opacity=".55"/>${tree()}${newton()}
+      <path d="M700 300 C640 300 560 320 500 360" stroke="#c8202e" stroke-width="3" stroke-dasharray="8 8" fill="none" opacity="${mythPath}"/>
+      <g opacity="${k(t, down - .1, .4)}"><line x1="760" y1="300" x2="760" y2="520" stroke="#0a1f5c" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round"/><path d="M748 508 L760 532 L772 508" fill="none" stroke="#0a1f5c" stroke-width="4" stroke-linecap="round"/></g>
+      ${apple(ax, ay, .8, 1, rot)}</g>`;
+    fade($('#o-k'), .4); fade($('#o-name'), 1.2);
+    const st = $('#o-myth'), m = k(t, myth - .1, .35); st.style.opacity = m; st.style.transform = `rotate(-12deg) scale(${1.6 - .6 * eo(m)})`;
+    pop($('#o-grav'), grav - .2);
+  }
+  if (show('title', sceneW('title'))) {
+    const s = S.title.start; fade($('#t-h'), s + .2, .5); pop($('#t-x'), cue('m05', 'What') - .1, .5);
+    svg += appleRow(640, 560, 5, .8, 46, (i) => k(t, s + .4 + i * .12, .3));
+  }
+  if (show('mystery', sceneW('mystery'))) {
+    const s = S.mystery.start, w = sceneW('mystery'), xl = cue('m08', 'x'), q = k(t, s + .8, .4) * (1 - k(t, xl - .2, .3));
+    const shake = Math.sin(t * 9) * 3 * k(t, cue('m07'), .3) * (1 - k(t, xl, .3));
+    svg += `<g opacity="${w}" transform="translate(${shake} 0)">${basket(560, 430, 2.2, 0, k(t, xl - .1, .3) > .5 ? 'x' : '', 0)}</g>
+      <text x="560" y="320" text-anchor="middle" font-family="RcSerif" font-weight="600" font-size="110" fill="#c8202e" opacity="${q * w}">?</text>`;
+    pop($('#m-def'), cue('m09', 'variable') - .2);
+  }
+  if (show('balance', sceneW('balance'))) {
+    const w = sceneW('balance'), s = S.balance.start, right = cue('m11', 'seven'), bal = cue('m11', 'balances'), take = cue('m13', 'Take'), four = cue('m14', 'four'), open = cue('m15', 'Open');
+    const nRight = k(t, right - .2, .2) > 0 ? 7 : 0;
+    const theta = .16 * (1 - eio(k(t, right, 1.2)));            // tips left until the 7 arrive, then levels
+    const gone = eio(k(t, take + .3, .9));                       // the 3 apples leave both pans
+    const lid = eio(k(t, open, .9));
+    const inL = k(t, s + .4, .4), bas = k(t, s + 1.2, .4);
+    svg += `<g opacity="${w}">${scale(theta,
+      (x, y) => appleRow(x - 34, y - 24 - gone * 120, 3, .62, 40, inL * (1 - gone)) + `<g opacity="${bas}">${basket(x + 62, y - 26, .78, lid, 'x', 4)}</g>`,
+      (x, y) => appleRow(x, y - 24, 4, .62, 40, (i) => (nRight ? 1 : 0) * (i < 3 ? 1 - gone : 1) * k(t, right - .2 + i * .06, .2)) + appleRow(x, y - 56 - (gone * 0), 3, .62, 40, (i) => (nRight ? 1 : 0) * k(t, right + i * .06, .2)))}</g>`;
+    // right pan: bottom row of 4 stays (the 3 removed are from the bottom row's first three + top row? keep it simple: top row of 3 leaves)
+    const e1 = $('#b-eq1'), e2 = $('#b-eq2'), e3 = $('#b-eq3');
+    e1.style.opacity = k(t, cue('m12', 'three') - .1, .3) * (1 - k(t, take, .3));
+    e2.style.opacity = k(t, take, .3) * (1 - k(t, four - .2, .3));
+    e3.style.opacity = k(t, four - .2, .3); e3.style.transform = `scale(${1 + .15 * Math.sin(Math.PI * k(t, four - .2, .6))})`;
+  }
+  if (show('terms', sceneW('terms'))) {
+    const w = sceneW('terms'), s = S.terms.start, two = cue('m17', 'Two baskets'), three = cue('m17', 'three baskets'), five = cue('m17', 'five baskets'), alg = cue('m17', 'Two x');
+    const loose = cue('m18', 'loose'), no = cue('m19', 'No'), sort = cue('m20', 'Add');
+    const phase2 = k(t, loose - .6, .4);
+    const y = 310;
+    let row = '';
+    if (phase2 < 1) {
+      const o = 1 - phase2;
+      [0, 1].forEach((i) => { row += `<g opacity="${o * k(t, two + i * .12, .3)}">${basket(330 + i * 110, y, .9)}</g>`; });
+      row += `<text x="570" y="${y + 18}" text-anchor="middle" font-family="RcSerif" font-size="54" fill="#0a1f5c" opacity="${o * k(t, three - .2, .3)}">+</text>`;
+      [0, 1, 2].forEach((i) => { row += `<g opacity="${o * k(t, three + i * .12, .3)}">${basket(680 + i * 110, y, .9)}</g>`; });
+      row += `<g opacity="${o * k(t, five, .3)}"><rect x="290" y="${y - 70}" width="740" height="130" rx="20" fill="none" stroke="#c9a227" stroke-width="4" stroke-dasharray="10 8"/><text x="1060" y="${y + 18}" font-family="RcSerif" font-weight="600" font-size="46" font-style="italic" fill="#c8202e">= 5x</text></g>`;
+    }
+    if (phase2 > 0) {
+      [0, 1].forEach((i) => { row += `<g opacity="${phase2}">${basket(380 + i * 110, y, .9)}</g>`; });
+      row += `<text x="600" y="${y + 18}" text-anchor="middle" font-family="RcSerif" font-size="54" fill="#0a1f5c" opacity="${phase2}">+</text>`;
+      row += appleRow(760, y, 3, .9, 48, phase2);
+      const sorted = eio(k(t, sort, .8));
+      row += `<g opacity="${sorted}"><text x="435" y="${y - 90}" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="16" letter-spacing="3" fill="#6b5d48">BASKETS</text><text x="760" y="${y - 90}" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="16" letter-spacing="3" fill="#6b5d48">APPLES</text><line x1="600" y1="${y - 100}" x2="600" y2="${y + 70}" stroke="#c9a227" stroke-width="3" stroke-dasharray="6 6"/></g>`;
+    }
+    svg += `<g opacity="${w}">${row}</g>`;
+    const e1 = $('#t-eq1'), e2 = $('#t-eq2');
+    e1.style.opacity = k(t, alg - .1, .3) * (1 - phase2); e2.style.opacity = phase2 * k(t, loose, .3);
+    $('#t-ne').style.textDecoration = k(t, no, .2) > .5 ? 'line-through' : 'none';
+    $('#t-ne').style.opacity = 1 - .5 * k(t, no + .6, .4);
+  }
+  if (show('subst', sceneW('subst'))) {
+    const w = sceneW('subst'), s = S.subst.start, six = cue('m21', 'six'), tw = cue('m22', 'twenty');
+    const lid = eio(k(t, six, .8));
+    let row = '';
+    [0, 1, 2, 3].forEach((i) => { row += `<g opacity="${k(t, s + .3 + i * .15, .3)}">${basket(380 + i * 170, 360, 1.1, lid, 'x', 6)}<g opacity="${lid}"><rect x="${352 + i * 170}" y="420" width="56" height="34" rx="8" fill="#0a1f5c"/><text x="${380 + i * 170}" y="445" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="20" fill="#fff">6</text></g></g>`; });
+    svg += `<g opacity="${w}">${row}</g>`;
+    $('#s-eq1').style.opacity = k(t, s + .8, .3) * (1 - k(t, tw - .5, .3));
+    const e2 = $('#s-eq2'); e2.style.opacity = k(t, tw - .5, .3);
+  }
+  if (show('word', sceneW('word'))) {
+    const w = sceneW('word'), s = S.word.start;
+    fade($('#w-q'), cue('m24') - .2); fade($('#w-work'), cue('m25') - .4);
+    const lines = [[cue('m25', 'three'), '#w-l1'], [cue('m26', 'three'), '#w-l2'], [cue('m27', 'x equals'), '#w-l3'], [cue('m28', 'Check'), '#w-l4']];
+    lines.forEach(([a, id]) => { const e = $(id), x = k(t, a - .1, .6); e.style.opacity = x > 0 ? 1 : 0; e.style.clipPath = `inset(0 ${100 - 100 * eo(x)}% 0 0)`; });
+    // 3 baskets of x and 2 loose apples under the question
+    const b = k(t, cue('m24', 'fills') - .1, .3), l = k(t, cue('m24', 'left') - .2, .3), open = eio(k(t, cue('m27', 'five'), .8));
+    svg += `<g opacity="${w}">${[0, 1, 2].map((i) => `<g opacity="${b}">${basket(140 + i * 120, 440, .95, open, 'x', 5)}</g>`).join('')}${appleRow(520, 450, 2, .7, 44, l)}</g>`;
+  }
+  if (show('quiz', sceneW('quiz'))) {
+    const s = S.quiz.start, ans = cue('m30');
+    fade($('#q-eq'), s + .2); $('#q-ask').style.opacity = k(t, s + .6, .3) * (1 - k(t, ans - .2, .2));
+    const qa = $('#q-ans'), x = k(t, ans - .15, .4); qa.style.opacity = x; qa.style.transform = `scale(${.7 + .3 * back(x)})`;
+    const cd = k(t, L.m29.end, ans - L.m29.end);
+    $('#q-ring').innerHTML = cd > 0 && cd < 1 ? `<circle cx="50" cy="50" r="42" fill="none" stroke="rgba(10,31,92,.15)" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="#c8202e" stroke-width="8" stroke-linecap="round" pathLength="1" stroke-dasharray="${1 - cd} 1" transform="rotate(-90 50 50)"/><text x="50" y="62" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="32" fill="#0a1f5c">${Math.ceil((1 - cd) * (ans - L.m29.end))}</text>` : '';
+    const open = eio(k(t, ans, .8));
+    svg += `<g opacity="${sceneW('quiz')}">${basket(520, 480, 1.2, open, 'x', 5)}<text x="640" y="500" text-anchor="middle" font-family="RcSerif" font-size="54" fill="#0a1f5c">+</text>${basket(760, 480, 1.2, open, 'x', 5)}</g>`;
+  }
+  if (show('outro', sceneW('outro', .6, .01))) {
+    const s = S.outro.start; fade($('#u-q'), s + .3, .6); pop($('#u-card'), cue('m32') - .2, .6);
+    $('#st').style.filter = `brightness(${1 - k(t, TL.total - 1.2, 1.2)})`;
+  } else $('#st').style.filter = `brightness(${eo(k(t, 0, .8))})`;
+  G.innerHTML = svg;
+
+  const line = TL.lines.find((l) => t >= l.start - .15 && t <= l.end + .5), cap = $('#cap');
+  if (line) {
+    cap.style.opacity = Math.min(k(t, line.start - .15, .2), 1 - k(t, line.end + .3, .2));
+    cap.querySelector('i').textContent = line.who === 'TEN' ? 'TEACHER TENDAI' : 'SAM'; cap.querySelector('i').className = line.who === 'TEN' ? '' : 'sam';
+    cap.querySelector('span').textContent = line.cap;
+  } else cap.style.opacity = 0;
+};
+window.ready = (async () => {
+  await Promise.all(['54px RcSerif', 'italic 54px RcSerif', '600 54px RcSerif', '20px RcSans', '800 20px RcSans', '700 46px Hand'].map((f) => document.fonts.load(f, 'Ax=5')));
+  await Promise.all([...document.images].map((i) => i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })));
+  await document.fonts.ready; renderAt(0);
+})();
+</script>
+</body></html>
