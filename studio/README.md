@@ -14,14 +14,14 @@ ready-made WhatsApp caption for each.
 | 25 clubs, sports and indoor games × 4 types (spotlight, fun fact, quiz, quiz answer) | 100 |
 | "Molecule of the week" (PubChem + RDKit) | 17 |
 | Series posters (portrait, A4, story; five of them also square) | 6 |
-| Social media posts (portrait; Mandarin and verse posts also square) | 22 |
+| Social media posts (portrait; Mandarin and verse posts also square) | 23 |
 
-That is up to 289 flyers per template and size, and about 7,400 combinations in
+That is up to 290 flyers per template and size, and about 7,400 combinations in
 all. Every combination is checked to fit.
 
 ### Social media posts
 
-Twenty-two ready-made designs for the Facebook and Instagram feed (portrait 4:5,
+Twenty-three ready-made designs for the Facebook and Instagram feed (portrait 4:5,
 1080 × 1350), under **Social media posts** at the top of the list: Boarding
 pass, Fees receipt, Periodic table, Newspaper front page, Skill tree (game),
 Boarders’ menu, Lock-screen alerts, Parents’ quiz, Weather forecast, Polaroid
@@ -31,7 +31,8 @@ to ten, the Great Wall, a 谢谢 quiz (answer printed upside down) and writing �
 The Mandarin posts show the phone number in full (+263) and use small subsets
 of two OFL fonts (Ma Shan Zheng, Noto Serif SC) for the Chinese characters.
 **Verse of the day** uses the Prospectus template's look with no phone or
-enrolment lines; change the date, theme, verse and prayer with *Edit text*. Like the series posters they have their own fixed
+enrolment lines; change the date, theme, verse and prayer with *Edit text*.
+**Verse of the day (pink)** is the same post in blush and berry. Like the series posters they have their own fixed
 design, so the template choice does not apply. *Edit text* works on every line,
 the phone number follows *School details*, and each comes with a caption. The
 markup is in `js/posts.js` and the styles in `css/posts.css`. Facts on them

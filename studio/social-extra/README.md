@@ -26,3 +26,4 @@ The Open Day date isn't set anywhere yet; add it to the caption when it is fixed
 | `rainfall-square.html?story` / `royal-crest-make-it-rain_story.png` + `_story_1080.jpg` | Story version (1080×1920) of "3 ways to make it rain"; top and bottom 250 px kept clear for the app buttons |
 | `verse-of-the-day-2026-10-24-{portrait,square}.jpg` | Verse of the day, 24 Oct 2026 (Jeremiah 29:11), exported from the studio post "Verse of the day" (edit the date and verse there for new days) |
 | `hairstyles/hairstyle-guide.html` / `hairstyles/Royal-Crest-Academy-Hairstyle-Guide-2027.{pdf,jpg}` | Approved hairstyles, A4 uniform guide: boys (fade, buzz cut), girls (straight-back cornrows, swept-back cornrows, braided bun) and the rules |
+| `verse-of-the-day-2026-10-25-pink-{portrait,square}.jpg` | Verse of the day (pink), Sunday 25 Oct 2026: "Trusting God for the vision", Proverbs 16:3 |
