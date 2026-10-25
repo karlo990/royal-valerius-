@@ -158,7 +158,9 @@ html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#000}
     <div class="abs" id="en-c" style="left:70px;top:420px;display:flex;align-items:center;gap:16px;color:#fff">
       <img src="../../assets/brand/crest-640.webp" alt="" style="height:84px">
       <div><div style="font:500 30px/1 RcSerif,serif">Royal Crest Academy</div><div style="margin-top:6px;font:800 12px RcSans;letter-spacing:.3em;color:#f2d27a">SCIENCE · INNOVATION · SKILL</div>
-        <div style="margin-top:12px;font:700 16px RcSans;color:#e8dcc0">www.royalcrest.co.zw · +263 714 404 090</div></div></div>
+        <div style="margin-top:12px;font:700 16px RcSans;color:#e8dcc0">royalcrestzw.vercel.app/portal/slate · +263 714 404 090</div></div></div>
+    <div class="abs" id="en-cta" style="left:70px;top:560px;display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:16px;background:linear-gradient(100deg,#f2b705,#e0a800);color:#0a1f5c;box-shadow:0 18px 36px -16px rgba(0,0,0,.7)">
+      <div style="font:800 13px RcSans;letter-spacing:.2em">FORM 1 · 2027</div><div style="width:1px;height:28px;background:rgba(10,31,92,.3)"></div><div style="font:600 22px RcSerif,serif">Secure your child’s place in Bikita. <b>Bookings open now.</b></div></div>
   </div>
   <div id="cap"><i>TEACHER</i><span></span></div>
   <div id="grain"></div><div id="vig"></div>
@@ -364,7 +366,8 @@ async function newScenes(t) {
     let chips = '';
     if (sc === 'features') { const c0 = cue('b10', 'nine'); TOPICS.forEach((n, j) => { const a = k(t, c0 + j * .22, .3); chips += `<div class="chip" style="left:56px;top:${250 + j * 40}px;opacity:${a};transform:translateX(${(1 - eo(a)) * -20}px)">${n}</div>`; });
       const ai = k(t, cue('b11', 'own') - .2, .4); chips += `<div class="glass" style="left:840px;top:96px;opacity:${ai};transform:scale(${.9 + .1 * back(ai)})"><div style="font:800 12px RcSans;letter-spacing:.22em;color:#f2d27a">POWERED BY</div><div style="font:600 24px RcSerif,serif;margin-top:4px">Royal Crest’s own AI</div><div style="font:600 13px RcSans;color:#e8dcc0;margin-top:2px">No adverts · no distractions</div></div>`; }
-    if (sc === 'anydevice') ['Tablet', 'Laptop', 'Phone', 'Any browser'].forEach((n, j) => { const a = k(t, L.b12.start + .3 + j * .4, .3); chips += `<div class="chip" style="left:56px;top:${262 + j * 46}px;opacity:${a};transform:translateX(${(1 - eo(a)) * -20}px)">${n}</div>`; });
+    if (sc === 'anydevice') { ['Tablet', 'Laptop', 'Phone', 'Any browser'].forEach((n, j) => { const a = k(t, L.b12.start + .3 + j * .4, .3); chips += `<div class="chip" style="left:56px;top:${262 + j * 46}px;opacity:${a};transform:translateX(${(1 - eo(a)) * -20}px)">${n}</div>`; });
+      const u = k(t, cue('b12', 'royal') - .3, .5); chips += `<div class="glass" style="left:56px;top:470px;opacity:${u};transform:translateY(${(1 - eo(u)) * 16}px)"><div style="font:800 12px RcSans;letter-spacing:.22em;color:#f2d27a">OPEN CREST SLATE</div><div style="font:700 26px RcSans;margin-top:6px;letter-spacing:-.01em">royalcrestzw.vercel.app<span style="color:#f2b705">/portal/slate</span></div></div>`; }
     if (sc === 'checked') { const a = k(t, cue('b06', 'back into') - .2, .4); chips += `<div class="chip" style="left:56px;top:250px;opacity:${a}"><b>✓</b> x = 6 makes both sides equal</div>`; }
     $('#mk-chips').innerHTML = chips;
     // dust in the window beam
@@ -375,7 +378,7 @@ async function newScenes(t) {
   // END: the still life
   const wE = sceneW('outro', .9, .01);
   if (show('end', wE)) {
-    const s0 = S.outro.start; fade($('#en-k'), s0 + .4); fade($('#en-h'), s0 + .6, .7); fade($('#en-s'), cue('b13', 'x is') - .2, .6); pop($('#en-c'), L.b14.start - .2, .6);
+    const s0 = S.outro.start; fade($('#en-k'), s0 + .4); fade($('#en-h'), s0 + .6, .7); fade($('#en-s'), cue('b13', 'x is') - .2, .6); pop($('#en-c'), L.b14.start - .2, .6); pop($('#en-cta'), L.b15.start - .1, .6);
     $('#en-img').style.transform = `scale(${1 + .04 * k(t, s0, S.outro.end - s0)})`;
     $('#st').style.filter = `brightness(${1 - k(t, TL.total - 1.4, 1.4)})`;
   } else $('#st').style.filter = `brightness(${eo(k(t, 0, .8))})`;

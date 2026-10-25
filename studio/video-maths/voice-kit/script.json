@@ -324,8 +324,8 @@
    "id": "b12",
    "scene": "anydevice",
    "who": "SAM",
-   "say": "Open it on any tablet, laptop or phone. There's no app to install: just your browser.",
-   "cap": "Open it on any tablet, laptop or phone. There’s no app to install: just your browser."
+   "say": "Open it on any tablet, laptop or phone, at royal crest z w dot vercel dot app, slash portal, slash slate. There's no app to install.",
+   "cap": "Open it on any tablet, laptop or phone: royalcrestzw.vercel.app/portal/slate. There’s no app to install."
   },
   {
    "id": "b13",
@@ -338,8 +338,15 @@
    "id": "b14",
    "scene": "outro",
    "who": "SAM",
-   "say": "Royal Crest Academy. Science, innovation, skill.",
-   "cap": "Royal Crest Academy. Science · Innovation · Skill."
+   "say": "Royal Crest Academy, Bikita. Science, innovation, skill.",
+   "cap": "Royal Crest Academy, Bikita. Science · Innovation · Skill."
+  },
+  {
+   "id": "b15",
+   "scene": "outro",
+   "who": "TEN",
+   "say": "Secure your child's Form One place in Bikita today. Bookings are open now.",
+   "cap": "Secure your child’s Form 1 place in Bikita today. Bookings are open now."
   }
  ]
 }

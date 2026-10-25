@@ -82,7 +82,8 @@ add(SOFTNO, cue('b08', 'wrong'), .5)
 for i in range(9): add(POP, cue('b10', 'nine') + i * .22, .25)
 add(CHIME, cue('b11', 'own') - .2, .4)
 for i in range(4): add(TAP, L['b12']['start'] + .3 + i * .4, .5)
-add(RISE, SC['outro']['start'] - 2.2, .45); add(CHIME, L['b14']['start'], .45)
+add(RISE, SC['outro']['start'] - 2.2, .45); add(CHIME, L['b14']['start'], .45); add(DING, L['b15']['start'] - .1, .5)
+add(TAP, cue('b12', 'royal') - .3, .6)
 
 ins, fl, lab = [], [], []
 for i, (f, at, gain) in enumerate(E):
