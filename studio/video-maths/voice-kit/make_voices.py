@@ -1,4 +1,4 @@
-"""Royal Crest · Maths film "Newton's apples": make the two voices with ElevenLabs.
+"""Royal Crest · Maths film "Newton's apples + Crest Slate": make the two voices with ElevenLabs.
 
 Run it (Windows: double-click make_voices.bat · Mac: double-click make_voices.command),
 then upload the voices.zip it creates back to Claude.

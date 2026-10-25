@@ -1,42 +1,345 @@
 {
-  "title": "Royal Crest Maths: Newton's apples, what is x?",
-  "voices": {
-    "TEN": {"name": "Teacher Tendai", "voice_id": "KpK2JUuSi307pzhaXdaL"},
-    "SAM": {"name": "Sam (commentator)", "voice_id": "FSjbVsYdGQ5KJ6l0Ul2r"}
+ "title": "Royal Crest Maths: Newton's apples, what is x? and Crest Slate",
+ "voices": {
+  "TEN": {
+   "name": "Teacher Tendai",
+   "voice_id": "KpK2JUuSi307pzhaXdaL"
   },
-  "_note": "say = text sent to ElevenLabs (maths in words); cap = on-screen caption (maths in symbols).",
-  "lines": [
-    {"id": "m01", "scene": "open", "who": "SAM", "say": "England, sixteen sixty-six. A young man sits in his mother's garden. And then... an apple falls.", "cap": "England, 1666. A young man sits in his mother’s garden. And then… an apple falls."},
-    {"id": "m02", "scene": "open", "who": "SAM", "say": "Wait. Did it hit him on the head?", "cap": "Wait. Did it hit him on the head?"},
-    {"id": "m03", "scene": "open", "who": "TEN", "say": "No! That part is a myth. But it made Isaac Newton wonder why apples always fall straight down.", "cap": "No! That part is a myth. But it made Isaac Newton wonder why apples always fall straight down."},
-    {"id": "m04", "scene": "open", "who": "TEN", "say": "That question led him to gravity. Today, Newton's apples will help us with a different question.", "cap": "That question led him to gravity. Today, Newton’s apples will help us with a different question."},
-    {"id": "m05", "scene": "title", "who": "SAM", "say": "Newton's apples. What is x?", "cap": "Newton’s apples. What is x?"},
-    {"id": "m06", "scene": "mystery", "who": "TEN", "say": "Here is Newton's basket. There are some apples inside, but the lid is closed.", "cap": "Here is Newton’s basket. There are some apples inside, but the lid is closed."},
-    {"id": "m07", "scene": "mystery", "who": "SAM", "say": "So how many apples are in there?", "cap": "So how many apples are in there?"},
-    {"id": "m08", "scene": "mystery", "who": "TEN", "say": "We don't know yet. So we give that number a name. We call it x.", "cap": "We don’t know yet. So we give that number a name. We call it x."},
-    {"id": "m09", "scene": "mystery", "who": "TEN", "say": "x is a variable: a number we don't know yet. Like a basket, waiting to be opened.", "cap": "x is a variable: a number we don’t know yet. Like a basket, waiting to be opened."},
-    {"id": "m10", "scene": "balance", "who": "TEN", "say": "Let's find it. On this side of the scale: three apples, and the basket.", "cap": "Let’s find it. On this side of the scale: three apples, and the basket."},
-    {"id": "m11", "scene": "balance", "who": "TEN", "say": "On the other side: seven apples. And the scale balances.", "cap": "On the other side: seven apples. And the scale balances."},
-    {"id": "m12", "scene": "balance", "who": "SAM", "say": "So three plus x equals seven.", "cap": "So 3 + x = 7."},
-    {"id": "m13", "scene": "balance", "who": "TEN", "say": "Yes. Whatever we do to one side, we do to the other. Take three apples off both sides.", "cap": "Yes. Whatever we do to one side, we do to the other. Take 3 apples off both sides."},
-    {"id": "m14", "scene": "balance", "who": "TEN", "say": "The scale still balances. The basket equals four apples. x equals four!", "cap": "The scale still balances. The basket equals 4 apples. x = 4!"},
-    {"id": "m15", "scene": "balance", "who": "SAM", "say": "Open it! Four apples. Newton, you're a genius.", "cap": "Open it! Four apples. Newton, you’re a genius."},
-    {"id": "m16", "scene": "terms", "who": "TEN", "say": "Now, every basket holds the same number of apples: x.", "cap": "Now, every basket holds the same number of apples: x."},
-    {"id": "m17", "scene": "terms", "who": "TEN", "say": "Two baskets plus three baskets is five baskets. Two x plus three x is five x.", "cap": "Two baskets plus three baskets is five baskets. 2x + 3x = 5x."},
-    {"id": "m18", "scene": "terms", "who": "SAM", "say": "Easy. So two baskets plus three loose apples is five x?", "cap": "Easy. So two baskets plus three loose apples is 5x?"},
-    {"id": "m19", "scene": "terms", "who": "TEN", "say": "No! Baskets and loose apples are different things. Two x plus three stays two x plus three.", "cap": "No! Baskets and loose apples are different things. 2x + 3 stays 2x + 3."},
-    {"id": "m20", "scene": "terms", "who": "SAM", "say": "Got it. Add baskets to baskets, and apples to apples.", "cap": "Got it. Add baskets to baskets, and apples to apples."},
-    {"id": "m21", "scene": "subst", "who": "TEN", "say": "Four baskets hold four x apples. If each basket holds six apples, then x is six.", "cap": "Four baskets hold 4x apples. If each basket holds 6 apples, then x = 6."},
-    {"id": "m22", "scene": "subst", "who": "TEN", "say": "So four times six: twenty-four apples.", "cap": "So 4 × 6 = 24 apples."},
-    {"id": "m23", "scene": "word", "who": "SAM", "say": "Okay, Teacher. Give me a real exam question.", "cap": "Okay, Teacher. Give me a real exam question."},
-    {"id": "m24", "scene": "word", "who": "TEN", "say": "Newton picks seventeen apples. He fills three baskets, and two apples are left over. How many apples are in each basket?", "cap": "Newton picks 17 apples. He fills 3 baskets, and 2 apples are left over. How many apples are in each basket?"},
-    {"id": "m25", "scene": "word", "who": "TEN", "say": "Write it down: three x plus two equals seventeen.", "cap": "Write it down: 3x + 2 = 17."},
-    {"id": "m26", "scene": "word", "who": "TEN", "say": "Take away the two loose apples: three x equals fifteen.", "cap": "Take away the 2 loose apples: 3x = 15."},
-    {"id": "m27", "scene": "word", "who": "TEN", "say": "Share fifteen between three baskets: x equals five.", "cap": "Share 15 between 3 baskets: x = 5."},
-    {"id": "m28", "scene": "word", "who": "SAM", "say": "Five apples in each basket. Check: three fives are fifteen, plus two is seventeen. Yes!", "cap": "Five apples in each basket. Check: 3 × 5 = 15, plus 2 is 17. Yes!"},
-    {"id": "m29", "scene": "quiz", "who": "SAM", "say": "Your turn! Two x equals ten. What is x?", "cap": "Your turn! 2x = 10. What is x?"},
-    {"id": "m30", "scene": "quiz", "who": "TEN", "say": "Five! Two baskets of five apples make ten.", "cap": "x = 5! Two baskets of five apples make ten."},
-    {"id": "m31", "scene": "outro", "who": "TEN", "say": "Remember: x is just a number, waiting to be found.", "cap": "Remember: x is just a number, waiting to be found."},
-    {"id": "m32", "scene": "outro", "who": "SAM", "say": "Maths at Royal Crest Academy. Science, innovation, skill.", "cap": "Maths at Royal Crest Academy. Science · Innovation · Skill."}
-  ]
+  "SAM": {
+   "name": "Sam (commentator)",
+   "voice_id": "FSjbVsYdGQ5KJ6l0Ul2r"
+  }
+ },
+ "_note": "say = text sent to ElevenLabs (maths in words); cap = on-screen caption (maths in symbols).",
+ "lines": [
+  {
+   "id": "n01",
+   "scene": "story",
+   "who": "SAM",
+   "say": "England, sixteen sixty-six. Isaac Newton is twenty-three, reading in his mother's garden.",
+   "cap": "England, 1666. Isaac Newton is 23, reading in his mother’s garden."
+  },
+  {
+   "id": "n02",
+   "scene": "story",
+   "who": "SAM",
+   "say": "And then... an apple falls.",
+   "cap": "And then… an apple falls."
+  },
+  {
+   "id": "n03",
+   "scene": "story",
+   "who": "SAM",
+   "say": "Hold on. Did it hit him on the head?",
+   "cap": "Hold on. Did it hit him on the head?"
+  },
+  {
+   "id": "n04",
+   "scene": "story",
+   "who": "TEN",
+   "say": "No! That part is a myth. But it made him ask a question nobody had answered: why do apples always fall straight down?",
+   "cap": "No! That part is a myth. But it made him ask a question nobody had answered: why do apples always fall straight down?"
+  },
+  {
+   "id": "n05",
+   "scene": "pickup",
+   "who": "TEN",
+   "say": "He picked it up, and started to think in numbers. That question led him to gravity, and to some of the most powerful maths ever written.",
+   "cap": "He picked it up, and started to think in numbers. That question led him to gravity, and to some of the most powerful maths ever written."
+  },
+  {
+   "id": "n06",
+   "scene": "pickup",
+   "who": "SAM",
+   "say": "So today, we start where every great mathematician starts: with a mystery number.",
+   "cap": "So today, we start where every great mathematician starts: with a mystery number."
+  },
+  {
+   "id": "m05",
+   "scene": "title",
+   "who": "SAM",
+   "say": "Newton's apples. What is x?",
+   "cap": "Newton’s apples. What is x?"
+  },
+  {
+   "id": "m06",
+   "scene": "mystery",
+   "who": "TEN",
+   "say": "Here is Newton's basket. There are some apples inside, but the lid is closed.",
+   "cap": "Here is Newton’s basket. There are some apples inside, but the lid is closed."
+  },
+  {
+   "id": "m07",
+   "scene": "mystery",
+   "who": "SAM",
+   "say": "So how many apples are in there?",
+   "cap": "So how many apples are in there?"
+  },
+  {
+   "id": "m08",
+   "scene": "mystery",
+   "who": "TEN",
+   "say": "We don't know yet. So we give that number a name. We call it x.",
+   "cap": "We don’t know yet. So we give that number a name. We call it x."
+  },
+  {
+   "id": "m09",
+   "scene": "mystery",
+   "who": "TEN",
+   "say": "x is a variable: a number we don't know yet. Like a basket, waiting to be opened.",
+   "cap": "x is a variable: a number we don’t know yet. Like a basket, waiting to be opened."
+  },
+  {
+   "id": "m10",
+   "scene": "balance",
+   "who": "TEN",
+   "say": "Let's find it. On this side of the scale: three apples, and the basket.",
+   "cap": "Let’s find it. On this side of the scale: three apples, and the basket."
+  },
+  {
+   "id": "m11",
+   "scene": "balance",
+   "who": "TEN",
+   "say": "On the other side: seven apples. And the scale balances.",
+   "cap": "On the other side: seven apples. And the scale balances."
+  },
+  {
+   "id": "m12",
+   "scene": "balance",
+   "who": "SAM",
+   "say": "So three plus x equals seven.",
+   "cap": "So 3 + x = 7."
+  },
+  {
+   "id": "m13",
+   "scene": "balance",
+   "who": "TEN",
+   "say": "Yes. Whatever we do to one side, we do to the other. Take three apples off both sides.",
+   "cap": "Yes. Whatever we do to one side, we do to the other. Take 3 apples off both sides."
+  },
+  {
+   "id": "m14",
+   "scene": "balance",
+   "who": "TEN",
+   "say": "The scale still balances. The basket equals four apples. x equals four!",
+   "cap": "The scale still balances. The basket equals 4 apples. x = 4!"
+  },
+  {
+   "id": "m15",
+   "scene": "balance",
+   "who": "SAM",
+   "say": "Open it! Four apples. Newton, you're a genius.",
+   "cap": "Open it! Four apples. Newton, you’re a genius."
+  },
+  {
+   "id": "m16",
+   "scene": "terms",
+   "who": "TEN",
+   "say": "Now, every basket holds the same number of apples: x.",
+   "cap": "Now, every basket holds the same number of apples: x."
+  },
+  {
+   "id": "m17",
+   "scene": "terms",
+   "who": "TEN",
+   "say": "Two baskets plus three baskets is five baskets. Two x plus three x is five x.",
+   "cap": "Two baskets plus three baskets is five baskets. 2x + 3x = 5x."
+  },
+  {
+   "id": "m18",
+   "scene": "terms",
+   "who": "SAM",
+   "say": "Easy. So two baskets plus three loose apples is five x?",
+   "cap": "Easy. So two baskets plus three loose apples is 5x?"
+  },
+  {
+   "id": "m19",
+   "scene": "terms",
+   "who": "TEN",
+   "say": "No! Baskets and loose apples are different things. Two x plus three stays two x plus three.",
+   "cap": "No! Baskets and loose apples are different things. 2x + 3 stays 2x + 3."
+  },
+  {
+   "id": "m20",
+   "scene": "terms",
+   "who": "SAM",
+   "say": "Got it. Add baskets to baskets, and apples to apples.",
+   "cap": "Got it. Add baskets to baskets, and apples to apples."
+  },
+  {
+   "id": "m21",
+   "scene": "subst",
+   "who": "TEN",
+   "say": "Four baskets hold four x apples. If each basket holds six apples, then x is six.",
+   "cap": "Four baskets hold 4x apples. If each basket holds 6 apples, then x = 6."
+  },
+  {
+   "id": "m22",
+   "scene": "subst",
+   "who": "TEN",
+   "say": "So four times six: twenty-four apples.",
+   "cap": "So 4 × 6 = 24 apples."
+  },
+  {
+   "id": "m23",
+   "scene": "word",
+   "who": "SAM",
+   "say": "Okay, Teacher. Give me a real exam question.",
+   "cap": "Okay, Teacher. Give me a real exam question."
+  },
+  {
+   "id": "m24",
+   "scene": "word",
+   "who": "TEN",
+   "say": "Newton picks seventeen apples. He fills three baskets, and two apples are left over. How many apples are in each basket?",
+   "cap": "Newton picks 17 apples. He fills 3 baskets, and 2 apples are left over. How many apples are in each basket?"
+  },
+  {
+   "id": "m25",
+   "scene": "word",
+   "who": "TEN",
+   "say": "Write it down: three x plus two equals seventeen.",
+   "cap": "Write it down: 3x + 2 = 17."
+  },
+  {
+   "id": "m26",
+   "scene": "word",
+   "who": "TEN",
+   "say": "Take away the two loose apples: three x equals fifteen.",
+   "cap": "Take away the 2 loose apples: 3x = 15."
+  },
+  {
+   "id": "m27",
+   "scene": "word",
+   "who": "TEN",
+   "say": "Share fifteen between three baskets: x equals five.",
+   "cap": "Share 15 between 3 baskets: x = 5."
+  },
+  {
+   "id": "m28",
+   "scene": "word",
+   "who": "SAM",
+   "say": "Five apples in each basket. Check: three fives are fifteen, plus two is seventeen. Yes!",
+   "cap": "Five apples in each basket. Check: 3 × 5 = 15, plus 2 is 17. Yes!"
+  },
+  {
+   "id": "m29",
+   "scene": "quiz",
+   "who": "SAM",
+   "say": "Your turn! Two x equals ten. What is x?",
+   "cap": "Your turn! 2x = 10. What is x?"
+  },
+  {
+   "id": "m30",
+   "scene": "quiz",
+   "who": "TEN",
+   "say": "Five! Two baskets of five apples make ten.",
+   "cap": "x = 5! Two baskets of five apples make ten."
+  },
+  {
+   "id": "m31",
+   "scene": "recap",
+   "who": "TEN",
+   "say": "Remember: x is just a number, waiting to be found.",
+   "cap": "Remember: x is just a number, waiting to be found."
+  },
+  {
+   "id": "b01",
+   "scene": "bridge",
+   "who": "SAM",
+   "say": "Okay. But what about at home, at nine at night, when question seven just won't work?",
+   "cap": "Okay. But what about at home, at nine at night, when question seven just won't work?"
+  },
+  {
+   "id": "b02",
+   "scene": "bridge",
+   "who": "TEN",
+   "say": "That's why we built Crest Slate.",
+   "cap": "That's why we built Crest Slate."
+  },
+  {
+   "id": "b03",
+   "scene": "reveal",
+   "who": "SAM",
+   "say": "Crest Slate is Royal Crest's own maths canvas. It works on a tablet, a laptop, or a phone.",
+   "cap": "Crest Slate is Royal Crest's own maths canvas. It works on a tablet, a laptop, or a phone."
+  },
+  {
+   "id": "b04",
+   "scene": "snap",
+   "who": "TEN",
+   "say": "Take a photo of the question, and draw a box around it. Slate reads it, right there on the page.",
+   "cap": "Take a photo of the question, and draw a box around it. Slate reads it, right there on the page."
+  },
+  {
+   "id": "b05",
+   "scene": "snap",
+   "who": "TEN",
+   "say": "Then you choose: solve it step by step, ask for one hint at a time, or let Slate mark your own working.",
+   "cap": "Then you choose: solve it step by step, ask for one hint at a time, or let Slate mark your own working."
+  },
+  {
+   "id": "b06",
+   "scene": "checked",
+   "who": "SAM",
+   "say": "And here's my favourite part. Slate puts the answer back into the equation, to check that it really works.",
+   "cap": "And here’s my favourite part: Slate puts the answer back into the equation, to check that it really works."
+  },
+  {
+   "id": "b07",
+   "scene": "graph",
+   "who": "TEN",
+   "say": "Graph paper, number lines, x and y axes. Type y equals x squared, minus five x, plus six, and Slate draws the graph.",
+   "cap": "Graph paper, number lines, x–y axes. Type y = x² − 5x + 6, and Slate draws the graph."
+  },
+  {
+   "id": "b08",
+   "scene": "marking",
+   "who": "SAM",
+   "say": "Got it wrong? Slate shows you the first slip, kindly. Seventeen minus two is fifteen, not nineteen.",
+   "cap": "Got it wrong? Slate shows you the first slip, kindly: 17 − 2 is 15, not 19."
+  },
+  {
+   "id": "b09",
+   "scene": "marking",
+   "who": "TEN",
+   "say": "Hints come first, because we want you to think first, then check.",
+   "cap": "Hints come first, because we want you to think first, then check."
+  },
+  {
+   "id": "b10",
+   "scene": "features",
+   "who": "SAM",
+   "say": "It covers all nine Cambridge maths topic areas, from number and algebra to trigonometry and statistics.",
+   "cap": "It covers all nine Cambridge maths topic areas, from number and algebra to trigonometry and statistics."
+  },
+  {
+   "id": "b11",
+   "scene": "features",
+   "who": "TEN",
+   "say": "And it runs on Royal Crest's own A.I. model, not a public chatbot, with no adverts and no distractions.",
+   "cap": "And it runs on Royal Crest’s own AI model: not a public chatbot, with no adverts and no distractions."
+  },
+  {
+   "id": "b12",
+   "scene": "portal",
+   "who": "SAM",
+   "say": "Crest Slate lives inside Crest Quest, our learner portal, right next to your marks, your timetable and your homework.",
+   "cap": "Crest Slate lives inside Crest Quest, our learner portal, right next to your marks, your timetable and your homework."
+  },
+  {
+   "id": "b13",
+   "scene": "outro",
+   "who": "TEN",
+   "say": "From Newton's quill to your stylus. x is just a number, waiting to be found.",
+   "cap": "From Newton’s quill to your stylus. x is just a number, waiting to be found."
+  },
+  {
+   "id": "b14",
+   "scene": "outro",
+   "who": "SAM",
+   "say": "Royal Crest Academy. Science, innovation, skill.",
+   "cap": "Royal Crest Academy. Science · Innovation · Skill."
+  }
+ ]
 }
