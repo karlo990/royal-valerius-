@@ -27,6 +27,7 @@ git add -A && git commit -m "Add Royal Crest hub" && git push
 | `HF_TOKEN` | a Hugging Face **write** token (huggingface.co/settings/tokens) |
 | `HF_BACKUP_REPO` | `Davincii-code/royal-crest-backups` (created private automatically) |
 | `KUDZI_LLM` (optional) | `ollama` lets Kudzi use this Space's phi4-mini for open questions |
+| `MATHS_LLM` (optional) | `ollama` turns on Crest Slate's maths AI (`/api/v1/maths/solve`); it follows `KUDZI_LLM` if unset. Also `MATHS_MODEL`, `MATHS_LLM_TIMEOUT` (110 s) and `MATHS_PER_HOUR` (40) |
 
 The Space is public, so all of these must be **secrets**, never written into files.
 

@@ -76,3 +76,10 @@ KUDZI_LLM = _env("KUDZI_LLM", "off").lower()
 KUDZI_LLM_URL = _env("KUDZI_LLM_URL", "http://127.0.0.1:11434/api/chat")
 KUDZI_MODEL = _env("KUDZI_MODEL", _env("JARVIS_MODEL", "phi4-mini:3.8b-q4_K_M"))
 KUDZI_LLM_TIMEOUT = float(_env("KUDZI_LLM_TIMEOUT", "45") or 45)
+
+# Crest Slate (the maths canvas, /portal/slate/): the same local model, its own switch and limits
+MATHS_LLM = _env("MATHS_LLM", KUDZI_LLM).lower()
+MATHS_LLM_URL = _env("MATHS_LLM_URL", KUDZI_LLM_URL)
+MATHS_MODEL = _env("MATHS_MODEL", KUDZI_MODEL)
+MATHS_LLM_TIMEOUT = float(_env("MATHS_LLM_TIMEOUT", "110") or 110)
+MATHS_PER_HOUR = int(_env("MATHS_PER_HOUR", "40") or 40)
