@@ -330,8 +330,16 @@ window.renderAt = async function (t) {
     const cur = c.filter((x) => t >= x - .1).length;    // 0..4
     const tk = talking(t, ['s01', 's02', 's03', 's04', 's05']), mouth = tk ? (Math.sin(t * 22) * .5 + .5) : 0;
     svg += spotlight(880, 610, 210, k(t, s, .6));
-    if (cur === 1) { const x = eo(k(t, c[0], .8)); svg += `<line x1="880" y1="${250}" x2="880" y2="${250 + 360 * x}" stroke="#f2b705" stroke-width="3" stroke-dasharray="8 8"/><text x="940" y="${330}" font-family="Hand" font-weight="700" font-size="34" fill="#f2b705" opacity="${x}">tall &amp; steady</text>`; }
     svg += speaker(880, 610, 1, cur >= 3 ? .6 : 0, mouth);
+    if (cur === 1) {   // a height marker beside the speaker: floor to the top of his head
+      const x = eo(k(t, c[0], .9)), top = 610 - 366 * x, mx = 990;
+      svg += `<g stroke="#f2b705" stroke-width="3" fill="none" stroke-linecap="round">
+        <line x1="${mx}" y1="610" x2="${mx}" y2="${top}" stroke-dasharray="8 8"/>
+        <path d="M${mx - 12} 598 L${mx} 610 L${mx + 12} 598"/><path d="M${mx - 12} ${top + 12} L${mx} ${top} L${mx + 12} ${top + 12}" opacity="${x}"/>
+        <line x1="${mx - 70}" y1="${top}" x2="${mx + 14}" y2="${top}" stroke-dasharray="4 6" opacity="${k(x, .9, .1)}"/>
+        <line x1="${mx - 110}" y1="610" x2="${mx + 14}" y2="610" opacity=".7"/></g>
+        <text x="${mx + 18}" y="430" font-family="Hand" font-weight="700" font-size="34" fill="#f2b705" opacity="${x}">tall &amp;</text>
+        <text x="${mx + 18}" y="466" font-family="Hand" font-weight="700" font-size="34" fill="#f2b705" opacity="${x}">steady</text>`; }
     if (cur === 2) { const x = k(t, c[1], 3.2); const heads = [400, 660, 920, 1170]; svg += heads.map((hx, i) => { const v = clamp(Math.sin(Math.PI * clamp(x * 4 - i))); return `<line x1="${880 - 12}" y1="282" x2="${hx}" y2="640" stroke="#f2b705" stroke-width="2.5" stroke-dasharray="6 7" opacity="${.25 + .75 * v}"/><circle cx="${hx}" cy="640" r="${10 + 8 * v}" fill="none" stroke="#f2b705" stroke-width="2" opacity="${v}"/>`; }).join(''); }
     if (cur === 3) {   // a voice waveform with real gaps marked "pause"
       const x0 = 560, x1 = 1200, n = 64, prog = k(t, c[2], 2.6); let b = '';
