@@ -3,7 +3,7 @@ otherwise an estimate (so visuals can be previewed before the voices exist)."""
 import json, pathlib, subprocess, re
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 S = json.load(open(ROOT / "script.json"))
-LEAD = {"open": 1.6, "study": .8}; TAIL = {"outro": 5.0, "study": 1.0}
+LEAD = {"intro": .5, "open": 1.0, "study": .8}; TAIL = {"outro": 5.0, "study": 1.0, "intro": 1.6}
 GAP_LINE, GAP_SCENE = 0.4, 1.0
 HOLD_AFTER = {'m01': 1.4, 'm02': 1.4, 'm03': 1.2, 'm04': 1.8, 'm05': 1.2, 'm06': 1.6, 'm07': 1.2, 'm08': 1.6, 'm09': 1.0, 'm10': 1.4, 'm11': 1.6, 'm12': 1.6, 'm13': 1.6, 'm14': .6, 'm15': 2.0, 'm16': 2.2, 'm17': 1.6, 'm18': .6, 'm19': 2.0, 'm20': 2.0, 'm21': 1.4, 'm22': 1.0}
 

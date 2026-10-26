@@ -12,10 +12,21 @@
   "STU": {
    "name": "Student",
    "voice_id": "cgSgspJ2msm6clMCkdW9"
+  },
+  "BOY": {
+   "name": "Student (boy in the clip)",
+   "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
   }
  },
  "_note": "Plot facts only from the publisher's description (Oxford University Press Southern Africa). say = sent to ElevenLabs; cap = on-screen caption.",
  "lines": [
+  {
+   "id": "m00",
+   "scene": "intro",
+   "who": "BOY",
+   "say": "Good morning, everyone. My book review today is Mpho's Search, by Sandra Braude.",
+   "cap": "Good morning, everyone. My book review today is Mpho’s Search, by Sandra Braude."
+  },
   {
    "id": "m01",
    "scene": "open",

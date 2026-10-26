@@ -38,6 +38,7 @@ SOFTNO = gen('softno', "aevalsrc='sin(2*PI*330*t)*exp(-t*6)+sin(2*PI*262*t)*exp(
 RISE = gen('rise', 'anoisesrc=c=pink:a=1:r=48000:seed=12', 2.5, "lowpass=f=2500,volume='(t/2.5)^2':eval=frame,afade=t=out:st=2.2:d=0.3")
 
 # ---- open: dusk on the farm, the sheep are counted (no scratchy sounds: the school asked for none)
+add(CHIME, SC['intro']['start'] + .7, .45)
 s0 = SC['open']['start']
 for i in range(6): add(POP, s0 + .6 + i * .45, .2)
 add(SOFTNO, cue('m01', 'missing'), .5)
