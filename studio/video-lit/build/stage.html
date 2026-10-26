@@ -188,7 +188,8 @@ const L = Object.fromEntries(TL.lines.map((l) => [l.id, l])), S = Object.fromEnt
 function cue(id, sub, nth = 0) { const l = L[id]; if (sub == null) return l.start; let i = -1; for (let n = 0; n <= nth; n++) { i = l.chars.indexOf(sub, i + 1); if (i < 0) break; } return l.start + (i >= 0 ? l.times[i] : 0); }
 let T = 0;
 const sceneW = (id, fi = .5, fo = .5) => { const s = S[id]; return s ? Math.min(k(T, s.start, fi), 1 - k(T, s.end - fo, fo)) : 0; };
-function show(id, w) { const e = $('#s-' + id); e.style.display = w > 0.001 ? 'block' : 'none'; e.style.opacity = w; return w > 0.001; }
+let SW = 0;   // weight of the scene on screen (scenes never overlap), so its drawings fade with it
+function show(id, w) { if (w > 0.001) SW = w; const e = $('#s-' + id); e.style.display = w > 0.001 ? 'block' : 'none'; e.style.opacity = w; return w > 0.001; }
 function fade(el, a, d = .45, dy = 16) { const x = k(T, a, d); el.style.opacity = x; el.style.transform = (el.dataset.base || '') + ` translateY(${(1 - eo(x)) * dy}px)`; return x; }
 function pop(el, a, d = .45) { const x = k(T, a, d); el.style.opacity = clamp(x * 3); el.style.transform = (el.dataset.base || '') + ` translateY(${(1 - eo(x)) * 24}px) scale(${.7 + .3 * back(x)})`; return x; }
 const on = (el, a) => el.classList.toggle('on', T >= a);
@@ -237,7 +238,7 @@ const WHO = { TCH: ['TEACHER RUDO', ''], NAR: ['NARRATOR', 'sam'], STU: ['STUDEN
 const FLY = ['imagine', 'courage', 'stories', 'voice', 'listen', 'feel', 'speak'];
 
 window.renderAt = async function (t) {
-  T = t; let svg = '';
+  T = t; let svg = ''; SW = 0;
   // backgrounds: ink for reading, stage for speaking
   const stageA = Math.max(sceneW('bridge', .8, .1), sceneW('speak', .1, .6), sceneW('shape', .6, .6) * .0, sceneW('practice', .6, .6) * 0);
   $('#stagebg').style.opacity = Math.max(sceneW('speak', .1, .6), k(t, S.bridge.start + .3, 1.2) * (1 - k(t, S.speak.start, .2)));
@@ -351,7 +352,7 @@ window.renderAt = async function (t) {
     const s = S.outro.start; fade($('#en-c'), s + .2, .7); fade($('#en-h'), cue('x02', 'Read') - .2, .6); fade($('#en-s'), s + .9, .6);
     const c = $('#en-cta'); c.dataset.base = 'translateX(-50%)'; pop(c, cue('x02', 'Form') - .2, .5);
   }
-  $('#g-scene').innerHTML = svg;
+  $('#g-scene').innerHTML = svg; $('#g-scene').setAttribute('opacity', SW);
 
   const line = TL.lines.find((l) => t >= l.start - .15 && t <= l.end + .5), cap = $('#cap');
   if (line) {
