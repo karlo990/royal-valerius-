@@ -12,6 +12,10 @@
   "STU": {
    "name": "Student",
    "voice_id": "cgSgspJ2msm6clMCkdW9"
+  },
+  "BOY": {
+   "name": "Student (boy in the clip)",
+   "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
   }
  },
  "_note": "say = text sent to ElevenLabs; cap = on-screen caption.",
@@ -120,6 +124,13 @@
    "who": "NAR",
    "say": "But reading is only half of it. Now, say it out loud.",
    "cap": "But reading is only half of it. Now, say it out loud."
+  },
+  {
+   "id": "b02",
+   "scene": "boyclip",
+   "who": "BOY",
+   "say": "Good morning, everyone. Today I want to tell you about my favourite book, and why you should read it too.",
+   "cap": "Good morning, everyone. Today I want to tell you about my favourite book, and why you should read it too."
   },
   {
    "id": "s01",

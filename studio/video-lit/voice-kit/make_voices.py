@@ -17,6 +17,7 @@ SETTINGS = {  # teacher: warm and steady · narrator: rich and calm · student: 
     "TEN": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.3, "use_speaker_boost": True},
     "TCH": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.3, "use_speaker_boost": True},
     "NAR": {"stability": 0.45, "similarity_boost": 0.8, "style": 0.35, "use_speaker_boost": True},
+    "BOY": {"stability": 0.4, "similarity_boost": 0.8, "style": 0.45, "use_speaker_boost": True},
     "STU": {"stability": 0.35, "similarity_boost": 0.8, "style": 0.55, "use_speaker_boost": True},
     "SAM": {"stability": 0.38, "similarity_boost": 0.8, "style": 0.5, "use_speaker_boost": True},
 }

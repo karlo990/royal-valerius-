@@ -138,9 +138,11 @@ html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#000}
     <div class="abs" id="gn-m" style="left:0;right:0;top:608px;text-align:center;font:italic 400 24px RcSerif,serif;color:#dfe5f8">Cambridge IGCSE &amp; A Level <span style="color:var(--gold2)">·</span> Form 1 to Upper 6</div>
   </div>
   <div class="sc" id="s-bridge">
-    <img class="abs" id="br-img" alt="" style="left:0;top:0;width:1280px;height:720px;object-fit:cover">
-    <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(4,8,30,.55) 0,rgba(4,8,30,.15) 30%,rgba(4,8,30,0) 52%,rgba(4,8,30,.45) 100%)"></div>
-    <div class="abs h" id="br-h" style="left:760px;top:250px;width:480px;text-align:left;font-size:58px;line-height:1.02;text-shadow:0 6px 30px rgba(0,0,0,.7)"><span style="font-size:28px;display:block;margin-bottom:10px;color:#dfe5f8;font-style:italic">Reading is only half of it.</span>Now, say it<br><em>out loud.</em></div>
+    <div class="abs h" id="br-h" style="left:0;right:0;top:120px;text-align:center;font-size:88px"><span style="font-size:40px;display:block;margin-bottom:16px;color:#dfe5f8;font-style:italic">Reading is only half of it.</span>Now, say it <em>out loud.</em></div>
+  </div>
+  <div class="sc" id="s-boyclip">
+    <img class="abs" id="bc-img" alt="" style="left:0;top:0;width:1280px;height:720px;object-fit:cover">
+    <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(4,8,30,.35) 0,rgba(4,8,30,0) 24%,rgba(4,8,30,0) 70%,rgba(4,8,30,.45) 100%)"></div>
   </div>
   <div class="sc" id="s-speak">
     <div class="abs kick" style="left:70px;top:110px">Public speaking</div>
@@ -240,7 +242,7 @@ function audience(a = 1, y = 720) {   // backs of heads in the front row
 }
 function ring(cx, cy, r, frac, color, w = 8) { return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="${w}"/><circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" pathLength="1" stroke-dasharray="${frac} 1" transform="rotate(-90 ${cx} ${cy})"/>`; }
 const talking = (t, ids) => ids.some((id) => t >= L[id].start && t <= L[id].end);
-const WHO = { TCH: ['TEACHER RUDO', ''], NAR: ['NARRATOR', 'sam'], STU: ['STUDENT', 'stu'] };
+const WHO = { TCH: ['TEACHER RUDO', ''], NAR: ['NARRATOR', 'sam'], STU: ['STUDENT', 'stu'], BOY: ['STUDENT', 'stu'] };
 const FLY = ['imagine', 'courage', 'stories', 'voice', 'listen', 'feel', 'speak'];
 
 window.renderAt = async function (t) {
@@ -249,7 +251,7 @@ window.renderAt = async function (t) {
   const stageA = Math.max(sceneW('bridge', .8, .1), sceneW('speak', .1, .6), sceneW('shape', .6, .6) * .0, sceneW('practice', .6, .6) * 0);
   $('#stagebg').style.opacity = Math.max(sceneW('speak', .1, .6), k(t, S.bridge.start + .3, 1.2) * (1 - k(t, S.speak.start, .2)));
   $('#dust').style.opacity = .3 * (1 - +$('#stagebg').style.opacity);
-  $('#brand').style.opacity = 1 - Math.max(sceneW('title'), sceneW('outro'), sceneW('bridge'));
+  $('#brand').style.opacity = 1 - Math.max(sceneW('title'), sceneW('outro'), sceneW('bridge'), sceneW('boyclip'));
 
   // OPEN: words lift off the page and fly to the microphone
   if (show('open', sceneW('open', .8, .6))) {
@@ -310,10 +312,16 @@ window.renderAt = async function (t) {
   }
   // BRIDGE: the lights go up on a stage
   if (show('bridge', sceneW('bridge', .5, .4))) {
-    const s = S.bridge.start;   // a real student presenting (Gemini clip, CapCut mark cropped out)
-    await frame($('#br-img'), 'boy', (t - s) * 24 + 1, 192);
-    $('#br-img').style.transform = `scale(${1.04 + .05 * k(t, s, S.bridge.end - s)})`;
-    const h = $('#br-h'); fade(h, s + .3, .7, 20); h.style.top = '70px';
+    const s = S.bridge.start, a = k(t, s + .4, 1.2);
+    svg += spotlight(640, 620, 230, a) + mic(640, 470, .7, a);
+    fade($('#br-h'), s + .3, .7, 20);
+  }
+  // BOY: a real student presenting (Gemini clip, CapCut mark cropped out). His voice is ours (ElevenLabs);
+  // he mouths words from 0.3 s to 7.0 s of the clip, so the clip runs at the speed that fits his line into that window.
+  if (show('boyclip', sceneW('boyclip', .4, .5))) {
+    const l = L.b02, rate = clamp(6.7 / (l.end - l.start), .8, 1.2), ct = .3 + (t - l.start) * rate;
+    await frame($('#bc-img'), 'boy', ct * 24 + 1, 192);
+    $('#bc-img').style.transform = `scale(${1.03 + .05 * k(t, S.boyclip.start, S.boyclip.end - S.boyclip.start)})`;
   }
   // SPEAK: the four habits, each drawn on the speaker
   if (show('speak', sceneW('speak', .1, .6))) {
