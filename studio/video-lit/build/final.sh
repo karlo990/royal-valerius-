@@ -15,9 +15,9 @@ done
 wait
 ffmpeg -v error -y -f concat -safe 0 -i build/parts$SUF.txt -c copy build/video_silent$SUF.mp4
 python3 tools/glitchscan.py build/video_silent$SUF.mp4
-python3 tools/music.py
+[ -f build/music_oceans.wav ] || python3 tools/music.py   # background: Oceans (instrumental) when present, else the synth bed
 python3 tools/sfx.py
-python3 tools/mix.py --video build/video_silent$SUF.mp4 --music build/music.wav --sfx build/sfx.wav --bed ${MUSIC_BED:-0.3} --name royal-crest-page-to-podium$SUF
+python3 tools/mix.py --video build/video_silent$SUF.mp4 --music $( [ -f build/music_oceans.wav ] && echo build/music_oceans.wav || echo build/music.wav ) --sfx build/sfx.wav --bed ${MUSIC_BED:-0.4} --duck 6 --name royal-crest-page-to-podium$SUF
 S=1280:720; [ "$MODE" = portrait ] && S=720:1280
 ffmpeg -v error -y -i out/royal-crest-page-to-podium$SUF.mp4 -vf scale=$S:flags=lanczos -c:v libx264 -preset slow -crf 24 -tune animation -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart out/royal-crest-page-to-podium${SUF}_whatsapp.mp4
 echo ALLDONE
