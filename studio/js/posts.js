@@ -28,6 +28,7 @@
     'playlist': { label: "Playlist", caption: ["A week at Royal Crest, on repeat 🎧", "", "Morning devotion • Chemistry practical • Bonjour, Nǐ hǎo • Sparks fly in the workshop • Code the robot • Rugby • Sadza & stew"] },
     'verse-of-the-day': { label: "Verse of the day", formats: ['portrait', 'square'], caption: ["🌅 Verse of the day: Jeremiah 29:11", "", "“For I know the plans I have for you,” declares the Lord, “plans to prosper you and not to harm you, plans to give you hope and a future.”", "", "Heavenly Father, guide every Royal Crest family. Bless our children with wisdom, good character and a passion for learning. In Jesus’ name, Amen. 🙏", "", "Together, with God’s guidance, we are building a strong foundation for our children’s future."], plain: true },
     'verse-pink': { label: "Verse of the day (pink)", formats: ['portrait', 'square'], caption: ["🌅 Morning devotion: Trusting God for the vision", "", "📖 “Commit thy works unto the LORD, and thy thoughts shall be established.” Proverbs 16:3", "", "Heavenly Father, we commit Royal Crest Academy into Your hands. Guide every decision, provide every resource and unite us in purpose. In Jesus’ name, Amen. 🙏", "", "Our students shall rise, flourish and fulfil their God-given purpose.", "", "Have a blessed Sunday, Royal Crest family!"], plain: true },
+    'verse-exams': { label: "Verse of the day (exams)", formats: ['portrait', 'square'], caption: ["🌅 Verse of the day: strength for the exam room", "", "📖 “I can do all things through Christ which strengtheneth me.” Philippians 4:13", "", "Heavenly Father, as learners across Zimbabwe sit their examinations, give them clear minds, calm hearts and good recall. Bless every pen and every page. In Jesus’ name, Amen. 🙏", "", "To every learner writing this season: you are prepared, and you are not alone. ✍️", "", "Have a blessed week, Royal Crest family!"], plain: true },
     'zh-pictures': { label: "Mandarin: picture characters", formats: ['portrait', 'square'], caption: ["Chinese characters that are pictures 🖌️", "", "人 rén person • 山 shān mountain • 日 rì sun • 木 mù tree", "The oldest characters were carved on bones and shells more than 3,000 years ago. Learn to read them with us at Mandarin Connect."] },
     'zh-count': { formats: ['portrait', 'square'], label: "Mandarin: count to ten", caption: ["Count to ten in Mandarin 🏮", "", "yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí", "Fun fact: 八 (bā) is a lucky number in China because it sounds like the word for wealth."] },
     'zh-great-wall': { formats: ['portrait', 'square'], label: "Mandarin: the Great Wall", caption: ["长城 Chángchéng: the Great Wall 🏯", "", "More than 21,000 km of history. At Mandarin Connect our learners explore the language and the culture behind it."] },
@@ -91,7 +92,8 @@
 
   // ------------------------------------------------------------------ verse of the day (Prospectus look)
   const SKY = { navy: ['#0c1638', '#2a3f8f', '#b06c86', '#f0a35e', '#ffd27a', '#1d2a66', '#0c1638'],
-    pink: ['#4a0f2e', '#a3305f', '#e57fa6', '#ffb3c9', '#ffe1b8', '#8a2a5a', '#4a0f2e'] };
+    pink: ['#4a0f2e', '#a3305f', '#e57fa6', '#ffb3c9', '#ffe1b8', '#8a2a5a', '#4a0f2e'],
+    teal: ['#062a2e', '#0f5a5c', '#3f9a8f', '#e9b35f', '#ffd98a', '#0c4446', '#062a2e'] };
   function sunrise(theme = 'navy') {
     const c = SKY[theme], id = 'vd' + theme;
     return `<svg viewBox="0 0 300 500" preserveAspectRatio="xMidYMid slice"><defs>
@@ -370,6 +372,17 @@
     <div class="vd-prayer"><b>Prayer</b>Heavenly Father, we commit Royal Crest Academy into Your hands. May this vision become a blessing to our children, families and generations to come. In Jesus’ name, Amen.</div></div>
     <div class="fl-photo vd-arch">${sunrise('pink')}</div></div>
   <div class="fl-foot"><div class="fl-cta">Our students shall rise, flourish and fulfil their God-given purpose.</div><div class="fl-contact">Have a blessed Sunday<div class="c-web">Royal Crest family</div></div></div></div>`,
+    'verse-exams': (crest) => `<div class="t-prospectus vd">
+  <div class="fl-head"><div class="fl-brand"><img class="fl-crest" src="${crest}" alt=""><div class="fl-brandtext"><span class="fl-school">Royal Crest Academy</span><span class="fl-motto">Science · Innovation · Skill</span></div></div><span class="fl-kind">Verse of the day</span></div>
+  <div class="vd-main"><div class="vd-text">
+    <div class="fl-kicker">Exam season · Monday 26 October 2026</div>
+    <div class="fl-title">Strength for the <em>exam room.</em></div>
+    <div class="vd-verse">“I can do all things through Christ which strengtheneth me.”</div>
+    <div class="vd-ref">Philippians 4:13</div>
+    <div class="vd-note">Prepare well, rest well, and walk in calm. <b>The God who gave you wisdom will help you recall it.</b></div>
+    <div class="vd-prayer"><b>Prayer</b>Heavenly Father, as learners sit their examinations, give them clear minds, calm hearts and good recall. Bless every pen and every page. In Jesus’ name, Amen.</div></div>
+    <div class="fl-photo vd-arch">${sunrise('teal')}</div></div>
+  <div class="fl-foot"><div class="fl-cta">To every learner writing this season: you are prepared, and you are not alone.</div><div class="fl-contact">Have a blessed week<div class="c-web">Royal Crest family</div></div></div></div>`,
     'zh-pictures': (crest, phone, P, full) => `<div class="paper"></div>
   <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · characters</div>
   <div class="abs h">Characters that<br>are <em>pictures.</em></div>
