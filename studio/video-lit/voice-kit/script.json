@@ -1,13 +1,17 @@
 {
  "title": "Royal Crest Literature in English: From Page to Podium (literature + public speaking)",
  "voices": {
-  "TEN": {
-   "name": "Teacher Tendai",
-   "voice_id": "KpK2JUuSi307pzhaXdaL"
+  "TCH": {
+   "name": "Teacher Rudo",
+   "voice_id": "XrExE9yKIg1WjnnlVkGX"
   },
-  "SAM": {
-   "name": "Sam (commentator)",
-   "voice_id": "FSjbVsYdGQ5KJ6l0Ul2r"
+  "NAR": {
+   "name": "Narrator",
+   "voice_id": "nPczCjzI2devNBz1zQrF"
+  },
+  "STU": {
+   "name": "Student",
+   "voice_id": "cgSgspJ2msm6clMCkdW9"
   }
  },
  "_note": "say = text sent to ElevenLabs; cap = on-screen caption.",
@@ -15,189 +19,189 @@
   {
    "id": "o01",
    "scene": "open",
-   "who": "SAM",
+   "who": "NAR",
    "say": "Every great speech begins on a page.",
    "cap": "Every great speech begins on a page."
   },
   {
    "id": "o02",
    "scene": "open",
-   "who": "SAM",
+   "who": "NAR",
    "say": "And every great reader can learn to speak.",
    "cap": "And every great reader can learn to speak."
   },
   {
    "id": "o03",
    "scene": "title",
-   "who": "TEN",
-   "say": "Welcome to Literature in English and public speaking at Royal Crest Academy. I'm Teacher Tendai.",
-   "cap": "Welcome to Literature in English and public speaking at Royal Crest Academy. I’m Teacher Tendai."
+   "who": "TCH",
+   "say": "Welcome to Literature in English and public speaking at Royal Crest Academy. I'm Teacher Rudo.",
+   "cap": "Welcome to Literature in English and public speaking at Royal Crest Academy. I’m Teacher Rudo."
   },
   {
    "id": "w01",
    "scene": "why",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Why study literature? Because stories show us how people think, feel and change.",
    "cap": "Why study literature? Because stories show us how people think, feel and change."
   },
   {
    "id": "w02",
    "scene": "why",
-   "who": "TEN",
+   "who": "TCH",
    "say": "And if you can explain a story clearly, you can explain almost anything.",
    "cap": "And if you can explain a story clearly, you can explain almost anything."
   },
   {
    "id": "p01",
    "scene": "page",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Let's read closely. Shakespeare, As You Like It. All the world's a stage.",
    "cap": "Let’s read closely. Shakespeare, As You Like It: “All the world’s a stage.”"
   },
   {
    "id": "p02",
    "scene": "page",
-   "who": "TEN",
+   "who": "TCH",
    "say": "That's a metaphor. Life is compared to a play.",
    "cap": "That’s a metaphor. Life is compared to a play."
   },
   {
    "id": "p03",
    "scene": "page",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Now look at one small word: merely. The men and women are merely players. It makes people sound small. That's tone.",
    "cap": "Now look at one small word: “merely”. It makes people sound small. That’s tone."
   },
   {
    "id": "p04",
    "scene": "page",
-   "who": "TEN",
+   "who": "TCH",
    "say": "And, his acts being seven ages. The speech is built in seven parts. That's structure.",
    "cap": "“His acts being seven ages”: the speech is built in seven parts. That’s structure."
   },
   {
    "id": "p05",
    "scene": "page",
-   "who": "SAM",
+   "who": "NAR",
    "say": "So: imagery, tone and structure. Three things to look for, every time.",
    "cap": "So: imagery, tone and structure. Three things to look for, every time."
   },
   {
    "id": "e01",
    "scene": "essay",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Now turn your reading into an essay paragraph. Use peel.",
    "cap": "Now turn your reading into an essay paragraph. Use PEEL."
   },
   {
    "id": "e02",
    "scene": "essay",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Point: make your claim. Evidence: a short quotation. Explain: how the words work. Link: back to the question.",
    "cap": "Point: make your claim. Evidence: a short quotation. Explain: how the words work. Link: back to the question."
   },
   {
    "id": "e03",
    "scene": "essay",
-   "who": "SAM",
+   "who": "NAR",
    "say": "Point, evidence, explain, link. A paragraph examiners love.",
    "cap": "Point, Evidence, Explain, Link. A paragraph examiners love."
   },
   {
    "id": "g01",
    "scene": "genres",
-   "who": "TEN",
+   "who": "TCH",
    "say": "On the Cambridge syllabus you'll study poetry, prose and drama, from Form One to Upper Six.",
    "cap": "On the Cambridge syllabus you’ll study poetry, prose and drama, from Form 1 to Upper 6."
   },
   {
    "id": "b01",
    "scene": "bridge",
-   "who": "SAM",
+   "who": "NAR",
    "say": "But reading is only half of it. Now, say it out loud.",
    "cap": "But reading is only half of it. Now, say it out loud."
   },
   {
    "id": "s01",
    "scene": "speak",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Public speaking. Four habits of a confident speaker.",
    "cap": "Public speaking. Four habits of a confident speaker."
   },
   {
    "id": "s02",
    "scene": "speak",
-   "who": "TEN",
+   "who": "TCH",
    "say": "One: stand tall. Feet steady, shoulders relaxed.",
    "cap": "1. Stand tall. Feet steady, shoulders relaxed."
   },
   {
    "id": "s03",
    "scene": "speak",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Two: eye contact. Look at your audience, not at the floor.",
    "cap": "2. Eye contact. Look at your audience, not at the floor."
   },
   {
    "id": "s04",
    "scene": "speak",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Three: pace and pause. Slow down. A pause gives your words weight.",
    "cap": "3. Pace and pause. Slow down. A pause gives your words weight."
   },
   {
    "id": "s05",
    "scene": "speak",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Four: your voice. Loud enough for the back row, and full of feeling.",
    "cap": "4. Your voice. Loud enough for the back row, and full of feeling."
   },
   {
    "id": "t01",
    "scene": "shape",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Build every speech in three parts: a hook, the body, and a strong close.",
    "cap": "Build every speech in three parts: a hook, the body and a strong close."
   },
   {
    "id": "t02",
    "scene": "shape",
-   "who": "SAM",
+   "who": "STU",
    "say": "Like this. Imagine a world without stories. No books, no songs, no history. Today I'll show you why stories matter.",
    "cap": "“Imagine a world without stories. No books, no songs, no history. Today I’ll show you why stories matter.”"
   },
   {
    "id": "t03",
    "scene": "shape",
-   "who": "TEN",
+   "who": "TCH",
    "say": "That's a hook. Now everyone is listening.",
    "cap": "That’s a hook. Now everyone is listening."
   },
   {
    "id": "r01",
    "scene": "practice",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Your turn. Give a one-minute speech on your favourite book. Hook, body, close.",
    "cap": "Your turn. Give a one-minute speech on your favourite book. Hook, body, close."
   },
   {
    "id": "r02",
    "scene": "practice",
-   "who": "SAM",
+   "who": "NAR",
    "say": "Ready? Your minute starts now.",
    "cap": "Ready? Your minute starts now."
   },
   {
    "id": "x01",
    "scene": "outro",
-   "who": "SAM",
+   "who": "NAR",
    "say": "Royal Crest Academy, Bikita. Literature in English and public speaking, on the Cambridge syllabus.",
    "cap": "Royal Crest Academy, Bikita. Literature in English and public speaking, on the Cambridge syllabus."
   },
   {
    "id": "x02",
    "scene": "outro",
-   "who": "TEN",
+   "who": "TCH",
    "say": "Read closely. Speak boldly. Form One places for twenty twenty-seven are open now.",
    "cap": "Read closely. Speak boldly. Form 1 places for 2027 are open now."
   }

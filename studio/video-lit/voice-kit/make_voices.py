@@ -11,10 +11,13 @@ for _s in (sys.stdout, sys.stderr):  # Windows consoles can't print pinyin tone 
     try: _s.reconfigure(encoding="utf-8", errors="replace")
     except Exception: pass
 OUT = HERE / "audio"
-SETTINGS = {  # teachers: warm and steady · Sam: livelier commentator
+SETTINGS = {  # teacher: warm and steady · narrator: rich and calm · student: bright and young
     "WEN": {"stability": 0.45, "similarity_boost": 0.8, "style": 0.35, "use_speaker_boost": True},
     "TIN": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.3, "use_speaker_boost": True},
     "TEN": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.3, "use_speaker_boost": True},
+    "TCH": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.3, "use_speaker_boost": True},
+    "NAR": {"stability": 0.45, "similarity_boost": 0.8, "style": 0.35, "use_speaker_boost": True},
+    "STU": {"stability": 0.35, "similarity_boost": 0.8, "style": 0.55, "use_speaker_boost": True},
     "SAM": {"stability": 0.38, "similarity_boost": 0.8, "style": 0.5, "use_speaker_boost": True},
 }
 DEFAULT = {"stability": 0.45, "similarity_boost": 0.8, "style": 0.35, "use_speaker_boost": True}
