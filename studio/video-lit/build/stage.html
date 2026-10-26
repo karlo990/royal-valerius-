@@ -138,7 +138,9 @@ html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#000}
     <div class="abs" id="gn-m" style="left:0;right:0;top:608px;text-align:center;font:italic 400 24px RcSerif,serif;color:#dfe5f8">Cambridge IGCSE &amp; A Level <span style="color:var(--gold2)">·</span> Form 1 to Upper 6</div>
   </div>
   <div class="sc" id="s-bridge">
-    <div class="abs h" id="br-h" style="left:0;right:0;top:250px;text-align:center;font-size:88px"><span style="font-size:40px;display:block;margin-bottom:16px;color:#dfe5f8;font-style:italic">Reading is only half of it.</span>Now, say it <em>out loud.</em></div>
+    <img class="abs" id="br-img" alt="" style="left:0;top:0;width:1280px;height:720px;object-fit:cover">
+    <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(4,8,30,.55) 0,rgba(4,8,30,.15) 30%,rgba(4,8,30,0) 52%,rgba(4,8,30,.45) 100%)"></div>
+    <div class="abs h" id="br-h" style="left:760px;top:250px;width:480px;text-align:left;font-size:58px;line-height:1.02;text-shadow:0 6px 30px rgba(0,0,0,.7)"><span style="font-size:28px;display:block;margin-bottom:10px;color:#dfe5f8;font-style:italic">Reading is only half of it.</span>Now, say it<br><em>out loud.</em></div>
   </div>
   <div class="sc" id="s-speak">
     <div class="abs kick" style="left:70px;top:110px">Public speaking</div>
@@ -194,6 +196,10 @@ function fade(el, a, d = .45, dy = 16) { const x = k(T, a, d); el.style.opacity 
 function pop(el, a, d = .45) { const x = k(T, a, d); el.style.opacity = clamp(x * 3); el.style.transform = (el.dataset.base || '') + ` translateY(${(1 - eo(x)) * 24}px) scale(${.7 + .3 * back(x)})`; return x; }
 const on = (el, a) => el.classList.toggle('on', T >= a);
 
+async function frame(el, dir, n, max) {        // show frame n of a clip folder (assets/clipfr/<dir>/0001.jpg …)
+  const f = Math.max(1, Math.min(max, Math.round(n))), src = `../assets/clipfr/${dir}/${String(f).padStart(4, '0')}.jpg`;
+  if (el.dataset.src !== src) { el.dataset.src = src; el.src = src; try { await el.decode(); } catch (e) { /* keep going */ } }
+}
 // ---------- drawings
 function mic(x, y, s = 1, glow = 0) {   // a stage microphone on a stand, head at (x, y)
   return `<g transform="translate(${x} ${y}) scale(${s})">
@@ -304,9 +310,10 @@ window.renderAt = async function (t) {
   }
   // BRIDGE: the lights go up on a stage
   if (show('bridge', sceneW('bridge', .5, .4))) {
-    const s = S.bridge.start, a = k(t, s + .4, 1.2);
-    svg += spotlight(640, 620, 230, a) + mic(640, 470, .7, a);
-    const h = $('#br-h'); fade(h, s + .3, .7, 20); h.style.top = '120px';
+    const s = S.bridge.start;   // a real student presenting (Gemini clip, CapCut mark cropped out)
+    await frame($('#br-img'), 'boy', (t - s) * 24 + 1, 192);
+    $('#br-img').style.transform = `scale(${1.04 + .05 * k(t, s, S.bridge.end - s)})`;
+    const h = $('#br-h'); fade(h, s + .3, .7, 20); h.style.top = '70px';
   }
   // SPEAK: the four habits, each drawn on the speaker
   if (show('speak', sceneW('speak', .1, .6))) {

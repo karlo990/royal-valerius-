@@ -60,3 +60,48 @@ after their presentations, classmates clapping in the soft foreground.
 **Tips:** if Gemini adds a badge or logo to the blazers, ask "remove all badges and logos from the blazers". If
 words appear on the board or the book cover, ask "make the board blank and the covers plain". Keep the same
 uniform words in every prompt so all the students match.
+
+---
+
+# More: literature notes and reading (8-second videos, 16:9)
+
+Same rules at the end of every prompt: photorealistic; Zimbabwean secondary school students aged 13–16 in navy
+blazers with thin gold trim, white shirts, maroon ties; warm natural light; 35 mm lens, shallow depth of field;
+tripod or slow push-in; no readable text, no logos, no badges; landscape 16:9.
+
+## L1. Annotating a set text
+Close-up of a student's hands annotating a printed poem at a wooden desk: a yellow highlighter glides along one line,
+then a blue pen writes a short note in the margin and draws an arrow to a word. The student's focused face is softly
+visible above the page. Slow push-in towards the page.
+
+## L2. A theme mind map
+A girl draws a mind map in a large notebook: one circled word in the centre and branches spreading out, each in a
+different coloured pen. Overhead camera looking straight down at the page, her hands moving quickly and neatly.
+
+## L3. Character web on the board
+Two students stand at a whiteboard building a character web with sticky notes and connecting lines, pointing and
+discussing, while the class watches from their desks. Camera from the back of the class with a slow push-in.
+
+## L4. Quotation flashcards
+A boy at his desk flips through a stack of small white flashcards, reads one, closes his eyes to remember it, then
+checks the back of the card and smiles. Close-up, shallow depth of field, a closed novel beside him.
+
+## L5. Reading a poem aloud
+A girl stands by a classroom window reading a poem aloud from a slim book, expressive and calm, warm light on her face,
+classmates listening in soft focus. Slow push-in towards her.
+
+## L6. Drama rehearsal
+Three students rehearse a scene from a play at the front of the classroom, holding scripts, one stepping forward with
+a dramatic gesture while the others react. Desks pushed aside. Camera at seated eye level, slow sideways glide.
+
+## L7. Teacher feedback on an essay
+A teacher in a smart suit kneels beside a student's desk, pointing at a paragraph in the student's essay book and
+explaining with a warm smile; the student nods and writes a correction. Close, over-the-shoulder view.
+
+## L8. Library reading circle
+Five students sit in a circle on chairs in a bright school library, each holding the same novel, one speaking while the
+others listen and turn pages. Shelves softly blurred behind. Slow circular camera move around the group.
+
+## L9. Exam-style timed writing
+A quiet classroom: students write essays in exam booklets, a wall clock ticking above the board, one student pauses,
+reads her plan, then keeps writing with confidence. Slow push-in from the back of the room.
