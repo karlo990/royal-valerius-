@@ -28,3 +28,4 @@ The Open Day date isn't set anywhere yet; add it to the caption when it is fixed
 | `hairstyles/hairstyle-guide.html` / `hairstyles/Royal-Crest-Academy-Hairstyle-Guide-2027.{pdf,jpg}` | Approved hairstyles, A4 uniform guide: boys (fade, buzz cut), girls (straight-back cornrows, swept-back cornrows, braided bun) and the rules |
 | `verse-of-the-day-2026-10-25-pink-{portrait,square}.jpg` | Verse of the day (pink), Sunday 25 Oct 2026: "Trusting God for the vision", Proverbs 16:3 |
 | `verse-of-the-day-2026-10-26-exams-{portrait,square}.jpg` | Verse of the day (exams, teal), Monday 26 Oct 2026: "Strength for the exam room", Philippians 4:13 |
+| `verse-of-the-day-2026-10-26-amber-{portrait,square}.jpg` | Verse of the day (amber), Monday 26 Oct 2026: "New mercies for a new week", Lamentations 3:22–23 |

@@ -448,32 +448,32 @@
 .flyer.ps-zh-character.f-square .pol span { font-size: 22px; padding: 8px 0 10px; }
 
 /* verse-of-the-day: built from the Prospectus template's own parts (css/flyer.css .t-prospectus) */
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .vd { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 60px 72px 0; font-family: var(--sans); color: var(--ink); }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .fl-kind { color: var(--navy); }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .vd-main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 48px; padding-top: 44px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .vd-text { display: flex; flex-direction: column; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .fl-kicker { --accent: var(--gold-dark); }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .fl-title { font-size: 80px; line-height: 1.02; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .fl-title em { font-style: italic; color: var(--gold-dark); }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .vd-verse { margin-top: 30px; padding-left: 26px; border-left: 3px solid var(--gold); font: italic 400 38px/1.3 var(--serif); color: #1c2d72; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .vd-ref { margin-top: 20px; padding-left: 29px; font: 600 16px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .vd-arch { margin-bottom: 44px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .vd-arch svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .fl-foot { margin-top: 0; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .fl-cta { font-size: 30px; max-width: 640px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .fl-contact { white-space: nowrap; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams).f-square .vd { padding-top: 48px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams).f-square .vd-main { padding-top: 30px; gap: 40px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams).f-square .fl-title { font-size: 62px; margin-top: 14px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams).f-square .vd-verse { margin-top: 20px; font-size: 30px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams).f-square .vd-ref { margin-top: 14px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams).f-square .vd-arch { margin-bottom: 30px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams).f-square .fl-foot { padding-block: 24px; }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams).f-square .fl-cta { font-size: 26px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .vd { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 60px 72px 0; font-family: var(--sans); color: var(--ink); }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .fl-kind { color: var(--navy); }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .vd-main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 48px; padding-top: 44px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .vd-text { display: flex; flex-direction: column; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .fl-kicker { --accent: var(--gold-dark); }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .fl-title { font-size: 80px; line-height: 1.02; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .fl-title em { font-style: italic; color: var(--gold-dark); }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .vd-verse { margin-top: 30px; padding-left: 26px; border-left: 3px solid var(--gold); font: italic 400 38px/1.3 var(--serif); color: #1c2d72; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .vd-ref { margin-top: 20px; padding-left: 29px; font: 600 16px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .vd-arch { margin-bottom: 44px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .vd-arch svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .fl-foot { margin-top: 0; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .fl-cta { font-size: 30px; max-width: 640px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .fl-contact { white-space: nowrap; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week).f-square .vd { padding-top: 48px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week).f-square .vd-main { padding-top: 30px; gap: 40px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week).f-square .fl-title { font-size: 62px; margin-top: 14px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week).f-square .vd-verse { margin-top: 20px; font-size: 30px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week).f-square .vd-ref { margin-top: 14px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week).f-square .vd-arch { margin-bottom: 30px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week).f-square .fl-foot { padding-block: 24px; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week).f-square .fl-cta { font-size: 26px; }
 
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .vd-prayer { margin-top: auto; margin-bottom: 48px; padding-top: 22px; border-top: 1px solid var(--stone); font: 400 23px/1.5 var(--sans); color: var(--muted); }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams) .vd-prayer b { display: block; margin-bottom: 6px; font: 600 14px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--navy); }
-.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams).f-square .vd-prayer { display: none; }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .vd-prayer { margin-top: auto; margin-bottom: 48px; padding-top: 22px; border-top: 1px solid var(--stone); font: 400 23px/1.5 var(--sans); color: var(--muted); }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week) .vd-prayer b { display: block; margin-bottom: 6px; font: 600 14px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--navy); }
+.flyer:is(.ps-verse-of-the-day, .ps-verse-pink, .ps-verse-exams, .ps-verse-week).f-square .vd-prayer { display: none; }
 
 /* verse-pink: the same post in blush and berry */
 .flyer.ps-verse-pink { --navy: #7a1f4b; --navy-deep: #4a0f2e; --ink: #3b0d24; --gold: #d9789f; --gold-dark: #b8326b; --muted: #7d5568; --stone: #efcbd9; }
@@ -500,3 +500,16 @@
 .flyer.ps-verse-exams.f-square .vd-verse { font-size: 38px; }
 .flyer.ps-verse-exams.f-square .vd-note { margin-top: 22px; padding: 16px 20px; font-size: 22px; }
 .flyer.ps-verse-exams.f-square .vd-prayer { display: block; margin-bottom: 36px; font-size: 21px; }
+
+/* verse-week: the same post in warm amber and terracotta */
+.flyer.ps-verse-week { --navy: #6b2f12; --navy-deep: #3a1808; --ink: #2b1408; --gold: #d9913f; --gold-dark: #b0601c; --muted: #7a5a48; --stone: #ecd6c3; }
+.flyer.ps-verse-week .vd { background: radial-gradient(700px 520px at 95% 0%, #f8e2cc, transparent 70%), #fbf4ec; }
+.flyer.ps-verse-week .fl-title { color: #3a1808; }
+.flyer.ps-verse-week .vd-verse { font-size: 38px; color: #6b2f12; border-left-color: #d9913f; }
+.flyer.ps-verse-week .fl-foot { background: linear-gradient(100deg, #3a1808, #7a3a14); }
+.flyer.ps-verse-week .c-web { color: #ffd59a; }
+.flyer.ps-verse-week .vd-note { margin-top: 32px; padding: 22px 26px; border-radius: 16px; background: #f6e4d2; font: italic 400 27px/1.35 var(--serif); color: #4a2210; }
+.flyer.ps-verse-week .vd-note b { font-weight: 600; color: #b0601c; }
+.flyer.ps-verse-week.f-square .vd-verse { font-size: 27px; }
+.flyer.ps-verse-week.f-square .vd-note { margin-top: 18px; padding: 14px 18px; font-size: 21px; }
+.flyer.ps-verse-week.f-square .vd-prayer { display: block; margin-bottom: 36px; font-size: 20px; }
