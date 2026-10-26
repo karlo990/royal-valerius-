@@ -559,3 +559,10 @@
 .flyer.ps-lit-english.f-square .helps .it i { font-size: 24px; }
 .flyer.ps-lit-english.f-square .meta { top: 905px; font-size: 22px; }
 .flyer.ps-lit-english .seven { box-shadow: inset 0 -3px 0 #1f4fb0; }
+.flyer.ps-lit-english .helps .it b { display: block; margin-bottom: 4px; font: 500 34px/1.1 PsSerif, serif; color: #fff; }
+.flyer.ps-lit-english .helps .it { color: #c9d2ee; }
+.flyer.ps-lit-english.f-square .helps .it b { font-size: 28px; }
+.flyer.ps-lit-english .helps { top: 915px; } .flyer.ps-lit-english .helps .it { font-size: 22px; }
+.flyer.ps-lit-english .meta { top: 1168px; font-size: 28px; }
+.flyer.ps-lit-english.f-square .helps { top: 720px; } .flyer.ps-lit-english.f-square .helps .it { font-size: 19px; }
+.flyer.ps-lit-english.f-square .meta { top: 925px; }
