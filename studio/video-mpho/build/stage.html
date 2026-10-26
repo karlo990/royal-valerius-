@@ -1,0 +1,316 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Mpho's Search stage</title>
+<!-- Royal Crest Literature in English: a reader's guide to "Mpho's Search" by Sandra Braude.
+     Plot facts come only from the publisher's description. Look: the cover's olive band and its mural colours
+     (teal, terracotta, ochre, sky blue) on warm paper. Deterministic: window.renderAt(t) draws the frame at t. -->
+<style>
+@font-face{font-family:RcSerif;font-weight:400 700;src:url(../../../assets/fonts/newsreader-latin.woff2) format("woff2")}
+@font-face{font-family:RcSerif;font-style:italic;font-weight:400 700;src:url(../../../assets/fonts/newsreader-italic-latin.woff2) format("woff2")}
+@font-face{font-family:RcSans;font-weight:200 800;src:url(../../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2")}
+@font-face{font-family:Hand;font-weight:500 700;src:url(../../assets/fonts/caveat-latin.woff2) format("woff2")}
+:root{--olive:#c3c96f;--olive2:#9aa04a;--teal:#1c4a5a;--deep:#10303c;--terra:#c0442c;--ochre:#e0a030;--sky:#2f5d8c;--cream:#f6efdc;--ink:#2b2416;--navy:#0a1f5c;--gold2:#f2b705}
+html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#000}
+#st{position:relative;width:1280px;height:720px;overflow:hidden;font-family:RcSans,sans-serif;color:#fff}
+#bg{position:absolute;inset:0;background:radial-gradient(700px 520px at 92% 8%,rgba(224,160,48,.35),transparent 60%),radial-gradient(800px 600px at 0% 100%,rgba(192,68,44,.35),transparent 60%),radial-gradient(900px 700px at 50% 50%,#1c4a5a,#10303c)}
+#strokes{position:absolute;inset:0;opacity:.18}
+#grain{position:absolute;inset:-20px;opacity:.08;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+#vig{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 200px rgba(0,0,0,.5)}
+#brand{position:absolute;left:36px;top:26px;display:flex;align-items:center;gap:10px;z-index:5}
+#brand img{height:38px} #brand b{display:block;font:500 17px/1 RcSerif,serif} #brand span{display:block;margin-top:4px;font:800 9px RcSans;letter-spacing:.28em;color:var(--olive)}
+#svg{position:absolute;inset:0;width:1280px;height:720px}
+.sc{position:absolute;inset:0;display:none}
+.abs{position:absolute}
+.kick{font:800 12.5px RcSans;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:10px;color:var(--olive)}
+.kick::before{content:"";width:30px;height:2px;background:currentColor}
+.h{font:500 54px/1.02 RcSerif,serif;color:#fff}
+.h em{font-style:italic;color:var(--ochre)}
+.caps{font:500 64px/1.05 RcSerif,serif;letter-spacing:.16em;text-transform:uppercase}
+.card{position:absolute;box-sizing:border-box;border-radius:14px;background:var(--cream);color:var(--ink);box-shadow:0 28px 56px -26px rgba(0,0,0,.8)}
+.card .lab{font:800 11px RcSans;letter-spacing:.24em;text-transform:uppercase;color:var(--terra)}
+.hand{font:700 30px/1.15 Hand,cursive;color:var(--sky)}
+.chip{display:inline-block;padding:9px 16px;border-radius:24px;font:800 15px RcSans;letter-spacing:.06em;background:var(--ochre);color:var(--deep);margin:0 8px 8px 0}
+.theme{position:absolute;top:250px;width:212px;height:250px;border-radius:16px;background:rgba(246,239,220,.96);color:var(--ink);box-shadow:0 26px 50px -24px rgba(0,0,0,.8);text-align:center;box-sizing:border-box;padding-top:26px}
+.theme svg{width:84px;height:84px}
+.theme b{display:block;margin-top:14px;font:500 27px/1.1 RcSerif,serif;color:var(--teal);padding:0 12px}
+.person{position:absolute;top:220px;width:330px;height:330px;border-radius:18px;background:rgba(246,239,220,.97);color:var(--ink);box-shadow:0 26px 50px -24px rgba(0,0,0,.8);box-sizing:border-box;padding:26px}
+.person .av{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;font:600 40px RcSerif,serif;color:#fff}
+.person b{display:block;margin-top:16px;font:500 34px/1 RcSerif,serif;color:var(--teal)}
+.person i{display:block;margin-top:6px;font:800 11px RcSans;letter-spacing:.22em;font-style:normal;color:var(--terra)}
+.person p{margin:12px 0 0;font:500 18px/1.4 RcSans;color:#4a4232}
+.note{position:absolute;box-sizing:border-box;background:repeating-linear-gradient(180deg,transparent 0 47px,rgba(47,93,140,.22) 47px 48px),#fffdf4;border-radius:6px;box-shadow:0 30px 60px -26px rgba(0,0,0,.85),inset 4px 0 0 #e8a0a0;color:var(--sky)}
+.q{font:700 31px/48px Hand,cursive;white-space:nowrap}
+.q b{color:var(--terra)}
+#cap{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);max-width:1060px;display:flex;align-items:center;gap:14px;padding:12px 24px 12px 12px;border-radius:40px;
+  background:rgba(8,26,32,.84);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 14px 30px -12px rgba(0,0,0,.5);z-index:9}
+#cap i{flex:none;font-style:normal;font:800 11px RcSans;letter-spacing:.18em;padding:8px 12px;border-radius:20px;background:var(--terra);color:#fff}
+#cap i.sam{background:var(--olive);color:var(--deep)}
+#cap i.stu{background:var(--sky);color:#fff}
+#cap span{font:600 21px/1.3 RcSans;color:#fff}
+</style></head><body>
+<div id="st">
+  <div id="bg"></div>
+  <svg id="strokes" viewBox="0 0 1280 720"><g fill="none" stroke-linecap="round" stroke-width="40">
+    <path d="M-40 120 C200 60 380 180 620 110" stroke="#e0a030"/><path d="M700 640 C900 560 1100 700 1320 600" stroke="#c0442c"/>
+    <path d="M1000 60 C1100 160 1180 120 1320 200" stroke="#2f5d8c"/><path d="M-40 560 C100 520 200 640 360 600" stroke="#c3c96f"/></g></svg>
+  <svg id="svg" viewBox="0 0 1280 720">
+    <defs>
+      <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2a5a"/><stop offset=".45" stop-color="#a84a4a"/><stop offset=".75" stop-color="#e0a030"/><stop offset="1" stop-color="#f4d58a"/></linearGradient>
+      <linearGradient id="city" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f5d8c"/><stop offset="1" stop-color="#e8b86a"/></linearGradient>
+      <filter id="soft"><feGaussianBlur stdDeviation="6"/></filter>
+    </defs>
+    <g id="g-scene"></g>
+  </svg>
+  <div id="brand"><img src="../../assets/brand/crest-640.webp" alt=""><div><b>Royal Crest Academy</b><span>LITERATURE IN ENGLISH</span></div></div>
+
+  <div class="sc" id="s-open">
+    <div class="abs" id="op-q" style="left:0;right:0;top:120px;text-align:center;font:italic 500 44px RcSerif,serif;text-shadow:0 4px 20px rgba(0,0,0,.5)"></div>
+  </div>
+  <div class="sc" id="s-title">
+    <div class="abs kick" id="ti-k" style="left:80px;top:150px">A reader’s guide · Literature in English</div>
+    <div class="abs caps" id="ti-h" style="left:76px;top:190px;color:#fff">Mpho’s<br>Search</div>
+    <div class="abs" id="ti-a" style="left:80px;top:350px;font:italic 400 34px RcSerif,serif;color:var(--olive)">by Sandra Braude</div>
+    <div class="abs" id="ti-band" style="left:80px;top:420px;width:420px;height:6px;background:var(--olive);transform-origin:left"></div>
+    <img class="abs" id="ti-cover" src="../assets/cover.png" alt="" style="left:760px;top:90px;height:520px;border-radius:4px 10px 10px 4px;box-shadow:0 40px 70px -24px rgba(0,0,0,.85),inset 0 0 0 1px rgba(255,255,255,.2)">
+  </div>
+  <div class="sc" id="s-setting">
+    <div class="abs kick" style="left:70px;top:96px">Setting</div>
+    <div class="abs h" style="left:66px;top:122px;font-size:46px">Two places, <em>one journey.</em></div>
+    <div class="card" id="se-a" style="left:70px;top:230px;width:400px;height:300px;padding:0;overflow:hidden"><svg viewBox="0 0 400 200" style="display:block;width:400px;height:200px" id="se-farm"></svg>
+      <div style="padding:16px 22px"><div class="lab">The countryside</div><div style="font:500 30px RcSerif,serif;color:var(--teal);margin-top:6px">Baas du Toit’s farm</div></div></div>
+    <div class="card" id="se-b" style="left:810px;top:230px;width:400px;height:300px;padding:0;overflow:hidden"><svg viewBox="0 0 400 200" style="display:block;width:400px;height:200px" id="se-city"></svg>
+      <div style="padding:16px 22px"><div class="lab">The city</div><div style="font:500 30px RcSerif,serif;color:var(--teal);margin-top:6px">Johannesburg</div></div></div>
+  </div>
+  <div class="sc" id="s-baas">
+    <div class="abs kick" style="left:70px;top:96px">Word power</div>
+    <div class="card" id="ba-c" style="left:70px;top:150px;width:620px;height:330px;padding:34px 40px">
+      <div class="lab">Afrikaans</div>
+      <div style="margin-top:8px;font:500 96px/1 RcSerif,serif;color:var(--teal)">baas <span style="font:italic 400 30px RcSerif,serif;color:#8a7448">(noun)</span></div>
+      <div style="margin-top:18px;font:500 32px/1.3 RcSerif,serif">boss · master</div>
+      <div class="hand" id="ba-n" style="margin-top:22px;color:var(--terra);font-size:34px">→ shows who holds the power</div></div>
+    <div class="abs" id="ba-pw" style="left:780px;top:170px;width:420px;height:360px"></div>
+  </div>
+  <div class="sc" id="s-plot">
+    <div class="abs kick" style="left:70px;top:96px">The story begins</div>
+    <div class="card" id="pl-1" style="left:70px;top:150px;width:540px;height:380px;padding:0;overflow:hidden"><svg viewBox="0 0 540 280" style="display:block;width:540px;height:280px" id="pl-s1"></svg>
+      <div style="padding:16px 24px"><div class="lab">1 · A sheep goes missing</div><div style="font:500 26px RcSerif,serif;color:var(--teal);margin-top:6px">Mpho is forced off the farm.</div></div></div>
+    <div class="card" id="pl-2" style="left:670px;top:150px;width:540px;height:380px;padding:0;overflow:hidden"><svg viewBox="0 0 540 280" style="display:block;width:540px;height:280px" id="pl-s2"></svg>
+      <div style="padding:16px 24px"><div class="lab">2 · The search</div><div style="font:500 26px RcSerif,serif;color:var(--teal);margin-top:6px">To Johannesburg, to find his father.</div></div></div>
+  </div>
+  <div class="sc" id="s-city">
+    <div class="abs kick" style="left:70px;top:96px">Life in the city</div>
+    <div class="abs h" style="left:66px;top:122px;font-size:46px">Hard streets. <em>A true friend.</em></div>
+    <div class="abs" id="ci-t" style="left:70px;top:520px;width:600px"></div>
+  </div>
+  <div class="sc" id="s-history">
+    <div class="abs kick" style="left:70px;top:96px">History in the story</div>
+    <div class="abs h" id="hi-h" style="left:66px;top:122px;font-size:46px">South Africa’s first<br><em>democratic elections.</em></div>
+    <div class="abs" id="hi-y" style="left:70px;top:270px;font:600 150px/1 RcSerif,serif;color:var(--ochre)">1994</div>
+    <div class="abs" id="hi-s" style="left:74px;top:440px;width:520px;font:italic 400 32px/1.3 RcSerif,serif;color:#e9f0ea">Not only one boy’s story: <span style="color:var(--olive)">a country changing.</span></div>
+  </div>
+  <div class="sc" id="s-themes">
+    <div class="abs kick" style="left:0;right:0;justify-content:center;top:100px">Track as you read</div>
+    <div class="abs h" style="left:0;right:0;top:128px;text-align:center;font-size:46px">Five big <em>themes.</em></div>
+    <div class="theme" id="th1" style="left:70px"><svg viewBox="0 0 100 100" fill="none" stroke="#c0442c" stroke-width="5" stroke-linejoin="round"><path d="M14 50 L50 18 L86 50 V86 H14 Z"/><path d="M40 86 V62 H60 V86"/></svg><b>Family &amp; belonging</b></div>
+    <div class="theme" id="th2" style="left:298px"><svg viewBox="0 0 100 100" fill="none" stroke="#c0442c" stroke-width="5" stroke-linecap="round"><path d="M10 82 H90"/><path d="M30 82 L36 74 M62 82 L70 72"/><path d="M50 82 V40"/><path d="M50 56 C38 56 28 48 26 34 C40 34 50 42 50 56 Z M50 46 C62 46 72 36 74 22 C60 22 50 32 50 46 Z"/></svg><b>Survival</b></div>
+    <div class="theme" id="th3" style="left:526px"><svg viewBox="0 0 100 100" fill="none" stroke="#c0442c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="34" cy="30" r="12"/><circle cx="66" cy="30" r="12"/><path d="M14 84 C14 60 26 50 34 50 C42 50 46 56 50 62 C54 56 58 50 66 50 C74 50 86 60 86 84"/></svg><b>Friendship</b></div>
+    <div class="theme" id="th4" style="left:754px"><svg viewBox="0 0 100 100" fill="none" stroke="#c0442c" stroke-width="5" stroke-linecap="round"><path d="M50 14 V86 M30 86 H70 M18 30 H82"/><path d="M18 30 L8 58 H28 Z M82 30 L72 52 H92 Z"/></svg><b>Power &amp; injustice</b></div>
+    <div class="theme" id="th5" style="left:982px"><svg viewBox="0 0 100 100" fill="none" stroke="#c0442c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 56 C30 40 46 44 54 54 C62 34 80 26 90 30 C82 36 78 44 76 52 C70 72 46 80 26 70 L14 80 Z"/><circle cx="74" cy="38" r="2" fill="#c0442c"/></svg><b>Hope &amp; freedom</b></div>
+  </div>
+  <div class="sc" id="s-chars">
+    <div class="abs kick" style="left:70px;top:100px">Characters</div>
+    <div class="abs h" style="left:66px;top:126px;font-size:46px">Three to <em>know.</em></div>
+    <div class="person" id="pe1" style="left:70px"><div class="av" style="background:var(--terra)">M</div><b>Mpho</b><i>The searcher</i><p>Leaves the farm to find his father in Johannesburg. Determined and full of hope.</p></div>
+    <div class="person" id="pe2" style="left:475px"><div class="av" style="background:var(--sky)">T</div><b>Themba</b><i>The friend</i><p>Mpho’s friend on the streets of the city. Together they run a shoe-shine business.</p></div>
+    <div class="person" id="pe3" style="left:880px"><div class="av" style="background:var(--olive2)">B</div><b>Baas du Toit</b><i>The farm owner</i><p>His power over the farm changes Mpho’s life.</p></div>
+  </div>
+  <div class="sc" id="s-study">
+    <img class="abs" id="sd-img" alt="" style="left:0;top:0;width:1280px;height:720px;object-fit:cover">
+    <div class="abs" style="inset:0;background:linear-gradient(90deg,rgba(8,26,32,.85) 0,rgba(8,26,32,.55) 34%,rgba(8,26,32,0) 60%)"></div>
+    <div class="abs kick" style="left:70px;top:150px">How to study it</div>
+    <div class="abs h" style="left:66px;top:178px;font-size:52px">Keep <em>notes.</em></div>
+    <div class="abs" id="sd-l" style="left:70px;top:280px"></div>
+  </div>
+  <div class="sc" id="s-questions">
+    <div class="abs kick" style="left:70px;top:96px">Class discussion</div>
+    <div class="note" id="qn" style="left:70px;top:140px;width:760px;height:400px;padding:26px 36px;transform:rotate(-1deg)"></div>
+    <div class="abs" id="qs" style="left:870px;top:200px;width:350px;padding:26px 28px;border-radius:18px;background:var(--sky);box-shadow:0 26px 50px -24px rgba(0,0,0,.8)">
+      <div style="font:800 11px RcSans;letter-spacing:.24em;color:var(--olive)">A STUDENT SAYS</div>
+      <div style="margin-top:10px;font:italic 500 28px/1.3 RcSerif,serif">“Being far from home is not the end of hope.”</div></div>
+  </div>
+  <div class="sc" id="s-outro">
+    <div class="abs" id="en-c" style="left:0;right:0;top:110px;display:flex;flex-direction:column;align-items:center">
+      <img src="../../assets/brand/crest-640.webp" alt="" style="height:110px;filter:drop-shadow(0 10px 24px rgba(0,0,0,.6))">
+      <div style="margin-top:14px;font:500 40px/1 RcSerif,serif">Royal Crest Academy</div>
+      <div style="margin-top:8px;font:800 12px RcSans;letter-spacing:.32em;color:var(--olive)">SCIENCE · INNOVATION · SKILL</div></div>
+    <div class="abs h" id="en-h" style="left:0;right:0;top:320px;text-align:center;font-size:70px">Read closely. <em>Think deeply.</em></div>
+    <div class="abs" id="en-s" style="left:0;right:0;top:410px;text-align:center;font:italic 400 24px RcSerif,serif;color:#e9f0ea">Literature in English · Cambridge syllabus · Bikita</div>
+    <div class="abs" id="en-cta" style="left:50%;top:470px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:14px 24px;border-radius:16px;background:linear-gradient(100deg,#f2b705,#e0a800);color:#0a1f5c;box-shadow:0 18px 36px -16px rgba(0,0,0,.7);white-space:nowrap">
+      <div style="font:800 13px RcSans;letter-spacing:.2em">FORM 1 · 2027</div><div style="width:1px;height:28px;background:rgba(10,31,92,.3)"></div><div style="font:600 22px RcSerif,serif">Places are <b>open now</b> · +263 714 404 090</div></div>
+  </div>
+  <div id="cap"><i>TEACHER</i><span></span></div>
+  <div id="grain"></div><div id="vig"></div>
+</div>
+<script src="timeline.js"></script>
+<script>
+const $ = (q) => document.querySelector(q);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const k = (t, a, d) => clamp((t - a) / d);
+const eo = (x) => 1 - Math.pow(1 - x, 3), eio = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const back = (x) => { const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const L = Object.fromEntries(TL.lines.map((l) => [l.id, l])), S = Object.fromEntries(TL.scenes.map((s) => [s.id, s]));
+function cue(id, sub, nth = 0) { const l = L[id]; if (sub == null) return l.start; let i = -1; for (let n = 0; n <= nth; n++) { i = l.chars.indexOf(sub, i + 1); if (i < 0) break; } return l.start + (i >= 0 ? l.times[i] : 0); }
+let T = 0, SW = 0;   // SW: weight of the scene on screen (scenes never overlap), so its drawings fade with it
+const sceneW = (id, fi = .5, fo = .5) => { const s = S[id]; return s ? Math.min(k(T, s.start, fi), 1 - k(T, s.end - fo, fo)) : 0; };
+function show(id, w) { if (w > 0.001) SW = w; const e = $('#s-' + id); e.style.display = w > 0.001 ? 'block' : 'none'; e.style.opacity = w; return w > 0.001; }
+function fade(el, a, d = .45, dy = 16) { const x = k(T, a, d); el.style.opacity = x; el.style.transform = (el.dataset.base || '') + ` translateY(${(1 - eo(x)) * dy}px)`; return x; }
+function pop(el, a, d = .45) { const x = k(T, a, d); el.style.opacity = clamp(x * 3); el.style.transform = (el.dataset.base || '') + ` translateY(${(1 - eo(x)) * 24}px) scale(${.7 + .3 * back(x)})`; return x; }
+async function frame(el, dir, n, max) {
+  const f = Math.max(1, Math.min(max, Math.round(n))), src = `../assets/clipfr/${dir}/${String(f).padStart(4, '0')}.jpg`;
+  if (el.dataset.src !== src) { el.dataset.src = src; el.src = src; try { await el.decode(); } catch (e) { /* keep going */ } }
+}
+const WHO = { TCH: ['TEACHER RUDO', ''], NAR: ['NARRATOR', 'sam'], STU: ['STUDENT', 'stu'] };
+const typed = (id, from, t) => { const l = L[id], i0 = from ? Math.max(0, l.chars.indexOf(from)) : 0; return l.chars.slice(i0, i0 + l.times.filter((x, j) => j >= i0 && l.start + x <= t).length); };
+
+// ---------- drawings
+const sheep = (x, y, s = 1, o = 1, f = '#f6efdc') => `<g transform="translate(${x} ${y}) scale(${s})" opacity="${o}"><ellipse cx="0" cy="0" rx="26" ry="17" fill="${f}"/><circle cx="-14" cy="-8" r="10" fill="${f}"/><circle cx="2" cy="-12" r="11" fill="${f}"/><circle cx="16" cy="-6" r="9" fill="${f}"/>
+  <ellipse cx="28" cy="-4" rx="9" ry="7" fill="#2b2416"/><path d="M-14 14 V28 M-4 15 V28 M8 15 V28 M18 13 V28" stroke="#2b2416" stroke-width="3.5"/></g>`;
+const windmill = (x, y, s, rot) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-10 0 L-3 -120 H3 L10 0 M-7 -40 H7 M-5 -80 H5" stroke="#1a1410" stroke-width="3" fill="none"/>
+  <g transform="translate(0 -124) rotate(${rot})">${Array.from({ length: 12 }, (_, i) => `<path d="M0 0 L${Math.cos(i * Math.PI / 6) * 30} ${Math.sin(i * Math.PI / 6) * 30}" stroke="#1a1410" stroke-width="5"/>`).join('')}</g><path d="M6 -124 L30 -118 L30 -130 Z" fill="#1a1410"/></g>`;
+const house = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})" fill="#1a1410"><rect x="-50" y="-50" width="100" height="50"/><path d="M-60 -50 L0 -86 L60 -50 Z"/><rect x="-20" y="-34" width="14" height="14" fill="#f2b705" opacity=".85"/><rect x="14" y="-34" width="14" height="14" fill="#f2b705" opacity=".85"/></g>`;
+const fence = (x0, x1, y) => { let s = `<path d="M${x0} ${y - 22} H${x1} M${x0} ${y - 10} H${x1}" stroke="#1a1410" stroke-width="2"/>`; for (let x = x0; x <= x1; x += 40) s += `<path d="M${x} ${y} V${y - 30}" stroke="#1a1410" stroke-width="4"/>`; return s; };
+function skyline(w, h, base, lit = 0) {
+  const B = [[0, 70], [40, 110], [70, 80], [110, 150], [150, 100], [185, 170], [220, 120], [260, 90], [290, 140], [330, 95], [365, 120]]; let s = '';
+  B.forEach(([x, hh], i) => { const bw = 36; s += `<rect x="${x * w / 400}" y="${base - hh * h / 200}" width="${bw * w / 400}" height="${hh * h / 200}" fill="#1a1d2c"/>`;
+    for (let r = 0; r < hh / 22; r++) for (let c = 0; c < 2; c++) if ((i * 7 + r * 3 + c) % 4 !== 0) s += `<rect x="${(x + 8 + c * 14) * w / 400}" y="${base - hh * h / 200 + 10 + r * 22 * h / 200}" width="${6 * w / 400}" height="${8 * h / 200}" fill="#f2b705" opacity="${.25 + .6 * lit}"/>`; });
+  s += `<path d="M${296 * w / 400} ${base - 140 * h / 200} V${base - 190 * h / 200}" stroke="#1a1d2c" stroke-width="${4 * w / 400}"/>`;   // a tower
+  return s;
+}
+function boy(x, y, s = 1, step = 0, f = '#1a1410') {   // a walking boy in silhouette (the cover's green jacket, yellow shirt)
+  const a = Math.sin(step) * 16;
+  return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-6 -40 L${-6 - a * .5} 0 M6 -40 L${6 + a * .5} 0" stroke="${f}" stroke-width="9" stroke-linecap="round"/>
+    <path d="M-16 -86 H16 L14 -38 H-14 Z" fill="#3f6b3a"/><path d="M-6 -86 H6 V-50 H-6 Z" fill="#e0a030"/>
+    <path d="M-16 -82 L${-24 + a * .4} -48 M16 -82 L${24 - a * .4} -48" stroke="#3f6b3a" stroke-width="8" stroke-linecap="round"/><circle cx="0" cy="-100" r="13" fill="${f}"/>
+    <rect x="-14" y="-44" width="28" height="14" fill="#f6efdc"/></g>`;
+}
+function shineBox(x, y, s, t) {   // a wooden shoe-shine box, brush, polish tin
+  return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-110 0 H110 V-90 H-110 Z" fill="#8a5a22" stroke="#5a3a12" stroke-width="5"/><path d="M-110 -90 L-80 -120 H80 L110 -90" fill="#a8742e" stroke="#5a3a12" stroke-width="5"/>
+    <path d="M-40 -120 L-20 -160 H20 L40 -120" fill="#c8913f" stroke="#5a3a12" stroke-width="5"/><rect x="-80" y="-70" width="160" height="10" fill="#5a3a12" opacity=".5"/>
+    <g transform="translate(${40 + Math.sin(t * 6) * 18} -170) rotate(-12)"><rect x="-40" y="-14" width="80" height="22" rx="6" fill="#5a3a12"/><path d="M-36 8 V24 M-24 8 V24 M-12 8 V24 M0 8 V24 M12 8 V24 M24 8 V24 M36 8 V24" stroke="#1a1410" stroke-width="4"/></g>
+    <g transform="translate(-70 -150)"><ellipse cx="0" cy="0" rx="26" ry="9" fill="#c0442c"/><rect x="-26" y="0" width="52" height="16" fill="#9a3020"/><ellipse cx="0" cy="16" rx="26" ry="9" fill="#9a3020"/></g></g>`;
+}
+function ballot(x, y, s, t0, t) {   // a ballot box with a paper dropping in, marked with an X
+  const p = eo(k(t, t0, 1.2));
+  return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-120" y="-150" width="240" height="190" rx="10" fill="#f6efdc" stroke="#1c4a5a" stroke-width="6"/><rect x="-60" y="-158" width="120" height="14" rx="5" fill="#1c4a5a"/>
+    <g opacity="${p < .98 ? 1 : 0}" transform="translate(0 ${-330 + 190 * p})"><rect x="-50" y="-60" width="100" height="70" fill="#fff" stroke="#8a7448" stroke-width="2"/><path d="M-16 -42 L16 -10 M16 -42 L-16 -10" stroke="#c0442c" stroke-width="6" stroke-linecap="round"/></g>
+    <path d="M-80 -60 H80 M-80 -20 H80" stroke="#1c4a5a" stroke-width="3" opacity=".3"/><text x="0" y="10" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="20" letter-spacing="4" fill="#1c4a5a">VOTE</text></g>`;
+}
+
+window.renderAt = async function (t) {
+  T = t; let svg = ''; SW = 0;
+  $('#brand').style.opacity = 1 - Math.max(sceneW('title'), sceneW('outro'), sceneW('open'), sceneW('study'));
+  $('#strokes').style.opacity = .18 * (1 - sceneW('open'));
+
+  // OPEN: dusk on the farm; the sheep are counted and one is missing; a boy walks away
+  if (show('open', sceneW('open', .8, .6))) {
+    const s = S.open.start, cnt = (t - s - .6) / .45, gone = cue('m01', 'missing');
+    svg += `<rect width="1280" height="720" fill="url(#dusk)"/><circle cx="980" cy="470" r="70" fill="#ffe6a0" opacity=".9"/>
+      <path d="M0 520 C200 470 420 500 640 480 C860 460 1060 500 1280 470 V720 H0 Z" fill="#3a2a1a"/><path d="M0 560 C300 540 700 570 1280 540 V720 H0 Z" fill="#241a10"/>
+      ${house(260, 520, 1)}${windmill(420, 522, 1, t * 40)}${fence(520, 1240, 600)}`;
+    [0, 1, 2, 3, 4, 5].forEach((i) => { const x = 620 + i * 100, missing = i === 3; const o = missing ? 1 - k(t, gone - .2, .6) : k(cnt, i, .5);
+      svg += sheep(x, 640, 1.1, o, '#e9e2cc');
+      if (!missing && cnt > i) svg += `<text x="${x}" y="596" text-anchor="middle" font-family="Hand" font-weight="700" font-size="30" fill="#fff" opacity="${k(cnt, i, .4)}">${i < 3 ? i + 1 : i}</text>`;
+      if (missing) svg += `<text x="${x}" y="660" text-anchor="middle" font-family="RcSerif" font-weight="600" font-size="80" fill="#f2b705" opacity="${k(t, gone, .5)}">?</text>`; });
+    const w = k(t, cue('m02', 'leave') - .6, 4.5); if (w > 0) svg += boy(300 + 520 * w, 560 - 40 * w, 1.1 - .4 * w, t * 7);
+    $('#op-q').textContent = '';
+  }
+  // TITLE: the book itself
+  if (show('title', sceneW('title', .6, .6))) {
+    const s = S.title.start; fade($('#ti-k'), s + .2); const h = $('#ti-h'), x = k(t, s + .3, 1); h.style.opacity = x; h.style.letterSpacing = `${.3 - .14 * eo(x)}em`;
+    fade($('#ti-a'), s + .9); $('#ti-band').style.transform = `scaleX(${eo(k(t, s + 1.1, .8))})`;
+    const c = $('#ti-cover'), y = k(t, s + .2, 1.2); c.style.opacity = y; c.style.transform = `perspective(1400px) rotateY(${-22 + 12 * eo(y)}deg) translateY(${(1 - eo(y)) * 40}px)`;
+  }
+  // SETTING: farm → city, with footsteps between
+  if (show('setting', sceneW('setting'))) {
+    const s = S.setting.start, fa = cue('m04', 'Baas'), ci = cue('m04', 'Johannesburg');
+    pop($('#se-a'), fa - .2); pop($('#se-b'), ci - .2);
+    $('#se-farm').innerHTML = `<rect width="400" height="200" fill="url(#dusk)"/><path d="M0 150 C120 130 260 150 400 136 V200 H0 Z" fill="#3a2a1a"/>${house(120, 152, .8)}${windmill(250, 150, .8, t * 40)}${fence(280, 400, 180)}${sheep(330, 186, .6, 1, '#e9e2cc')}`;
+    $('#se-city').innerHTML = `<rect width="400" height="200" fill="url(#city)"/>${skyline(400, 200, 200, .5)}`;
+    const p = k(t, ci - .4, 2.2); for (let i = 0; i < 9; i++) { const u = i / 8; if (u > p) break; svg += `<ellipse cx="${500 + u * 280}" cy="${380 + (i % 2 ? -10 : 10)}" rx="9" ry="5" fill="#c3c96f" opacity=".85" transform="rotate(${0} ${500 + u * 280} 380)"/>`; }
+  }
+  // BAAS: the word, and a picture of power
+  if (show('baas', sceneW('baas'))) {
+    const s = S.baas.start; fade($('#ba-c'), s + .2); const n = $('#ba-n'), w = k(t, cue('m06', 'power') - .6, .9); n.style.opacity = w > 0 ? 1 : 0; n.style.clipPath = `inset(0 ${100 - 100 * eo(w)}% 0 0)`;
+    const p = eo(k(t, cue('m06', 'Baas') - .2, 1.2));
+    svg += `<g opacity="${k(t, s + .6, .5)}" transform="translate(990 520)"><path d="M-170 0 H170" stroke="#c3c96f" stroke-width="4"/>
+      <rect x="-150" y="${-260 * p - 20}" width="120" height="${260 * p + 20}" rx="10" fill="#c0442c"/><rect x="30" y="-40" width="120" height="40" rx="10" fill="#2f5d8c"/>
+      <text x="-90" y="${-260 * p - 34}" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="16" letter-spacing="3" fill="#fff">THE BAAS</text>
+      <text x="90" y="-54" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="16" letter-spacing="3" fill="#fff">THE WORKERS</text>
+      <text x="0" y="40" text-anchor="middle" font-family="Hand" font-weight="700" font-size="30" fill="#c3c96f">who holds the power?</text></g>`;
+  }
+  // PLOT: two story panels
+  if (show('plot', sceneW('plot'))) {
+    const s = S.plot.start; pop($('#pl-1'), cue('m07', 'sheep') - .3); pop($('#pl-2'), cue('m08', 'Johannesburg') - .4);
+    $('#pl-s1').innerHTML = `<rect width="540" height="280" fill="url(#dusk)"/><path d="M0 210 C160 190 380 210 540 196 V280 H0 Z" fill="#3a2a1a"/>${fence(20, 520, 250)}${sheep(120, 250, .9, 1, '#e9e2cc')}${sheep(220, 252, .9, 1, '#e9e2cc')}<circle cx="330" cy="244" r="34" fill="none" stroke="#f2b705" stroke-width="4" stroke-dasharray="8 8"/><text x="330" y="262" text-anchor="middle" font-family="RcSerif" font-weight="600" font-size="52" fill="#f2b705">?</text>${house(450, 205, .9)}`;
+    const w = k(t, cue('m08', 'sets') - .2, 3);
+    $('#pl-s2').innerHTML = `<rect width="540" height="280" fill="url(#city)"/><g transform="translate(260 0)">${skyline(280, 160, 200, .4)}</g><path d="M0 280 L230 200 H310 L540 280 Z" fill="#5a4a3a"/><path d="M270 205 V280" stroke="#f2b705" stroke-width="4" stroke-dasharray="14 12"/>
+      <g transform="translate(70 140)"><rect x="-4" y="0" width="8" height="90" fill="#1a1410"/><path d="M0 0 H130 L150 18 L130 36 H0 Z" fill="#1c6a3a"/><text x="68" y="25" text-anchor="middle" font-family="RcSans" font-weight="800" font-size="13" fill="#fff">JOHANNESBURG</text></g>
+      ${boy(200 + 70 * w, 270 - 50 * w, .9 - .35 * w, t * 7)}`;
+  }
+  // CITY: shoe-shine box, two friends, what it shows about Mpho
+  if (show('city', sceneW('city'))) {
+    const s = S.city.start, fr = cue('m09', 'Themba'), sh = cue('m10', 'shoe');
+    svg += `<g opacity="${k(t, s + .2, .6)}"><rect x="640" y="160" width="580" height="360" rx="16" fill="url(#city)"/><g transform="translate(640 0)">${skyline(580, 260, 520, .5)}</g></g>`;
+    const f = k(t, fr - .2, .6); svg += `<g opacity="${f}">${boy(780, 540, 1.3, 0)}${boy(880, 540, 1.25, 0, '#2a1d14').replace('#3f6b3a', '#2f5d8c').replace('#3f6b3a', '#2f5d8c').replace('#e0a030', '#f6efdc')}</g>`;
+    if (f > 0) svg += `<text x="830" y="350" text-anchor="middle" font-family="Hand" font-weight="700" font-size="32" fill="#fff" opacity="${f}">Mpho &amp; Themba</text>`;
+    const b = k(t, sh - .2, .6); if (b > 0) svg += `<g opacity="${b}" transform="translate(0 ${(1 - eo(b)) * 30})">${shineBox(1080, 540, .7, t)}</g>`;
+    $('#ci-t').innerHTML = [['determined', 'determined'], ['hard-working', 'hard'], ['full of hope', 'hope']].map(([w, c]) => { const x = k(t, cue('m11', c) - .1, .35); return `<span class="chip" style="opacity:${x};transform:translateY(${(1 - eo(x)) * 12}px)">${w}</span>`; }).join('');
+  }
+  // HISTORY: the 1994 elections
+  if (show('history', sceneW('history'))) {
+    const s = S.history.start; fade($('#hi-h'), cue('m12', 'first') - .3); const y = $('#hi-y'); pop(y, cue('m12', 'nineteen') - .2, .6); fade($('#hi-s'), cue('m13', 'not') - .2);
+    svg += `<g opacity="${k(t, s + .3, .6)}">${[0, 1, 2, 3, 4, 5, 6].map((i) => `<g transform="translate(${700 + i * 70} ${560}) scale(.8)" opacity="${.5 + .07 * i}"><circle cx="0" cy="-120" r="16" fill="#0b2a34"/><path d="M-22 -100 H22 L18 -20 H-18 Z" fill="#0b2a34"/><path d="M-12 -20 V0 M12 -20 V0" stroke="#0b2a34" stroke-width="8"/></g>`).join('')}</g>${ballot(1020, 460, 1, cue('m12', 'elections') - .3, t)}`;
+  }
+  // THEMES
+  if (show('themes', sceneW('themes'))) {
+    [['#th1', 'Family'], ['#th2', 'Survival'], ['#th3', 'Friendship'], ['#th4', 'Power'], ['#th5', 'hope']].forEach(([id, w]) => pop($(id), cue('m15', w) - .15, .5));
+  }
+  // CHARACTERS
+  if (show('chars', sceneW('chars'))) {
+    [['#pe1', 'Mpho,'], ['#pe2', 'Themba'], ['#pe3', 'Baas']].forEach(([id, w]) => pop($(id), cue('m16', w) - .2, .5));
+  }
+  // STUDY: the annotating clip
+  if (show('study', sceneW('study', .5, .5))) {
+    const s = S.study.start; await frame($('#sd-img'), 'annot', (t - s) * 24 + 1, 193);
+    $('#sd-img').style.transform = `scale(${1.03 + .04 * k(t, s, S.study.end - s)})`;
+    $('#sd-l').innerHTML = [['Highlight', 'Highlight', '#f2b705'], ['Note in the margin', 'margin', '#c3c96f'], ['Say what it shows', 'shows', '#ff9a7a']].map(([w, c, col], i) => { const x = k(t, cue('m17', c) - .2, .4);
+      return `<div style="opacity:${x};transform:translateX(${(1 - eo(x)) * -20}px);display:flex;align-items:center;gap:14px;margin-bottom:16px;font:500 30px RcSerif,serif"><span style="width:38px;height:38px;border-radius:50%;background:${col};color:#10303c;display:grid;place-items:center;font:800 16px RcSans">${i + 1}</span>${w}</div>`; }).join('');
+  }
+  // QUESTIONS: written into the notebook as they are asked
+  if (show('questions', sceneW('questions'))) {
+    const s = S.questions.start, n = $('#qn'); n.dataset.base = 'rotate(-1deg)'; fade(n, s + .2, .5);
+    const Q = [['m19', 'Why', 'Why does Mpho leave the farm?'], ['m19', 'how', 'How does the setting change?'], ['m20', 'What', 'What does Themba’s friendship give Mpho?'], ['m20', 'why', 'Why do the elections matter?']];
+    n.innerHTML = `<div style="font:800 11px RcSans;letter-spacing:.24em;color:#c0442c;margin-bottom:6px">TALK ABOUT IT</div>` + Q.map(([id, w, q], i) => { const a = cue(id, w) - .1, x = k(t, a, 1.1); return `<div class="q" style="opacity:${x > 0 ? 1 : 0};clip-path:inset(0 ${100 - 100 * eo(x)}% 0 0)"><b>${i + 1}.</b> ${q}</div>`; }).join('');
+    pop($('#qs'), cue('m21') - .2, .5);
+  }
+  // OUTRO
+  if (show('outro', sceneW('outro', .6, 1.2))) {
+    const s = S.outro.start; fade($('#en-c'), s + .2, .7); fade($('#en-h'), cue('m23', 'Read') - .2, .6); fade($('#en-s'), s + .9, .6);
+    const c = $('#en-cta'); c.dataset.base = 'translateX(-50%)'; pop(c, cue('m23', 'Form') - .2, .5);
+  }
+  $('#g-scene').innerHTML = svg; $('#g-scene').setAttribute('opacity', SW);
+
+  const line = TL.lines.find((l) => t >= l.start - .15 && t <= l.end + .5), cap = $('#cap');
+  if (line) {
+    cap.style.opacity = Math.min(k(t, line.start - .15, .2), 1 - k(t, line.end + .3, .2));
+    cap.querySelector('i').textContent = WHO[line.who][0]; cap.querySelector('i').className = WHO[line.who][1];
+    cap.querySelector('span').textContent = line.cap;
+  } else cap.style.opacity = 0;
+};
+window.ready = (async () => {
+  await Promise.all(['54px RcSerif', 'italic 54px RcSerif', '600 54px RcSerif', '20px RcSans', '800 20px RcSans', '700 46px Hand'].map((f) => document.fonts.load(f, 'Ax=5')));
+  await Promise.all([...document.images].map((i) => i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })));
+  await document.fonts.ready;
+  await renderAt(0);
+})();
+</script>
+</body></html>

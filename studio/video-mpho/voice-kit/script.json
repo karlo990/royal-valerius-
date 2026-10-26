@@ -1,0 +1,181 @@
+{
+ "title": "Royal Crest Literature in English: Mpho's Search by Sandra Braude (reader's guide)",
+ "voices": {
+  "TCH": {
+   "name": "Teacher Rudo",
+   "voice_id": "XrExE9yKIg1WjnnlVkGX"
+  },
+  "NAR": {
+   "name": "Narrator",
+   "voice_id": "nPczCjzI2devNBz1zQrF"
+  },
+  "STU": {
+   "name": "Student",
+   "voice_id": "cgSgspJ2msm6clMCkdW9"
+  }
+ },
+ "_note": "Plot facts only from the publisher's description (Oxford University Press Southern Africa). say = sent to ElevenLabs; cap = on-screen caption.",
+ "lines": [
+  {
+   "id": "m01",
+   "scene": "open",
+   "who": "NAR",
+   "say": "A farm in South Africa. A sheep goes missing.",
+   "cap": "A farm in South Africa. A sheep goes missing."
+  },
+  {
+   "id": "m02",
+   "scene": "open",
+   "who": "NAR",
+   "say": "And a boy must leave the only home he knows.",
+   "cap": "And a boy must leave the only home he knows."
+  },
+  {
+   "id": "m03",
+   "scene": "title",
+   "who": "TCH",
+   "say": "This is Mpho's Search, a novel by Sandra Braude. Let's read it like Literature students.",
+   "cap": "This is Mpho’s Search, a novel by Sandra Braude. Let’s read it like Literature students."
+  },
+  {
+   "id": "m04",
+   "scene": "setting",
+   "who": "TCH",
+   "say": "The story moves between two settings. Baas du Toit's farm in the countryside, and the busy streets of Johannesburg.",
+   "cap": "The story moves between two settings: Baas du Toit’s farm in the countryside, and the busy streets of Johannesburg."
+  },
+  {
+   "id": "m05",
+   "scene": "baas",
+   "who": "TCH",
+   "say": "Notice the word Baas. It's Afrikaans for boss, or master.",
+   "cap": "Notice the word “Baas”. It’s Afrikaans for boss, or master."
+  },
+  {
+   "id": "m06",
+   "scene": "baas",
+   "who": "TCH",
+   "say": "When the farm owner is called Baas, the writer shows us who holds the power.",
+   "cap": "When the farm owner is called “Baas”, the writer shows us who holds the power."
+  },
+  {
+   "id": "m07",
+   "scene": "plot",
+   "who": "NAR",
+   "say": "After a sheep goes missing, Mpho is forced off the farm.",
+   "cap": "After a sheep goes missing, Mpho is forced off the farm."
+  },
+  {
+   "id": "m08",
+   "scene": "plot",
+   "who": "NAR",
+   "say": "So he sets out for Johannesburg, to find his father.",
+   "cap": "So he sets out for Johannesburg, to find his father."
+  },
+  {
+   "id": "m09",
+   "scene": "city",
+   "who": "TCH",
+   "say": "In the city, life on the streets is hard. But Mpho makes a friend, Themba.",
+   "cap": "In the city, life on the streets is hard. But Mpho makes a friend: Themba."
+  },
+  {
+   "id": "m10",
+   "scene": "city",
+   "who": "TCH",
+   "say": "Together they earn a living with a shoe-shine business.",
+   "cap": "Together they earn a living with a shoe-shine business."
+  },
+  {
+   "id": "m11",
+   "scene": "city",
+   "who": "TCH",
+   "say": "That small business tells us a lot about Mpho. He is determined, hard-working and full of hope.",
+   "cap": "That small business tells us a lot about Mpho: determined, hard-working and full of hope."
+  },
+  {
+   "id": "m12",
+   "scene": "history",
+   "who": "NAR",
+   "say": "And his search carries us all the way to South Africa's first democratic elections, in nineteen ninety-four.",
+   "cap": "And his search carries us all the way to South Africa’s first democratic elections, in 1994."
+  },
+  {
+   "id": "m13",
+   "scene": "history",
+   "who": "TCH",
+   "say": "So this is not only one boy's story. It is the story of a country changing.",
+   "cap": "So this is not only one boy’s story. It is the story of a country changing."
+  },
+  {
+   "id": "m14",
+   "scene": "themes",
+   "who": "TCH",
+   "say": "Here are five big themes to track as you read.",
+   "cap": "Five big themes to track as you read."
+  },
+  {
+   "id": "m15",
+   "scene": "themes",
+   "who": "TCH",
+   "say": "Family and belonging. Survival. Friendship. Power and injustice. And hope, and freedom.",
+   "cap": "Family and belonging. Survival. Friendship. Power and injustice. Hope and freedom."
+  },
+  {
+   "id": "m16",
+   "scene": "chars",
+   "who": "TCH",
+   "say": "Three characters to know. Mpho, the searcher. Themba, his friend in the city. And Baas du Toit, the farm owner whose power changes Mpho's life.",
+   "cap": "Three characters: Mpho, the searcher. Themba, his friend in the city. Baas du Toit, the farm owner whose power changes Mpho’s life."
+  },
+  {
+   "id": "m17",
+   "scene": "study",
+   "who": "TCH",
+   "say": "As you read, keep notes. Highlight the key moments, and write in the margin what each one shows.",
+   "cap": "As you read, keep notes. Highlight the key moments, and write in the margin what each one shows."
+  },
+  {
+   "id": "m18",
+   "scene": "questions",
+   "who": "NAR",
+   "say": "Ready for a class discussion? Try these.",
+   "cap": "Ready for a class discussion? Try these."
+  },
+  {
+   "id": "m19",
+   "scene": "questions",
+   "who": "TCH",
+   "say": "Why does Mpho leave the farm? And how does the setting change, from the farm to the city?",
+   "cap": "Why does Mpho leave the farm? How does the setting change, from the farm to the city?"
+  },
+  {
+   "id": "m20",
+   "scene": "questions",
+   "who": "TCH",
+   "say": "What does Themba's friendship give Mpho? And why do the elections matter in the story?",
+   "cap": "What does Themba’s friendship give Mpho? Why do the elections matter in the story?"
+  },
+  {
+   "id": "m21",
+   "scene": "questions",
+   "who": "STU",
+   "say": "For me, Mpho shows that being far from home is not the end of hope.",
+   "cap": "For me, Mpho shows that being far from home is not the end of hope."
+  },
+  {
+   "id": "m22",
+   "scene": "outro",
+   "who": "NAR",
+   "say": "Royal Crest Academy, Bikita. Literature in English, on the Cambridge syllabus.",
+   "cap": "Royal Crest Academy, Bikita. Literature in English, on the Cambridge syllabus."
+  },
+  {
+   "id": "m23",
+   "scene": "outro",
+   "who": "TCH",
+   "say": "Read closely. Think deeply. Form One places for twenty twenty-seven are open now.",
+   "cap": "Read closely. Think deeply. Form 1 places for 2027 are open now."
+  }
+ ]
+}
