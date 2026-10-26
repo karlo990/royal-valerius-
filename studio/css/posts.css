@@ -513,3 +513,49 @@
 .flyer.ps-verse-week.f-square .vd-verse { font-size: 27px; }
 .flyer.ps-verse-week.f-square .vd-note { margin-top: 18px; padding: 14px 18px; font-size: 21px; }
 .flyer.ps-verse-week.f-square .vd-prayer { display: block; margin-bottom: 36px; font-size: 20px; }
+
+/* lit-english: an annotated page of Shakespeare on a deep ink background */
+.flyer.ps-lit-english { background: radial-gradient(900px 700px at 80% 10%, #1b3a8a 0%, transparent 60%), radial-gradient(700px 600px at 0% 100%, #2a1550 0%, transparent 60%), #08133d; color: #fff; overflow: hidden; }
+.flyer.ps-lit-english .dust { position: absolute; inset: 0; background-image: radial-gradient(rgba(242,183,5,.35) 1px, transparent 1.6px); background-size: 46px 46px; opacity: .35; mask-image: linear-gradient(180deg, #000, transparent 70%); }
+.flyer.ps-lit-english .kick { left: 70px; top: 76px; }
+.flyer.ps-lit-english .h { left: 70px; top: 122px; font: 500 100px/1.0 PsSerif, serif; letter-spacing: -.01em; }
+.flyer.ps-lit-english .h em { color: var(--gold2); font-style: italic; }
+.flyer.ps-lit-english .page { left: 70px; top: 400px; width: 680px; height: 470px; padding: 44px 48px; box-sizing: border-box; transform: rotate(-2.5deg); color: #2b2416;
+  background: radial-gradient(120% 90% at 30% 20%, #fbf5e4, #efe3c4 70%, #e2d0a4); border-radius: 4px 10px 10px 4px;
+  box-shadow: 0 40px 70px -20px rgba(0,0,0,.6), inset 14px 0 24px -14px rgba(90,60,10,.35); }
+.flyer.ps-lit-english .pg-head { display: flex; justify-content: space-between; font: 600 14px/1 PsSans, sans-serif; letter-spacing: .22em; text-transform: uppercase; color: #8a7448; padding-bottom: 16px; border-bottom: 1px solid #d6c294; }
+.flyer.ps-lit-english .page p { margin: 30px 0 0; font: 400 29px/1.75 PsSerif, serif; white-space: nowrap; }
+.flyer.ps-lit-english .hl { background: linear-gradient(100deg, transparent 0 1%, rgba(242,183,5,.6) 2% 97%, transparent 99%); background-size: 100% 60%; background-position: 0 85%; background-repeat: no-repeat; }
+.flyer.ps-lit-english .ring { position: relative; display: inline-block; }
+.flyer.ps-lit-english .ring::after { content: ""; position: absolute; left: -5px; right: -12px; top: 0; bottom: -2px; border: 3px solid #c8102e; border-radius: 50%; transform: rotate(-3deg); opacity: .85; }
+.flyer.ps-lit-english .wave { text-decoration: underline wavy #1f4fb0; text-decoration-thickness: 2px; text-underline-offset: 8px; }
+.flyer.ps-lit-english .note { position: absolute; left: 100%; margin-left: 56px; width: 250px; font: 700 34px/1.0 Caveat, cursive; }
+.flyer.ps-lit-english .n1 { top: 92px; color: #f2b705; transform: rotate(4deg); }
+.flyer.ps-lit-english .n2 { top: 188px; color: #ff8a9a; transform: rotate(-3deg); }
+.flyer.ps-lit-english .n3 { left: auto; right: 48px; margin: 0; width: auto; bottom: 26px; color: #1f4fb0; font-size: 30px; transform: rotate(-2deg); }
+.flyer.ps-lit-english .arrow { position: absolute; left: 100%; width: 90px; height: 40px; fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.flyer.ps-lit-english .a1 { margin-left: -30px; top: 104px; stroke: #f2b705; }
+.flyer.ps-lit-english .a2 { margin-left: -48px; top: 196px; stroke: #ff8a9a; }
+.flyer.ps-lit-english .nib { left: 820px; top: 690px; width: 150px; height: 150px; transform: rotate(-30deg); filter: drop-shadow(0 16px 20px rgba(0,0,0,.5)); }
+.flyer.ps-lit-english .helps { left: 70px; right: 70px; top: 940px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 26px; }
+.flyer.ps-lit-english .helps .lab { grid-column: 1 / -1; font-size: 16px; letter-spacing: .26em; font-weight: 800; text-transform: uppercase; color: var(--gold2); margin-bottom: 16px; }
+.flyer.ps-lit-english .helps .it { padding-top: 14px; border-top: 1px solid rgba(255,255,255,.22); font: 500 25px/1.3 PsSans, sans-serif; color: #eef1fb; }
+.flyer.ps-lit-english .helps .it i { display: block; margin-bottom: 4px; font: italic 500 30px/1 PsSerif, serif; color: var(--gold2); }
+.flyer.ps-lit-english .meta { left: 70px; right: 70px; top: 1130px; font: italic 400 30px/1.3 PsSerif, serif; color: #dfe5f8; }
+.flyer.ps-lit-english .meta b { color: var(--gold2); font-style: normal; padding: 0 6px; }
+.flyer.ps-lit-english .brand small { color: var(--gold2); }
+.flyer.ps-lit-english .brand .ph i { color: var(--navy); }
+.flyer.ps-lit-english.f-square .h { top: 110px; font-size: 72px; }
+.flyer.ps-lit-english.f-square .page { top: 300px; width: 610px; height: 380px; padding: 32px 40px; }
+.flyer.ps-lit-english.f-square .page p { margin-top: 20px; font-size: 26px; line-height: 1.7; }
+.flyer.ps-lit-english.f-square .note { margin-left: 50px; width: 230px; font-size: 30px; }
+.flyer.ps-lit-english.f-square .n1 { top: 74px; } .flyer.ps-lit-english.f-square .a1 { top: 86px; }
+.flyer.ps-lit-english.f-square .n2 { top: 158px; } .flyer.ps-lit-english.f-square .a2 { top: 166px; }
+.flyer.ps-lit-english.f-square .n3 { font-size: 26px; bottom: 18px; }
+.flyer.ps-lit-english.f-square .nib { left: 800px; top: 560px; width: 120px; height: 120px; }
+.flyer.ps-lit-english.f-square .helps { top: 730px; }
+.flyer.ps-lit-english.f-square .helps .lab { margin-bottom: 10px; font-size: 14px; }
+.flyer.ps-lit-english.f-square .helps .it { font-size: 21px; padding-top: 10px; }
+.flyer.ps-lit-english.f-square .helps .it i { font-size: 24px; }
+.flyer.ps-lit-english.f-square .meta { top: 905px; font-size: 22px; }
+.flyer.ps-lit-english .seven { box-shadow: inset 0 -3px 0 #1f4fb0; }

@@ -86,6 +86,7 @@ Ask nothing; wait for the user's next request. If they say "merge it", merge PR 
 - Templates (A4/portrait/square): `prospectus, royal, stadium, labsheet, block, notebook, element` (`css/flyer.css`).
 - Social posts live in `js/posts.js`: `POSTS[key] = {label, formats:['portrait','square'], caption:[lines], plain}` plus a renderer `(crest, phone, P, full) => html` in the second map; per-post CSS in `css/posts.css` scoped as `.flyer.ps-<key>` and `.f-square`.
 - **Verse of the day system**: renderers `verse-of-the-day` (navy), `verse-pink`, `verse-exams` (teal), `verse-week` (amber) reuse Prospectus parts (`fl-head`, `fl-kicker`, `fl-title`, `fl-foot`, `fl-cta`) + `.vd-*` blocks and an SVG sunrise arch `sunrise(theme)` with palettes in `SKY = {navy, pink, teal, amber}` (7 colours: 5 sky stops, 2 hill fills). New theme = add SKY entry + one CSS block overriding `--navy --navy-deep --ink --gold --gold-dark --muted --stone`, background, `.vd-note`, `.fl-foot`; add the class to the shared `:is(...)` selector list. Square hides `.vd-prayer` by default; re-enable per theme if space.
+- Tutoring post `lit-english`: annotated book page (gold highlight, red circle, wavy underline, Caveat margin notes with arrows, gold pen nib) on deep ink; reuse for other subjects by swapping the page text and notes.
 - Mandarin Connect posts `zh-*` (pictures, count, great-wall, quiz, character): paper texture, red `var(--red)` kicker, polaroid photos, 汉字 large.
 - **Export** (served over HTTP, not file://):
   ```
