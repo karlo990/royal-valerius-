@@ -3,7 +3,7 @@ ROYAL CREST · LITERATURE FILM "MPHO'S SEARCH" (a reader's guide): VOICE KIT
 
 Makes the 23 voice lines:
   Teacher Rudo  XrExE9yKIg1WjnnlVkGX  (ElevenLabs "Matilda": warm teacher)
-  Narrator      nPczCjzI2devNBz1zQrF  (ElevenLabs "Brian": deep, calm)
+  Narrator      nPczCjzI2devNBz1zQrb  (ElevenLabs "Brian": deep, calm)
   Student       cgSgspJ2msm6clMCkdW9  (ElevenLabs "Jessica": young, bright)
 
 If a voice is "not found", open ElevenLabs > Voices > Voice Library, search the name in brackets,
