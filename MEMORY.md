@@ -135,6 +135,8 @@ adjacent paper scenes (switching it per scene flashes white between them).
 then `frame(el, dir, n, max)` swaps `img.src` and awaits `img.decode()` so every rendered frame is exact (no `<video>` seeking).
 Speed change = scale n (library clip at 0.72×). Start a clip at an exact story beat: `c0 = cue('n02','falls') + .25 - 5.54`.
 
+**Patch, don't re-render**: to fix a few seconds, edit the stage, render only that window (`node tools/render.mjs video 30 T0 T1 patch.mp4`, T0 on a 1/30 s frame), splice it into `build/video_silent.mp4` with `trim=end_frame=F0` + patch + `trim=start_frame=F0+N` and `concat` (check the frame count is unchanged and run glitchscan), then rerun `mix.py` (audio only) and any joins. A 5-second fix takes minutes, not a full render.
+
 **Talking clips (lip match)**: never use a Gemini/CapCut clip's own audio (wrong voices); give the on-screen speaker an ElevenLabs line instead. Find when the mouth moves (tile face close-ups every 0.25 s with `fps=4,crop=…,tile=8x4`), write a line that fills that window, and play the clip at `rate = window / line_length` (clamped 0.8–1.2) starting so speech begins on the first mouth movement (`video-lit` scene `boyclip`, voice BOY = ElevenLabs "Liam" `TX3LPaxmHKxFdv7VOQHJ`).
 
 **Watermark masking**: crop then rescale, e.g. CapCut AI mark → `crop=1180:664:100:56,scale=1280:720:flags=lanczos`; verify on stills from the start, middle and end.
