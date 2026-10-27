@@ -32,6 +32,7 @@
     'verse-week': { label: "Verse of the day (amber)", formats: ['portrait', 'square'], caption: ["🌅 Verse of the day: new mercies for a new week", "", "📖 “It is of the LORD’s mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.” Lamentations 3:22–23", "", "Heavenly Father, thank You for mercies that are new every morning. Guide every Royal Crest family this week, keep our homes in peace and fill our children with joy. In Jesus’ name, Amen. 🙏", "", "Every sunrise is a fresh start. Walk into this week with a grateful heart. ☀️", "", "Have a blessed week, Royal Crest family!"], plain: true },
     'lit-english': { label: "Literature in English (Cambridge)", formats: ['portrait', 'square'], caption: ["“All the world’s a stage.” Shakespeare wrote it in 1599, and our learners will still be asking why. 📖", "", "Literature in English at Royal Crest Academy follows the Cambridge syllabus: poetry, prose and drama, from Form 1 to Upper 6.", "Close reading, sharp essays and a love of great books. ✍️"] },
     'verse-path': { label: "Verse of the day (forest)", formats: ['portrait', 'square'], caption: ["🌅 Morning devotion: Trusting God for the journey ahead", "", "📖 “Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.” Proverbs 3:5–6", "", "Every great vision begins with faith before the results become visible. What seems impossible today can become tomorrow’s testimony.", "", "Heavenly Father, guide the Royal Crest Academy family today. Strengthen our faith, bless our preparations and make Royal Crest a beacon of knowledge, character and excellence for generations to come. In Jesus’ name, Amen. 🙏", "", "✨ Royal Crest Academy is built on faith, strengthened by unity and guided by God.", "", "Have a blessed and fruitful Tuesday, Royal Crest family!"], plain: true },
+    'physics-quantum': { label: "Physics: the quantum world", formats: ['portrait', 'square'], caption: ["The nucleus of an atom is about 100,000 times smaller than the atom itself. ⚛️", "", "Zoom in: atom → nucleus → proton → quarks. A proton is two up quarks and one down quark.", "In 1905 Albert Einstein showed that light travels in tiny packets, now called photons. That idea won him the 1921 Nobel Prize in Physics.", "“Imagination is more important than knowledge.” Albert Einstein"] },
     'zh-pictures': { label: "Mandarin: picture characters", formats: ['portrait', 'square'], caption: ["Chinese characters that are pictures 🖌️", "", "人 rén person • 山 shān mountain • 日 rì sun • 木 mù tree", "The oldest characters were carved on bones and shells more than 3,000 years ago. Learn to read them with us at Mandarin Connect."] },
     'zh-count': { formats: ['portrait', 'square'], label: "Mandarin: count to ten", caption: ["Count to ten in Mandarin 🏮", "", "yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí", "Fun fact: 八 (bā) is a lucky number in China because it sounds like the word for wealth."] },
     'zh-great-wall': { formats: ['portrait', 'square'], label: "Mandarin: the Great Wall", caption: ["长城 Chángchéng: the Great Wall 🏯", "", "More than 21,000 km of history. At Mandarin Connect our learners explore the language and the culture behind it."] },
@@ -424,6 +425,39 @@
     <div class="vd-prayer"><b>Prayer</b>Heavenly Father, guide the Royal Crest family today. Strengthen our faith, bless our preparations and make Royal Crest a beacon of knowledge, character and excellence. In Jesus’ name, Amen.</div></div>
     <div class="fl-photo vd-arch">${sunrise('forest')}</div></div>
   <div class="fl-foot"><div class="fl-cta">Built on faith, strengthened by unity and guided by God.</div><div class="fl-contact">Have a blessed Tuesday<div class="c-web">Royal Crest family</div></div></div></div>`,
+    'physics-quantum': (crest, phone, P, full) => `<div class="glow"></div><div class="stars"></div>
+  <div class="abs kick" style="color:var(--gold2)">Physics · the quantum world</div>
+  <div class="abs h">Smaller than <em>small.</em></div>
+  <svg class="abs zoom" viewBox="0 0 1000 380">
+    <defs>
+      <radialGradient id="qNuc" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd9a0"/><stop offset="1" stop-color="#e0702a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="qP" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ff9a8a"/><stop offset=".6" stop-color="#d23a3a"/><stop offset="1" stop-color="#7a1414"/></radialGradient>
+      <radialGradient id="qN" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#a8c8ff"/><stop offset=".6" stop-color="#3a6ad2"/><stop offset="1" stop-color="#14287a"/></radialGradient>
+      <radialGradient id="qE" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#7ff0ff"/><stop offset="1" stop-color="#7ff0ff" stop-opacity="0"/></radialGradient>
+      <radialGradient id="qG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f2b705" stop-opacity=".35"/><stop offset="1" stop-color="#f2b705" stop-opacity="0"/></radialGradient>
+      <filter id="qGlow"><feGaussianBlur stdDeviation="3"/></filter>
+    </defs>
+    <g fill="none" stroke="rgba(242,183,5,.35)" stroke-width="1.5" stroke-dasharray="5 6">
+      <path d="M150 182 L370 70 M150 198 L370 310"/><path d="M500 175 L640 70 M500 205 L640 310"/><path d="M745 160 L860 75 M745 200 L860 305"/></g>
+    <g transform="translate(150 190)"><circle r="120" fill="url(#qG)"/>
+      <g fill="none" stroke="#7ff0ff" stroke-width="2" opacity=".75"><ellipse rx="110" ry="38"/><ellipse rx="110" ry="38" transform="rotate(60)"/><ellipse rx="110" ry="38" transform="rotate(-60)"/></g>
+      <circle r="12" fill="url(#qNuc)"/><circle r="5" fill="#ffd9a0"/>
+      <circle cx="110" cy="0" r="9" fill="url(#qE)"/><circle cx="-55" cy="95" r="9" fill="url(#qE)"/><circle cx="-55" cy="-95" r="9" fill="url(#qE)"/></g>
+    <g transform="translate(500 190)"><circle r="120" fill="url(#qG)"/>
+      ${[[-30,-18,'P'],[8,-30,'N'],[34,-6,'P'],[-8,4,'N'],[22,26,'N'],[-30,24,'P'],[2,36,'P'],[-40,-2,'N'],[12,-2,'P']].map(([x, y, k]) => `<circle cx="${x}" cy="${y}" r="24" fill="url(#q${k})" stroke="rgba(0,0,0,.25)"/>`).join('')}</g>
+    <g transform="translate(800 190)"><circle r="120" fill="url(#qG)"/><circle r="104" fill="url(#qP)" opacity=".28" stroke="#ff9a8a" stroke-width="2"/>
+      <g stroke="#f2b705" stroke-width="2.5" fill="none" opacity=".9" filter="url(#qGlow)"><path d="M-40 -30 Q0 -60 40 -30 Q60 20 0 46 Q-60 20 -40 -30"/></g>
+      ${[[-40,-30,'u','#ff6b6b'],[40,-30,'u','#ff6b6b'],[0,46,'d','#6b9bff']].map(([x, y, q, c]) => `<circle cx="${x}" cy="${y}" r="26" fill="${c}"/><text x="${x}" y="${y + 9}" text-anchor="middle" font-family="PsSerif" font-style="italic" font-weight="600" font-size="28" fill="#fff">${q}</text>`).join('')}</g>
+  </svg>
+  <div class="abs lab l1"><b>Atom</b>about 0.1 nanometres across</div>
+  <div class="abs lab l2"><b>Nucleus</b>100,000× smaller than the atom</div>
+  <div class="abs lab l3"><b>Proton</b>2 up quarks + 1 down quark</div>
+  <div class="abs ein">
+    <div class="emc">E = mc<sup>2</sup></div>
+    <div class="who"><div class="nm">Albert Einstein <span>1879–1955</span></div>
+      <div class="tx">In <b>1905</b> he showed that light travels in tiny packets, now called <b>photons</b>. It won him the <b>1921 Nobel Prize</b> in Physics.</div>
+      <div class="qt">“Imagination is more important than knowledge.”</div></div></div>
+  <div class="brand light"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>PHYSICS · SCIENCES</small></div></div><div class="ph"><i>${PHONE_ICON}</i>${full}</div></div>`,
     'zh-pictures': (crest, phone, P, full) => `<div class="paper"></div>
   <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · characters</div>
   <div class="abs h">Characters that<br>are <em>pictures.</em></div>

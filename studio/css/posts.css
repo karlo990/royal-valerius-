@@ -579,3 +579,34 @@
 .flyer.ps-verse-path.f-square .vd-verse { font-size: 25px; }
 .flyer.ps-verse-path.f-square .vd-note { margin-top: 16px; padding: 12px 16px; font-size: 20px; }
 .flyer.ps-verse-path.f-square .vd-prayer { display: block; margin-bottom: 34px; font-size: 19px; }
+
+/* physics-quantum: a zoom into the atom on a deep-space background, with an Einstein card */
+.flyer.ps-physics-quantum { background: radial-gradient(800px 600px at 80% 20%, #1b2f7a 0%, transparent 60%), radial-gradient(700px 600px at 0% 100%, #3a1460 0%, transparent 60%), #050b2a; color: #fff; overflow: hidden; }
+.flyer.ps-physics-quantum .stars { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.7) 1px, transparent 1.5px), radial-gradient(rgba(127,240,255,.5) 1px, transparent 1.5px); background-size: 97px 89px, 61px 73px; background-position: 0 0, 30px 40px; opacity: .45; }
+.flyer.ps-physics-quantum .kick { left: 70px; top: 76px; }
+.flyer.ps-physics-quantum .h { left: 70px; top: 120px; font: 500 104px/1 PsSerif, serif; }
+.flyer.ps-physics-quantum .h em { font-style: italic; color: var(--gold2); }
+.flyer.ps-physics-quantum .zoom { left: 40px; top: 300px; width: 1000px; height: 380px; }
+.flyer.ps-physics-quantum .lab { top: 690px; width: 290px; text-align: center; font: 500 19px/1.35 PsSans, sans-serif; color: #c9d4f0; }
+.flyer.ps-physics-quantum .lab b { display: block; font: 500 32px/1.1 PsSerif, serif; color: #fff; margin-bottom: 4px; }
+.flyer.ps-physics-quantum .l1 { left: 45px; } .flyer.ps-physics-quantum .l2 { left: 395px; } .flyer.ps-physics-quantum .l3 { left: 695px; }
+.flyer.ps-physics-quantum .ein { left: 70px; right: 70px; top: 850px; height: 300px; display: flex; gap: 36px; align-items: center; padding: 30px 36px; box-sizing: border-box; border-radius: 22px; background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(242,183,5,.35); }
+.flyer.ps-physics-quantum .emc { flex: none; font: italic 500 96px/1 PsSerif, serif; color: var(--gold2); text-shadow: 0 0 40px rgba(242,183,5,.35); }
+.flyer.ps-physics-quantum .emc sup { font-size: .5em; }
+.flyer.ps-physics-quantum .nm { font: 500 34px/1 PsSerif, serif; }
+.flyer.ps-physics-quantum .nm span { font: 700 16px PsSans, sans-serif; letter-spacing: .14em; color: #9fb0e0; margin-left: 8px; }
+.flyer.ps-physics-quantum .tx { margin-top: 12px; font: 500 21px/1.4 PsSans, sans-serif; color: #dbe3fa; }
+.flyer.ps-physics-quantum .tx b { color: #7ff0ff; font-weight: 700; }
+.flyer.ps-physics-quantum .qt { margin-top: 12px; font: italic 400 25px/1.3 PsSerif, serif; color: var(--gold2); }
+.flyer.ps-physics-quantum .brand small { color: var(--gold2); }
+.flyer.ps-physics-quantum .brand .ph i { color: var(--navy); }
+.flyer.ps-physics-quantum.f-square .h { top: 112px; font-size: 80px; }
+.flyer.ps-physics-quantum.f-square .zoom { top: 210px; transform: scale(.82); transform-origin: 50% 0; }
+.flyer.ps-physics-quantum.f-square .lab { top: 525px; font-size: 16px; }
+.flyer.ps-physics-quantum.f-square .lab b { font-size: 26px; }
+.flyer.ps-physics-quantum.f-square .l1 { left: 120px; width: 240px; } .flyer.ps-physics-quantum.f-square .l2 { left: 420px; width: 240px; } .flyer.ps-physics-quantum.f-square .l3 { left: 700px; width: 260px; }
+.flyer.ps-physics-quantum.f-square .ein { top: 650px; height: 260px; padding: 22px 30px; gap: 28px; }
+.flyer.ps-physics-quantum.f-square .emc { font-size: 76px; }
+.flyer.ps-physics-quantum.f-square .nm { font-size: 28px; }
+.flyer.ps-physics-quantum.f-square .tx { font-size: 18px; margin-top: 8px; }
+.flyer.ps-physics-quantum.f-square .qt { font-size: 21px; margin-top: 8px; }

@@ -32,3 +32,4 @@ The Open Day date isn't set anywhere yet; add it to the caption when it is fixed
 | `literature-in-english-{portrait,square}.jpg` | Literature in English (Cambridge syllabus: poetry, prose, drama): annotated Shakespeare page (As You Like It II.vii) |
 | `literature-film-thumbnail.jpg` | 1920×1080 thumbnail for the complete Literature film (From Page to Podium + Mpho’s Search); source `video-lit/build/thumbnail.html` |
 | `verse-of-the-day-2026-10-27-forest-{portrait,square}.jpg` | Verse of the day (forest), Tuesday 27 Oct 2026: "Trusting God for the journey ahead", Proverbs 3:5–6 |
+| `physics-quantum-{portrait,square}.jpg` | Physics: the quantum world (atom → nucleus → proton → quarks; Einstein, E = mc², photons, 1921 Nobel Prize) |
