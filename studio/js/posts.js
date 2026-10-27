@@ -33,7 +33,7 @@
     'lit-english': { label: "Literature in English (Cambridge)", formats: ['portrait', 'square'], caption: ["“All the world’s a stage.” Shakespeare wrote it in 1599, and our learners will still be asking why. 📖", "", "Literature in English at Royal Crest Academy follows the Cambridge syllabus: poetry, prose and drama, from Form 1 to Upper 6.", "Close reading, sharp essays and a love of great books. ✍️"] },
     'verse-path': { label: "Verse of the day (forest)", formats: ['portrait', 'square'], caption: ["🌅 Morning devotion: Trusting God for the journey ahead", "", "📖 “Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.” Proverbs 3:5–6", "", "Every great vision begins with faith before the results become visible. What seems impossible today can become tomorrow’s testimony.", "", "Heavenly Father, guide the Royal Crest Academy family today. Strengthen our faith, bless our preparations and make Royal Crest a beacon of knowledge, character and excellence for generations to come. In Jesus’ name, Amen. 🙏", "", "✨ Royal Crest Academy is built on faith, strengthened by unity and guided by God.", "", "Have a blessed and fruitful Tuesday, Royal Crest family!"], plain: true },
     'physics-quantum': { label: "Physics: the quantum world", formats: ['portrait', 'square'], caption: ["The nucleus of an atom is about 100,000 times smaller than the atom itself. ⚛️", "", "Zoom in: atom → nucleus → proton → quarks. A proton is two up quarks and one down quark.", "In 1905 Albert Einstein showed that light travels in tiny packets, now called photons. That idea won him the 1921 Nobel Prize in Physics.", "“Imagination is more important than knowledge.” Albert Einstein"] },
-    'physics-sound': { label: "Physics: sound in water", formats: ['portrait', 'square'], caption: ["Sound travels about four times faster through water than through air. 🌊", "", "In air: about 343 m/s. In water: about 1,480 m/s.", "Why? Water is far harder to squash than air, so each vibration is passed along much faster. It's why whales can hear each other across whole oceans. 🐋"] },
+    'physics-sound': { label: "Physics: sound in water", formats: ['portrait', 'square'], caption: ["Did you know? Sound travels about 4 times faster in water than in air. 🌊", "", "In one second, sound goes about 343 metres through air, but about 1,480 metres through water.", "Water is much harder to squeeze than air, so sound moves through it faster. That is why whales can hear each other from very far away. 🐋"] },
     'zh-pictures': { label: "Mandarin: picture characters", formats: ['portrait', 'square'], caption: ["Chinese characters that are pictures 🖌️", "", "人 rén person • 山 shān mountain • 日 rì sun • 木 mù tree", "The oldest characters were carved on bones and shells more than 3,000 years ago. Learn to read them with us at Mandarin Connect."] },
     'zh-count': { formats: ['portrait', 'square'], label: "Mandarin: count to ten", caption: ["Count to ten in Mandarin 🏮", "", "yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí", "Fun fact: 八 (bā) is a lucky number in China because it sounds like the word for wealth."] },
     'zh-great-wall': { formats: ['portrait', 'square'], label: "Mandarin: the Great Wall", caption: ["长城 Chángchéng: the Great Wall 🏯", "", "More than 21,000 km of history. At Mandarin Connect our learners explore the language and the culture behind it."] },
@@ -467,13 +467,14 @@
     <g fill="none" stroke="#7ff0ff" stroke-width="3">${[40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440].map((r, i) => `<path d="M${330 - r} 820 A${r} ${r} 0 0 0 ${330 + r} 820" opacity="${.95 - i * .08}"/>`).join('')}</g>
     <g transform="translate(330 820) scale(1.1)" fill="#0b2a52"><path d="M-70 0 C-40 -26 30 -26 60 -6 L90 -24 L84 0 L90 24 L60 6 C30 26 -40 26 -70 0 Z"/><circle cx="-46" cy="-4" r="4" fill="#7ff0ff"/></g>
   </svg>
-  <div class="abs kick" style="color:#0a1f5c">Physics · did you know?</div>
-  <div class="abs h">Sound swims <em>faster.</em></div>
+  <div class="abs kick" style="color:#0a1f5c">Physics</div>
+  <div class="abs h">Did you <em>know?</em></div>
+  <div class="abs sub">Sound travels about <b>4 times faster</b> in water than in air.</div>
   <div class="abs lbl la">IN AIR</div><div class="abs lbl lw">IN WATER</div>
   <div class="abs race">
-    <div class="row"><span class="k">Air</span><div class="bar"><i style="width:23%"></i></div><b>343 m/s</b></div>
-    <div class="row"><span class="k">Water</span><div class="bar"><i class="w" style="width:100%"></i></div><b>1,480 m/s</b></div>
-    <div class="why">About <em>4× faster.</em> Water is far harder to squash than air, so each vibration is passed along much faster.</div></div>
+    <div class="row"><span class="k">Air</span><div class="bar"><i style="width:23%"></i></div><b>343 m</b></div>
+    <div class="row"><span class="k">Water</span><div class="bar"><i class="w" style="width:100%"></i></div><b>1,480 m</b></div>
+    <div class="why">How far sound goes in <em>one second.</em> Water is much harder to squeeze than air, so sound moves through it faster.</div></div>
   <div class="brand light"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>PHYSICS · SCIENCES</small></div></div><div class="ph"><i>${PHONE_ICON}</i>${full}</div></div>`,
     'zh-pictures': (crest, phone, P, full) => `<div class="paper"></div>
   <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · characters</div>

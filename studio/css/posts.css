@@ -646,3 +646,6 @@
 .flyer.ps-physics-sound .waves > g:nth-of-type(1) path:nth-child(n+6) { display: none; }
 .flyer.ps-physics-sound.f-square .waves > g:nth-of-type(1) path:nth-child(n+5) { display: none; }
 .flyer.ps-physics-sound.f-square .waves > g:nth-of-type(3) path:nth-child(n+8) { display: none; }
+.flyer.ps-physics-sound .sub { left: 72px; top: 236px; width: 560px; font: 500 30px/1.3 PsSans, sans-serif; color: #0a1f5c; }
+.flyer.ps-physics-sound .sub b { color: #c8102e; }
+.flyer.ps-physics-sound.f-square .sub { top: 200px; width: 470px; font-size: 24px; }
