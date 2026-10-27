@@ -34,7 +34,7 @@
     'verse-path': { label: "Verse of the day (forest)", formats: ['portrait', 'square'], caption: ["🌅 Morning devotion: Trusting God for the journey ahead", "", "📖 “Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.” Proverbs 3:5–6", "", "Every great vision begins with faith before the results become visible. What seems impossible today can become tomorrow’s testimony.", "", "Heavenly Father, guide the Royal Crest Academy family today. Strengthen our faith, bless our preparations and make Royal Crest a beacon of knowledge, character and excellence for generations to come. In Jesus’ name, Amen. 🙏", "", "✨ Royal Crest Academy is built on faith, strengthened by unity and guided by God.", "", "Have a blessed and fruitful Tuesday, Royal Crest family!"], plain: true },
     'physics-quantum': { label: "Physics: the quantum world", formats: ['portrait', 'square'], caption: ["The nucleus of an atom is about 100,000 times smaller than the atom itself. ⚛️", "", "Zoom in: atom → nucleus → proton → quarks. A proton is two up quarks and one down quark.", "In 1905 Albert Einstein showed that light travels in tiny packets, now called photons. That idea won him the 1921 Nobel Prize in Physics.", "“Imagination is more important than knowledge.” Albert Einstein"] },
     'physics-sound': { label: "Physics: sound in water", formats: ['portrait', 'square'], caption: ["Did you know? Sound travels about 4 times faster in water than in air. 🌊", "", "In one second, sound goes about 343 metres through air, but about 1,480 metres through water.", "Water is much harder to squeeze than air, so sound moves through it faster. That is why whales can hear each other from very far away. 🐋"] },
-    'chess-neat': { label: "Chess: the smart move", formats: ['portrait', 'square'], caption: ["Every great player thinks a few moves ahead. ♞", "", "Royal Crest Academy: ZIMSEC, Cambridge and HEXCO, plus a practical trade every year.", "Make the smart move. Form 1 places for 2027 are open now."] },
+    'chess-neat': { label: "Chess: the smart move", formats: ['portrait', 'square'], caption: ["Grade 7 parents: every great player thinks a few moves ahead. ♞", "", "Move 1: your child finishes Grade 7. Move 2: book a Form 1 place at Royal Crest Academy for 2027.", "ZIMSEC, Cambridge and HEXCO, plus a practical trade every year."] },
     'zh-pictures': { label: "Mandarin: picture characters", formats: ['portrait', 'square'], caption: ["Chinese characters that are pictures 🖌️", "", "人 rén person • 山 shān mountain • 日 rì sun • 木 mù tree", "The oldest characters were carved on bones and shells more than 3,000 years ago. Learn to read them with us at Mandarin Connect."] },
     'zh-count': { formats: ['portrait', 'square'], label: "Mandarin: count to ten", caption: ["Count to ten in Mandarin 🏮", "", "yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí", "Fun fact: 八 (bā) is a lucky number in China because it sounds like the word for wealth."] },
     'zh-great-wall': { formats: ['portrait', 'square'], label: "Mandarin: the Great Wall", caption: ["长城 Chángchéng: the Great Wall 🏯", "", "More than 21,000 km of history. At Mandarin Connect our learners explore the language and the culture behind it."] },
@@ -478,13 +478,28 @@
     <div class="why">How far sound goes in <em>one second.</em> Water is much harder to squeeze than air, so sound moves through it faster.</div></div>
   <div class="brand light"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>PHYSICS · SCIENCES</small></div></div><div class="ph"><i>${PHONE_ICON}</i>${full}</div></div>`,
     'chess-neat': (crest, phone, P, full) => `<div class="glow"></div>
-  <div class="abs kick" style="color:var(--gold2)">Think ahead</div>
-  <div class="abs h">Your next move<br>is <em>the smart one.</em></div>
+  <div class="abs kick" style="color:var(--gold2)">Grade 7 parents · think ahead</div>
+  <div class="abs h">Your child’s next move<br>is <em>the smart one.</em></div>
   <div class="abs sub">ZIMSEC <b>·</b> Cambridge <b>·</b> HEXCO <b>·</b> a practical trade every year</div>
   <div class="abs stage"><div class="board">${Array.from({ length: 64 }, (_, i) => { const r = Math.floor(i / 8), c = i % 8; return `<i class="${(r + c) % 2 ? 'd' : 'l'}${r === 2 && c === 4 ? ' g' : ''}"></i>`; }).join('')}
     <svg class="mv" viewBox="0 0 8 8"><path d="M3.5 4.3 V2.5 H4.25" fill="none" stroke="#f2b705" stroke-width=".09" stroke-dasharray=".22 .16" stroke-linecap="round"/><path d="M4.18 2.33 L4.42 2.5 L4.18 2.67" fill="none" stroke="#f2b705" stroke-width=".09" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-  <div class="abs knight">♞</div>
-  <div class="abs goal"><b>FORM 1 · 2027</b>Places open now</div>
+  <svg class="abs knight" viewBox="0 0 200 260"><defs>
+    <linearGradient id="knG" x1="0" x2="1"><stop offset="0" stop-color="#8a6410"/><stop offset=".28" stop-color="#ffe9a3"/><stop offset=".5" stop-color="#f2b705"/><stop offset="1" stop-color="#7a5508"/></linearGradient>
+    <linearGradient id="knB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#9a6d0c"/></linearGradient></defs>
+    <ellipse cx="100" cy="250" rx="82" ry="9" fill="#000" opacity=".45"/>
+    <path d="M24 248 C24 236 36 230 100 230 C164 230 176 236 176 248 Z" fill="url(#knB)" stroke="#6b4a06" stroke-width="2.5"/>
+    <path d="M38 230 C40 218 56 212 100 212 C144 212 160 218 162 230 Z" fill="url(#knG)" stroke="#6b4a06" stroke-width="2.5"/>
+    <path d="M54 212 C50 176 66 152 84 128 C70 124 52 120 40 106 C28 92 32 76 46 70 L76 48 C82 32 94 20 110 15 L112 3 L124 15 C152 22 174 54 172 98 C170 142 150 172 148 212 Z" fill="url(#knG)" stroke="#6b4a06" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M124 15 C150 24 168 54 166 96 C164 136 146 168 144 212 L150 212 C152 172 172 142 172 98 C174 54 152 22 124 15 Z" fill="#6b4a06" opacity=".35"/>
+    <path d="M118 30 C134 40 146 58 150 80 M124 50 C136 62 142 78 144 96 M128 74 C138 88 140 104 140 118" fill="none" stroke="#7a5508" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+    <circle cx="94" cy="54" r="6" fill="#4a3304"/><circle cx="92" cy="52" r="2" fill="#fff3c4"/>
+    <path d="M40 98 C52 100 60 98 68 94" fill="none" stroke="#5a3e05" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="46" cy="82" r="3" fill="#5a3e05"/>
+    <path d="M70 60 C80 50 92 44 104 42" fill="none" stroke="#fff3c4" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+    <path d="M60 196 C58 170 70 150 86 132" fill="none" stroke="#fff3c4" stroke-width="4" stroke-linecap="round" opacity=".45"/></svg>
+  <div class="abs goal"><b>FORM 1 · 2027</b>Royal Crest Academy</div>
+  <div class="abs note n1"><i>1</i>Grade 7 now</div>
+  <div class="abs note n2"><i>2</i>Book a Form 1 place</div>
   <div class="brand light"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>SCIENCE · INNOVATION · SKILL</small></div></div><div class="ph"><i>${PHONE_ICON}</i>${full}</div></div>`,
     'zh-pictures': (crest, phone, P, full) => `<div class="paper"></div>
   <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · characters</div>

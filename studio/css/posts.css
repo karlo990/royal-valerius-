@@ -653,7 +653,7 @@
 /* chess-neat: one gold knight on a board in perspective, its L-shaped move landing on Form 1 · 2027 */
 .flyer.ps-chess-neat { background: radial-gradient(900px 640px at 50% 105%, #1c2d72 0%, transparent 65%), radial-gradient(600px 500px at 90% 0%, #16245c 0%, transparent 70%), #070f2e; color: #fff; overflow: hidden; }
 .flyer.ps-chess-neat .kick { left: 70px; top: 80px; }
-.flyer.ps-chess-neat .h { left: 66px; top: 120px; font: 500 100px/.98 PsSerif, serif; letter-spacing: -.015em; }
+.flyer.ps-chess-neat .h { left: 66px; top: 120px; font: 500 86px/1 PsSerif, serif; letter-spacing: -.015em; }
 .flyer.ps-chess-neat .h em { font-style: italic; color: var(--gold2); }
 .flyer.ps-chess-neat .sub { left: 70px; top: 345px; font: 500 25px PsSans, sans-serif; color: #c9d4f0; }
 .flyer.ps-chess-neat .sub b { color: var(--gold2); padding: 0 4px; }
@@ -663,7 +663,7 @@
 .flyer.ps-chess-neat .board .l { background: #e9dfc4; } .flyer.ps-chess-neat .board .d { background: #1a2a6a; }
 .flyer.ps-chess-neat .board .g { background: #f2b705; box-shadow: 0 0 50px 8px rgba(242,183,5,.6); position: relative; z-index: 1; }
 .flyer.ps-chess-neat .board .mv { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
-.flyer.ps-chess-neat .knight { left: 345px; top: 905px; font: 240px/1 "DejaVu Sans", serif; background: linear-gradient(180deg, #ffe38a, #f2b705 45%, #a87a10); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 26px 24px rgba(0,0,0,.6)); }
+.flyer.ps-chess-neat .knight { left: 352px; top: 880px; width: 180px; height: 234px; filter: drop-shadow(0 22px 22px rgba(0,0,0,.55)); }
 .flyer.ps-chess-neat .goal { left: 520px; top: 548px; padding: 12px 18px; border-radius: 14px; background: #0a1f5c; box-shadow: 0 0 0 2px #f2b705, 0 20px 40px -16px rgba(0,0,0,.8); font: 500 17px PsSans, sans-serif; color: #c9d4f0; text-align: center; }
 .flyer.ps-chess-neat .goal::after { content: ""; position: absolute; left: 50%; bottom: -12px; margin-left: -10px; border: 10px solid transparent; border-bottom: 0; border-top-color: #f2b705; }
 .flyer.ps-chess-neat .goal b { display: block; font: 800 19px PsSans, sans-serif; letter-spacing: .14em; color: var(--gold2); margin-bottom: 2px; }
@@ -672,5 +672,12 @@
 .flyer.ps-chess-neat.f-square .h { top: 108px; font-size: 80px; }
 .flyer.ps-chess-neat.f-square .sub { top: 292px; font-size: 22px; }
 .flyer.ps-chess-neat.f-square .stage { top: 360px; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 72%, transparent 90%); mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 72%, transparent 90%); }
-.flyer.ps-chess-neat.f-square .knight { left: 362px; top: 770px; font-size: 196px; }
+.flyer.ps-chess-neat.f-square .knight { left: 368px; top: 770px; width: 150px; height: 195px; }
 .flyer.ps-chess-neat.f-square .goal { top: 438px; }
+.flyer.ps-chess-neat .note { display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 30px; background: #0a1f5c; box-shadow: 0 0 0 2px rgba(242,183,5,.8), 0 14px 26px -12px rgba(0,0,0,.8); font: 700 30px/1 Caveat, cursive; color: #fff; white-space: nowrap; }
+.flyer.ps-chess-neat .note i { width: 34px; height: 34px; border-radius: 50%; background: var(--gold2); color: #0a1f5c; display: grid; place-items: center; font: 800 17px PsSans, sans-serif; font-style: normal; }
+.flyer.ps-chess-neat .n1 { left: 560px; top: 1010px; transform: rotate(-2deg); }
+.flyer.ps-chess-neat .n2 { left: 120px; top: 760px; transform: rotate(-3deg); }
+.flyer.ps-chess-neat.f-square .n1 { left: 540px; top: 860px; }
+.flyer.ps-chess-neat.f-square .n2 { left: 110px; top: 660px; }
+.flyer.ps-chess-neat.f-square .h { font-size: 70px; }

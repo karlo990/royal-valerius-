@@ -35,4 +35,4 @@ The Open Day date isn't set anywhere yet; add it to the caption when it is fixed
 | `physics-quantum-{portrait,square}.jpg` | Physics: the quantum world (atom → nucleus → proton → quarks; Einstein, E = mc², photons, 1921 Nobel Prize) |
 | `physics-sound-in-water-{portrait,square}.jpg` | Physics did-you-know: sound is ~4× faster in water (1,480 m/s) than air (343 m/s) |
 | `physics-50/` | 50 physics "Did you know?" flyers (square), one per fact in `studio/data/physics-facts.json`, cycling through all 7 templates; `captions.txt` has a caption for each. Re-render with `studio/tools/render_facts.mjs` |
-| `chess-smart-move-{portrait,square}.jpg` | Chess: one gold knight on a board in perspective, L-move onto a gold "Form 1 · 2027" square (neater redo of the chess post) |
+| `chess-smart-move-{portrait,square}.jpg` | Chess for Grade 7 parents: SVG Staunton knight, L-move ① Grade 7 now → ② book a Form 1 place → Form 1 · 2027 |
