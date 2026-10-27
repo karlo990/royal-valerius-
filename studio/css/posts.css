@@ -610,3 +610,39 @@
 .flyer.ps-physics-quantum.f-square .nm { font-size: 28px; }
 .flyer.ps-physics-quantum.f-square .tx { font-size: 18px; margin-top: 8px; }
 .flyer.ps-physics-quantum.f-square .qt { font-size: 21px; margin-top: 8px; }
+
+/* physics-sound: air above, water below, sound waves in each and a speed race */
+.flyer.ps-physics-sound { background: #062a52; color: #fff; overflow: hidden; }
+.flyer.ps-physics-sound .air { position: absolute; left: 0; right: 0; top: 0; height: 600px; background: linear-gradient(180deg, #fff4dc 0%, #ffe2b0 55%, #bfe4f2 100%); }
+.flyer.ps-physics-sound .sea { position: absolute; left: 0; right: 0; top: 600px; bottom: 0; background: linear-gradient(180deg, #1a7fb5 0%, #0b4a86 35%, #062a52 75%, #04183a 100%); }
+.flyer.ps-physics-sound .sea::before { content: ""; position: absolute; left: 0; right: 0; top: -18px; height: 36px; background: radial-gradient(40px 18px at 40px 18px, #1a7fb5 98%, transparent) 0 0/80px 36px repeat-x; }
+.flyer.ps-physics-sound .waves { left: 0; top: 0; width: 1080px; height: 1350px; }
+.flyer.ps-physics-sound .kick { left: 70px; top: 76px; }
+.flyer.ps-physics-sound .h { left: 70px; top: 120px; font: 500 104px/1 PsSerif, serif; color: #0a1f5c; }
+.flyer.ps-physics-sound .h em { font-style: italic; color: #c8102e; }
+.flyer.ps-physics-sound .lbl { font: 800 16px PsSans, sans-serif; letter-spacing: .3em; }
+.flyer.ps-physics-sound .la { right: 70px; top: 520px; color: #0a1f5c; }
+.flyer.ps-physics-sound .lw { left: 70px; top: 640px; color: #bff6ff; }
+.flyer.ps-physics-sound .race { left: 70px; right: 70px; top: 930px; padding: 28px 32px; border-radius: 22px; background: rgba(4,24,58,.72); box-shadow: inset 0 0 0 1px rgba(127,240,255,.3); }
+.flyer.ps-physics-sound .row { display: flex; align-items: center; gap: 18px; margin-bottom: 16px; }
+.flyer.ps-physics-sound .row .k { width: 90px; font: 800 15px PsSans, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #9fd8ee; }
+.flyer.ps-physics-sound .bar { flex: 1; height: 26px; border-radius: 13px; background: rgba(255,255,255,.1); overflow: hidden; }
+.flyer.ps-physics-sound .bar i { display: block; height: 100%; border-radius: 13px; background: linear-gradient(90deg, #ffd27a, #f2b705); }
+.flyer.ps-physics-sound .bar i.w { background: linear-gradient(90deg, #3ad0ff, #7ff0ff); }
+.flyer.ps-physics-sound .row b { width: 150px; text-align: right; font: 600 30px PsSerif, serif; }
+.flyer.ps-physics-sound .why { margin-top: 6px; font: 500 22px/1.4 PsSans, sans-serif; color: #dbeefa; }
+.flyer.ps-physics-sound .why em { font: italic 600 28px PsSerif, serif; color: #7ff0ff; }
+.flyer.ps-physics-sound .brand small { color: var(--gold2); }
+.flyer.ps-physics-sound .brand .ph i { color: var(--navy); }
+.flyer.ps-physics-sound.f-square .air { height: 440px; }
+.flyer.ps-physics-sound.f-square .sea { top: 440px; }
+.flyer.ps-physics-sound.f-square .h { top: 110px; font-size: 84px; }
+.flyer.ps-physics-sound.f-square .waves { transform: translateY(-150px) scale(.92); transform-origin: 50% 30%; }
+.flyer.ps-physics-sound.f-square .la { top: 380px; } .flyer.ps-physics-sound.f-square .lw { top: 480px; }
+.flyer.ps-physics-sound.f-square .race { top: 690px; padding: 20px 26px; }
+.flyer.ps-physics-sound.f-square .row { margin-bottom: 10px; }
+.flyer.ps-physics-sound.f-square .why { font-size: 18px; }
+.flyer.ps-physics-sound.f-square .why em { font-size: 22px; }
+.flyer.ps-physics-sound .waves > g:nth-of-type(1) path:nth-child(n+6) { display: none; }
+.flyer.ps-physics-sound.f-square .waves > g:nth-of-type(1) path:nth-child(n+5) { display: none; }
+.flyer.ps-physics-sound.f-square .waves > g:nth-of-type(3) path:nth-child(n+8) { display: none; }
