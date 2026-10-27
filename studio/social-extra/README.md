@@ -31,3 +31,4 @@ The Open Day date isn't set anywhere yet; add it to the caption when it is fixed
 | `verse-of-the-day-2026-10-26-amber-{portrait,square}.jpg` | Verse of the day (amber), Monday 26 Oct 2026: "New mercies for a new week", Lamentations 3:22–23 |
 | `literature-in-english-{portrait,square}.jpg` | Literature in English (Cambridge syllabus: poetry, prose, drama): annotated Shakespeare page (As You Like It II.vii) |
 | `literature-film-thumbnail.jpg` | 1920×1080 thumbnail for the complete Literature film (From Page to Podium + Mpho’s Search); source `video-lit/build/thumbnail.html` |
+| `verse-of-the-day-2026-10-27-forest-{portrait,square}.jpg` | Verse of the day (forest), Tuesday 27 Oct 2026: "Trusting God for the journey ahead", Proverbs 3:5–6 |

@@ -31,6 +31,7 @@
     'verse-exams': { label: "Verse of the day (exams)", formats: ['portrait', 'square'], caption: ["🌅 Verse of the day: strength for the exam room", "", "📖 “I can do all things through Christ which strengtheneth me.” Philippians 4:13", "", "Heavenly Father, as learners across Zimbabwe sit their examinations, give them clear minds, calm hearts and good recall. Bless every pen and every page. In Jesus’ name, Amen. 🙏", "", "To every learner writing this season: you are prepared, and you are not alone. ✍️", "", "Have a blessed week, Royal Crest family!"], plain: true },
     'verse-week': { label: "Verse of the day (amber)", formats: ['portrait', 'square'], caption: ["🌅 Verse of the day: new mercies for a new week", "", "📖 “It is of the LORD’s mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.” Lamentations 3:22–23", "", "Heavenly Father, thank You for mercies that are new every morning. Guide every Royal Crest family this week, keep our homes in peace and fill our children with joy. In Jesus’ name, Amen. 🙏", "", "Every sunrise is a fresh start. Walk into this week with a grateful heart. ☀️", "", "Have a blessed week, Royal Crest family!"], plain: true },
     'lit-english': { label: "Literature in English (Cambridge)", formats: ['portrait', 'square'], caption: ["“All the world’s a stage.” Shakespeare wrote it in 1599, and our learners will still be asking why. 📖", "", "Literature in English at Royal Crest Academy follows the Cambridge syllabus: poetry, prose and drama, from Form 1 to Upper 6.", "Close reading, sharp essays and a love of great books. ✍️"] },
+    'verse-path': { label: "Verse of the day (forest)", formats: ['portrait', 'square'], caption: ["🌅 Morning devotion: Trusting God for the journey ahead", "", "📖 “Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.” Proverbs 3:5–6", "", "Every great vision begins with faith before the results become visible. What seems impossible today can become tomorrow’s testimony.", "", "Heavenly Father, guide the Royal Crest Academy family today. Strengthen our faith, bless our preparations and make Royal Crest a beacon of knowledge, character and excellence for generations to come. In Jesus’ name, Amen. 🙏", "", "✨ Royal Crest Academy is built on faith, strengthened by unity and guided by God.", "", "Have a blessed and fruitful Tuesday, Royal Crest family!"], plain: true },
     'zh-pictures': { label: "Mandarin: picture characters", formats: ['portrait', 'square'], caption: ["Chinese characters that are pictures 🖌️", "", "人 rén person • 山 shān mountain • 日 rì sun • 木 mù tree", "The oldest characters were carved on bones and shells more than 3,000 years ago. Learn to read them with us at Mandarin Connect."] },
     'zh-count': { formats: ['portrait', 'square'], label: "Mandarin: count to ten", caption: ["Count to ten in Mandarin 🏮", "", "yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí", "Fun fact: 八 (bā) is a lucky number in China because it sounds like the word for wealth."] },
     'zh-great-wall': { formats: ['portrait', 'square'], label: "Mandarin: the Great Wall", caption: ["长城 Chángchéng: the Great Wall 🏯", "", "More than 21,000 km of history. At Mandarin Connect our learners explore the language and the culture behind it."] },
@@ -95,6 +96,7 @@
   // ------------------------------------------------------------------ verse of the day (Prospectus look)
   const SKY = { navy: ['#0c1638', '#2a3f8f', '#b06c86', '#f0a35e', '#ffd27a', '#1d2a66', '#0c1638'],
     pink: ['#4a0f2e', '#a3305f', '#e57fa6', '#ffb3c9', '#ffe1b8', '#8a2a5a', '#4a0f2e'],
+    forest: ['#0d2a1e', '#1f5a3a', '#6e9a5a', '#e9c26a', '#ffe3a0', '#163f2a', '#0d2a1e'],
     amber: ['#2b1408', '#7a3a14', '#d9773a', '#f6b26b', '#ffe1a8', '#5a2a10', '#2b1408'],
     teal: ['#062a2e', '#0f5a5c', '#3f9a8f', '#e9b35f', '#ffd98a', '#0c4446', '#062a2e'] };
   function sunrise(theme = 'navy') {
@@ -108,7 +110,7 @@
       <g fill="#fff" opacity=".55"><circle cx="40" cy="40" r="1.4"/><circle cx="230" cy="70" r="1.2"/><circle cx="120" cy="24" r="1"/><circle cx="270" cy="150" r="1.1"/><circle cx="70" cy="130" r="1"/></g>
       <path d="M0 400 C40 380 70 360 110 372 C150 384 170 352 210 356 C250 360 270 384 300 380 V500 H0 Z" fill="${c[5]}"/>
       <path d="M0 440 C80 420 160 432 220 424 C260 418 280 428 300 426 V500 H0 Z" fill="${c[6]}"/>
-      <g fill="${c[6]}"><path d="M62 424 c-1 -16 3 -24 0 -34 c6 9 4 19 3 34 z"/><ellipse cx="63" cy="388" rx="22" ry="7"/></g></svg>`;
+      <g fill="${c[6]}"><path d="M62 424 c-1 -16 3 -24 0 -34 c6 9 4 19 3 34 z"/><ellipse cx="63" cy="388" rx="22" ry="7"/></g>${theme === 'forest' ? '<path d="M96 500 C130 470 196 452 168 428 C150 412 136 406 148 392 L152 392 C146 406 160 412 178 428 C210 456 176 478 196 500 Z" fill="#ffe3a0" opacity=".5"/>' : ''}</svg>`;
   }
 
   // ------------------------------------------------------------------ Mandarin Connect parts
@@ -411,6 +413,17 @@
     <div class="it"><i>i.</i><b>Poetry</b>Set poems and unseen verse</div><div class="it"><i>ii.</i><b>Prose</b>Novels and short stories</div><div class="it"><i>iii.</i><b>Drama</b>Shakespeare and modern plays</div></div>
   <div class="abs meta">Cambridge IGCSE &amp; A Level <b>·</b> Form 1 to Upper 6 <b>·</b> Opening January 2027</div>
   <div class="brand light"><div class="b"><img src="${crest}" alt=""><div><b>Royal Crest Academy</b><small>SCIENCE · INNOVATION · SKILL</small></div></div><div class="ph"><i>${PHONE_ICON}</i>${full}</div></div>`,
+    'verse-path': (crest) => `<div class="t-prospectus vd">
+  <div class="fl-head"><div class="fl-brand"><img class="fl-crest" src="${crest}" alt=""><div class="fl-brandtext"><span class="fl-school">Royal Crest Academy</span><span class="fl-motto">Science · Innovation · Skill</span></div></div><span class="fl-kind">Verse of the day</span></div>
+  <div class="vd-main"><div class="vd-text">
+    <div class="fl-kicker">Morning devotion · Tuesday 27 October 2026</div>
+    <div class="fl-title">Trusting God for the <em>journey ahead.</em></div>
+    <div class="vd-verse">“Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.”</div>
+    <div class="vd-ref">Proverbs 3:5–6</div>
+    <div class="vd-note">Every great vision begins with faith. <b>What seems impossible today can become tomorrow’s testimony.</b></div>
+    <div class="vd-prayer"><b>Prayer</b>Heavenly Father, guide the Royal Crest family today. Strengthen our faith, bless our preparations and make Royal Crest a beacon of knowledge, character and excellence. In Jesus’ name, Amen.</div></div>
+    <div class="fl-photo vd-arch">${sunrise('forest')}</div></div>
+  <div class="fl-foot"><div class="fl-cta">Built on faith, strengthened by unity and guided by God.</div><div class="fl-contact">Have a blessed Tuesday<div class="c-web">Royal Crest family</div></div></div></div>`,
     'zh-pictures': (crest, phone, P, full) => `<div class="paper"></div>
   <div class="abs kick" style="left:70px;top:70px;color:var(--red)">Mandarin Connect · characters</div>
   <div class="abs h">Characters that<br>are <em>pictures.</em></div>
