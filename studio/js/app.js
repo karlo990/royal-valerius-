@@ -584,6 +584,16 @@
       const { node, model: m } = await mount(stage, item, kind, template, format);
       return { file: node.dataset.file, caption: F.caption(m), fits: F.fitFlyer(node), w: F.FORMATS[format].w, h: F.FORMATS[format].h, scale: F.FORMATS[format].scale };
     },
+    // a "Did you know?" flyer for any subject with a fact of your own (used for fact packs such as data/physics-facts.json)
+    async mountFact(key, fact, template, format, n) {
+      let stage = document.getElementById('batch-stage');
+      if (!stage) { stage = document.createElement('div'); stage.id = 'batch-stage'; stage.style.cssText = 'position:fixed;left:0;top:0;z-index:9999;background:#fff'; document.body.append(stage); }
+      const base = itemByKey(key);
+      const item = { ...base, data: { ...base.data, fact } };
+      const { node, model: m } = await mount(stage, item, 'fact', template, format);
+      node.dataset.file = `${base.key}-fact-${String(n || 1).padStart(2, '0')}-${template}-${format}`;
+      return { file: node.dataset.file, caption: F.caption(m), fits: F.fitFlyer(node) };
+    },
     promptFor,
   };
 

@@ -34,3 +34,4 @@ The Open Day date isn't set anywhere yet; add it to the caption when it is fixed
 | `verse-of-the-day-2026-10-27-forest-{portrait,square}.jpg` | Verse of the day (forest), Tuesday 27 Oct 2026: "Trusting God for the journey ahead", Proverbs 3:5–6 |
 | `physics-quantum-{portrait,square}.jpg` | Physics: the quantum world (atom → nucleus → proton → quarks; Einstein, E = mc², photons, 1921 Nobel Prize) |
 | `physics-sound-in-water-{portrait,square}.jpg` | Physics did-you-know: sound is ~4× faster in water (1,480 m/s) than air (343 m/s) |
+| `physics-50/` | 50 physics "Did you know?" flyers (square), one per fact in `studio/data/physics-facts.json`, cycling through all 7 templates; `captions.txt` has a caption for each. Re-render with `studio/tools/render_facts.mjs` |

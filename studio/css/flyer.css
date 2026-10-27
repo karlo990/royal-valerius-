@@ -496,13 +496,13 @@
 .sd-main { position: relative; z-index: 1; flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 44px; padding: 40px 0 40px; }
 .is-tall .sd-main { grid-template-columns: 1fr; grid-template-rows: minmax(0, 0.95fr) minmax(0, 1fr); gap: 36px; }
 .sd-visual { position: relative; min-height: 0; display: flex; }
-.sd-visual::before { content: ""; position: absolute; top: 14%; bottom: 14%; left: 55%; right: -200px; background: repeating-linear-gradient(120deg, transparent 0 34px, var(--sg) 34px 58px); opacity: 0.95; }
+.sd-visual::before { content: ""; position: absolute; top: 14%; bottom: 14%; left: 55%; right: -36px; background: repeating-linear-gradient(120deg, transparent 0 34px, var(--sg) 34px 58px); opacity: 0.95; }
 .sd-visual .fl-visual { position: relative; z-index: 1; flex: 1; min-width: 0; clip-path: polygon(9% 0, 100% 0, 91% 100%, 0 100%); }
 .t-stadium .fl-icon { --icon-bg: #16307a; --icon-fg: var(--sg); }
 .t-stadium .fl-mol { background: #fff; color: var(--ink); padding: 26px 70px 16px; gap: 6px; }
 .t-stadium .mol-label { justify-content: center; color: #4a5a86; }
 .t-stadium .fl-source { text-align: center; font: 500 12px/1.3 var(--sans); color: #6b7695; }
-.sd-text { min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+.sd-text { position: relative; z-index: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
 .t-stadium .fl-body { font: 400 25px/1.5 var(--sans); color: #d9def0; }
 .t-stadium.k-fact .fl-body { font: 800 40px/1.15 var(--grot); color: #fff; }
 .t-stadium.k-tip .fl-body, .t-stadium.k-answer .fl-body { font-size: 30px; color: #fff; }
