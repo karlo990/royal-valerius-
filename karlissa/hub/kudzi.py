@@ -101,7 +101,7 @@ def rules(msg: str, ctx: dict) -> dict | None:
         f = ctx["fees"]
         if f["balance"] > 0:
             return {"reply": f"{f['term']}: invoiced US${f['invoiced']}, paid US${f['paid']}. **Balance US${f['balance']}** (due {_day(f['due'])}). "
-                             f"Pay at the bursar's office or through the Royal Crest Connect app.", "actions": [{"label": "Open fees", "route": "#/fees"}]}
+                             f"Pay at the bursar's office or on the RCA Portal app.", "actions": [{"label": "Open fees", "route": "#/fees"}]}
         return {"reply": f"{f['term']} fees are fully paid (US${f['paid']}). Thank you! ✅", "actions": [{"label": "Open fees", "route": "#/fees"}]}
     if has(r"attend|absent|late|present|missed|bunk"):
         a = ctx["attendance"]

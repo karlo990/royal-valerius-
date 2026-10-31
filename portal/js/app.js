@@ -163,7 +163,7 @@
       <aside class="side">
         <a class="logo" href="${C.SITE}"><img src="/assets/img/crest-128.webp" alt=""><span><b>Crest Quest</b><small>Royal Crest Academy</small></span></a>
         <nav class="nav" aria-label="Portal">${nav}</nav>
-        <div class="side-app"><b>On your phone?</b>Get alerts for marks, notices and fees in the Royal Crest Connect app.<br><a href="#" id="side-app">Get the RCA Portal app →</a></div>
+        <div class="side-app"><b>On your phone?</b>Get alerts for marks, notices and fees in the RCA Portal app.<br><a href="#" id="side-app">Get the RCA Portal app →</a></div>
         <div class="side-links">${API.live() && !state.user.preview ? '<button type="button" id="chpw">Change my password</button>' : ''}</div>
         <button class="signout" type="button">Sign out · ${esc(state.user.name)}</button>
       </aside>
@@ -295,7 +295,7 @@
       return `<div class="grid">
         <section class="card span-6"><h2>Balance · ${esc(f.term)}</h2><div class="bal ${f.balance ? '' : 'zero'}">${money(f.balance)}</div>
           <div class="prog"><i style="width:${paidPct}%"></i></div><p class="muted" style="margin:0 0 16px">${money(f.paid)} paid of ${money(f.invoiced)} · ${f.balance ? `due ${fmt(f.due, { day: 'numeric', month: 'long', year: 'numeric' })}` : 'fully paid, thank you'}</p>
-          <div class="callout">Pay at the bursar's office or through the Royal Crest Connect app. Always ask for an official receipt for every payment.</div>
+          <div class="callout">Pay at the bursar's office or on the RCA Portal app. Always ask for an official receipt for every payment.</div>
           <p style="margin:16px 0 0;display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary btn-sm" href="${C.APP_DEEP_LINK}/fees?student=${encodeURIComponent(S().id)}">Open in the app</a><a class="btn btn-ghost btn-sm" href="tel:${C.PHONE.replace(/\s/g, '')}">${icon('phone')}Call the bursar</a></p></section>
         <section class="card span-6"><h2>Termly fees (all-inclusive)</h2><table class="lines">${f.lines.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${money(v)}</td></tr>`).join('')}<tr class="tot"><td>Total per term</td><td>${money(f.invoiced)}</td></tr></table></section>
         <section class="card span-12"><h2>Payments received</h2><ul class="list">${(f.payments.length ? '' : '<li class="muted">No payments recorded yet this term.</li>') + f.payments.map((p) => `<li>${dateTile(p.date)}<div class="li-main"><b>${money(p.amount)}</b><span>${esc(p.method)} · receipt ${esc(p.ref)}</span></div><span class="tag ok">Received</span></li>`).join('')}</ul></section>
