@@ -7,4 +7,5 @@
     <priority>1.0</priority>
   </url>
   <url><loc>https://www.royalcrest.co.zw/physics/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.royalcrest.co.zw/mandarin/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
