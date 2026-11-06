@@ -41,7 +41,7 @@ body.guides #cv::after{content:"";position:absolute;left:0;right:0;top:150px;hei
 <script>
 if(location.search.includes('guides'))document.body.classList.add('guides');
 // the same staggered crest wall as the 3 m backdrop, at a smaller scale
-const W=document.getElementById('wall'),U=`<img src="../../assets/brand/crest-640.webp" alt=""><div><b>Royal Crest <em>Academy</em></b></div>`;
+const W=document.getElementById('wall'),U=`<img src="../../assets/brand/crest-640.webp?v=2" alt=""><div><b>Royal Crest <em>Academy</em></b></div>`;
 for(let r=0,y=80;y<1000;y+=170,r++)for(let c=-1;c<5;c++){const d=document.createElement('div');d.className='u';d.innerHTML=U;d.style.left=(c*420+(r%2?210:0)+120)+'px';d.style.top=y+'px';W.appendChild(d)}
 </script>
 </body></html>

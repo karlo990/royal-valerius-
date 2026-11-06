@@ -161,7 +161,7 @@
       + `<a href="/portal/slate/${location.search}" title="Maths canvas: snap a question, get step-by-step help">${icon('slate')}<span>Crest Slate</span></a>`;   // the maths canvas (portal/slate/)
     $('#app').innerHTML = `
       <aside class="side">
-        <a class="logo" href="${C.SITE}"><img src="/assets/img/crest-128.webp" alt=""><span><b>Crest Quest</b><small>Royal Crest Academy</small></span></a>
+        <a class="logo" href="${C.SITE}"><img src="/assets/img/crest-128.webp?v=2" alt=""><span><b>Crest Quest</b><small>Royal Crest Academy</small></span></a>
         <nav class="nav" aria-label="Portal">${nav}</nav>
         <div class="side-app"><b>On your phone?</b>Get alerts for marks, notices and fees in the RCA Portal app.<br><a href="#" id="side-app">Get the RCA Portal app →</a></div>
         <div class="side-links">${API.live() && !state.user.preview ? '<button type="button" id="chpw">Change my password</button>' : ''}</div>
@@ -346,7 +346,7 @@
     const ios = isIOS && !isAndroid;
     box.innerHTML = `<div class="ga-card">
       <button class="ga-x" type="button" aria-label="Close">✕</button>
-      <div class="ga-icon"><img src="/assets/img/crest-128.webp" alt=""></div>
+      <div class="ga-icon"><img src="/assets/img/crest-128.webp?v=2" alt=""></div>
       <h2>RCA Portal<br><em>in your pocket</em></h2>
       <p>Your child's marks, attendance, homework and fees, with Kudzi, in one tap. Sign in once and stay signed in.</p>
       <ul class="ga-points"><li>No account to create: admission number + your phone</li><li>Updates the moment the school posts them</li><li>Tiny download: under 2 MB</li></ul>

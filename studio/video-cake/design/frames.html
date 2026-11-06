@@ -207,7 +207,7 @@ const W=1280,H=720,dom=$('#dom');
 const LESSONS=['RECIPE','CREAMING','RISING','OVEN','LAYERS','ICING','CAKE TYPES','COSTING'];
 const WA='<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z"/></svg>';
 function chrome(active,light,who,name,cap){if(light)$('#f').classList.add('light');
-  dom.insertAdjacentHTML('beforeend',`<div class="lock"><img src="../../assets/brand/crest-640.webp"><div><b>ROYAL CREST ACADEMY</b><small>BIKITA · MASVINGO</small></div></div>
+  dom.insertAdjacentHTML('beforeend',`<div class="lock"><img src="../../assets/brand/crest-640.webp?v=2"><div><b>ROYAL CREST ACADEMY</b><small>BIKITA · MASVINGO</small></div></div>
   <div class="rail">${LESSONS.map((l,i)=>`<div class="${i+1<active?'done':i+1===active?'on':''}">0${i+1} ${l}</div>`).join('')}</div>
   <div class="pill"><i><svg viewBox="0 0 24 24" fill="none" stroke="#13215a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M5 20v-6h14v6M5 14c2 1.5 4-1.5 7 0s5-1.5 7 0M8 14v-3h8v3M12 11V8"/></svg></i>BAKERY</div>
   <div class="lower"><div class="av ${who==='S'?'s':''}">${who}</div><div><small>${name}</small><p>${cap}</p></div></div>

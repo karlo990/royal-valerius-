@@ -51,7 +51,7 @@ const IMG={};const img=src=>IMG[src]||(IMG[src]=new Promise(r=>{const i=new Imag
 function txt(s,x,y,o={}){g.save();g.font=o.font||'600 13px "Plex Mono"';g.fillStyle=o.col||'#fff';g.textAlign=o.align||'center';g.textBaseline='middle';if(o.bg){const w=g.measureText(s).width+18;g.fillStyle=o.bg;g.beginPath();g.roundRect(x-(o.align==='left'?9:w/2),y-13,w,26,13);g.fill();g.fillStyle=o.col||'#fff'}g.fillText(s,x,y);g.restore()}
 const LESSONS=['SITING','STEVENSON SCREEN','READINGS','WIND & RAIN','IN THE CLOUDS','CAREERS'];
 function chrome(active,light,who,name,cap){if(light)$('#f').classList.add('light');
-  dom.insertAdjacentHTML('beforeend',`<div class="lock"><img src="../../assets/brand/crest-640.webp"><div><b>ROYAL CREST ACADEMY</b><small>BIKITA · MASVINGO</small></div></div>
+  dom.insertAdjacentHTML('beforeend',`<div class="lock"><img src="../../assets/brand/crest-640.webp?v=2"><div><b>ROYAL CREST ACADEMY</b><small>BIKITA · MASVINGO</small></div></div>
   <div class="rail">${LESSONS.map((l,i)=>`<div class="${i+1<active?'done':i+1===active?'on':''}">0${i+1} ${l}</div>`).join('')}</div>
   <div class="pill"><i><svg viewBox="0 0 24 24" fill="none" stroke="#13215a" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg></i>GEOGRAPHY</div>
   <div class="lower"><div class="av ${who==='S'?'s':''}">${who}</div><div><small>${name}</small><p>${cap}</p></div></div>
