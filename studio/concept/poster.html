@@ -1,0 +1,327 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Royal Crest concept poster</title>
+<style>
+@font-face{font-family:Archivo;src:url(../assets/fonts/Archivo-Variable.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%}
+@font-face{font-family:Jakarta;src:url(../../assets/fonts/plus-jakarta-sans-latin.woff2) format("woff2");font-weight:400 700}
+@font-face{font-family:Newsreader;src:url(../../assets/fonts/newsreader-latin.woff2) format("woff2");font-weight:400 500}
+@font-face{font-family:Mono;src:url(../assets/fonts/IBMPlexMono-SemiBold.woff2) format("woff2");font-weight:600}
+:root{--navy:#13215a;--navy9:#0a1330;--ink:#0b1533;--gold:#d2ae4c;--gold7:#8a6a1c;--muted:#525a70;--bg:#f2f0eb}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:var(--w);height:var(--h);overflow:hidden;background:var(--bg)}
+#stage{position:relative;width:var(--w);height:var(--h);overflow:hidden;background:var(--bg)}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+.ui{position:absolute;inset:0;pointer-events:none;font-family:Jakarta,sans-serif;color:var(--ink)}
+.lock{position:absolute;display:flex;align-items:center;gap:16px}
+.lock img{width:62px;height:auto;filter:drop-shadow(0 2px 3px rgba(10,19,48,.18))}
+.lock b{display:block;font-family:Newsreader,serif;font-weight:500;font-size:31px;letter-spacing:-.2px;color:var(--navy);line-height:1}
+.lock i{display:block;font-style:normal;font-size:12.5px;font-weight:700;letter-spacing:3.2px;color:var(--gold7);margin-top:7px}
+.wa{position:absolute;display:flex;align-items:center;gap:10px;font-weight:600;font-size:24px;color:var(--ink)}
+.wa svg{width:28px;height:28px}
+h1{position:absolute;font-family:Archivo,sans-serif;font-weight:900;font-stretch:100%;text-transform:uppercase;line-height:.88;letter-spacing:-2px;color:var(--navy)}
+h1 span{display:block}
+h1 .foil{background:linear-gradient(100deg,#7d5f17 0%,#b8902f 28%,#e2c26a 46%,#a07a1f 64%,#8a6a1c 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rule{position:absolute;height:7px;width:84px;background:linear-gradient(90deg,#a07a1f,#d2ae4c)}
+.sub{position:absolute;font-size:31px;line-height:1.3;font-weight:500;color:#2a3352}
+.tag{position:absolute;font-family:Mono,monospace;font-size:21px;letter-spacing:.5px;color:var(--ink)}
+.meta{position:absolute;font-size:19px;line-height:1.35;color:var(--ink)}
+.meta b{display:block;font-weight:700}
+.meta span{color:var(--muted)}
+.pill{position:absolute;display:flex;align-items:center;gap:14px;background:var(--navy);color:#f3f1ea;border-radius:999px;padding:16px 28px 16px 24px;font-weight:600;font-size:22px;box-shadow:0 14px 30px -14px rgba(10,19,48,.55)}
+.pill em{font-style:normal;color:var(--gold);font-weight:700;letter-spacing:2px;font-size:17px}
+.site{position:absolute;font-size:19px;font-weight:600;letter-spacing:.4px;color:var(--muted)}
+#ink{position:absolute;inset:0}
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl"></canvas>
+  <canvas id="ink"></canvas>
+  <div class="ui" id="ui"></div>
+</div>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const q = new URLSearchParams(location.search);
+await document.fonts.load('700 200px Archivo'); await document.fonts.load('900 100px Archivo');
+const C = q.get('c') || 'a';                 // a = direction, b = delete
+const STORY = q.get('s') === 'story';        // feed 1080x1350, story 1080x1920
+const W = 1080, H = STORY ? 1920 : 1350;
+document.documentElement.style.setProperty('--w', W + 'px');
+document.documentElement.style.setProperty('--h', H + 'px');
+
+/* ---------- renderer ---------- */
+const gl = document.getElementById('gl');
+const renderer = new THREE.WebGLRenderer({ canvas: gl, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(W, H, false);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+const BG = new THREE.Color('#f2f0eb');
+scene.background = BG;
+const pm = new THREE.PMREMGenerator(renderer);
+scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = 0.42;
+
+const camera = new THREE.PerspectiveCamera(30, W / H, 0.1, 200);
+
+/* seamless studio sweep: floor that curves up into the back wall */
+function sweep() {
+  const shape = [];
+  const R = 6, D = 14;
+  for (let i = 0; i <= 40; i++) {
+    const t = i / 40, a = t * Math.PI / 2;
+    shape.push(new THREE.Vector2(D - R + Math.sin(a) * R, R - Math.cos(a) * R));
+  }
+  shape.unshift(new THREE.Vector2(-20, 0));
+  shape.push(new THREE.Vector2(D, 30));
+  const pts = shape.map(p => new THREE.Vector3(0, p.y, -p.x + 6));
+  const curve = new THREE.CatmullRomCurve3(pts);
+  const geo = new THREE.PlaneGeometry(60, 1, 1, 200);
+  const pos = geo.attributes.position;
+  for (let i = 0; i < pos.count; i++) {
+    const u = (pos.getY(i) + .5);
+    const p = curve.getPointAt(u);
+    pos.setXYZ(i, pos.getX(i), p.y, p.z);
+  }
+  geo.computeVertexNormals();
+  const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: '#f4f2ee', roughness: .92, side: THREE.DoubleSide }));
+  m.receiveShadow = true;
+  scene.add(m);
+}
+sweep();
+
+/* key light (soft window from upper left) */
+const key = new THREE.DirectionalLight('#fff7ea', 2.3);
+key.castShadow = true;
+key.shadow.mapSize.set(4096, 4096);
+key.shadow.radius = 4;
+key.shadow.bias = -0.0004;
+const sc = key.shadow.camera; sc.left = -9; sc.right = 9; sc.top = 9; sc.bottom = -9; sc.near = 1; sc.far = 40;
+scene.add(key); scene.add(key.target);
+const fill = new THREE.HemisphereLight('#ffffff', '#d9d4ca', 0.35); scene.add(fill);
+
+/* ---------- helpers ---------- */
+function rng(seed) { let s = seed >>> 0; return () => ((s = Math.imul(s ^ (s >>> 15), 2246822519) + 0x9e3779b9 >>> 0) / 4294967296); }
+function crumple(r, seed, tint = '#fbfbf8') {
+  const g = new THREE.IcosahedronGeometry(r, 5);
+  const R = rng(seed), pos = g.attributes.position, v = new THREE.Vector3();
+  const dents = Array.from({ length: 70 }, () => [new THREE.Vector3(R() - .5, R() - .5, R() - .5).normalize(), .06 + R() * .22, (R() - .45) * .38]);
+  const hash = (n) => { const h = Math.sin(n.x * 127.1 + n.y * 311.7 + n.z * 74.7 + seed) * 43758.5453; return h - Math.floor(h); };
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i); const n = v.clone().normalize();
+    let k = 1;
+    for (const [d, w, a] of dents) { const dd = n.dot(d); if (dd > 1 - w) k += a * Math.pow((dd - (1 - w)) / w, .6); }
+    k *= 0.95 + hash(n) * 0.1;
+    v.copy(n).multiplyScalar(r * k);
+    pos.setXYZ(i, v.x, v.y * .88, v.z);
+  }
+  g.computeVertexNormals();
+  const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: tint, roughness: .9, flatShading: true }));
+  m.castShadow = m.receiveShadow = true; return m;
+}
+function ringTexture(rings) {
+  const c = document.createElement('canvas'); c.width = c.height = 2048; const x = c.getContext('2d');
+  const n = rings.length;
+  for (let i = 0; i < n; i++) { x.fillStyle = rings[i]; x.beginPath(); x.arc(1024, 1024, 1024 * (1 - i / n), 0, Math.PI * 2); x.fill(); }
+  // fine printed edge between rings
+  x.strokeStyle = 'rgba(0,0,0,.12)'; x.lineWidth = 3;
+  for (let i = 1; i < n; i++) { x.beginPath(); x.arc(1024, 1024, 1024 * (1 - i / n), 0, Math.PI * 2); x.stroke(); }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+const goldMat = new THREE.MeshPhysicalMaterial({ color: '#d4ae4a', metalness: .35, roughness: .42, clearcoat: .3, side: THREE.DoubleSide });
+const paperGold = new THREE.MeshStandardMaterial({ color: '#cfa540', roughness: .7, side: THREE.DoubleSide, flatShading: true });
+
+function paperPlane() {
+  // nose at origin pointing +x; folded dart: two wings + two keel halves
+  const L = 1.55, S = .78, K = .26;
+  const P = (x, y, z) => new THREE.Vector3(x, y, z);
+  const nose = P(0, 0, 0), tailC = P(-L, 0, 0), keelT = P(-L, -K, 0);
+  const wingL = P(-L, .06, S), wingR = P(-L, .06, -S);
+  const tri = (a, b, c) => [a, b, c].flatMap(v => [v.x, v.y, v.z]);
+  const v = [
+    ...tri(nose, wingL, tailC), ...tri(nose, tailC, wingR),          // wings
+    ...tri(nose, tailC, keelT), ...tri(nose, keelT, P(-L, -K * .55, .02)) // keel
+  ];
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(v, 3)); g.computeVertexNormals();
+  const m = new THREE.Mesh(g, paperGold); m.castShadow = true; return m;
+}
+
+/* screen projection for the 2D overlay */
+function toScreen(p) { const v = p.clone().project(camera); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H]; }
+const ink = document.getElementById('ink'); ink.width = W * devicePixelRatio; ink.height = H * devicePixelRatio;
+const ix = ink.getContext('2d'); ix.scale(devicePixelRatio, devicePixelRatio);
+
+const WA = '<svg viewBox="0 0 24 24" fill="none" stroke="#0b1533" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.3-4.1A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.6c.2 2.6 3.4 5.9 6.3 6.3l1.1-1.3-1.9-1-1 .8c-1-.4-2.4-1.8-2.8-2.8l.8-1-1-1.9z" fill="#0b1533" stroke-width="1"/></svg>';
+const ui = document.getElementById('ui');
+
+/* =================================================================== */
+if (C === 'a') {
+  /* TARGET on an easel */
+  if (STORY) { camera.fov = 30; camera.position.set(0, 3.1, 14.5); camera.lookAt(0, 3.35, 0); }
+  else { camera.fov = 30; camera.position.set(0, 2.25, 13); camera.lookAt(0, 2.05, 0); }
+  camera.updateProjectionMatrix();
+  const target = new THREE.Group();
+  const faceTex = ringTexture(['#13215a', '#f6f3ec', '#13215a', '#f6f3ec', '#13215a', '#d2ae4c']);
+  const disc = new THREE.Mesh(new THREE.CylinderGeometry(1.7, 1.7, .32, 128, 1),
+    [new THREE.MeshStandardMaterial({ color: '#0e1840', roughness: .55 }),
+     new THREE.MeshStandardMaterial({ map: faceTex, roughness: .5 }),
+     new THREE.MeshStandardMaterial({ color: '#0e1840', roughness: .6 })]);
+  disc.rotation.x = Math.PI / 2; disc.castShadow = disc.receiveShadow = true;
+  // gold bevel ring around the face
+  const bevel = new THREE.Mesh(new THREE.TorusGeometry(1.7, .045, 16, 160), goldMat); bevel.position.z = .165;
+  target.add(disc, bevel);
+  const wood = new THREE.MeshStandardMaterial({ color: '#9a6a3c', roughness: .6 });
+  const leg = (x, z, rx, rz, len) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(.055, .065, len, 16), wood); m.position.set(x, -len / 2 * .96, z); m.rotation.set(rx, 0, rz); m.castShadow = true; target.add(m); };
+  leg(-.55, -.25, -.12, -.2, 2.7); leg(.55, -.25, -.12, .2, 2.7); leg(0, -.7, .42, 0, 2.62);
+  const TP = STORY ? [1.55, 2.0, 0] : [2.05, 2.3, 0], TS = STORY ? .9 : .92;
+  target.scale.setScalar(TS);
+  target.position.set(...TP);
+  target.position.y = 2.7 * TS * .96 - .04; // legs on the floor
+  if (!STORY) target.position.y += 0;
+  target.rotation.y = -1.12;
+  scene.add(target);
+
+  /* gold paper plane: nose in the bullseye */
+  const plane = paperPlane(); plane.scale.setScalar(.72);
+  const nrm = new THREE.Vector3(0, 0, 1).applyEuler(target.rotation);
+  const bull = nrm.clone().multiplyScalar(.15 * TS).add(target.position);
+  const fwd = nrm.clone().negate().add(new THREE.Vector3(0, -.22, 0)).normalize();   // flying in, nose slightly down
+  const toCam = camera.position.clone().sub(bull).normalize();
+  const up = new THREE.Vector3(0, 1, 0).addScaledVector(toCam, .9).normalize();
+  const zA = new THREE.Vector3().crossVectors(fwd, up).normalize(); up.crossVectors(zA, fwd).normalize();
+  plane.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(fwd, up, zA));
+  plane.position.copy(bull).addScaledVector(fwd, .06);
+  scene.add(plane);
+
+  /* crumpled attempts on the floor (earlier throws that missed) */
+  const balls = STORY
+    ? [[-1.9, 1.5, .38, 7], [-.5, 2.4, .34, 3], [-2.8, 3.0, .42, 11], [.9, 3.1, .4, 5], [2.6, 4.6, .5, 21], [-1.2, 4.4, .46, 17], [3.2, 2.6, .36, 9], [-3.1, 5.2, .55, 23]]
+    : [[-1.9, 1.3, .38, 7], [-.4, 2.3, .34, 3], [-3.1, 2.7, .42, 11], [.9, 2.9, .4, 5], [3.1, 4.6, .55, 21], [-.9, 4.3, .44, 17], [3.5, 2.3, .36, 9], [-3.4, 4.6, .5, 23]];
+  const ballObjs = balls.map(([x, z, r, s]) => { const b = crumple(r, s); b.position.set(x, r * .78, z); b.rotation.set(s, s * 2, s * 3); scene.add(b); return b; });
+
+  key.position.set(-5, 14, 10); key.target.position.set(0, 0, 0);
+  renderer.render(scene, camera);
+
+  /* dashed flight path: from the third ball up to the plane's tail */
+  const tail = new THREE.Vector3(-1.55 * plane.scale.x, 0, 0).applyQuaternion(plane.quaternion).add(plane.position);
+  const start = ballObjs[1].position.clone().add(new THREE.Vector3(.05, .38, 0));
+  const ctrl = start.clone().lerp(tail, .5).add(new THREE.Vector3(-.5, .9, 0));
+  const path = new THREE.QuadraticBezierCurve3(start, ctrl, tail);
+  ix.setLineDash([14, 12]); ix.lineWidth = 3; ix.strokeStyle = '#0b1533'; ix.lineCap = 'round';
+  ix.beginPath(); path.getPoints(80).forEach((p, i) => { const [x, y] = toScreen(p); i ? ix.lineTo(x, y) : ix.moveTo(x, y); }); ix.stroke();
+  // arrow head
+  const [ax, ay] = toScreen(path.getPoint(1)), [bx, by] = toScreen(path.getPoint(.96));
+  const ang = Math.atan2(ay - by, ax - bx); ix.setLineDash([]); ix.lineWidth = 3.4;
+  ix.beginPath(); ix.moveTo(ax - 22 * Math.cos(ang - .45), ay - 22 * Math.sin(ang - .45)); ix.lineTo(ax, ay); ix.lineTo(ax - 22 * Math.cos(ang + .45), ay - 22 * Math.sin(ang + .45)); ix.stroke();
+  const top = STORY ? 270 : 70, hTop = STORY ? 440 : 245, hs = STORY ? 120 : 114;
+  ui.innerHTML = `
+    <div class="lock" style="left:72px;top:${top}px"><img src="../assets/brand/crest-640.webp"><div><b>Royal Crest Academy</b><i>SCIENCE · INNOVATION · SKILL</i></div></div>
+    <div class="wa" style="left:74px;top:${top + 92}px">${WA}+263 714 404 090</div>
+    <h1 style="left:66px;top:${hTop}px;font-size:${hs}px"><span>Talent</span><span>needs</span><span class="foil">direction.</span></h1>
+    <div class="rule" style="left:72px;top:${hTop + hs * .88 * 3 + 34}px"></div>
+    <p class="sub" style="left:72px;top:${hTop + hs * .88 * 3 + 70}px;width:470px">Specialist teachers. Supervised boarding. One clear path.</p>
+    ${STORY
+      ? `<div class="pill" style="left:72px;top:${hTop + hs * .88 * 3 + 190}px"><em>FORM 1 · 2027</em>Enrolment open</div>
+         <div class="site" style="left:340px;top:${top + 96}px">· royalcrest.co.zw</div>`
+      : `<div class="pill" style="left:72px;bottom:64px"><em>FORM 1 · 2027</em>Enrolment open</div>
+         <div class="site" style="right:72px;bottom:86px">royalcrest.co.zw</div>`}`;
+}
+
+/* =================================================================== */
+if (C === 'b') {
+  /* wire-mesh bin */
+  const meshC = document.createElement('canvas'); meshC.width = 512; meshC.height = 512; const mx = meshC.getContext('2d');
+  mx.clearRect(0, 0, 512, 512); mx.strokeStyle = '#fff'; mx.lineWidth = 7;
+  for (let i = -512; i < 1024; i += 34) { mx.beginPath(); mx.moveTo(i, 0); mx.lineTo(i + 512, 512); mx.stroke(); mx.beginPath(); mx.moveTo(i + 512, 0); mx.lineTo(i, 512); mx.stroke(); }
+  const alpha = new THREE.CanvasTexture(meshC); alpha.wrapS = alpha.wrapT = THREE.RepeatWrapping; alpha.repeat.set(9, 3);
+  const binMat = new THREE.MeshStandardMaterial({ color: '#141821', roughness: .45, metalness: .5, alphaMap: alpha, alphaTest: .5, side: THREE.DoubleSide });
+  const bin = new THREE.Group();
+  const wall = new THREE.Mesh(new THREE.CylinderGeometry(1.55, 1.2, 2.6, 96, 1, true), binMat); wall.position.y = 1.3; wall.castShadow = true;
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(1.55, .06, 16, 128), new THREE.MeshStandardMaterial({ color: '#141821', roughness: .35, metalness: .6 })); rim.rotation.x = Math.PI / 2; rim.position.y = 2.6; rim.castShadow = true;
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.2, .06, 64), rim.material); base.position.y = .03;
+  bin.add(wall, rim, base); scene.add(bin);
+  const BS = STORY ? .72 : .8; bin.scale.setScalar(BS); bin.position.x = STORY ? .7 : .35;
+  // the old mindset: crumpled "failed" papers filling the bin
+  const fill = [[0, .55, 0, .55, 2], [-.6, .7, .3, .5, 4], [.55, .75, -.2, .5, 6], [.2, 1.25, .45, .48, 8], [-.35, 1.35, -.45, .5, 10], [.65, 1.6, .5, .42, 12], [-.7, 1.75, .15, .44, 14], [.1, 1.95, -.2, .5, 16], [-.2, 2.2, .55, .42, 18], [.75, 2.25, -.35, .4, 20]];
+  fill.forEach(([x, y, z, r, s], i) => { const b = crumple(r, s, i % 3 === 0 ? '#e9e4d8' : '#fbfbf8'); b.position.set(x, y, z); b.rotation.set(s, s, s); bin.add(b); });
+
+  /* navy keycap with gold "Delete" legend, tilted, dropping in */
+  const kc = document.createElement('canvas'); kc.width = kc.height = 1024; const kx = kc.getContext('2d');
+  kx.fillStyle = '#0e1846'; kx.fillRect(0, 0, 1024, 1024);
+  kx.fillStyle = '#e2c26a'; kx.font = '700 210px Archivo'; kx.textAlign = 'center'; kx.fillText('Delete', 512, 430);
+  // bin icon
+  kx.strokeStyle = '#e2c26a'; kx.lineWidth = 30; kx.lineJoin = 'round'; kx.lineCap = 'round';
+  kx.beginPath(); kx.moveTo(380, 560); kx.lineTo(644, 560); kx.stroke();
+  kx.beginPath(); kx.moveTo(460, 560); kx.lineTo(470, 520); kx.lineTo(554, 520); kx.lineTo(564, 560); kx.stroke();
+  kx.beginPath(); kx.moveTo(405, 600); kx.lineTo(430, 820); kx.lineTo(594, 820); kx.lineTo(619, 600); kx.stroke();
+  kx.beginPath(); kx.moveTo(478, 640); kx.lineTo(484, 770); kx.moveTo(546, 640); kx.lineTo(540, 770); kx.stroke();
+  const legend = new THREE.CanvasTexture(kc); legend.colorSpace = THREE.SRGBColorSpace; legend.anisotropy = 8;
+  const capMat = new THREE.MeshPhysicalMaterial({ color: '#0e1846', roughness: .4, clearcoat: .5, clearcoatRoughness: .3 });
+  const cap = new THREE.Group();
+  const body = new THREE.Mesh(roundedBox(1.9, 1.15, 1.9, .26), capMat); body.castShadow = true;
+  const face = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.5), new THREE.MeshPhysicalMaterial({ map: legend, roughness: .4, clearcoat: .5, clearcoatRoughness: .3 }));
+  face.rotation.x = -Math.PI / 2; face.position.y = 1.15 / 2 + .12 + .004; face.scale.setScalar(.92);
+  cap.add(body, face);
+  cap.scale.setScalar(STORY ? .56 : .6); if (STORY) cap.position.set(1.3, 2.28, .4); else cap.position.set(1.0, 2.5, .45); cap.rotation.set(.9, .25, -.38);
+  scene.add(cap);
+
+  /* window-light gobo: a spotlight projecting a window frame */
+  const gc = document.createElement('canvas'); gc.width = gc.height = 1024; const gx = gc.getContext('2d');
+  gx.fillStyle = '#000'; gx.fillRect(0, 0, 1024, 1024); gx.fillStyle = '#fff';
+  for (let r = 0; r < 2; r++) for (let c = 0; c < 3; c++) gx.fillRect(170 + c * 236, 200 + r * 316, 210, 290);
+  gx.filter = 'blur(10px)'; gx.drawImage(gc, 0, 0);
+  const gobo = new THREE.CanvasTexture(gc); gobo.colorSpace = THREE.SRGBColorSpace;
+  const spot = new THREE.SpotLight('#fff1d8', 900, 70, .5, .3, 1.6);
+  spot.map = gobo; spot.castShadow = true; spot.shadow.mapSize.set(2048, 2048); spot.shadow.radius = 6; spot.shadow.bias = -.0004;
+  spot.position.set(-10, 9, 7); spot.target.position.set(3.5, 2.5, -6); scene.add(spot, spot.target);
+  key.intensity = .55; scene.environmentIntensity = .32;
+
+  if (STORY) { camera.fov = 33; camera.position.set(0, 4.3, 12.6); camera.lookAt(0, 2.25, 0); }
+  else { camera.fov = 30; camera.position.set(0, 3.6, 12.8); camera.lookAt(0, 2.75, 0); }
+  camera.updateProjectionMatrix();
+  key.position.set(-5, 12, 6);
+  renderer.render(scene, camera);
+
+  const m = 64, top = STORY ? 260 : 60, bot = STORY ? 330 : 60, hTop = STORY ? 470 : 255;
+  ui.innerHTML = `
+    <div class="lock" style="left:${m}px;top:${top}px"><img src="../assets/brand/crest-640.webp" style="width:54px"><div><b style="font-size:25px">Royal Crest Academy</b><i style="font-size:11px">SCIENCE · INNOVATION · SKILL</i></div></div>
+    <div class="meta" style="right:${m}px;top:${top + 4}px;text-align:right"><b>Mindset Series</b><span>for Grade 7 parents</span></div>
+    <h1 style="left:${m - 4}px;top:${hTop}px;font-size:${STORY ? 150 : 132}px;letter-spacing:-3px"><span class="foil">Delete</span></h1>
+    <p class="sub" style="left:${m}px;top:${hTop + (STORY ? 150 : 132) * .95}px;font-family:Archivo;font-weight:700;font-size:${STORY ? 38 : 33}px;line-height:1.12;text-transform:uppercase;letter-spacing:-.3px;color:var(--navy);width:520px">“I’m not a science<br>person” mindset.</p>
+    <div class="tag" style="left:${m}px;top:${STORY ? 900 : 590}px">[ 03 \\ 10 ]</div>
+    ${STORY
+      ? `<div class="meta" style="left:${m}px;top:1040px;font-size:24px"><b style="font-weight:600">Every child can<br>learn science</b><span>with the right teacher.</span><br><br><b style="font-weight:600">Form 1 · 2027</b><span>Enrolment open</span></div>`
+      : `<div class="meta" style="left:${m}px;bottom:${bot + 120}px"><b style="font-weight:600">Every child can learn science</b><span>with the right teacher.</span></div>
+         <div class="meta" style="right:${m}px;bottom:${bot + 120}px;text-align:right"><b style="font-weight:600">Form 1 · 2027</b><span>Enrolment open</span></div>`}
+    <div class="wa" style="left:${m}px;bottom:${bot}px;font-size:22px">${WA}+263 714 404 090</div>
+    <div class="site" style="right:${m}px;bottom:${bot + 4}px">royalcrest.co.zw</div>`;
+}
+
+function roundedBox(w, h, d, r) {
+  // keycap: rounded, slightly tapered box
+  const s = new THREE.Shape(); const x = -w / 2, y = -d / 2;
+  s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r); s.lineTo(x + w, y + d - r);
+  s.quadraticCurveTo(x + w, y + d, x + w - r, y + d); s.lineTo(x + r, y + d); s.quadraticCurveTo(x, y + d, x, y + d - r);
+  s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y);
+  const g = new THREE.ExtrudeGeometry(s, { depth: h, bevelEnabled: true, bevelThickness: .12, bevelSize: .1, bevelSegments: 6, curveSegments: 12 });
+  g.rotateX(-Math.PI / 2); g.translate(0, -h / 2, 0);
+  const p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) { const t = (p.getY(i) + h / 2) / h; const k = 1 - .12 * Math.max(0, Math.min(1, t)); p.setX(i, p.getX(i) * k); p.setZ(i, p.getZ(i) * k); }
+  g.computeVertexNormals(); return g;
+}
+
+await document.fonts.ready;
+window.ready = true;
+</script>
+</body>
+</html>
