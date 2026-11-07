@@ -1,3 +1,5 @@
 studio/output/
 node_modules/
 __pycache__/
+studio/concept/out/
+studio/concept/v2/out/

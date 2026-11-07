@@ -1,0 +1,7 @@
+{
+  "name": "rca-concept-posters",
+  "private": true,
+  "description": "Royal Crest concept posters: 3D hero + layout, rendered to PNG",
+  "scripts": { "render": "node render.cjs" },
+  "devDependencies": { "three": "0.170.0", "playwright": "^1.56.1" }
+}
