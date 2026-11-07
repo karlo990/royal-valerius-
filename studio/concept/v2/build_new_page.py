@@ -18,7 +18,7 @@ OUT = HERE / "out"
 NEW = SITE / "new"
 SIZES = [("feed", "4:5 post", 1080, 1350), ("sq", "1:1 square", 1080, 1080), ("grid", "3:4 grid", 1080, 1440),
          ("story", "9:16 Status", 1080, 1920), ("wide", "16:9 landscape", 1920, 1080)]
-SIGN = ["🏫 Royal Crest Academy · Nyika, Bikita, Masvingo", "📲 WhatsApp +263 714 404 090 · royalcrestzw.vercel.app"]
+SIGN = ["🏫 Royal Crest Academy · Nyika, Bikita, Masvingo", "📲 WhatsApp +263 714 404 090"]
 BASE_TAGS = ["#RoyalCrestAcademy", "#Bikita", "#Masvingo", "#Form1"]
 TOPIC = {
     "boarding": ("Boarding & life", ["a-second-home", "good-food-good-focus", "time-well-spent", "sleep-builds-memory", "one-good-habit"]),

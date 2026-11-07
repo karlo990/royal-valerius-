@@ -31,7 +31,7 @@ export const CONCEPTS = [
     const fwd = nrm.clone().negate().add(P(0, -.22, 0)).normalize(), up = P(0, 1, 0).addScaledVector(P(0, .2, 1).normalize(), .9).normalize();
     const zA = new THREE.Vector3().crossVectors(fwd, up).normalize(); up.crossVectors(zA, fwd).normalize();
     plane.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(fwd, up, zA)); plane.position.copy(bull).addScaledVector(fwd, .06); G.add(plane);
-    const balls = [[-3.85, 1.3, .38, 7], [-2.35, 2.3, .34, 3], [-5.05, 2.7, .42, 11], [-1.05, 3.3, .4, 5], [.8, 4.1, .5, 21], [-1.7, 4.15, .4, 17], [1.55, 2.3, .36, 9], [-5.4, 4.6, .5, 23]];
+    const balls = [[-3.85, 1.3, .38, 7], [-2.35, 2.3, .34, 3], [-5.05, 2.7, .42, 11], [-1.05, 3.3, .4, 5], [-.2, 4.3, .46, 21], [-1.9, 4.15, .4, 17], [1.55, 2.3, .36, 9], [-5.4, 4.6, .5, 23]];
     const bo = balls.map(([x, z, r, s]) => { const b = at(crumple(r, s), x, r * .78, z, s, s * 2, s * 3); b.userData.noFrame = true; G.add(b); return b; });
     G.userData.path = [bo[1].position.clone().add(P(.05, .38, 0)), new THREE.Vector3(-L, 0, 0).applyQuaternion(plane.quaternion).add(plane.position)];
     return G;
