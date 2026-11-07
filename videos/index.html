@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en-ZW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Videos · Royal Crest Academy</title>
+<meta name="description" content="Every Royal Crest Academy film in one place, with subtitles: the Royal Crest Academy Story, Hackathons & Science Exhibitions, Basketball Explained and Mandarin HSK 1 Lesson 1. Watch, download and share with ready-made captions.">
+<meta name="theme-color" content="#0C1638"><link rel="canonical" href="https://www.royalcrest.co.zw/videos/">
+<meta property="og:title" content="Videos · Royal Crest Academy"><meta property="og:description" content="Watch, download and share every Royal Crest film, with subtitles and ready-made captions.">
+<meta property="og:image" content="https://royalcrestzw.vercel.app/videos/media/royal-crest-story.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+@font-face { font-family: 'Newsreader'; src: url('/assets/fonts/newsreader-latin.woff2') format('woff2'); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: 'Newsreader'; src: url('/assets/fonts/newsreader-italic-latin.woff2') format('woff2'); font-style: italic; font-weight: 200 800; font-display: swap; }
+@font-face { font-family: 'Jakarta'; src: url('/assets/fonts/plus-jakarta-sans-latin.woff2') format('woff2'); font-weight: 200 800; font-display: swap; }
+:root { --navy: #0c1638; --navy2: #1c2d72; --cobalt: #1239d6; --gold: #d2ae4c; --sun: #ffd23f; --ink: #121a3e; --muted: #5d6385; --paper: #fffdf6; --line: #e3e6f2; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Jakarta', system-ui, sans-serif; color: var(--ink); background: var(--paper) radial-gradient(rgba(90,130,200,.14) 1.3px, transparent 1.5px) 0 0 / 28px 28px; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.top { background: var(--navy); color: #fff; }
+.bar { max-width: 1180px; margin: 0 auto; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; } .brand img { width: 44px; height: auto; }
+.brand b { display: block; font: 600 20px/1.1 'Newsreader', serif; } .brand small { font: 700 11px 'Jakarta'; letter-spacing: .2em; color: var(--gold); }
+.back { font: 700 14px 'Jakarta'; text-decoration: none; color: var(--sun); }
+.hero { color: #fff; background: radial-gradient(50% 120% at 90% 0%, rgba(255,210,63,.22), transparent 60%), radial-gradient(40% 90% at 10% 100%, rgba(90,184,255,.25), transparent 60%), linear-gradient(180deg, #0c1638, #14256b 80%, #1c2d72); }
+.hero .in { max-width: 1180px; margin: 0 auto; padding: 52px 20px 58px; position: relative; }
+.k { font: 800 13px 'Jakarta'; letter-spacing: .24em; text-transform: uppercase; color: var(--sun); }
+h1 { font: 500 clamp(44px, 7vw, 84px)/1 'Newsreader', serif; letter-spacing: -.02em; margin: 14px 0 16px; } h1 em { color: var(--sun); }
+.hero p { font: 400 clamp(17px, 2.1vw, 20px)/1.55 'Jakarta'; color: #dfe4f5; max-width: 660px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.chips span { font: 800 12px 'Jakarta'; letter-spacing: .14em; text-transform: uppercase; color: var(--navy); background: var(--sun); padding: 8px 13px; border-radius: 99px; }
+.reel { position: absolute; right: 28px; top: 50px; width: 150px; height: 150px; opacity: .95; }
+.filters { max-width: 1180px; margin: 0 auto; padding: 30px 16px 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { font: 700 14px 'Jakarta'; padding: 9px 16px; border-radius: 99px; border: 2px solid var(--navy); background: #fff; color: var(--navy); cursor: pointer; }
+.filters button.on { background: var(--navy); color: #fff; }
+main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 60px; display: flex; flex-direction: column; gap: 28px; }
+.film { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); background: #fff; border: 3px solid var(--navy); border-radius: 24px; box-shadow: 6px 6px 0 var(--navy); overflow: hidden; }
+.film[hidden] { display: none; }
+.stage { background: #070b1d radial-gradient(70% 70% at 50% 40%, #16245c, #070b1d); display: grid; place-items: center; padding: 18px; min-height: 360px; }
+.stage video { display: block; width: 100%; max-height: 640px; border-radius: 12px; background: #000; box-shadow: 0 18px 40px rgba(0,0,0,.5); }
+.stage video.portrait { width: auto; height: min(640px, 72vh); max-width: 100%; aspect-ratio: 9 / 16; }
+.fmt { display: flex; gap: 6px; margin-top: 12px; justify-content: center; }
+.fmt button { font: 700 12.5px 'Jakarta'; letter-spacing: .04em; padding: 7px 13px; border-radius: 99px; border: 1.5px solid rgba(255,255,255,.4); background: transparent; color: #dfe4f5; cursor: pointer; }
+.fmt button.on { background: var(--sun); border-color: var(--sun); color: var(--navy); }
+.stage .wrap { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.info { padding: 24px 26px 26px; display: flex; flex-direction: column; gap: 14px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.meta span { font: 800 11px 'Jakarta'; letter-spacing: .14em; text-transform: uppercase; padding: 6px 10px; border-radius: 8px; background: #eef2ff; color: var(--cobalt); }
+.meta span.cc { background: var(--navy); color: var(--sun); }
+.info h2 { font: 600 clamp(28px, 3.2vw, 36px)/1.06 'Newsreader', serif; color: var(--navy); } .info h2 em { color: #c0392b; font-style: italic; }
+.info > p { font: 500 15.5px/1.55 'Jakarta'; color: var(--muted); }
+.cap { border: 2px dashed #c9d2ee; border-radius: 16px; background: #fbfcff; }
+.cap .h { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px 10px 16px; border-bottom: 2px dashed #c9d2ee; }
+.cap .h b { white-space: nowrap; font: 800 12px 'Jakarta'; letter-spacing: .16em; text-transform: uppercase; color: var(--navy); }
+.cap pre { white-space: pre-wrap; font: 500 14px/1.55 'Jakarta'; color: #2b335c; padding: 12px 16px 14px; max-height: 210px; overflow: auto; }
+.btn { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; font: 800 13.5px 'Jakarta'; padding: 9px 14px; border-radius: 99px; border: 2px solid var(--navy); background: var(--navy); color: #fff; cursor: pointer; text-decoration: none; }
+.btn.ghost { background: #fff; color: var(--navy); }
+.btn.sun { background: var(--sun); color: var(--navy); }
+.btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.note { font: 500 12.5px/1.5 'Jakarta'; color: var(--muted); border-left: 4px solid var(--sun); padding: 2px 0 2px 10px; }
+.cta { max-width: 1180px; margin: 0 auto 56px; padding: 0 16px; }
+.cta div { background: var(--navy); color: #fff; border-radius: 24px; padding: 28px 30px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
+.cta h3 { font: 600 clamp(26px, 3vw, 34px)/1.1 'Newsreader', serif; } .cta h3 em { color: var(--sun); }
+.cta p { font: 500 15px/1.5 'Jakarta'; color: #c9d1ef; margin-top: 6px; }
+footer { background: var(--navy); color: #c9d1ef; font: 500 13.5px/1.6 'Jakarta'; padding: 22px 20px; text-align: center; }
+footer a { color: var(--sun); }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 30px); opacity: 0; background: var(--navy); color: #fff; font: 700 14px 'Jakarta'; padding: 11px 18px; border-radius: 99px; transition: .25s; pointer-events: none; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+::cue { font-family: 'Jakarta', system-ui, sans-serif; background: rgba(8,12,32,.78); color: #fff; }
+@media (max-width: 860px) {
+  .film { grid-template-columns: 1fr; }
+  .stage { min-height: 0; padding: 12px; }
+  .stage video.portrait { height: min(560px, 68vh); }
+  .reel { display: none; }
+  .info { padding: 20px 18px 22px; }
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="bar"><a class="brand" href="/"><img src="/assets/img/crest-128.webp?v=2" alt="Royal Crest Academy crest" width="44" height="50"><span><b>Royal Crest Academy</b><small>VIDEOS</small></span></a><a class="back" href="/">← Home</a></div></header>
+
+<section class="hero"><div class="in">
+  <p class="k">Watch · Learn · Share</p>
+  <h1>Royal Crest, <em>on film.</em></h1>
+  <p>Every Royal Crest video in one place. Turn on <b>CC</b> for subtitles, copy a ready-made caption to post, or download the file to share on WhatsApp.</p>
+  <div class="chips"><span>Subtitles on every film</span><span>Ready-to-post captions</span><span>Free to download</span></div>
+  <svg class="reel" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#ffd23f" stroke-width="5"/><circle cx="60" cy="60" r="10" fill="#ffd23f"/><g fill="none" stroke="#ffd23f" stroke-width="5"><circle cx="60" cy="27" r="13"/><circle cx="60" cy="93" r="13"/><circle cx="27" cy="60" r="13"/><circle cx="93" cy="60" r="13"/></g></svg>
+</div></section>
+
+<nav class="filters" aria-label="Filter videos">
+  <button class="on" data-f="all">All films</button><button data-f="school">Our school</button><button data-f="science">Science &amp; innovation</button><button data-f="sport">Sport</button><button data-f="languages">Languages</button>
+</nav>
+
+<main id="films"></main>
+
+<section class="cta"><div><div><h3>Form 1 to Form 5 · <em>January 2027</em></h3><p>Royal Crest Academy, 1226 Chinobva, Nyika, Masvingo. Call or WhatsApp to enrol.</p></div>
+  <a class="btn sun" href="https://wa.me/263714404090" target="_blank" rel="noopener">WhatsApp +263 714 404 090</a></div></section>
+
+<footer>Royal Crest Academy · Science · Innovation · Skill · <a href="/">royalcrestzw.vercel.app</a></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const PHONE = '📞 Call or WhatsApp +263 714 404 090';
+const FILMS = [
+  { id: 'story', cat: 'school', title: 'The Royal Crest Academy <em>Story</em>', len: '1:22', tags: ['Narrated', 'Classical art'],
+    desc: 'A new Renaissance begins in Bikita. A journey through classical art: the seed, the growth, Physics, Marie Curie, innovation, skill and character, ending with our motto: Science, Innovation, Skill.',
+    note: 'Student scenes are AI-generated illustrations of planned activities; the academy opens on 1 January 2027. Artworks are in the public domain.',
+    formats: [{ label: 'Widescreen 16:9', src: 'media/royal-crest-story.mp4', poster: 'media/royal-crest-story.jpg' },
+              { label: 'Reel 9:16', src: 'media/royal-crest-story-reel.mp4', poster: 'media/royal-crest-story-reel.jpg', portrait: true }],
+    vtt: 'media/royal-crest-story.vtt',
+    caption: `A new Renaissance begins in Bikita. 🏛️
+
+Every great mind starts as a seed. Marie Curie's did, and she went on to win Nobel Prizes in both Physics and Chemistry. At Royal Crest Academy we plant that same curiosity and grow it, patiently.
+
+🔬 Physics, Chemistry, Biology, Maths and Computer Science, learned hands-on in real labs
+⚙️ One vocational trade every year, so knowledge turns into skill
+🌍 ZIMSEC, Cambridge and HEXCO, plus Mandarin and French
+🙏 Excellence in learning, integrity in character, Christ in everything
+
+Science. Innovation. Skill.
+
+Form 1 to Form 5 · Boarders and day scholars
+Grand opening: January 2027. Seats are limited.
+
+${PHONE}
+📍 1226 Chinobva, Nyika, Masvingo
+🌐 royalcrestzw.vercel.app
+
+Look up. Aim higher. Your seat is waiting.
+
+#RoyalCrestAcademy #ScienceInnovationSkill #Bikita #Masvingo #Zimbabwe #Form1Intake2027 #BoardingSchool #STEM #MarieCurie #Physics #ZIMSEC #Cambridge #HEXCO` },
+  { id: 'hack', cat: 'science', title: 'Hackathons &amp; <em>Science Exhibitions</em>', len: '2:20', tags: ['Narrated', 'Reel 9:16'],
+    desc: 'Think it, build it, prove it. The four stages of a Royal Crest hackathon and science exhibition, with every term explained and every field colour-coded.',
+    note: 'Scenes are AI-generated illustrations of planned activities. The academy opens on 1 January 2027.',
+    formats: [{ label: 'Reel 9:16', src: '/exhibitions/media/hackathons-science-exhibitions.mp4', poster: '/exhibitions/media/video-poster.jpg', portrait: true }],
+    vtt: 'media/hackathons-science-exhibitions.vtt', more: { href: '/exhibitions/', label: 'See the exhibitions page' },
+    caption: `Think it. Build it. Prove it. 🔬
+
+Hackathons and science exhibitions, explained: four stages, from the opening ceremony to the closing ceremony, with every field colour-coded. Physics, Chemistry, Biology, Mathematics, Computer Science, Technical & Vocational, and Arts & Design.
+
+At Royal Crest Academy, learners don't just study science. They design it, build it, test it and present it to the judges.
+
+Form 1 to Form 5 · Opening January 2027
+${PHONE}
+
+#RoyalCrestAcademy #Hackathon #ScienceExhibition #STEM #Innovation #ScienceInnovationSkill #Masvingo #Zimbabwe` },
+  { id: 'bball', cat: 'sport', title: 'Basketball, <em>explained</em>', len: '2:02', tags: ['Narrated', 'FIBA rules'],
+    desc: 'What actually happens in a game: the court, the five positions, scoring, the shot clock, fouls and game time. Official FIBA rules, made simple.',
+    formats: [{ label: 'Widescreen 16:9', src: 'media/basketball-explained.mp4', poster: 'media/basketball-explained.jpg' }],
+    vtt: 'media/basketball-explained.vtt',
+    caption: `Ever wondered what's actually happening in a basketball game? 🏀
+
+Here's basketball, explained in two minutes: the court, the five positions, scoring, the shot clock, fouls and game time. Official FIBA rules, made simple.
+
+1 point for a free throw. 2 from inside the arc. 3 from behind it.
+24 seconds to shoot. 5 fouls and you're out.
+
+Save this and share it with someone who's learning the game.
+
+Royal Crest Academy Sports Club · Grab a ball. See you on the court.
+${PHONE}
+
+#RoyalCrestAcademy #Basketball #Basketball101 #FIBA #SportsClub #Bikita #Masvingo #Zimbabwe #ScienceInnovationSkill` },
+  { id: 'zh', cat: 'languages', title: 'Mandarin · HSK 1 <em>Lesson 1</em>', len: '1:44', tags: ['Greetings', 'Pinyin + tones'],
+    desc: 'Nǐ hǎo! Seven everyday greetings with pinyin and tones, from hello and thank you to sorry and goodbye, then a real classroom dialogue. Subtitles show the characters, pinyin and meaning.',
+    formats: [{ label: 'Widescreen 16:9', src: 'media/mandarin-hsk1-lesson1.mp4', poster: 'media/mandarin-hsk1-lesson1.jpg' },
+              { label: 'Reel 9:16', src: 'media/mandarin-hsk1-lesson1-reel.mp4', poster: 'media/mandarin-hsk1-lesson1-reel.jpg', portrait: true }],
+    vtt: 'media/mandarin-hsk1-lesson1.vtt', more: { href: '/mandarin/', label: 'Mandarin: 30 characters' },
+    caption: `Nǐ hǎo! 你好 👋
+
+Mandarin with Royal Crest · HSK 1, Lesson 1: greetings.
+
+你好 nǐ hǎo · Hello
+您好 nín hǎo · Hello (polite)
+谢谢 xièxie · Thank you
+不客气 bú kèqi · You're welcome
+对不起 duìbuqǐ · Sorry
+没关系 méi guānxi · It's okay
+再见 zàijiàn · Goodbye
+
+Your challenge today: greet a teacher in Mandarin, and thank a friend. Next lesson: numbers.
+
+Royal Crest Academy teaches Mandarin and French alongside the sciences.
+${PHONE}
+
+#RoyalCrestAcademy #Mandarin #LearnChinese #HSK1 #普通话 #ChineseLanguage #Zimbabwe #ScienceInnovationSkill` },
+];
+
+const ICO = {
+  copy: '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>',
+  down: '<svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>',
+  wa: '<svg viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>',
+};
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const main = document.getElementById('films');
+FILMS.forEach((f) => {
+  const fm = f.formats[0], name = f.title.replace(/<[^>]+>/g, '').replace('&amp;', '&');
+  const el = document.createElement('article'); el.className = 'film'; el.dataset.cat = f.cat; el.id = f.id;
+  el.innerHTML = `<div class="stage"><div class="wrap">
+      <video controls playsinline preload="metadata" ${fm.portrait ? 'class="portrait"' : ''} poster="${fm.poster}" aria-label="${esc(name)}">
+        <source src="${fm.src}" type="video/mp4"><track kind="captions" srclang="en" label="English" src="${f.vtt}" default></video>
+      ${f.formats.length > 1 ? `<div class="fmt">${f.formats.map((x, i) => `<button type="button" data-i="${i}" class="${i ? '' : 'on'}">${x.label}</button>`).join('')}</div>` : ''}
+    </div></div>
+    <div class="info">
+      <div class="meta"><span>${f.len}</span>${f.tags.map((t) => `<span>${t}</span>`).join('')}<span class="cc">CC subtitles</span></div>
+      <h2>${f.title}</h2><p>${f.desc}</p>
+      <div class="cap"><div class="h"><b>Caption to share</b><button class="btn" type="button" data-copy>${ICO.copy}Copy caption</button></div><pre>${esc(f.caption)}</pre></div>
+      <div class="acts"><a class="btn ghost" data-dl href="${fm.src}" download>${ICO.down}Download video</a>
+        <a class="btn ghost" href="https://wa.me/?text=${encodeURIComponent(name + ' · Royal Crest Academy\n' + location.origin + '/videos/#' + f.id)}" target="_blank" rel="noopener">${ICO.wa}Share on WhatsApp</a>
+        ${f.more ? `<a class="btn ghost" href="${f.more.href}">${f.more.label} →</a>` : ''}</div>
+      ${f.note ? `<p class="note">${f.note}</p>` : ''}
+    </div>`;
+  main.appendChild(el);
+  const v = el.querySelector('video'), dl = el.querySelector('[data-dl]');
+  el.querySelectorAll('.fmt button').forEach((b) => b.addEventListener('click', () => {
+    const x = f.formats[+b.dataset.i];
+    el.querySelectorAll('.fmt button').forEach((o) => o.classList.toggle('on', o === b));
+    v.pause(); v.classList.toggle('portrait', !!x.portrait); v.poster = x.poster; v.querySelector('source').src = x.src; v.load(); dl.href = x.src;
+  }));
+  el.querySelector('[data-copy]').addEventListener('click', () => copy(f.caption));
+});
+
+const toast = (m) => { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 1800); };
+async function copy(text) {
+  try { await navigator.clipboard.writeText(text); toast('Caption copied'); return; } catch (e) { /* fall back below */ }
+  const a = document.createElement('textarea'); a.value = text; a.style.position = 'fixed'; a.style.opacity = '0'; document.body.appendChild(a); a.select();
+  try { document.execCommand('copy'); toast('Caption copied'); } catch (e) { toast('Select the caption text to copy it'); }
+  a.remove();
+}
+document.querySelectorAll('.filters button').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.filters button').forEach((o) => o.classList.toggle('on', o === b));
+  document.querySelectorAll('.film').forEach((el) => { el.hidden = b.dataset.f !== 'all' && el.dataset.cat !== b.dataset.f; });
+}));
+// one film plays at a time
+document.addEventListener('play', (e) => document.querySelectorAll('video').forEach((v) => { if (v !== e.target) v.pause(); }), true);
+</script>
+</body></html>
