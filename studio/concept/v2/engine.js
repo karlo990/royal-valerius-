@@ -172,22 +172,25 @@ function layout(C, sizeKey, W, H) {
   if (fam === 'studio' || fam === 'night') {
     const arr = (R_STUDIO[sizeKey][C.arr] ? C.arr : Object.keys(R_STUDIO[sizeKey])[0]);
     let { tb, hero } = R_STUDIO[sizeKey][arr];
+    tb = [tb[0], tb[1] - (story ? 60 : 40), tb[2], tb[3]];
     if (night && C.mirror && arr === 'beside' && !wide) { tb = [W - tb[0] - tb[2], tb[1], tb[2], tb[3]]; hero = [W - hero[0] - hero[2], hero[1], hero[2], hero[3]]; }
     if (wide && night && C.mirror) { tb = [W - tb[0] - tb[2], tb[1], tb[2], tb[3]]; hero = [W - hero[0] - hero[2], hero[1], hero[2], hero[3]]; }
     const lines = C.h.map((t, i) => `<span class="${i === C.key ? 'k' : ''}">${t}</span>`).join('');
     const ink = night ? '#f3efe6' : '#0b1533';
     ui.innerHTML = `
       <div class="abs" style="left:${M}px;top:${top}px">${lock(night)}</div>
-      <div class="abs contact${night ? ' light' : ''}" style="left:${M + 2}px;top:${top + 88}px">${WA(ink)}<span>${PHONE}</span>${story ? `<span class="dot">·</span><span>${SITE}</span>` : ''}</div>
       <div class="abs tb" style="left:${tb[0]}px;top:${tb[1]}px;width:${tb[2]}px">
         <h1 class="h-grot">${lines}</h1><div class="rule"></div><p class="sub" style="font-size:${subPx}px">${C.sub}</p>
         ${story ? `<div class="pill" style="margin-top:34px"><em>FORM 1 · 2027</em>Enrolment open</div>` : ''}
       </div>
-      ${story ? '' : `<div class="abs pill" style="left:${M}px;bottom:${wide ? 64 : 54}px"><em>FORM 1 · 2027</em>Enrolment open</div>
-      <div class="abs site" style="right:${M}px;bottom:${wide ? 82 : 72}px">${SITE}</div>`}`;
+      ${story
+        ? `<div class="abs contact${night ? ' light' : ''}" style="left:${M}px;bottom:336px">${WA(ink)}<span>${PHONE}</span></div>
+           <div class="abs site" style="right:${M}px;bottom:340px">${SITE}</div>`
+        : `<div class="abs pill" style="left:${M}px;bottom:${wide ? 64 : 54}px"><em>FORM 1 · 2027</em>Enrolment open</div>
+           <div class="abs footr${night ? ' light' : ''}" style="right:${M}px;bottom:${wide ? 64 : 54}px"><div class="contact${night ? ' light' : ''}">${WA(ink)}<span>${PHONE}</span></div><div class="site">${SITE}</div></div>`}`;
     const h1 = ui.querySelector('h1'), sub = ui.querySelector('.sub');
     fitH1(h1, tb[2], tb[3] - sub.offsetHeight - 70 - (story ? 110 : 0), { sq: 150, feed: 150, grid: 156, story: 160, wide: 150 }[sizeKey]);
-    if (arr === 'stack') { const b = ui.querySelector('.tb').getBoundingClientRect().bottom, t = b + (story ? 40 : 24), bot = story ? 1600 : H - 128; hero = [hero[0], t, hero[2], bot - t]; }
+    if (arr === 'stack') { const b = ui.querySelector('.tb').getBoundingClientRect().bottom, t = b + (story ? 40 : 24), bot = story ? 1500 : H - 130; hero = [hero[0], t, hero[2], bot - t]; }
     return { hero };
   }
 
